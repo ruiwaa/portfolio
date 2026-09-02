@@ -33,7 +33,7 @@ YEJI 디자인에 맞는 Header 컴포넌트를 만들어줄래?
 요구사항:
 1. 높이: 56px (sticky, border-bottom)
 2. 레이아웃: [YEJI. 로고] — [About Me, Experience..., Posts, Resume] — [🌙/☀️ 토글]
-3. 스타일: 
+3. 스타일:
    - Syne Bold 20px 로고
    - Hover: 텍스트 #0066CC + Underline
    - Active: Underline 표시
@@ -174,6 +174,7 @@ Resume 섹션을 YEJI 디자인에 맞게 만들어줄래?
 ## 📋 사용 팁
 
 ### ✅ 효과적인 프롬프트
+
 ```
 "구체적인 색상값, 크기, 상태를 모두 명시"
 "접근성 요구사항 포함"
@@ -181,6 +182,7 @@ Resume 섹션을 YEJI 디자인에 맞게 만들어줄래?
 ```
 
 ### ❌ 피해야 할 것
+
 ```
 "좋은 Header를 만들어줄래?" (너무 모호함)
 "디자인처럼 만들어줄래?" (구체성 부족)
@@ -200,5 +202,3 @@ Resume 섹션을 YEJI 디자인에 맞게 만들어줄래?
 8. **Phase 8** (Resume) → Resume 페이지
 
 ---
-
-**준비 완료!** 이 프롬프트들로 Claude Code를 시작하세요! 🚀
