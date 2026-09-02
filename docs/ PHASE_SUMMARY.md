@@ -191,20 +191,24 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
-   -
+   - app/_components/ui/Card.tsx
+   - app/_components/ui/Badge.tsx
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - Card: bg-light-surface-dim/dark:bg-dark-surface-dim, border-b, p-6, rounded-lg
+     accent?("mint"|"peach"|"sky"|"purple") 지정 시 파스텔 배경으로 교체(다크모드에서도 동일 색 유지)
+   - Badge: h-6, border, .badge 클래스 재사용(JetBrains Mono 12px)
+     bg-light-surface/dark:bg-dark-surface-dim, variant?("default"|"outline") - outline은 배경 투명
+     (CLAUDE_CODE_PROMPTS.md에 variant 옵션이 구체적으로 명시되지 않아 두 가지로 직접 정의)
+   - 둘 다 _components/ui 원칙대로 Props 기반, 내부 로직/상태 없음
 
 ✅ 테스트 완료:
-   - Card 스타일
-   - Badge 스타일
+   - Card 스타일 (기본/mint/peach accent 3종 렌더링 확인)
+   - Badge 스타일 (default/outline 2종 렌더링 확인)
    - 라이트 모드
-   - 다크 모드
-   - bun run type-check
+   - 다크 모드 (다크 클래스 매핑 확인)
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - 임시 라우트(app/phase4-smoke-tmp)에 마운트해 HTML 렌더링 직접 확인 후 정리
 
 📍 다음: Phase 5 (MyRecorder 카드)
 ```

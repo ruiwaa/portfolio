@@ -57,4 +57,4 @@ PostCard (ui 컴포넌트, 반복 렌더)
 
 ---
 
-**다음**: [`COMMANDS.md`](./COMMANDS.md)
+**다음**: [`DOMAIN.md`](./DOMAIN.md)

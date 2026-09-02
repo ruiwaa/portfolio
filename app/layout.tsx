@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="ko"
       className={`${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head>

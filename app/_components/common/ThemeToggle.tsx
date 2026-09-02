@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "theme";
@@ -19,7 +20,11 @@ function getServerSnapshot() {
 }
 
 export default function ThemeToggle() {
-  const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isDark = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
   const [isAnimating, setIsAnimating] = useState(false);
 
   const toggleTheme = () => {
@@ -48,7 +53,7 @@ export default function ThemeToggle() {
           isAnimating ? "opacity-0" : "opacity-100"
         }`}
       >
-        {isDark ? "☀️" : "🌙"}
+        {isDark ? <Sun /> : <Moon />}
       </span>
     </button>
   );
