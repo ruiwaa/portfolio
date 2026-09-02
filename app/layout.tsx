@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, JetBrains_Mono } from "next/font/google";
 import Header from "./_components/common/Header";
+import Footer from "./_components/common/Footer";
 import "./globals.css";
 
 const THEME_INIT_SCRIPT = `
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
