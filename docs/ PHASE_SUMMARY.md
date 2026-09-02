@@ -191,20 +191,24 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
-   -
+   - app/_components/ui/Card.tsx
+   - app/_components/ui/Badge.tsx
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - Card: bg-light-surface-dim/dark:bg-dark-surface-dim, border-b, p-6, rounded-lg
+     accent?("mint"|"peach"|"sky"|"purple") 지정 시 파스텔 배경으로 교체(다크모드에서도 동일 색 유지)
+   - Badge: h-6, border, .badge 클래스 재사용(JetBrains Mono 12px)
+     bg-light-surface/dark:bg-dark-surface-dim, variant?("default"|"outline") - outline은 배경 투명
+     (CLAUDE_CODE_PROMPTS.md에 variant 옵션이 구체적으로 명시되지 않아 두 가지로 직접 정의)
+   - 둘 다 _components/ui 원칙대로 Props 기반, 내부 로직/상태 없음
 
 ✅ 테스트 완료:
-   - Card 스타일
-   - Badge 스타일
+   - Card 스타일 (기본/mint/peach accent 3종 렌더링 확인)
+   - Badge 스타일 (default/outline 2종 렌더링 확인)
    - 라이트 모드
-   - 다크 모드
-   - bun run type-check
+   - 다크 모드 (다크 클래스 매핑 확인)
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - 임시 라우트(app/phase4-smoke-tmp)에 마운트해 HTML 렌더링 직접 확인 후 정리
 
 📍 다음: Phase 5 (MyRecorder 카드)
 ```
@@ -227,20 +231,33 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
+   - app/_components/sections/MyRecorder.tsx
+   - app/_components/sections/Hero.tsx
+   - app/_components/common/Footer.tsx
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - MyRecorder: 01~04 카드(About Me/Experience & Projects/Posts/Resume)를 Card 컴포넌트로 렌더링,
+     accent별 파스텔 배경(mint/peach/sky/purple), <article>+<Link> 구조
+   - Hover 효과: 배경색 심화(group-hover:brightness-95), 스케일 1.02,
+     화살표 슬라이드 애니메이션(group-hover:translate-x-1)
+   - 실제 Stitch 시안(public/home.png) 확인 후 레이아웃 전면 재구성:
+     - MyRecorder를 4열 그리드 → 세로 스택(flex flex-col)으로 변경
+     - Hero.tsx 신규: 헤드라인("기록하고, 배우고, 나아갑니다") + "FRONTEND DEVELOPER" 라벨
+       + "VIEW PROJECTS" 버튼(→ /experience)
+     - Footer.tsx 신규: 로고 + 저작권(연도는 new Date().getFullYear()로 항상 최신)
+       + GitHub/LinkedIn/Twitter 링크 (GitHub만 실제 URL, 나머지는 "#" 플레이스홀더)
+     - page.tsx를 좌(Hero)/우(MyRecorder) 2단 그리드로 재구성, layout.tsx에 Footer 마운트
+   - 접근성: section aria-label="포트폴리오 네비게이션", 화살표 aria-hidden,
+     카드 텍스트는 다크모드에서도 text-light-text 고정(파스텔 배경과의 대비 유지)
 
 ✅ 테스트 완료:
-   - 4개 카드 표시
-   - 배경색 정확함
-   - Hover 효과
-   - 애니메이션
+   - 4개 카드 표시 (about/experience/posts/resume 라우트 연결 확인)
+   - 배경색 정확함 (mint/peach/sky/purple 렌더링 확인)
+   - Hover 효과 (brightness/scale/translate 클래스 생성 확인)
+   - 애니메이션 (duration-200 transition)
    - 라이트/다크 모드
-   - bun run type-check
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - 실제 시안 이미지와 대조 후 재검증, dev 서버에서 헤드라인/버튼/Footer 렌더링 직접 확인
 
 📍 다음: Phase 6 (Timeline + Experience)
 ```

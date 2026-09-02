@@ -7,17 +7,17 @@
 
 ## 📚 문서 구조 (10개 파일)
 
-| 파일 | 내용 | 필수 |
-|------|------|------|
-| **RULES.md** | 보안, 커밋, 토큰 최적화 규칙 | ⭐⭐⭐ |
-| **ARCHITECTURE.md** | 폴더 구조, 데이터 흐름 | ✅ |
-| **COMMANDS.md** | 개발/배포 명령어, Git | ✅ |
-| **DOMAIN.md** | 포스트, 사용자 여정, 성능 목표 | ✅ |
-| **CODING_CONVENTIONS.md** | 파일명, 컴포넌트, 함수 규칙 | ⭐⭐⭐ |
+| 파일                      | 내용                             | 필수   |
+| ------------------------- | -------------------------------- | ------ | --- |
+| **RULES.md**              | 보안, 커밋, 토큰 최적화 규칙     | ⭐⭐⭐ | $   |
+| **ARCHITECTURE.md**       | 폴더 구조, 데이터 흐름           | ✅     |
+| **COMMANDS.md**           | 개발/배포 명령어, Git            | ✅     |
+| **DOMAIN.md**             | 포스트, 사용자 여정, 성능 목표   | ✅     |
+| **CODING_CONVENTIONS.md** | 파일명, 컴포넌트, 함수 규칙      | ⭐⭐⭐ |
 | **SEMANTIC_HTML_A11Y.md** | 시멘틱 HTML, aria- 속성 (11패턴) | ⭐⭐⭐ |
-| **PERFORMANCE.md** | 동적 import, 이미지 최적화 | ✅ |
-| **SECURITY.md** | 배포 전 보안 체크리스트 | ⭐⭐⭐ |
-| **RECOMMENDATIONS.md** | 테스트, 모니터링, 장기 계획 | - |
+| **PERFORMANCE.md**        | 동적 import, 이미지 최적화       | ✅     |
+| **SECURITY.md**           | 배포 전 보안 체크리스트          | ⭐⭐⭐ |
+| **RECOMMENDATIONS.md**    | 테스트, 모니터링, 장기 계획      | -      |
 
 ---
 
@@ -41,8 +41,8 @@ npx @anthropic-ai/claude-code init
 ## 💡 Claude Code 사용법
 
 ```
-"docs/CODING_CONVENTIONS.md와 
-docs/SEMANTIC_HTML_A11Y.md를 준수해서 
+"docs/CODING_CONVENTIONS.md와
+docs/SEMANTIC_HTML_A11Y.md를 준수해서
 PostCard를 만들어줄래?"
 ```
 

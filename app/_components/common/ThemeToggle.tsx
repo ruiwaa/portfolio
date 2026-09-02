@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "theme";
@@ -19,7 +20,11 @@ function getServerSnapshot() {
 }
 
 export default function ThemeToggle() {
-  const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isDark = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
   const [isAnimating, setIsAnimating] = useState(false);
 
   const toggleTheme = () => {
@@ -40,7 +45,7 @@ export default function ThemeToggle() {
       aria-checked={isDark}
       aria-label="테마 변경"
       onClick={toggleTheme}
-      className="flex h-9 w-9 items-center justify-center rounded-full text-lg transition-colors duration-200 hover:bg-light-surface-dim focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:hover:bg-dark-surface-dim dark:focus-visible:outline-dark-accent"
+      className="flex items-center justify-center h-9 w-9 rounded-full text-light-text text-lg transition-colors duration-200 hover:bg-light-surface-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-dark-text dark:hover:bg-dark-surface-dim dark:focus-visible:outline-dark-accent"
     >
       <span
         aria-hidden="true"
@@ -48,7 +53,7 @@ export default function ThemeToggle() {
           isAnimating ? "opacity-0" : "opacity-100"
         }`}
       >
-        {isDark ? "☀️" : "🌙"}
+        {isDark ? <Sun /> : <Moon />}
       </span>
     </button>
   );
