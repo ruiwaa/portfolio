@@ -17,8 +17,8 @@ export default function Header() {
 
   return (
     <header className={`sticky top-0 z-50 ${LAYOUT.navHeight} border-b border-light-border bg-light-surface dark:border-dark-border dark:bg-dark-surface`}>
-      <div className={`mx-auto flex h-full ${LAYOUT.container} items-center justify-between ${LAYOUT.padding}`}>
-        <Link href="/" className="logo text-light-text dark:text-dark-text">
+      <div className={`flex items-center justify-between h-full ${LAYOUT.container} mx-auto ${LAYOUT.padding}`}>
+        <Link href="/" className="text-light-text logo dark:text-dark-text">
           YEJI.
         </Link>
 
@@ -32,10 +32,10 @@ export default function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
-                    className={`body inline-block py-1 transition-colors duration-200 hover:text-light-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent ${
-                      isActive
-                        ? "text-light-accent underline dark:text-dark-accent"
-                        : "text-light-text dark:text-dark-text"
+                    className={`inline-block py-1 ${
+                      isActive ? "text-light-accent underline" : "text-light-text"
+                    } body transition-colors duration-200 hover:text-light-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent ${
+                      isActive ? "dark:text-dark-accent" : "dark:text-dark-text"
                     }`}
                   >
                     {item.label}
