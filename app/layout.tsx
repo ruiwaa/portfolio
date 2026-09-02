@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
 import { Syne, JetBrains_Mono } from "next/font/google";
+import Header from "./_components/common/Header";
 import "./globals.css";
+
+const THEME_INIT_SCRIPT = `
+  (function () {
+    try {
+      var theme = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (theme === "dark" || (!theme && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      }
+    } catch (e) {}
+  })();
+`;
 
 const syne = Syne({
   variable: "--font-syne",
@@ -25,7 +38,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
