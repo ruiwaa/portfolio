@@ -280,21 +280,32 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
-   -
+   - app/_components/ui/TimelineItem.tsx
+   - app/_components/sections/Experience.tsx
+
+✅ 수정된 파일:
+   - app/(routes)/experience/page.tsx (Experience 섹션 마운트)
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - TimelineItem: 원형 마커(w-3 h-3, bg-light-accent #0066CC 고정 - 다크모드에서도 동일),
+     2px 수직선(border-l-2, border-light-border/dark:border-dark-border),
+     날짜(.badge)/직책(.body font-bold)/설명(.body) 순 콘텐츠
+   - 마지막 항목은 last:border-transparent로 선이 마지막 마커 아래로 삐져나오지 않게 처리
+   - Experience: <section aria-label="경력 타임라인"> + <ol>로 타임라인 구성
+     (스펙의 "시멘틱 <timeline>"은 유효한 HTML 태그가 아니라서 순서 목록으로 대체 구현)
 
 ✅ 테스트 완료:
-   - 타임라인 라인
+   - 타임라인 라인 (border-l-2 렌더링 확인)
    - 마커 표시
-   - 프로젝트 카드
-   - 배경색 정확함
    - 라이트/다크 모드
-   - bun run type-check
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - dev 서버에서 /experience 렌더링 직접 확인
+
+⚠️ 미완료:
+   - 프로젝트 카드 3개는 이번에 다루지 않음 (CLAUDE_CODE_PROMPTS.md의 실제 Phase 6 프롬프트에는
+     타임라인만 명시되어 있고 프로젝트 카드는 요구사항에 없었음 - 이 요약 항목의 제목/체크리스트와는
+     범위가 다름)
+   - 실제 경력 데이터(회사/기간/직책/설명) 없어서 전부 플레이스홀더로 채움 - 실제 데이터 필요
 
 📍 다음: Phase 7 (Posts 페이지)
 ```
