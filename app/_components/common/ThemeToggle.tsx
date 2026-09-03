@@ -43,7 +43,7 @@ export default function ThemeToggle() {
       type="button"
       role="switch"
       aria-checked={isDark}
-      aria-label="테마 변경"
+      aria-label={isDark ? "라이트 모드로 변경" : "다크 모드로 변경"}
       onClick={toggleTheme}
       className="flex items-center justify-center h-9 w-9 rounded-full text-light-text text-lg transition-colors duration-200 hover:bg-light-surface-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-dark-text dark:hover:bg-dark-surface-dim dark:focus-visible:outline-dark-accent"
     >

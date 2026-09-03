@@ -41,9 +41,11 @@ export default function MyRecorder() {
                 className="transition-[filter] duration-200 group-hover:brightness-95"
               >
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="flex flex-row gap-5 items-center">
                     <span className="badge text-light-text">{item.number}</span>
-                    <p className="body mt-2 text-light-text">{item.label}</p>
+                    <h2 className="body mt-2 text-light-text text-3xl whitespace-nowrap">
+                      {item.label}
+                    </h2>
                   </div>
                   <span
                     aria-hidden="true"

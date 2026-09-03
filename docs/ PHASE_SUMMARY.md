@@ -328,22 +328,35 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
-   -
-   -
+   - app/_lib/posts.ts (Supabase 쿼리 - lib/ 아닌 app/_lib에 배치, ARCHITECTURE.md의
+     "SSR/RSC에서 직접 fetch" 흐름 유지하면서 lib/ 폴더는 supabase.ts/constants.ts 전용으로 유지)
+   - app/_components/sections/Posts.tsx
+   - app/_components/sections/PostsSkeleton.tsx
+
+✅ 수정된 파일:
+   - app/(routes)/posts/page.tsx (Suspense + 비동기 서버 컴포넌트로 데이터 스트리밍)
+   - next.config.ts (Supabase Storage 도메인을 images.remotePatterns에 등록)
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - POSTS 헤더, 카테고리 필터(All/Study/Troubleshooting/Retrospective) -
+     role="tablist/tab/tabpanel" 전체 ARIA 패턴 적용
+   - md:grid-cols-2 카드 그리드 - 썸네일(next/image) + 카테고리 배지 + 제목 + 설명 + 날짜
+   - aria-live="polite"로 필터 변경 시 결과 개수 스크린리더 알림
+   - getPublishedPosts(): is_published=true 필터, published_at 내림차순,
+     에러는 console.error로 상세 로깅 후 사용자에겐 일반 메시지만 노출 (RULES.md 준수)
+   - Suspense + PostsSkeleton으로 로딩 상태 처리
 
 ✅ 테스트 완료:
-   - 필터 탭 작동
-   - 카드 레이아웃
-   - 태그 표시
-   - Supabase 연동
-   - 라이트/다크 모드
-   - bun run type-check
+   - Supabase 연동 (실제 프로젝트 연결 확인 - 중간에 anon 권한(GRANT SELECT) 문제 발견 후 해결)
+   - 실제 게시물 1건(is_published=true) 추가 후 카드 레이아웃 검증 완료:
+     제목/설명/카테고리 배지("Study")/날짜(한국어 포맷)/썸네일(next/image 경유, 200 응답) 모두 정상 렌더링
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - dev 서버에서 /posts 200 응답 확인
+
+⚠️ 여전히 브라우저 미연결로 직접 클릭까지는 확인 못한 것:
+   - 필터 탭 클릭 시 실제 전환 동작 (로직/렌더링 결과는 HTML로 확인, 클릭 이벤트 자체는 미검증)
+   - 라이트/다크 모드 전환 시 카드 색상 대비 (클래스 적용은 확인, 실제 시각적 대비는 미확인)
+   - 카드 hover 등 인터랙션
 
 📍 다음: Phase 8 (Resume 페이지)
 ```
