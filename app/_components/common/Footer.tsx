@@ -4,8 +4,7 @@ import { LAYOUT } from "@/lib/constants";
 // TODO: LINKEDIN, TWITTER 실제 프로필 URL로 교체
 const SOCIAL_LINKS = [
   { label: "GITHUB", href: "https://github.com/ruiwaa" },
-  { label: "LINKEDIN", href: "#" },
-  { label: "TWITTER", href: "#" },
+  { label: "VELOG", href: "https://velog.io/@ruiwaa" },
 ];
 
 export default function Footer() {
