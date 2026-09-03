@@ -6,7 +6,7 @@
 
 ## 🔐 보안 규칙
 
-- `.env.local` 절대 git 커밋 금지 (`.gitignore`에 포함 확인)
+- `.env` 절대 git 커밋 금지 (`.gitignore`에 포함 확인)
 - `NEXT_PUBLIC_*` 접두사라도 민감 정보(API 시크릿 키 등) 저장 금지
 - 클라이언트 코드에서 `SUPABASE_SERVICE_ROLE_KEY` 사용 금지 (서버에서만)
 - 모든 Supabase 호출은 try-catch로 감싼다

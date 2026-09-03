@@ -21,7 +21,7 @@ export default function Card({ children, className = "", accent }: CardProps) {
 
   return (
     <div
-      className={`rounded-lg p-6 ${lightBg} border-b border-light-border ${darkBg} dark:border-dark-border ${className}`}
+      className={`rounded-lg p-8 ${lightBg} border-b border-light-border ${darkBg} dark:border-dark-border ${className}`}
     >
       {children}
     </div>
