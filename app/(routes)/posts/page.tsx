@@ -4,6 +4,8 @@ import PostsSkeleton from "@/app/_components/sections/PostsSkeleton";
 import { getPublishedPosts } from "@/app/_lib/posts";
 import { LAYOUT } from "@/lib/constants";
 
+export const revalidate = 60;
+
 async function PostsData() {
   const posts = await getPublishedPosts();
   return <Posts posts={posts} />;

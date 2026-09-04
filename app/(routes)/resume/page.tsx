@@ -1,7 +1,9 @@
+import Resume from "@/app/_components/sections/Resume";
+
 export default function ResumePage() {
   return (
     <main className="flex-1">
-      <h1 className="h1 text-light-text dark:text-dark-text">Resume</h1>
+      <Resume />
     </main>
   );
 }

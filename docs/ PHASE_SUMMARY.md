@@ -379,21 +379,31 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ```
 ✅ 생성된 파일:
-   -
-   -
+   - app/_components/sections/Resume.tsx
+
+✅ 수정된 파일:
+   - app/globals.css (.grid-pattern-bg 추가)
+   - app/(routes)/resume/page.tsx (Resume 섹션 마운트, 풀블리드로 전환)
 
 ✅ 구현한 것:
-   -
-   -
-   -
+   - 그리드 패턴 배경: repeating-linear-gradient로 32px 격자,
+     border-light-border(#E0E0E0)/dark:border-dark-border(#3A3939) 사용
+   - "RESUME" 대형 텍스트: text-[clamp(4rem,15vw,12rem)] font-bold tracking-widest
+     (Syne Bold, 화면 크기에 따라 64px~192px 반응형 스케일)
+   - 하단 라벨 "SYS.READY // DOC.AVAILABLE": .badge(JetBrains Mono) 재사용, 섹션 하단 절대 위치
+   - 버튼 2개: "이력서 보기"(채워진 버튼) + "PDF 다운로드"(아웃라인 버튼)
+     - DARK_MODE_IMPLEMENTATION.md 스펙 반영 (CLAUDE_CODE_PROMPTS.md엔 "선택"으로만 표시됨)
+   - "RESUME"을 페이지의 h1으로 사용 - /resume 페이지엔 별도 패딩/컨테이너 없이
+     이 섹션만 풀블리드로 채워서 그리드 배경+초대형 텍스트의 임팩트 유지
 
 ✅ 테스트 완료:
-   - 그리드 배경
-   - RESUME 텍스트
-   - 버튼 스타일
-   - 라벨 표시
-   - 라이트/다크 모드
-   - bun run type-check
+   - 그리드 배경 (컴파일된 CSS로 repeating-linear-gradient 규칙 직접 확인)
+   - RESUME 텍스트, 버튼 스타일, 라벨 표시 (dev 서버 HTML 응답으로 렌더링 확인)
+   - 라이트/다크 모드 (다크 클래스 매핑 확인)
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+
+⚠️ 미완료:
+   - "이력서 보기"/"PDF 다운로드" 링크는 실제 Notion 링크나 PDF 파일이 없어서 href="#" 플레이스홀더
 
 📍 다음: 라이트 모드 추가
 ```
