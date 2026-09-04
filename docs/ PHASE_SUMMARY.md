@@ -465,21 +465,59 @@ bun run dev
 
 **확인 항목:**
 
-- [ ] 모든 페이지 렌더링
-- [ ] 모든 인터랙션 작동
-- [ ] 라이트 모드
-- [ ] 다크 모드
-- [ ] 라이트/다크 전환
-- [ ] 모바일 반응형
-- [ ] 폰트 로드
-- [ ] Lighthouse 90+ (선택)
+- [x] 모든 페이지 렌더링 (`bun run build` + `next start`로 모든 라우트 200 확인, 없는 경로 404 확인)
+- [ ] 모든 인터랙션 작동 (필터/햄버거 메뉴 로직·마크업은 확인, 실제 클릭은 브라우저 미연결로 미검증)
+- [x] 라이트 모드
+- [x] 다크 모드 (페이지당 `dark:` 클래스 약 60개 적용 확인)
+- [ ] 라이트/다크 전환 (토글 로직은 확인, 실제 클릭 전환은 미검증)
+- [ ] 모바일 반응형 (반응형 클래스는 적용, 실기기/브라우저 시각 확인은 못 함)
+- [x] 폰트 로드 (Syne/JetBrains Mono `<html>` 클래스 확인)
+- [ ] Lighthouse 90+ (선택) — 실행 환경 없어서 미실시
 
 **완성:**
 
 ```
-✅ 포트폴리오 완성!
-✅ WCAG AA 접근성 준수
-✅ 배포 준비 완료!
+✅ 포트폴리오 완성! (Phase 1~8)
+✅ WCAG AA 접근성 준수 (시멘틱 태그, aria-*, focus-visible 기준으로 구현)
+✅ 배포 준비 - 코드 레벨은 완료, 브라우저 실사용 테스트는 남음
+```
+
+---
+
+## 🔄 추가 작업: Posts를 TanStack Query로 전환
+
+**계기**: 8개 Phase 완료 후, Posts의 캐싱을 TanStack Query로 관리하고 싶다는 요청으로 진행. 기존엔 SSR/RSC 직접 fetch + `revalidate=60`(ISR) 방식이었음.
+
+**요약:**
+
+```
+✅ 생성된 파일:
+   - app/api/posts/route.ts (Route Handler - ARCHITECTURE.md의 "필요시" 슬롯이 실제로 필요해짐)
+   - app/_components/providers/QueryProvider.tsx (브라우저용 QueryClient, staleTime 60초)
+   - app/_lib/query-client.ts (서버 컴포넌트 prefetch 전용, React.cache로 요청 단위 메모이제이션)
+
+✅ 수정된 파일:
+   - app/_components/sections/Posts.tsx (posts prop 제거 → useQuery로 /api/posts 직접 fetch,
+     isLoading/isError 직접 처리)
+   - app/(routes)/posts/page.tsx (Suspense+비동기 서버 컴포넌트 → prefetchQuery + dehydrate +
+     HydrationBoundary로 교체, revalidate=60 제거)
+   - app/layout.tsx (QueryProvider 마운트)
+
+✅ 구현한 것:
+   - /api/posts: dynamic="force-dynamic"으로 항상 최신 데이터 반환
+   - 서버에서 미리 fetch(getPublishedPosts 직접 호출) → dehydrate → 클라이언트 하이드레이션
+     (첫 로딩에 스켈레톤 깜빡임 없음), 이후 재검증은 /api/posts를 통해 클라이언트에서 fetch
+   - staleTime 60초 - 그 안에는 캐시 재사용, 지나면 마운트/포커스 시 자동 백그라운드 refetch
+   - QueryProvider는 최초 common/에 넣었다가 사용자 요청으로 providers/ 폴더 신설 후 이동
+
+✅ 테스트 완료:
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - dev 서버에서 /api/posts 실제 Supabase 데이터 응답 확인
+   - /posts 페이지 하이드레이션 데이터 렌더링 확인 (RSC 페이로드에 dehydratedState 포함 확인)
+   - 프로덕션 빌드에서 /api/posts는 ƒ(Dynamic), /posts 페이지 자체는 여전히 ○(Static)로 잡히는 것
+     확인 - 다만 클라이언트가 staleTime 기준으로 자동 재검증하므로 자체 치유됨을 확인
+
+📍 다음: (사용자 지정 대기)
 ```
 
 ---
