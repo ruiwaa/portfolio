@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import Badge from "@/app/_components/ui/Badge";
+import PostsSkeleton from "@/app/_components/sections/PostsSkeleton";
 import { LAYOUT } from "@/lib/constants";
 import type { Post, PostCategory } from "@/types/posts";
 
@@ -16,12 +18,27 @@ const CATEGORIES: FilterCategory[] = [
   "Retrospective",
 ];
 
-interface PostsProps {
-  posts: Post[];
+async function fetchPosts(): Promise<Post[]> {
+  const response = await fetch("/api/posts");
+
+  if (!response.ok) {
+    throw new Error("게시물을 불러오지 못했습니다.");
+  }
+
+  return response.json();
 }
 
-export default function Posts({ posts }: PostsProps) {
+export default function Posts() {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
+
+  const {
+    data: posts = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+  });
 
   const filteredPosts = useMemo(
     () =>
@@ -30,6 +47,23 @@ export default function Posts({ posts }: PostsProps) {
         : posts.filter((post) => post.category === activeCategory),
     [posts, activeCategory],
   );
+
+  if (isError) {
+    return (
+      <section aria-label="포스트 목록">
+        <h2 className="section-header text-light-text-secondary dark:text-dark-text-secondary">
+          POSTS
+        </h2>
+        <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary">
+          게시물을 불러오지 못했습니다.
+        </p>
+      </section>
+    );
+  }
+
+  if (isLoading) {
+    return <PostsSkeleton />;
+  }
 
   return (
     <section aria-label="포스트 목록">
@@ -57,7 +91,7 @@ export default function Posts({ posts }: PostsProps) {
               onClick={() => setActiveCategory(category)}
               className={`badge rounded-full px-3 py-1 bg-light-surface-dim text-light-text-secondary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-surface-dim dark:text-dark-text-secondary dark:focus-visible:outline-dark-accent ${
                 isActive
-                  ? "!bg-light-accent !text-white dark:!bg-dark-accent dark:!text-dark-surface"
+                  ? "bg-light-accent! text-white! dark:bg-dark-accent! dark:text-dark-surface!"
                   : ""
               }`}
             >
