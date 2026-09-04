@@ -40,3 +40,39 @@ body {
   background: var(--color-dark-surface);
   color: var(--color-dark-text);
 }
+
+.grid-pattern-bg {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--color-light-border) 0,
+      var(--color-light-border) 1px,
+      transparent 1px,
+      transparent 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--color-light-border) 0,
+      var(--color-light-border) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+}
+
+:where(.dark) .grid-pattern-bg {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--color-dark-border) 0,
+      var(--color-dark-border) 1px,
+      transparent 1px,
+      transparent 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--color-dark-border) 0,
+      var(--color-dark-border) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+}
