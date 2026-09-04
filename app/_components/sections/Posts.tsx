@@ -111,7 +111,7 @@ export default function Posts() {
         aria-labelledby={`posts-tab-${activeCategory}`}
       >
         {filteredPosts.length === 0 ? (
-          <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary">
+          <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary text-center">
             해당 카테고리의 포스트가 없습니다.
           </p>
         ) : (

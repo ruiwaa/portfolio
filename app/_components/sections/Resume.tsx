@@ -15,13 +15,13 @@ export default function Resume() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
         <a
           href={RESUME_VIEW_URL}
-          className="badge rounded-full bg-light-text px-6 py-3 text-light-surface transition-colors duration-200 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-text dark:text-dark-surface dark:focus-visible:outline-dark-accent"
+          className="body rounded-full bg-light-text px-6 py-3 text-light-surface transition-colors duration-200 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-text dark:text-dark-surface dark:focus-visible:outline-dark-accent"
         >
           이력서 보기
         </a>
         <a
           href={RESUME_PDF_URL}
-          className="badge rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+          className="body rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
         >
           PDF 다운로드
         </a>
