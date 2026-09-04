@@ -1,9 +1,9 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "@/lib/supabase";
 import type { Post } from "@/types/posts";
 
 export async function getPublishedPosts(): Promise<Post[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from("posts")
       .select("*")
       .eq("is_published", true)
