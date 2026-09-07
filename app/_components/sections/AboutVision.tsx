@@ -75,7 +75,7 @@ export default function AboutVision() {
         기록의 여정
       </h2>
 
-      <div className="mt-8 grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-24">
         <ol className="list-none">
           {JOURNEY.map((item, index) => {
             const isActive = index === activeIndex;
@@ -138,7 +138,7 @@ export default function AboutVision() {
 
                 {isActive && (
                   <div className="mt-4 md:hidden">
-                    <JourneyDetailCard active={item} />
+                    <JourneyDetailCard active={item} isInView={isInView} />
                   </div>
                 )}
               </li>
@@ -146,8 +146,12 @@ export default function AboutVision() {
           })}
         </ol>
 
-        <div className="hidden md:block">
-          <JourneyDetailCard key={activeIndex} active={active} />
+        <div className="sticky top-[45vh] hidden md:block">
+          <JourneyDetailCard
+            key={activeIndex}
+            active={active}
+            isInView={isInView}
+          />
         </div>
       </div>
     </section>

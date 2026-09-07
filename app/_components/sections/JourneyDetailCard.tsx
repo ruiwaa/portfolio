@@ -21,8 +21,10 @@ const BORDER_SWEEP_DURATION_MS = 700;
 
 export default function JourneyDetailCard({
   active,
+  isInView,
 }: {
   active: JourneyStep;
+  isInView: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ width: number; height: number } | null>(
@@ -55,8 +57,31 @@ export default function JourneyDetailCard({
     <div
       ref={cardRef}
       aria-live="polite"
-      className="flex flex-col relative h-full rounded-xl border-4 border-transparent bg-light-surface-dim p-6 motion-safe:animate-[fade-up-in_0.3s_ease-out_both] dark:bg-dark-surface-dim"
+      className={`flex flex-col relative h-full rounded-xl border-4 border-transparent bg-light-surface-dim p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
+        isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
+      }`}
     >
+      {/* 타임라인에서 카드가 가지처럼 뻗어나온 듯한 연결부 - 모바일 인라인 카드에는 표시하지 않음 */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 100 60"
+        className="pointer-events-none absolute top-8 -left-24 hidden h-16 w-24 md:block"
+      >
+        <path
+          d="M100 30 C 60 30, 55 8, 10 8"
+          fill="none"
+          strokeWidth="2"
+          strokeLinecap="round"
+          className="stroke-light-accent dark:stroke-dark-accent"
+        />
+        <circle
+          cx="10"
+          cy="8"
+          r="3.5"
+          className="fill-light-accent dark:fill-dark-accent"
+        />
+      </svg>
+
       {dots.map((point, index) => (
         <span
           key={index}
@@ -66,7 +91,9 @@ export default function JourneyDetailCard({
             top: point.y - CARD_BORDER_WIDTH,
             animationDelay: `${(index / dots.length) * BORDER_SWEEP_DURATION_MS}ms`,
           }}
-          className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light-accent motion-safe:animate-[pop-in_220ms_ease-out_both] dark:bg-dark-accent"
+          className={`absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light-accent motion-safe:opacity-0 dark:bg-dark-accent ${
+            isInView ? "motion-safe:animate-[pop-in_220ms_ease-out_both]" : ""
+          }`}
         />
       ))}
 
