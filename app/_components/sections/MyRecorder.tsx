@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Card from "@/app/_components/ui/Card";
 import { LAYOUT } from "@/lib/constants";
 
@@ -38,17 +39,17 @@ export default function MyRecorder() {
             >
               <Card
                 accent={item.accent}
-                className="transition-[filter] duration-200 group-hover:brightness-95"
+                className="flex min-h-30 items-center transition-[filter] duration-200 group-hover:brightness-95"
               >
-                <div className="flex items-center justify-between">
-                  <h2 className="body mt-2 text-light-text text-3xl whitespace-nowrap">
+                <div className="flex  flex-row w-full items-center justify-between">
+                  <h2 className="headline-lg min-w-0 text-light-text">
                     {item.label}
                   </h2>
                   <span
                     aria-hidden="true"
-                    className="text-light-text transition-transform duration-200 group-hover:translate-x-1"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-light-surface text-light-text transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 dark:bg-dark-surface dark:text-dark-text"
                   >
-                    →
+                    <ArrowUpRight size={16} strokeWidth={3} />
                   </span>
                 </div>
               </Card>

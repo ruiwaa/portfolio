@@ -75,6 +75,15 @@
   }
 }
 
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @keyframes cta-entrance-in {
   from {
     opacity: 0;
@@ -104,6 +113,22 @@
     animation-delay: 200ms;
   }
 
+  .anim-underline-1,
+  .anim-underline-2,
+  .anim-underline-3 {
+    transform-origin: left;
+    animation: underline-grow 500ms ease-out both;
+  }
+  .anim-underline-1 {
+    animation-delay: 0ms;
+  }
+  .anim-underline-2 {
+    animation-delay: 550ms;
+  }
+  .anim-underline-3 {
+    animation-delay: 1100ms;
+  }
+
   .anim-card-1,
   .anim-card-2,
   .anim-card-3,
@@ -131,10 +156,12 @@
   }
 
   .anim-badge-in {
+    opacity: 0;
     animation: badge-slide-in 300ms ease-out both;
   }
 
   .anim-fade-up {
+    opacity: 0;
     animation: fade-up-in 0.6s ease-out both;
   }
 
@@ -145,11 +172,6 @@
   .marquee-track {
     animation: marquee-scroll 28s linear infinite;
   }
-}
-
-.anim-badge-in,
-.anim-fade-up {
-  opacity: 0;
 }
 
 .delay-300 {

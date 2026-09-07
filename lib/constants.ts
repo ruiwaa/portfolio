@@ -5,3 +5,9 @@ export const LAYOUT = {
   componentGap: "gap-6", // 24px
   navHeight: "h-14", // 56px
 } as const;
+
+// TODO: LINKEDIN, TWITTER 실제 프로필 URL로 교체
+export const SOCIAL_LINKS = [
+  { label: "GITHUB", href: "https://github.com/ruiwaa" },
+  { label: "VELOG", href: "https://velog.io/@ruiwaa" },
+] as const;
