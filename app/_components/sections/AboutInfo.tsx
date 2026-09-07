@@ -97,10 +97,13 @@ export default function AboutInfo() {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-label="프로필 정보">
-      <h2 className="section-header mt-10 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
-        <Code2 /> 기술 스택
+    <section ref={ref} aria-labelledby="about-info-heading">
+      <h2 id="about-info-heading" className="sr-only">
+        프로필 정보
       </h2>
+      <h3 className="section-header mt-10 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
+        <Code2 aria-hidden="true" /> 기술 스택
+      </h3>
       <div className="mt-8">
         <ul
           aria-label="기술 스택"
@@ -140,11 +143,11 @@ export default function AboutInfo() {
         </ul>
       </div>
 
-      <h2 className="section-header mt-40 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
-        <BookOpen /> 학습
-      </h2>
+      <h3 className="section-header mt-50 md:mt-45 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
+        <BookOpen aria-hidden="true" /> 학습
+      </h3>
 
-      <ol className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-10">
+      <ol className="mt-8 grid grid-cols-[auto_minmax(0,28rem)] justify-center gap-x-6 gap-y-10">
         {EDUCATION.map((entry, index) => {
           const entranceStyle = { animationDelay: `${150 + index * 120}ms` };
           const entranceClassName = `motion-safe:opacity-0 ${
@@ -161,9 +164,9 @@ export default function AboutInfo() {
               >
                 <span
                   aria-hidden="true"
-                  className="text-light-accent dark:text-dark-accent"
+                  className="status-dot dark:text-dark-accent mr-2"
                 >
-                  •{" "}
+                  {" "}
                 </span>
                 {entry.period}
               </span>

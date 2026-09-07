@@ -1,15 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useInView } from "@/app/_hooks/useInView";
-
-interface JourneyStep {
-  step: string;
-  title: string;
-  description: string;
-  detail: string;
-}
+import JourneyDetailCard, {
+  type JourneyStep,
+} from "@/app/_components/sections/JourneyDetailCard";
 
 const JOURNEY: JourneyStep[] = [
   {
@@ -46,14 +42,40 @@ export default function AboutVision() {
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
   const active = JOURNEY[activeIndex];
+  const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  // 뷰포트 중앙의 가느다란 띠를 스크롤로 지나가는 단계를 순서대로 활성화 (클릭 선택은 그대로 유지)
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length === 0) return;
+
+        const closest = visible.reduce((a, b) =>
+          b.intersectionRatio > a.intersectionRatio ? b : a,
+        );
+        const index = stepRefs.current.findIndex((el) => el === closest.target);
+        if (index !== -1) setActiveIndex(index);
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+
+    stepRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={ref} aria-label="기록의 여정">
-      <h2 className="section-header text-light-text-secondary dark:text-dark-text-secondary">
+    <section ref={ref} aria-labelledby="about-vision-heading">
+      <h2
+        id="about-vision-heading"
+        className="section-header text-light-text-secondary dark:text-dark-text-secondary"
+      >
         기록의 여정
       </h2>
 
-      <div className="mt-8 grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-24">
         <ol className="list-none">
           {JOURNEY.map((item, index) => {
             const isActive = index === activeIndex;
@@ -61,8 +83,11 @@ export default function AboutVision() {
             return (
               <li
                 key={item.title}
+                ref={(el) => {
+                  stepRefs.current[index] = el;
+                }}
                 style={{ animationDelay: `${index * 150}ms` }}
-                className={`group/step motion-safe:opacity-0 relative border-l-2 pb-10 pl-10 last:border-transparent last:pb-0 ${
+                className={`group/step motion-safe:opacity-0 relative border-l-2 pb-28 pl-10 last:border-transparent last:pb-0 ${
                   isActive
                     ? "border-light-accent dark:border-dark-accent"
                     : "border-light-border dark:border-dark-border"
@@ -110,25 +135,23 @@ export default function AboutVision() {
                     {item.description}
                   </p>
                 </button>
+
+                {isActive && (
+                  <div className="mt-4 md:hidden">
+                    <JourneyDetailCard active={item} isInView={isInView} />
+                  </div>
+                )}
               </li>
             );
           })}
         </ol>
 
-        <div
-          key={activeIndex}
-          aria-live="polite"
-          className="h-fit rounded-lg border-4 border-dotted border-light-accent bg-light-surface-dim p-6 motion-safe:animate-[fade-up-in_0.3s_ease-out_both] dark:border-dark-accent dark:bg-dark-surface-dim"
-        >
-          <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
-            STEP {active.step}
-          </p>
-          <p className="body mt-2 text-xl font-bold text-light-text dark:text-dark-text">
-            {active.title}
-          </p>
-          <p className="body mt-4 text-light-text-secondary dark:text-dark-text-secondary">
-            {active.detail}
-          </p>
+        <div className="sticky top-[45vh] hidden md:block">
+          <JourneyDetailCard
+            key={activeIndex}
+            active={active}
+            isInView={isInView}
+          />
         </div>
       </div>
     </section>
