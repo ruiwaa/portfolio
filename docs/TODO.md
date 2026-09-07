@@ -139,18 +139,16 @@
   - [x] 기록의 여정 4단계 타임라인 (클릭 시 우측 상세 카드로 전환, 굵은 점선 테두리)
   - [x] ~~2단 레이아웃~~ → 세로 1단 레이아웃 + 스크롤 인뷰 애니메이션으로 변경 (요청에 따라 범위 변경)
   - [x] 라이트/다크 모드
-- [ ] Git 커밋: 일부 파일 미커밋 상태 (AboutInfo.tsx, AboutVision.tsx, HoverDisclosure.tsx,
-      app/_hooks/useInView.ts 등) — PR 전 커밋 필요
+- [x] Git 커밋 완료, PR #17 머지 (dev)
 
 ### Phase 11 (15분): Home Hero 섹션
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 11 프롬프트 실행
-  - [ ] Hero.tsx 생성
-- [ ] 테스트:
-  - [ ] Hero 텍스트/CTA 버튼 표시
-  - [ ] CTA 버튼 이동 확인
-  - [ ] 라이트/다크 모드
-- [ ] Git 커밋: `git commit -m "feat: 홈 Hero 섹션 추가"`
+- [x] Hero.tsx 생성 (Phase 5 MY RECORDER 세션에서 함께 구현되어 이미 커밋되어 있음 - 이번 세션은 검증 + 문서 정리)
+- [x] 테스트 (Playwright로 검증):
+  - [x] Hero 텍스트/CTA 버튼 표시 ("기록하고, 배우고, 나아갑니다" / FRONTEND DEVELOPER / VIEW PROJECTS)
+  - [x] CTA 버튼 이동 확인 (`/experience`로 정상 이동)
+  - [x] 라이트/다크 모드 (콘솔 에러 0건)
+- [x] Git 커밋: 별도 코드 변경 없음 (기존 구현이 체크리스트 충족) — 문서만 갱신
 
 ### Phase 12 (25분): Posts 상세 페이지
 
