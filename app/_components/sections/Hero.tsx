@@ -10,21 +10,21 @@ export default function Hero() {
           기록하고,
           <span
             aria-hidden="true"
-            className="anim-underline-1 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-light-accent dark:bg-dark-accent"
+            className="anim-underline-1 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-300 dark:bg-gray-300"
           />
         </span>
         <span className="anim-headline-line2 relative block w-fit">
           배우고,
           <span
             aria-hidden="true"
-            className="anim-underline-2 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-light-accent dark:bg-dark-accent"
+            className="anim-underline-2 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-400 dark:bg-gray-400"
           />
         </span>
         <span className="anim-headline-line3 relative block w-fit">
           나아갑니다
           <span
             aria-hidden="true"
-            className="anim-underline-3 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-light-accent dark:bg-dark-accent"
+            className="anim-underline-3 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-500 dark:bg-gray-500"
           />
         </span>
       </h1>
