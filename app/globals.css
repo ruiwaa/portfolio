@@ -63,14 +63,15 @@
   }
 }
 
-@keyframes card-scale-in {
+/* Hero(수직 이동)와 구분되도록 카드는 수평 슬라이드로 진입 */
+@keyframes card-slide-in {
   from {
     opacity: 0;
-    transform: scale3d(0.95, 0.95, 1);
+    transform: translate3d(24px, 0, 0);
   }
   to {
     opacity: 1;
-    transform: scale3d(1, 1, 1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -108,7 +109,7 @@
   .anim-card-3,
   .anim-card-4 {
     opacity: 0;
-    animation: card-scale-in 500ms ease-out both;
+    animation: card-slide-in 500ms ease-out both;
   }
   .anim-card-1 {
     animation-delay: 150ms;
@@ -127,6 +128,74 @@
     opacity: 0;
     animation: cta-entrance-in 400ms ease-out both;
     animation-delay: 350ms;
+  }
+
+  .anim-badge-in {
+    animation: badge-slide-in 300ms ease-out both;
+  }
+
+  .anim-fade-up {
+    animation: fade-up-in 0.6s ease-out both;
+  }
+
+  .status-dot {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 28s linear infinite;
+  }
+}
+
+.anim-badge-in,
+.anim-fade-up {
+  opacity: 0;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: #22c55e;
+}
+
+.marquee-track {
+  width: max-content;
+}
+
+@keyframes badge-slide-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
