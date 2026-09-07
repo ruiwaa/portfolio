@@ -42,7 +42,7 @@ export default function MyRecorder() {
                 className="flex min-h-30 items-center transition-[filter] duration-200 group-hover:brightness-95"
               >
                 <div className="flex  flex-row w-full items-center justify-between">
-                  <h2 className="headline-lg min-w-0 text-light-text">
+                  <h2 className="headline-lg min-w-0 text-light-text dark:text-dark-accent dark:[-webkit-text-stroke:1px_gray]">
                     {item.label}
                   </h2>
                   <span

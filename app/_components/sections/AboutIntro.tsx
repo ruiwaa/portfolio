@@ -23,7 +23,7 @@ export default function AboutIntro() {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-labelledby="about-intro-heading">
+    <section ref={ref} aria-labelledby="about-intro-heading" className="m-10">
       <h2 id="about-intro-heading" className="sr-only">
         소개
       </h2>
@@ -42,37 +42,6 @@ export default function AboutIntro() {
         <br />
         프론트엔드 개발자 <strong>장예지</strong>입니다.
       </p>
-
-      <ul
-        aria-label="외부 링크"
-        style={{ animationDelay: "80ms" }}
-        className={`mt-6 flex flex-wrap justify-center gap-2 motion-safe:opacity-0 ${
-          isInView ? "motion-safe:animate-[fade-up-in_0.5s_ease-out_both]" : ""
-        }`}
-      >
-        {PROFILE_LINKS.map(({ label, href, Icon, color }) => (
-          <li key={label}>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
-            >
-              <Badge
-                label={label}
-                icon={
-                  <Icon
-                    aria-hidden="true"
-                    className="h-3.5 w-3.5"
-                    style={color ? { color } : undefined}
-                  />
-                }
-              />
-              <span className="sr-only"> (새 탭에서 열림)</span>
-            </a>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
