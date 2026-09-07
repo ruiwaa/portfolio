@@ -52,6 +52,84 @@
   }
 }
 
+@keyframes headline-line-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes card-scale-in {
+  from {
+    opacity: 0;
+    transform: scale3d(0.95, 0.95, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes cta-entrance-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -15px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Home Hero 진입 애니메이션 - prefers-reduced-motion 사용자는 즉시 전체 노출 */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-headline-line1,
+  .anim-headline-line2,
+  .anim-headline-line3 {
+    opacity: 0;
+    animation: headline-line-in 400ms ease-out both;
+  }
+  .anim-headline-line1 {
+    animation-delay: 0ms;
+  }
+  .anim-headline-line2 {
+    animation-delay: 100ms;
+  }
+  .anim-headline-line3 {
+    animation-delay: 200ms;
+  }
+
+  .anim-card-1,
+  .anim-card-2,
+  .anim-card-3,
+  .anim-card-4 {
+    opacity: 0;
+    animation: card-scale-in 500ms ease-out both;
+  }
+  .anim-card-1 {
+    animation-delay: 150ms;
+  }
+  .anim-card-2 {
+    animation-delay: 250ms;
+  }
+  .anim-card-3 {
+    animation-delay: 350ms;
+  }
+  .anim-card-4 {
+    animation-delay: 450ms;
+  }
+
+  .anim-cta-entrance {
+    opacity: 0;
+    animation: cta-entrance-in 400ms ease-out both;
+    animation-delay: 350ms;
+  }
+}
+
 body {
   background: var(--color-light-surface);
   color: var(--color-light-text);

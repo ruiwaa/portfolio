@@ -30,23 +30,20 @@ export default function MyRecorder() {
         MY RECORDER
       </h2>
       <div className={`mt-6 flex flex-col ${LAYOUT.componentGap}`}>
-        {RECORDER_ITEMS.map((item) => (
-          <article key={item.href}>
+        {RECORDER_ITEMS.map((item, index) => (
+          <article key={item.href} className={`anim-card-${index + 1}`}>
             <Link
               href={item.href}
-              className="group block rounded-lg transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
+              className="group block rounded-lg transition-transform duration-200 hover:-translate-y-1.5 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
             >
               <Card
                 accent={item.accent}
                 className="transition-[filter] duration-200 group-hover:brightness-95"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex flex-row gap-5 items-center">
-                    <span className="badge text-light-text">{item.number}</span>
-                    <h2 className="body mt-2 text-light-text text-3xl whitespace-nowrap">
-                      {item.label}
-                    </h2>
-                  </div>
+                  <h2 className="body mt-2 text-light-text text-3xl whitespace-nowrap">
+                    {item.label}
+                  </h2>
                   <span
                     aria-hidden="true"
                     className="text-light-text transition-transform duration-200 group-hover:translate-x-1"
