@@ -131,6 +131,85 @@ Tailwind에 적용해줄래?"
 - 하단 라벨: "SYS.READY // DOC.AVAILABLE"
 ```
 
+### **Phase 9** (10분): Footer 컴포넌트
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 9 프롬프트"
+
+포함사항:
+- 전역 공통 Footer (모든 페이지 하단)
+- 로고 + 저작권 문구 + 외부 링크 (GitHub, Velog 등)
+- 새 탭에서 열기 (rel="noopener noreferrer")
+```
+
+### **Phase 10** (25분): About Me 페이지
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 10 프롬프트"
+
+실제 스크린샷 반영 (Image 1):
+- 좌측: 인사말 + 정보 테이블(이름/생년월일/이메일/위치) + 기술 배지
+- 우측: "기록의 여정" 4단계 타임라인 (RECORD/REFLECT/LEARN/IMPROVE)
+```
+
+### **Phase 11** (15분): Home Hero 섹션
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 11 프롬프트"
+
+실제 스크린샷 반영 (Image 3):
+- 좌측 메인 카피 "기록하고, 배우고, 나아갑니다" + "VIEW PROJECTS" 버튼
+```
+
+### **Phase 12** (25분): Posts 상세 페이지
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 12 프롬프트"
+
+포함사항:
+- 동적 라우팅 [slug] + Supabase 단건 조회
+- Tiptap 본문 렌더링 (PostContent.tsx)
+- 404 처리 + 동적 메타데이터
+```
+
+### **Phase 13** (20분): Posts 페이지네이션
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 13 프롬프트"
+
+실제 스크린샷 반영 (Image 4):
+- 하단 "더 많은 글 보기" 버튼으로 추가 로드
+```
+
+### **Phase 14** (15분): Hero 좌측 카피 Fade-in
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 14 프롬프트"
+
+포함사항:
+- Hero 메인 카피 3줄 stagger fade-in
+- 서브텍스트/CTA 버튼 순서대로 등장
+- prefers-reduced-motion 대응
+```
+
+### **Phase 15** (25분): Resume 그리드 배경 웨이브 효과
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 15 프롬프트"
+
+포함사항:
+- 그리드 배경 아주 느린 물결/입체 효과 (20~40초 주기)
+- GPU 가속 속성 위주, 성능 영향 없음
+- prefers-reduced-motion 대응
+```
+
 ---
 
 ## 🎨 **다크 모드 구현 팁**
@@ -183,6 +262,13 @@ bun run dev
 - [ ] Phase 6: Timeline
 - [ ] Phase 7: Posts
 - [ ] Phase 8: Resume
+- [ ] Phase 9: Footer
+- [ ] Phase 10: About Me
+- [ ] Phase 11: Hero + Header 보완
+- [ ] Phase 12: Posts 상세
+- [ ] Phase 13: Posts 페이지네이션
+- [ ] Phase 14: Hero 좌측 카피 Fade-in
+- [ ] Phase 15: Resume 그리드 배경 웨이브 효과
 - [ ] 각 Phase마다 `git commit`
 
 ### 라이트 모드 적용 (30분)
@@ -213,6 +299,84 @@ bun run dev
 
 ---
 
+## 📊 **시간 분배**
+
+| 단계          | 시간                      | 작업               |
+| ------------- | ------------------------- | ------------------ |
+| 가이드 읽기   | 50분                      | 이해               |
+| Phase 1       | 15분                      | 색상/폰트/다크모드 |
+| Phase 2-3     | 25분                      | Header/Toggle      |
+| Phase 4       | 15분                      | Card/Badge         |
+| Phase 5       | 20분                      | MyRecorder         |
+| Phase 6       | 20분                      | Timeline           |
+| Phase 7       | 30분                      | Posts              |
+| Phase 8       | 25분                      | Resume             |
+| Phase 9       | 10분                      | Footer             |
+| Phase 10      | 25분                      | About Me           |
+| Phase 11      | 15분                      | Hero               |
+| Phase 12      | 25분                      | Posts 상세         |
+| Phase 13      | 20분                      | Posts 페이지네이션 |
+| Phase 14      | 15분                      | Hero Fade-in       |
+| Phase 15      | 25분                      | Resume 웨이브 배경 |
+| **구현 소계** | **245분**                 |                    |
+| 라이트 모드   | 30분                      | 추가 스타일        |
+| 검증          | 30분                      | 테스트             |
+| **총**        | **385분 (약 6시간 25분)** |                    |
+
+---
+
+## 🎯 **다크 모드 기반 실행 흐름**
+
+```
+Step 1: 문서 읽기 (50분)
+  ↓
+Step 2: Phase 1 실행 (다크 모드 포함)
+  ↓
+Step 3: Phase 2-8 순서대로 실행 (2시간 40분)
+  각 Phase마다:
+    1. Claude Code로 구현
+    2. 다크 모드 확인
+    3. git commit (수동)
+  ↓
+Step 4: 라이트 모드 추가 (30분)
+  각 컴포넌트에 라이트 모드 스타일 추가
+  ↓
+Step 5: 최종 검증 (30분)
+  라이트/다크 모드 모두 테스트
+  Lighthouse 점수 확인
+
+결과: 완성된 포트폴리오 🎉
+  - ✅ 다크 모드 완벽 구현
+  - ✅ 라이트 모드 동시 지원
+  - ✅ WCAG AA 접근성
+  - ✅ Lighthouse 90+
+```
+
+---
+
+## 🚀 **지금 시작하세요!**
+
+### 준비물
+
+```
+✅ 16개 문서 (모두 다운로드)
+✅ 5개 다크 모드 스크린샷 (이미지)
+✅ Claude Code 준비
+✅ Tailwind 최신 버전
+```
+
+### 실행 순서
+
+```
+1. DESIGN_SUMMARY.md 읽기 (15분)
+2. DARK_MODE_IMPLEMENTATION.md 읽기 (5분) ⭐
+3. DESIGN_TO_CODE_GUIDE.md 읽기 (20분)
+4. CLAUDE_CODE_PROMPTS.md Phase 1 프롬프트 복사
+5. Claude Code 실행!
+```
+
+---
+
 ## 📝 **Claude Code 프롬프트 템플릿**
 
 ```
@@ -227,3 +391,25 @@ docs/SEMANTIC_HTML_A11Y.md를 준수하면서
 DARK_MODE_IMPLEMENTATION.md의 다크 모드 색상을 사용해서
 [컴포넌트]를 만들어줄래?"
 ```
+
+---
+
+## ✨ **완성 후**
+
+```
+✅ 완전한 다크 모드 포트폴리오
+✅ 라이트 모드 토글 가능
+✅ WCAG 2.1 AA 준수
+✅ Lighthouse 90+ 점수
+✅ 모바일 완벽 반응형
+✅ 모든 인터랙션 작동
+✅ 접근성 완벽 구현
+
+🚀 배포 준비 완료!
+```
+
+---
+
+**이제 시작하세요!** 🌟
+
+50분 + 3시간 = **약 4시간 안에 완성된 포트폴리오!**
