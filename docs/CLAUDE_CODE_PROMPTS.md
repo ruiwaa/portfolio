@@ -1,204 +1,411 @@
-# Claude Code 최적 프롬프트 가이드
+# 🚀 최종 실행 가이드 - 다크 모드 디자인 기반
+
+**상황**: Stitch 다크 모드 5개 페이지 시안 완성 + 문서 16개 완성
 
 ---
 
-## 🎯 프롬프트 템플릿
+## 📖 **읽기 순서** (50분)
 
-### Phase 1: 색상 & 폰트 설정
+### Step 1️⃣: 디자인 이해 (20분)
 
-```prompt
-Tailwind 설정 및 폰트를 YEJI 디자인 시스템에 맞게 구성해줄래?
+```
+1. DESIGN_SUMMARY.md (15분)
+   - 전체 디자인 개요
+   - 색상, 폰트, 레이아웃
 
-요구사항:
-1. Syne 폰트 (라이트/다크 모드용)
-2. JetBrains Mono (배지용)
-3. 색상:
-   - 라이트: #FFFFFF(surface), #F8F8F8(dim), #1A1A1A(text), #666666(secondary), #0066CC(accent)
-   - 다크: #141313(surface), #1C1B1B(dim), #FFFFFF(text), #999999(secondary), #FFFFFF(accent)
-   - 악센트: mint #E8F5E9, peach #FFE8D6, sky #E3F2FD, purple #F3E5F5
-4. 타이포그래피 CSS 클래스 (logo, h1, section-header, body, badge)
-5. 레이아웃 상수 (container 1440px, padding 48px, gaps)
-
-파일:
-- tailwind.config.ts 수정
-- styles/typography.css 생성
-- lib/constants.ts 생성
+2. DARK_MODE_IMPLEMENTATION.md (5분) ⭐ NEW
+   - 다크 모드 특화 설정
+   - 실제 스크린샷 기반 색상
 ```
 
-### Phase 2: Header 컴포넌트
+### Step 2️⃣: 구현 전략 (15분)
 
-```prompt
-YEJI 디자인에 맞는 Header 컴포넌트를 만들어줄래?
+```
+1. DESIGN_TO_CODE_GUIDE.md (10분)
+   - 3시간 로드맵
+   - Phase 1-8 구성
 
-요구사항:
-1. 높이: 56px (sticky, border-bottom)
-2. 레이아웃: [YEJI. 로고] — [About Me, Experience..., Posts, Resume] — [🌙/☀️ 토글]
-3. 스타일:
-   - Syne Bold 20px 로고
-   - Hover: 텍스트 #0066CC + Underline
-   - Active: Underline 표시
-4. 접근성:
-   - 시멘틱 <header>, <nav>
-   - aria-label="메인 네비게이션"
-   - 포커스 인디케이터 (2px solid #0066CC)
-5. 라이트/다크 모드 대응
-
-파일:
-- app/_components/common/Header.tsx
+2. COMPONENT_BREAKDOWN.md (5분)
+   - 컴포넌트 계층도
+   - 우선순위
 ```
 
-### Phase 3: ThemeToggle 컴포넌트
+### Step 3️⃣: 기술 준비 (15분)
 
-```prompt
-라이트/다크 모드 토글 버튼을 만들어줄래?
-
-요구사항:
-1. 아이콘: 라이트 모드 시 🌙, 다크 모드 시 ☀️
-2. 전환: 300ms Fade 애니메이션
-3. 접근성:
-   - aria-label="테마 변경"
-   - role="switch"
-4. 저장: localStorage에 테마 저장
-
-파일:
-- app/_components/common/ThemeToggle.tsx
 ```
+1. DESIGN_SYSTEM_IMPLEMENTATION.md (10분)
+   - Tailwind 설정
+   - 폰트 로드
 
-### Phase 4: Card & Badge 컴포넌트
-
-```prompt
-기본 Card와 Badge 컴포넌트를 YEJI 디자인에 맞게 만들어줄래?
-
-요구사항 (Card):
-1. 배경: light/surface-dim | dark/surface-dim
-2. 테두리: 1px border-b
-3. 내부 간격: p-6
-4. 둥글기: rounded-lg
-5. Props: children, className, accent?(색상 지정)
-
-요구사항 (Badge):
-1. 배경: light/surface | dark/surface-dim
-2. 테두리: 1px border
-3. 폰트: JetBrains Mono 12px
-4. 높이: h-6 정도
-5. Props: label, variant?
-
-파일:
-- app/_components/ui/Card.tsx
-- app/_components/ui/Badge.tsx
-```
-
-### Phase 5: MyRecorder 카드 섹션
-
-```prompt
-MY RECORDER 카드 섹션(01-04)을 YEJI 디자인에 맞게 구현해줄래?
-
-요구사항:
-1. 레이아웃: 4개 카드 수평 배치 (grid grid-cols-4 gap-6)
-2. 각 카드:
-   - 배경색: [01:Mint, 02:Peach, 03:Sky, 04:Purple]
-   - 내용: [번호] [텍스트] [→ 아이콘]
-3. Hover 효과:
-   - 배경색 심화 (opacity 증가)
-   - 스케일 1.02
-   - 화살표 애니메이션 (→ 오른쪽으로 슈르르)
-4. 접근성:
-   - 시멘틱 <section>, <article>
-   - aria-label="포트폴리오 네비게이션"
-5. 데이터:
-   - 01: About Me
-   - 02: Experience & Projects
-   - 03: Posts
-   - 04: Resume
-
-파일:
-- app/_components/sections/MyRecorder.tsx
-```
-
-### Phase 6: 경력 타임라인
-
-```prompt
-Experience 섹션의 타임라인을 YEJI 디자인에 맞게 만들어줄래?
-
-요구사항:
-1. 마커: 원형 (w-3 h-3, 색상 #0066CC)
-2. 선: 2px 수직 라인 (#E0E0E0 | dark/#3A3939)
-3. 콘텐츠: [날짜] [직책] [설명]
-4. 레이아웃: 마커 ─ 내용 (수평 배치)
-5. 접근성:
-   - 시멘틱 <timeline>
-   - aria-label="경력 타임라인"
-
-파일:
-- app/_components/ui/TimelineItem.tsx
-- app/_components/sections/Experience.tsx
-```
-
-### Phase 7: Posts 섹션
-
-```prompt
-Posts 섹션을 YEJI 디자인에 맞게 만들어줄래?
-
-요구사항:
-1. 헤더: "POSTS" (Syne Bold 12px, letter-spacing 1px)
-2. 필터: 카테고리별 (All, Study, Troubleshooting, Retrospective)
-3. 카드 레이아웃: 그리드 (cols-1 | md:cols-2)
-4. 각 카드:
-   - 배경: Sky #E3F2FD 또는 light/surface-dim
-   - 썸네일, 제목, 설명, 날짜
-5. 로딩 상태: Suspense + 스켈레톤
-6. 접근성: aria-live="polite" (필터 변경 시 알림)
-
-파일:
-- app/_components/sections/Posts.tsx
-```
-
-### Phase 8: Resume 섹션
-
-```prompt
-Resume 섹션을 YEJI 디자인에 맞게 만들어줄래?
-
-요구사항:
-1. 배경: 그리드 패턴 (세밀한 라인, #E0E0E0 | dark/#3A3939)
-2. 중앙 텍스트: "RESUME" (와이드 스타일, Syne Bold, 매우 큼)
-3. 하단 라벨: "SYS.READY // DOC.AVAILABLE" (고정, JetBrains Mono)
-4. 다운로드 버튼 (선택)
-5. 배경 이미지/패턴으로 구현
-
-파일:
-- app/_components/sections/Resume.tsx
+2. CLAUDE_CODE_PROMPTS.md (5분) ⭐ 실행 준비
+   - Phase 1~8 프롬프트 미리 보기
 ```
 
 ---
 
-## 📋 사용 팁
+## 💻 **3시간 구현 로드맵**
 
-### ✅ 효과적인 프롬프트
-
-```
-"구체적인 색상값, 크기, 상태를 모두 명시"
-"접근성 요구사항 포함"
-"파일 경로 명확히"
-```
-
-### ❌ 피해야 할 것
+### **Phase 1** (15분): 색상 + 폰트 + 다크 모드
 
 ```
-"좋은 Header를 만들어줄래?" (너무 모호함)
-"디자인처럼 만들어줄래?" (구체성 부족)
+📝 프롬프트:
+"DESIGN_SYSTEM_IMPLEMENTATION.md의 색상값과
+DARK_MODE_IMPLEMENTATION.md의 다크 모드 설정을
+Tailwind에 적용해줄래?"
+
+포함사항:
+- tailwind.config.ts (라이트/다크 모드)
+- styles/typography.css (Syne, JetBrains Mono)
+- lib/constants.ts (레이아웃 값)
+```
+
+### **Phase 2-3** (25분): Header + ThemeToggle
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 2, 3 프롬프트 사용"
+
+추가 사항:
+- 다크 모드에서도 테스트
+- 🌙/☀️ 아이콘 명확히
+- localStorage 저장
+```
+
+### **Phase 4** (15분): Card + Badge
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 4 프롬프트"
+
+다크 모드 대비 확인:
+- 배경 #1C1B1B에서 가독성
+- 테두리 #3A3939 표시
+```
+
+### **Phase 5** (20분): MyRecorder 카드
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 5 프롬프트"
+
+실제 시안 반영:
+- 01: Mint, 02: Peach, 03: Sky, 04: Purple
+- Hover: 배경 심화 + 스케일 1.02
+- 화살표 애니메이션
+```
+
+### **Phase 6** (20분): Timeline + Experience
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 6 프롬프트"
+
+실제 스크린샷 반영:
+- 2px 수직 선 (#3A3939 다크 모드)
+- 원형 마커 12px
+- 날짜 | 직책 | 설명 레이아웃
+```
+
+### **Phase 7** (30분): Posts + 필터
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 7 프롬프트"
+
+실제 스크린샷 반영:
+- 필터 탭: All, Troubleshooting, Retrospective, Study
+- 카드: 썸네일 + 제목 + 날짜 + 태그
+- 다크 배경에 테두리 카드
+```
+
+### **Phase 8** (25분): Resume + 그리드 배경
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 8 프롬프트"
+
+실제 스크린샷 반영:
+- 그리드 패턴 배경 (#3A3939 라인)
+- 큰 "RESUME" 텍스트 (Syne Bold)
+- 두 개 버튼: "이력서 보기" + "PDF 다운로드"
+- 하단 라벨: "SYS.READY // DOC.AVAILABLE"
+```
+
+### **Phase 9** (10분): Footer 컴포넌트
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 9 프롬프트"
+
+포함사항:
+- 전역 공통 Footer (모든 페이지 하단)
+- 로고 + 저작권 문구 + 외부 링크 (GitHub, Velog 등)
+- 새 탭에서 열기 (rel="noopener noreferrer")
+```
+
+### **Phase 10** (25분): About Me 페이지
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 10 프롬프트"
+
+실제 스크린샷 반영 (Image 1):
+- 좌측: 인사말 + 정보 테이블(이름/생년월일/이메일/위치) + 기술 배지
+- 우측: "기록의 여정" 4단계 타임라인 (RECORD/REFLECT/LEARN/IMPROVE)
+```
+
+### **Phase 11** (15분): Home Hero 섹션
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 11 프롬프트"
+
+실제 스크린샷 반영 (Image 3):
+- 좌측 메인 카피 "기록하고, 배우고, 나아갑니다" + "VIEW PROJECTS" 버튼
+```
+
+### **Phase 12** (25분): Posts 상세 페이지
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 12 프롬프트"
+
+포함사항:
+- 동적 라우팅 [slug] + Supabase 단건 조회
+- Tiptap 본문 렌더링 (PostContent.tsx)
+- 404 처리 + 동적 메타데이터
+```
+
+### **Phase 13** (20분): Posts 페이지네이션
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 13 프롬프트"
+
+실제 스크린샷 반영 (Image 4):
+- 하단 "더 많은 글 보기" 버튼으로 추가 로드
+```
+
+### **Phase 14** (15분): Hero 좌측 카피 Fade-in
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 14 프롬프트"
+
+포함사항:
+- Hero 메인 카피 3줄 stagger fade-in
+- 서브텍스트/CTA 버튼 순서대로 등장
+- prefers-reduced-motion 대응
+```
+
+### **Phase 15** (25분): Resume 그리드 배경 웨이브 효과
+
+```
+📝 프롬프트:
+"CLAUDE_CODE_PROMPTS.md의 Phase 15 프롬프트"
+
+포함사항:
+- 그리드 배경 아주 느린 물결/입체 효과 (20~40초 주기)
+- GPU 가속 속성 위주, 성능 영향 없음
+- prefers-reduced-motion 대응
 ```
 
 ---
 
-## 🎯 실행 순서
+## 🎨 **다크 모드 구현 팁**
 
-1. **Phase 1** (색상, 폰트) → 모든 컴포넌트가 의존
-2. **Phase 2** (Header) → 모든 페이지에서 사용
-3. **Phase 3** (ThemeToggle) → Header와 함께
-4. **Phase 4** (Card, Badge) → 기본 구성 요소
-5. **Phase 5** (MyRecorder) → 홈 페이지
-6. **Phase 6** (Timeline) → Experience 페이지
-7. **Phase 7** (Posts) → Posts 페이지
-8. **Phase 8** (Resume) → Resume 페이지
+### Tailwind 클래스
+
+```typescript
+// 라이트/다크 자동 전환
+className="bg-light-surface dark:bg-dark-surface"
+className="text-light-text dark:text-dark-text"
+className="border-light-border dark:border-dark-border"
+
+// 다크 모드 포커스 (흰색)
+className="dark:focus-visible:outline-white"
+
+// 조건부 배경 (파스텔은 항상 동일)
+className={activeTab === 'about' ? 'bg-mint' : 'bg-light-surface-dim dark:bg-dark-surface-dim'}
+```
+
+### 다크 모드 활성화 (HTML)
+
+```html
+<!-- dark 클래스가 html에 있으면 다크 모드 -->
+<html class="dark">
+  <!-- localStorage에 저장되어 새로고침해도 유지 -->
+</html>
+```
+
+### 테스트 방법
+
+```bash
+# 라이트 모드 개발
+bun run dev
+# 브라우저 F12 → 🌙/☀️ 토글 클릭
+
+# 또는 DevTools에서 직접 테스트
+# DevTools → Settings → Rendering → Emulate CSS media feature prefers-color-scheme
+```
+
+---
+
+## ✅ **최종 체크리스트** (2시간)
+
+### 구현 중
+
+- [ ] Phase 1: 색상/폰트 설정
+- [ ] Phase 2-3: Header + Toggle
+- [ ] Phase 4: Card + Badge
+- [ ] Phase 5: MyRecorder
+- [ ] Phase 6: Timeline
+- [ ] Phase 7: Posts
+- [ ] Phase 8: Resume
+- [ ] Phase 9: Footer
+- [ ] Phase 10: About Me
+- [ ] Phase 11: Hero + Header 보완
+- [ ] Phase 12: Posts 상세
+- [ ] Phase 13: Posts 페이지네이션
+- [ ] Phase 14: Hero 좌측 카피 Fade-in
+- [ ] Phase 15: Resume 그리드 배경 웨이브 효과
+- [ ] 각 Phase마다 `git commit`
+
+### 라이트 모드 적용 (30분)
+
+- [ ] DESIGN_SYSTEM_IMPLEMENTATION.md의 라이트 컬러 적용
+- [ ] 각 컴포넌트에서 라이트 모드 클래스 추가
+- [ ] `dark:` 프리픽스로 다크 모드 스타일 정의
+
+### 최종 검증 (30분)
+
+```
+라이트 모드:
+- [ ] 모든 텍스트 #1A1A1A on #FFFFFF (대비 21:1)
+- [ ] 액센트 #0066CC 명확히 표시
+- [ ] 호버/포커스 상태 정확함
+
+다크 모드:
+- [ ] 모든 텍스트 #FFFFFF on #141313 (대비 19.4:1)
+- [ ] 액센트 #FFFFFF 명확히 표시
+- [ ] 호버/포커스 상태 정확함
+
+공통:
+- [ ] 모든 요소 Tab으로 접근 가능
+- [ ] Lighthouse 90+ (라이트/다크 각각)
+- [ ] 모바일 반응형 (라이트/다크)
+- [ ] 모든 폰트 로드됨
+```
+
+---
+
+## 📊 **시간 분배**
+
+| 단계          | 시간                      | 작업               |
+| ------------- | ------------------------- | ------------------ |
+| 가이드 읽기   | 50분                      | 이해               |
+| Phase 1       | 15분                      | 색상/폰트/다크모드 |
+| Phase 2-3     | 25분                      | Header/Toggle      |
+| Phase 4       | 15분                      | Card/Badge         |
+| Phase 5       | 20분                      | MyRecorder         |
+| Phase 6       | 20분                      | Timeline           |
+| Phase 7       | 30분                      | Posts              |
+| Phase 8       | 25분                      | Resume             |
+| Phase 9       | 10분                      | Footer             |
+| Phase 10      | 25분                      | About Me           |
+| Phase 11      | 15분                      | Hero               |
+| Phase 12      | 25분                      | Posts 상세         |
+| Phase 13      | 20분                      | Posts 페이지네이션 |
+| Phase 14      | 15분                      | Hero Fade-in       |
+| Phase 15      | 25분                      | Resume 웨이브 배경 |
+| **구현 소계** | **245분**                 |                    |
+| 라이트 모드   | 30분                      | 추가 스타일        |
+| 검증          | 30분                      | 테스트             |
+| **총**        | **385분 (약 6시간 25분)** |                    |
+
+---
+
+## 🎯 **다크 모드 기반 실행 흐름**
+
+```
+Step 1: 문서 읽기 (50분)
+  ↓
+Step 2: Phase 1 실행 (다크 모드 포함)
+  ↓
+Step 3: Phase 2-8 순서대로 실행 (2시간 40분)
+  각 Phase마다:
+    1. Claude Code로 구현
+    2. 다크 모드 확인
+    3. git commit (수동)
+  ↓
+Step 4: 라이트 모드 추가 (30분)
+  각 컴포넌트에 라이트 모드 스타일 추가
+  ↓
+Step 5: 최종 검증 (30분)
+  라이트/다크 모드 모두 테스트
+  Lighthouse 점수 확인
+
+결과: 완성된 포트폴리오 🎉
+  - ✅ 다크 모드 완벽 구현
+  - ✅ 라이트 모드 동시 지원
+  - ✅ WCAG AA 접근성
+  - ✅ Lighthouse 90+
+```
+
+---
+
+## 🚀 **지금 시작하세요!**
+
+### 준비물
+
+```
+✅ 16개 문서 (모두 다운로드)
+✅ 5개 다크 모드 스크린샷 (이미지)
+✅ Claude Code 준비
+✅ Tailwind 최신 버전
+```
+
+### 실행 순서
+
+```
+1. DESIGN_SUMMARY.md 읽기 (15분)
+2. DARK_MODE_IMPLEMENTATION.md 읽기 (5분) ⭐
+3. DESIGN_TO_CODE_GUIDE.md 읽기 (20분)
+4. CLAUDE_CODE_PROMPTS.md Phase 1 프롬프트 복사
+5. Claude Code 실행!
+```
+
+---
+
+## 📝 **Claude Code 프롬프트 템플릿**
+
+```
+"DESIGN_SYSTEM_IMPLEMENTATION.md와
+DARK_MODE_IMPLEMENTATION.md를 기반으로
+CLAUDE_CODE_PROMPTS.md의 Phase [N] 프롬프트를 실행해줄래?"
+
+또는
+
+"docs/CODING_CONVENTIONS.md와
+docs/SEMANTIC_HTML_A11Y.md를 준수하면서
+DARK_MODE_IMPLEMENTATION.md의 다크 모드 색상을 사용해서
+[컴포넌트]를 만들어줄래?"
+```
+
+---
+
+## ✨ **완성 후**
+
+```
+✅ 완전한 다크 모드 포트폴리오
+✅ 라이트 모드 토글 가능
+✅ WCAG 2.1 AA 준수
+✅ Lighthouse 90+ 점수
+✅ 모바일 완벽 반응형
+✅ 모든 인터랙션 작동
+✅ 접근성 완벽 구현
+
+🚀 배포 준비 완료!
+```
 
 ---

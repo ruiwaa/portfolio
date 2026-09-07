@@ -410,6 +410,107 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ---
 
+## Phase 9️⃣: Footer 컴포넌트
+
+**요약 (이전 세션에서 완료, 이번 세션에서 문서만 정리):**
+
+```
+✅ 생성된 파일:
+   - app/_components/common/Footer.tsx
+
+✅ 구현한 것:
+   - 로고(YEJI.) + 저작권 문구 + GitHub/Velog 외부 링크
+   - 외부 링크는 http로 시작할 때만 target="_blank" rel="noopener noreferrer" 적용
+   - app/layout.tsx에 전역 마운트 (모든 페이지 하단 공통 표시)
+
+📍 다음: About Me 페이지
+```
+
+---
+
+## Phase 🔟: About Me 페이지
+
+**이 Phase에서 해야 할 것:**
+
+About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, 학력, "기록의 여정" 타임라인이 포함됩니다.
+대화가 이어지며 요구사항이 여러 차례 조정되어, 최종 결과물은 최초 기획(2단 레이아웃 + 인적사항 테이블)과는
+꽤 달라졌습니다.
+
+**요약:**
+
+```
+✅ 생성된 파일:
+   - app/_components/sections/AboutIntro.tsx (인사말 + GitHub/Velog 외부 링크)
+   - app/_components/sections/AboutInfo.tsx (기술 스택 + 교육 및 어학)
+   - app/_components/sections/AboutVision.tsx ("기록의 여정" 4단계, 클릭형 상세 카드)
+   - app/_components/ui/HoverDisclosure.tsx (호버/포커스 시 상세 설명을 보여주는 범용 UI)
+   - app/_hooks/useInView.ts (IntersectionObserver 커스텀 훅, prefers-reduced-motion 대응)
+
+✅ 수정된 파일:
+   - app/(routes)/about/page.tsx (AboutIntro → AboutVision → AboutInfo 순서로 세로 배치)
+   - app/_components/ui/Badge.tsx (icon prop 추가 - 브랜드 로고/lucide 아이콘을 라벨과 함께 표시)
+   - app/layout.tsx (<html>에 suppressHydrationWarning 추가 - 트러블슈팅 1번 참고)
+   - app/globals.css (fade-up-in, pop-in 키프레임 추가)
+   - lib/constants.ts
+
+✅ 구현한 것:
+   - 기술 스택 배지: react-icons/si 브랜드 로고 + 시그니처 컬러(React #61DAFB, TypeScript #3178C6,
+     Tailwind CSS #06B6D4, Supabase #3ECF8E). Next.js/GitHub는 모노톤 브랜드라 고정 색 대신
+     currentColor 상속으로 라이트/다크 모드에 자동 대응
+   - 배지 호버/포커스 시 HoverDisclosure로 구현 수준 설명 카드 표시 - 문장 배열(string[])로 받아
+     한 문장씩 줄바꿈되도록 렌더링
+   - "기록의 여정" 4단계(RECORD/REFLECT/LEARN/IMPROVE) - 좌측 타임라인을 클릭하면 우측에
+     굵은 점선 테두리(border-4 border-dotted) 카드로 상세 설명 표시, aria-pressed/aria-live로 접근성 처리
+   - "교육 및 어학" 섹션 - 인적사항 테이블(이름/생년월일/이메일/위치)을 완전히 대체, 날짜를
+     모노스페이스(JetBrains Mono)로 강조한 "코딩 스타일" 타임라인으로 재구성
+   - 전 구간에 걸쳐 motion-safe: 로만 게이팅한 등장 애니메이션 적용 (fade-up-in 순차 등장,
+     pop-in 배지 등장) - prefers-reduced-motion 사용자는 애니메이션 없이 즉시 전체 노출
+   - AboutInfo/AboutVision 각각 useInView로 자신의 섹션이 스크롤로 뷰포트에 들어올 때만
+     1회성으로 애니메이션 트리거 (페이지 로드 시 일괄 재생 → 스크롤 연동으로 전환)
+   - 레이아웃을 2단(그리드) → 세로 1단 스택으로 전환
+
+✅ 트러블슈팅 (원인 → 해결 → 결과):
+
+1. **다크모드 초기화 스크립트로 인한 hydration mismatch 경고**
+   - 원인: `<head>`의 인라인 스크립트(THEME_INIT_SCRIPT)가 React 하이드레이션 전에
+     `document.documentElement.classList.add("dark")`로 `<html>`의 class를 직접 수정 →
+     서버가 렌더링한 className과 클라이언트의 실제 DOM className이 달라짐
+   - 해결: `<html>`에 `suppressHydrationWarning` 추가 (next-themes 등에서 공식적으로 권장하는
+     패턴 - 의도된 불일치이므로 해당 노드에 한해 경고만 억제, 하위 트리의 실제 버그는 계속 감지됨)
+   - 결과: 콘솔 hydration 경고 제거, 다크모드 깜빡임 방지 스크립트는 그대로 유지
+
+2. **기술 스택 호버 카드가 배지 하나 너비(~97px)로 극단적으로 좁게 깨짐**
+   - 원인: 카드 등장 애니메이션(pop-in)을 배지를 감싼 `<li>`에 걸었는데, `animation-fill-mode: both`가
+     끝난 뒤에도 `transform: scale3d(1,1,1)`(값은 유지되고 `none`이 아님) 상태로 남음. CSS 스펙상
+     `transform`이 `none`이 아니면 그 요소가 absolute 자손의 새로운 containing block이 되어버려서,
+     `position:absolute`인 카드가 의도했던 바깥의 넓은 컨테이너가 아니라 이 `<li>`를 기준으로 위치를
+     잡아버림 (SSR HTML만 확인하고 실제 렌더링 크기를 안 봐서 처음엔 놓쳤고, Playwright로 헤드리스
+     브라우저를 설치해 실제 computed style/스크린샷을 찍은 뒤에야 원인을 특정함)
+   - 해결: 등장 애니메이션을 패널의 조상인 `<li>`에서, 패널과 형제 관계라 containing block에
+     영향을 주지 않는 트리거 `<span>`으로 이동 (`HoverDisclosure`에 `triggerClassName`/`triggerStyle`
+     prop 추가)
+   - 결과: 카드가 의도한 너비로 정상 표시됨. 이후 유사 애니메이션(교육 타임라인의 `display:contents`
+     `<li>` 등)에도 "패널의 조상에 transform 애니메이션을 걸지 않는다" 원칙을 코드 주석으로 남겨 재발 방지
+
+3. **React "두 자식이 같은 key를 가짐" 경고 (Next.js 개발자 오버레이에 Issues로 표시됨)**
+   - 원인: 학력/자격증 placeholder 데이터가 여러 항목에서 동일한 문자열이라, `key={entry.title+period}`
+     / `key={detail}`처럼 콘텐츠 기반 key를 쓰면서 중복 발생
+   - 해결: 인덱스 기반 key(`key={index}`)로 교체 (플레이스홀더 특성상 실데이터 입력 전까지는
+     안전한 선택)
+   - 결과: 개발자 오버레이 Issues 사라짐, 콘솔 경고 0건 확인
+
+✅ 테스트 완료:
+   - `bunx tsc --noEmit`, `bun run lint` 매 변경마다 통과 확인 (경고 0건)
+   - Playwright(Chromium) 설치 후 실제 스크린샷/DOM 순서/computed style로 라이트·다크 모드,
+     호버 카드 크기, 클릭 상호작용, 애니메이션 마크업을 다건 검증 (SSR 텍스트 확인만으로는
+     실제 렌더링 크기 버그를 못 잡는다는 것을 이번에 확인함 → 이후 시각 버그는 스크린샷으로 우선 검증)
+
+📍 다음: 실제 개인정보(이름/생년월일/이메일/위치/학력/어학·자격증 상세)로 placeholder 교체,
+   PR 생성 전 미커밋 파일 커밋
+```
+
+---
+
 ## 🎨 라이트 모드 추가
 
 **이 단계에서 해야 할 것:**
