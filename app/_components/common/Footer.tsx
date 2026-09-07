@@ -1,11 +1,5 @@
 import Link from "next/link";
-import { LAYOUT } from "@/lib/constants";
-
-// TODO: LINKEDIN, TWITTER 실제 프로필 URL로 교체
-const SOCIAL_LINKS = [
-  { label: "GITHUB", href: "https://github.com/ruiwaa" },
-  { label: "VELOG", href: "https://velog.io/@ruiwaa" },
-];
+import { LAYOUT, SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -21,7 +15,7 @@ export default function Footer() {
           YEJI.
         </Link>
 
-        <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
+        <p className="badge flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
           © {year} YEJI. ALL RIGHTS RESERVED.
         </p>
 

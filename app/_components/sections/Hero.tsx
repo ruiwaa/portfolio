@@ -1,28 +1,42 @@
-import Link from "next/link";
-
 export default function Hero() {
   return (
     <section aria-label="소개" className="flex flex-col justify-center">
+      <span className="anim-badge-in mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-light-border px-3 py-1 badge tracking-wide text-light-text-secondary dark:border-dark-border dark:text-dark-text-secondary">
+        <span aria-hidden="true" className="status-dot" />
+        SYS.LOG // CONTINUOUS LEARNING_
+      </span>
       <h1 className="h1 text-light-text dark:text-dark-text">
-        기록하고,
-        <br />
-        배우고,
-        <br />
-        나아갑니다
+        <span className="anim-headline-line1 relative block w-fit">
+          기록하고,
+          <span
+            aria-hidden="true"
+            className="anim-underline-1 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-300 dark:bg-gray-300"
+          />
+        </span>
+        <span className="anim-headline-line2 relative block w-fit">
+          배우고,
+          <span
+            aria-hidden="true"
+            className="anim-underline-2 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-400 dark:bg-gray-400"
+          />
+        </span>
+        <span className="anim-headline-line3 relative block w-fit">
+          나아갑니다
+          <span
+            aria-hidden="true"
+            className="anim-underline-3 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-500 dark:bg-gray-500"
+          />
+        </span>
       </h1>
-      <p className="body mt-6 flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
-        <span
-          aria-hidden="true"
-          className="h-4 w-px bg-light-border dark:bg-dark-border"
-        />
-        FRONTEND DEVELOPER
-      </p>
-      <Link
-        href="/experience"
-        className="mt-8 inline-flex w-fit items-center rounded-full border px-4 py-2 border-light-border text-light-text-secondary badge transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text-secondary dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
-      >
-        VIEW PROJECTS
-      </Link>
+      <div className="anim-cta-entrance mt-6">
+        <p className="body flex items-center gap-2 text-light-text-secondary dark:text-lime-400">
+          <span
+            aria-hidden="true"
+            className="h-4 w-px bg-light-border dark:bg-dark-border "
+          />
+          FRONTEND DEVELOPER
+        </p>
+      </div>
     </section>
   );
 }

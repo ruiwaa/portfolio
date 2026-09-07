@@ -31,7 +31,7 @@ export default function HoverDisclosure({
       </span>
       <p
         id={id}
-        className="body text-center pointer-events-none absolute top-full left-1/2 -translate-x-1/2 z-10 mt-3 w-full  max-w-2xl -translate-y-2 space-y-1.5 rounded-lg border-2 border-dashed border-light-border bg-light-surface px-5 py-7 text-light-text-secondary opacity-0 shadow-sm transition-all duration-200 group-hover/disclosure:translate-y-0 group-hover/disclosure:opacity-100 group-hover/disclosure:pointer-events-auto group-focus-within/disclosure:translate-y-0 group-focus-within/disclosure:opacity-100 group-focus-within/disclosure:pointer-events-auto dark:border-blue-500/30 dark:bg-dark-surface dark:text-white"
+        className="body text-center pointer-events-none absolute top-full left-1/2 -translate-x-1/2 z-10 mt-3 w-full  max-w-2xl -translate-y-2 space-y-1.5 rounded-lg border-2 border-dashed border-light-border bg-light-surface px-5 py-7 text-light-text-secondary opacity-0 shadow-sm transition-all duration-200 group-hover/disclosure:translate-y-0 group-hover/disclosure:opacity-100 group-hover/disclosure:pointer-events-auto group-focus-within/disclosure:translate-y-0 group-focus-within/disclosure:opacity-100 group-focus-within/disclosure:pointer-events-auto dark:border-dark-accent dark:bg-dark-surface dark:text-white"
       >
         {content.map((sentence, index) => (
           <span key={index} className="block">

@@ -52,6 +52,175 @@
   }
 }
 
+@keyframes headline-line-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Hero(수직 이동)와 구분되도록 카드는 수평 슬라이드로 진입 */
+@keyframes card-slide-in {
+  from {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cta-entrance-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -15px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Home Hero 진입 애니메이션 - prefers-reduced-motion 사용자는 즉시 전체 노출 */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-headline-line1,
+  .anim-headline-line2,
+  .anim-headline-line3 {
+    opacity: 0;
+    animation: headline-line-in 400ms ease-out both;
+  }
+  .anim-headline-line1 {
+    animation-delay: 0ms;
+  }
+  .anim-headline-line2 {
+    animation-delay: 100ms;
+  }
+  .anim-headline-line3 {
+    animation-delay: 200ms;
+  }
+
+  .anim-underline-1,
+  .anim-underline-2,
+  .anim-underline-3 {
+    transform-origin: left;
+    animation: underline-grow 500ms ease-out both;
+  }
+  .anim-underline-1 {
+    animation-delay: 0ms;
+  }
+  .anim-underline-2 {
+    animation-delay: 550ms;
+  }
+  .anim-underline-3 {
+    animation-delay: 1100ms;
+  }
+
+  .anim-card-1,
+  .anim-card-2,
+  .anim-card-3,
+  .anim-card-4 {
+    opacity: 0;
+    animation: card-slide-in 500ms ease-out both;
+  }
+  .anim-card-1 {
+    animation-delay: 150ms;
+  }
+  .anim-card-2 {
+    animation-delay: 250ms;
+  }
+  .anim-card-3 {
+    animation-delay: 350ms;
+  }
+  .anim-card-4 {
+    animation-delay: 450ms;
+  }
+
+  .anim-cta-entrance {
+    opacity: 0;
+    animation: cta-entrance-in 400ms ease-out both;
+    animation-delay: 350ms;
+  }
+
+  .anim-badge-in {
+    opacity: 0;
+    animation: badge-slide-in 300ms ease-out both;
+  }
+
+  .anim-fade-up {
+    opacity: 0;
+    animation: fade-up-in 0.6s ease-out both;
+  }
+
+  .status-dot {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 28s linear infinite;
+  }
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: #22c55e;
+}
+
+.marquee-track {
+  width: max-content;
+}
+
+@keyframes badge-slide-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 body {
   background: var(--color-light-surface);
   color: var(--color-light-text);

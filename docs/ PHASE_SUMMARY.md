@@ -505,8 +505,34 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      호버 카드 크기, 클릭 상호작용, 애니메이션 마크업을 다건 검증 (SSR 텍스트 확인만으로는
      실제 렌더링 크기 버그를 못 잡는다는 것을 이번에 확인함 → 이후 시각 버그는 스크린샷으로 우선 검증)
 
-📍 다음: 실제 개인정보(이름/생년월일/이메일/위치/학력/어학·자격증 상세)로 placeholder 교체,
-   PR 생성 전 미커밋 파일 커밋
+📍 다음: 실제 개인정보(이름/생년월일/이메일/위치/학력/어학·자격증 상세)로 placeholder 교체
+```
+
+(추신: 미커밋 파일은 이후 커밋되어 PR #17로 dev에 머지 완료)
+
+---
+
+## Phase 1️⃣1️⃣: Home Hero 섹션
+
+**요약 (Phase 5 MY RECORDER 세션에서 함께 구현되어 이미 커밋되어 있었음, 이번 세션은 검증 + 문서 정리):**
+
+```
+✅ 대상 파일:
+   - app/_components/sections/Hero.tsx (Phase 5 "feat: MY RECORDER 카드 섹션 추가" 커밋에 포함)
+   - app/page.tsx (Hero + MyRecorder를 2단 그리드로 배치)
+
+✅ 구현 내용:
+   - 좌측 메인 카피 "기록하고, / 배우고, / 나아갑니다" (h1, 3줄)
+   - "FRONTEND DEVELOPER" 서브텍스트
+   - "VIEW PROJECTS" CTA 버튼 → /experience로 이동 (pill 모양, 호버/포커스 시 accent 컬러)
+
+✅ 검증 (Playwright, Chromium 헤드리스):
+   - 헤딩/서브텍스트/CTA 버튼 텍스트 및 표시 여부 확인
+   - CTA 버튼 클릭 → /experience 정상 이동 확인
+   - 라이트/다크 모드 전환 후 스크린샷 비교, 콘솔 에러 0건 확인
+   - bunx tsc --noEmit, bun run lint 통과 확인
+
+📍 다음: Phase 12 - Posts 상세 페이지
 ```
 
 ---

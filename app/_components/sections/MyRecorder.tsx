@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Card from "@/app/_components/ui/Card";
 import { LAYOUT } from "@/lib/constants";
 
@@ -30,28 +31,25 @@ export default function MyRecorder() {
         MY RECORDER
       </h2>
       <div className={`mt-6 flex flex-col ${LAYOUT.componentGap}`}>
-        {RECORDER_ITEMS.map((item) => (
-          <article key={item.href}>
+        {RECORDER_ITEMS.map((item, index) => (
+          <article key={item.href} className={`anim-card-${index + 1}`}>
             <Link
               href={item.href}
-              className="group block rounded-lg transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
+              className="group block rounded-lg transition-transform duration-200 hover:-translate-y-1.5 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
             >
               <Card
                 accent={item.accent}
-                className="transition-[filter] duration-200 group-hover:brightness-95"
+                className="flex min-h-30 items-center transition-[filter] duration-200 group-hover:brightness-95"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-row gap-5 items-center">
-                    <span className="badge text-light-text">{item.number}</span>
-                    <h2 className="body mt-2 text-light-text text-3xl whitespace-nowrap">
-                      {item.label}
-                    </h2>
-                  </div>
+                <div className="flex  flex-row w-full items-center justify-between">
+                  <h2 className="headline-lg min-w-0 text-light-text dark:text-dark-accent dark:[-webkit-text-stroke:1px_gray]">
+                    {item.label}
+                  </h2>
                   <span
                     aria-hidden="true"
-                    className="text-light-text transition-transform duration-200 group-hover:translate-x-1"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-light-surface text-light-text transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 dark:bg-dark-surface dark:text-dark-text"
                   >
-                    →
+                    <ArrowUpRight size={16} strokeWidth={3} />
                   </span>
                 </div>
               </Card>

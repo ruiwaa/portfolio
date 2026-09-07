@@ -1,5 +1,6 @@
 import Hero from "@/app/_components/sections/Hero";
 import MyRecorder from "@/app/_components/sections/MyRecorder";
+import StackBar from "@/app/_components/sections/StackBar";
 import { LAYOUT } from "@/lib/constants";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <Hero />
         <MyRecorder />
       </div>
+      <StackBar />
     </main>
   );
 }
