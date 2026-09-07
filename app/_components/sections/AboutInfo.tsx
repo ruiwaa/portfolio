@@ -144,7 +144,7 @@ export default function AboutInfo() {
         <BookOpen /> 학습
       </h2>
 
-      <ol className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-10">
+      <ol className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-10 justify-center">
         {EDUCATION.map((entry, index) => {
           const entranceStyle = { animationDelay: `${150 + index * 120}ms` };
           const entranceClassName = `motion-safe:opacity-0 ${
@@ -161,9 +161,9 @@ export default function AboutInfo() {
               >
                 <span
                   aria-hidden="true"
-                  className="text-light-accent dark:text-dark-accent"
+                  className="status-dot dark:text-dark-accent mr-2"
                 >
-                  •{" "}
+                  {" "}
                 </span>
                 {entry.period}
               </span>

@@ -24,7 +24,7 @@ export default function AboutIntro() {
 
   return (
     <section ref={ref} aria-label="소개">
-      <p
+      <h2
         style={{ animationDelay: "0ms" }}
         className={`relative mt-10 text-2xl text-center motion-safe:opacity-0 text-light-text-secondary dark:text-dark-text-secondary ${
           isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
@@ -37,7 +37,7 @@ export default function AboutIntro() {
         안녕하세요, <strong>기록</strong>하고 배우며 <strong>성장</strong>하는
         <br />
         프론트엔드 개발자 <strong>장예지</strong>입니다.
-      </p>
+      </h2>
 
       <ul
         aria-label="외부 링크"
