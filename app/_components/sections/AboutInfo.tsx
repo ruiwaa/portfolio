@@ -140,11 +140,11 @@ export default function AboutInfo() {
         </ul>
       </div>
 
-      <h2 className="section-header mt-40 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
+      <h2 className="section-header mt-45 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
         <BookOpen /> 학습
       </h2>
 
-      <ol className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-10 justify-center">
+      <ol className="mt-8 grid grid-cols-[auto_minmax(0,28rem)] justify-center gap-x-6 gap-y-10">
         {EDUCATION.map((entry, index) => {
           const entranceStyle = { animationDelay: `${150 + index * 120}ms` };
           const entranceClassName = `motion-safe:opacity-0 ${
