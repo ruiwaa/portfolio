@@ -23,22 +23,25 @@ export default function AboutIntro() {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-label="소개" className="overflow-x-hidden">
-      <h2
+    <section ref={ref} aria-labelledby="about-intro-heading">
+      <h2 id="about-intro-heading" className="sr-only">
+        소개
+      </h2>
+      <p
         style={{ animationDelay: "0ms" }}
-        className={`relative mt-10 text-2xl text-center motion-safe:opacity-0 text-light-text-secondary dark:text-dark-text-secondary ${
+        className={`relative mt-10 text-2xl text-center motion-safe:opacity-0 text-light-text-secondary dark:text-dark-accent ${
           isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
         }`}
       >
         <span aria-hidden="true" className="absolute inset-0 -z-10">
-          <span className="absolute top-1/2 left-1/2 h-20 w-56 -translate-x-[58%] -translate-y-[95%] -rotate-6 rounded-[50%] bg-mint sm:h-24 sm:w-72 dark:bg-mint/45" />
-          <span className="absolute top-1/2 left-1/2 h-20 w-56 -translate-x-[50%] -translate-y-[50%] rotate-2 rounded-[50%] bg-peach sm:h-24 sm:w-72 dark:bg-peach/45" />
-          <span className="absolute top-1/2 left-1/2 h-20 w-56 -translate-x-[42%] -translate-y-[5%] -rotate-3 rounded-[50%] bg-sky sm:h-24 sm:w-72 dark:bg-sky/45" />
+          <span className="absolute top-1/2 left-1/2 h-30 w-56 translate-x-[-50%] translate-y-[-95%]  rounded-[50%] bg-mint/80 sm:h-24 sm:w-72 dark:bg-mint/45" />
+          <span className="absolute top-1/2 left-1/2 h-30 w-56 translate-x-[-50%] translate-y-[-50%]  rounded-[50%] bg-peach/80 sm:h-24 sm:w-72 dark:bg-peach/45" />
+          <span className="absolute top-1/2 left-1/2 h-30 w-56 translate-x-[-50%] translate-y-[-5%]  rounded-[50%] bg-sky/80 sm:h-24 sm:w-72 dark:bg-sky/45" />
         </span>
         <strong>기록</strong>하고 배우며 <strong>성장</strong>하는
         <br />
         프론트엔드 개발자 <strong>장예지</strong>입니다.
-      </h2>
+      </p>
 
       <ul
         aria-label="외부 링크"
@@ -65,6 +68,7 @@ export default function AboutIntro() {
                   />
                 }
               />
+              <span className="sr-only"> (새 탭에서 열림)</span>
             </a>
           </li>
         ))}
