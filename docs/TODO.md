@@ -120,26 +120,27 @@
 
 ### Phase 9 (10분): Footer 컴포넌트
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 9 프롬프트 실행
-  - [ ] Footer.tsx 생성
-  - [ ] 로고, 저작권 문구, 외부 링크
-- [ ] 테스트:
-  - [ ] 외부 링크 새 탭 열림
-  - [ ] 라이트/다크 모드
-- [ ] Git 커밋: `git commit -m "feat: 푸터 컴포넌트 추가"`
+- [x] CLAUDE_CODE_PROMPTS.md Phase 9 프롬프트 실행
+  - [x] Footer.tsx 생성
+  - [x] 로고, 저작권 문구, 외부 링크
+- [x] 테스트:
+  - [x] 외부 링크 새 탭 열림 (`rel="noopener noreferrer"`)
+  - [x] 라이트/다크 모드
+- [x] Git 커밋 완료 (이전 세션)
 
 ### Phase 10 (25분): About Me 페이지
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 10 프롬프트 실행
-  - [ ] AboutInfo.tsx, AboutVision.tsx 생성
-  - [ ] app/(routes)/about/page.tsx 생성
-- [ ] 테스트:
-  - [ ] 정보 테이블 표시
-  - [ ] 기술 배지 표시
-  - [ ] 기록의 여정 4단계 타임라인
-  - [ ] 2단 레이아웃
-  - [ ] 라이트/다크 모드
-- [ ] Git 커밋: `git commit -m "feat: About Me 페이지 추가"`
+- [x] AboutIntro.tsx / AboutInfo.tsx / AboutVision.tsx 생성 (기획 단계의 단일 AboutInfo.tsx에서
+      인사말+외부링크(AboutIntro) / 기술스택+교육(AboutInfo) / 기록의 여정(AboutVision)으로 재분리)
+  - [x] app/(routes)/about/page.tsx 생성 — AboutIntro → AboutVision → AboutInfo 순서로 세로 배치
+- [x] 테스트:
+  - [x] ~~정보 테이블 표시~~ → 인적사항 테이블을 "교육 및 어학" 코딩 스타일 타임라인으로 대체 (요청에 따라 범위 변경)
+  - [x] 기술 배지 표시 (react-icons/si 브랜드 로고 + 시그니처 컬러, 호버/포커스 시 상세 카드)
+  - [x] 기록의 여정 4단계 타임라인 (클릭 시 우측 상세 카드로 전환, 굵은 점선 테두리)
+  - [x] ~~2단 레이아웃~~ → 세로 1단 레이아웃 + 스크롤 인뷰 애니메이션으로 변경 (요청에 따라 범위 변경)
+  - [x] 라이트/다크 모드
+- [ ] Git 커밋: 일부 파일 미커밋 상태 (AboutInfo.tsx, AboutVision.tsx, HoverDisclosure.tsx,
+      app/_hooks/useInView.ts 등) — PR 전 커밋 필요
 
 ### Phase 11 (15분): Home Hero 섹션
 

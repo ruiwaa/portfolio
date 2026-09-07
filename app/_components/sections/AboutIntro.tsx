@@ -32,7 +32,7 @@ export default function AboutIntro() {
       >
         <span
           aria-hidden="true"
-          className="absolute inset-x-1/4 top-1/2 -z-10 h-20 -translate-y-1/2 rounded-full bg-orange-300/70 blur-3xl dark:bg-lime-300/10"
+          className="absolute inset-x-1/4 top-1/2 -z-10 h-20 -translate-y-1/2 rounded-full bg-orange-300/70 blur-3xl dark:bg-lime-300/20"
         />
         안녕하세요, <strong>기록</strong>하고 배우며 <strong>성장</strong>하는
         <br />
