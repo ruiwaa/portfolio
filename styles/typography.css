@@ -32,6 +32,10 @@
   font-size: 12px;
 }
 
+.md {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 15px;
+}
 .headline-lg {
   font-family: var(--font-syne), sans-serif;
   font-size: 32px;

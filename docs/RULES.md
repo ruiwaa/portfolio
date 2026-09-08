@@ -6,7 +6,7 @@
 
 ## 🔐 보안 규칙
 
-- `.env` 절대 git 커밋 금지 (`.gitignore`에 포함 확인)
+- `.env.local` 절대 git 커밋 금지 (`.gitignore`에 포함 확인)
 - `NEXT_PUBLIC_*` 접두사라도 민감 정보(API 시크릿 키 등) 저장 금지
 - 클라이언트 코드에서 `SUPABASE_SERVICE_ROLE_KEY` 사용 금지 (서버에서만)
 - 모든 Supabase 호출은 try-catch로 감싼다
@@ -20,6 +20,12 @@
 - 커밋 전 반드시 `bun run type-check` 통과 확인
 - 브랜치 전략: `feature/`, `fix/`, `refactor/`, `chore/`, `docs/`, `style/`, `perf/`
 - 커밋 타입: `feat`, `fix`, `refactor`, `chore`, `docs`, `style`, `perf`
+
+## 🧱 코드 구조 규칙
+
+- 컴포넌트 파일이 300줄을 넘으면 무조건 분리한다 (import/타입 정의 포함 전체 라인 기준)
+- 250줄 시점부터 분리를 검토하고, 300줄을 넘기기 전에 미리 나눈다
+- 분리 기준: 반복 UI 블록 → 하위 컴포넌트, 복잡한 로직 → 커스텀 훅, 큰 상수/데이터 → 별도 파일
 
 ## 💬 Claude Code 사용 규칙
 

@@ -152,27 +152,28 @@
 
 ### Phase 12 (25분): Posts 상세 페이지
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 12 프롬프트 실행
-  - [ ] app/(routes)/posts/[slug]/page.tsx 생성
-  - [ ] PostContent.tsx 생성
-- [ ] 테스트:
-  - [ ] slug 단건 조회
-  - [ ] 404 처리
-  - [ ] 본문 렌더링
-  - [ ] 메타데이터 동적 설정
-  - [ ] 라이트/다크 모드
-- [ ] Git 커밋: `git commit -m "feat: Posts 상세 페이지와 콘텐츠 렌더링 추가"`
+- [x] app/(routes)/posts/[slug]/page.tsx 생성 (generateMetadata + notFound)
+  - [x] PostContent.tsx 생성 (Tiptap HTML 렌더링, `.post-content` 전용 스타일 추가)
+  - [x] `getPostBySlug` 추가 (app/_lib/posts.ts)
+- [x] 테스트:
+  - [x] slug 단건 조회 (`getPostBySlug` - `is_published` 필터 포함)
+  - [x] 404 처리 (`notFound()`, 실제 200/404 상태 코드까지 확인)
+  - [x] 본문 렌더링 (`dangerouslySetInnerHTML` + `.post-content` 스타일)
+  - [x] 메타데이터 동적 설정 (`generateMetadata` - title/description/OG 확인)
+  - [x] 라이트/다크 모드
+- [ ] Git 커밋
 
 ### Phase 13 (20분): Posts 페이지네이션
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 13 프롬프트 실행
-  - [ ] "더 많은 글 보기" 버튼 추가
-  - [ ] Supabase range() 페이지네이션
-- [ ] 테스트:
-  - [ ] 버튼 클릭 시 추가 로드
-  - [ ] 필터 변경 시 초기화
-  - [ ] 마지막 페이지 처리
-- [ ] Git 커밋: `git commit -m "feat: Posts 목록 페이지네이션 추가"`
+- [x] "더 많은 글 보기" 버튼 추가 (Posts.tsx)
+  - [x] Supabase range() 페이지네이션 (getPublishedPosts에 offset/category 파라미터 추가,
+        count: "exact"로 hasMore 계산)
+- [x] 테스트 (Playwright, /api/posts 모킹으로 다중 페이지 상황 재현 - 실 DB엔 테스트 게시물 1건뿐):
+  - [x] 버튼 클릭 시 추가 로드 (6→12→14개, 마지막 페이지까지 누적 확인)
+  - [x] 필터 변경 시 초기화 (카테고리 전환 시 해당 카테고리의 1페이지부터 새로 로드,
+        같은 카테고리로 복귀 시 기존에 불러온 페이지는 캐시로 유지됨 - TanStack Query 기본 동작)
+  - [x] 마지막 페이지 처리 (hasMore=false일 때 버튼 자동 숨김)
+- [ ] Git 커밋
 
 ### Phase 14 (15분): Hero 좌측 카피 Fade-in
 

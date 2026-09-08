@@ -267,3 +267,124 @@ body {
       transparent 32px
     );
 }
+
+/* Posts 상세 - Tiptap이 생성한 HTML을 렌더링하는 영역 (@tailwindcss/typography 미설치라 직접 정의) */
+.post-content {
+  color: var(--color-light-text);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+:where(.dark) .post-content {
+  color: var(--color-dark-text);
+}
+
+.post-content :where(h2) {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.post-content :where(h3) {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.post-content :where(p) {
+  margin-top: 1.25rem;
+}
+
+.post-content :where(ul, ol) {
+  margin-top: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.post-content :where(ul) {
+  list-style: disc;
+}
+
+.post-content :where(ol) {
+  list-style: decimal;
+}
+
+.post-content :where(li) {
+  margin-top: 0.5rem;
+}
+
+.post-content :where(a) {
+  color: var(--color-light-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+:where(.dark) .post-content :where(a) {
+  color: var(--color-dark-accent);
+}
+
+.post-content :where(strong) {
+  font-weight: 700;
+}
+
+.post-content :where(code) {
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  background: var(--color-light-surface-dim);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.9em;
+}
+
+:where(.dark) .post-content :where(code) {
+  background: var(--color-dark-surface-dim);
+}
+
+.post-content :where(pre) {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--color-light-surface-dim);
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+:where(.dark) .post-content :where(pre) {
+  background: var(--color-dark-surface-dim);
+}
+
+.post-content :where(pre code) {
+  padding: 0;
+  background: none;
+}
+
+.post-content :where(blockquote) {
+  margin-top: 1.25rem;
+  border-left: 3px solid var(--color-light-accent);
+  padding-left: 1rem;
+  color: var(--color-light-text-secondary);
+  font-style: italic;
+}
+
+:where(.dark) .post-content :where(blockquote) {
+  border-color: var(--color-dark-accent);
+  color: var(--color-dark-text-secondary);
+}
+
+.post-content :where(img) {
+  margin-top: 1.5rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.post-content :where(hr) {
+  margin: 2rem 0;
+  border-color: var(--color-light-border);
+}
+
+:where(.dark) .post-content :where(hr) {
+  border-color: var(--color-dark-border);
+}
