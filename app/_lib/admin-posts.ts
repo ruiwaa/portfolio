@@ -20,6 +20,22 @@ export async function getAllPostsForAdmin(): Promise<Post[]> {
   return data ?? [];
 }
 
+export async function getPostById(id: string): Promise<Post | null> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("getPostById failed:", error);
+    throw new Error("게시물을 불러오지 못했습니다.");
+  }
+
+  return data;
+}
+
 function readPostFields(formData: FormData) {
   return {
     title: String(formData.get("title") ?? "").trim(),
