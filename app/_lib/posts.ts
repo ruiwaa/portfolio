@@ -44,10 +44,14 @@ export async function getPublishedPosts({
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
+    // 라우트 파라미터가 퍼센트 인코딩된 채로 들어올 때가 있어(한글 slug 등) 항상 디코딩 후 조회.
+    // 이미 디코딩된 값이 들어와도 decodeURIComponent는 그대로 통과시키므로 안전함
+    const decodedSlug = decodeURIComponent(slug);
+
     const { data, error } = await getSupabaseClient()
       .from("posts")
       .select("*")
-      .eq("slug", slug)
+      .eq("slug", decodedSlug)
       .eq("is_published", true)
       .maybeSingle();
 
