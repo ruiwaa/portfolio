@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import TiptapEditor from "@/app/_components/admin/TiptapEditor";
+import ThumbnailInput from "@/app/_components/admin/ThumbnailInput";
 import type { Post, PostCategory } from "@/types/posts";
 
-const CATEGORIES: PostCategory[] = ["Study", "Troubleshooting", "Retrospective"];
+const CATEGORIES: PostCategory[] = [
+  "Study",
+  "Troubleshooting",
+  "Retrospective",
+];
 
 function slugify(title: string): string {
   return title
@@ -32,27 +37,32 @@ export default function PostForm({
   deleteAction,
   error,
 }: PostFormProps) {
+  const formId = useId();
+  const contentLabelId = useId();
   const [title, setTitle] = useState(post?.title ?? "");
   const [slug, setSlug] = useState(post?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(post));
   const [content, setContent] = useState(post?.content ?? "");
+  const [thumbnailUrl, setThumbnailUrl] = useState(post?.thumnail_url ?? "");
 
   return (
     <div>
       {error && (
         <p
           role="alert"
-          className="mb-6 rounded-lg border border-light-accent bg-light-surface-dim px-4 py-3 badge text-light-accent dark:border-dark-accent dark:bg-dark-surface-dim dark:text-dark-accent"
+          className="mb-6 rounded-lg border border-light-accent bg-light-surface-dim px-4 py-3 md text-light-accent dark:border-dark-accent dark:bg-dark-surface-dim dark:text-dark-accent"
         >
           {error}
         </p>
       )}
 
-      <form action={action} className="space-y-6">
+      {/* 삭제 폼은 HTML상 <form>을 중첩할 수 없어서(hydration 에러 원인) 아래 버튼 영역에서
+          이 폼과 형제 관계로 따로 두고, 저장 버튼만 form="{formId}"로 이 폼과 연결한다 */}
+      <form id={formId} action={action} className="space-y-6">
         <div>
           <label
             htmlFor="title"
-            className="badge text-light-text-secondary dark:text-dark-text-secondary"
+            className="md text-light-text-secondary dark:text-dark-text-secondary"
           >
             제목
           </label>
@@ -76,7 +86,7 @@ export default function PostForm({
         <div>
           <label
             htmlFor="slug"
-            className="badge text-light-text-secondary dark:text-dark-text-secondary"
+            className="md text-light-text-secondary dark:text-dark-text-secondary"
           >
             슬러그 (URL)
           </label>
@@ -97,7 +107,7 @@ export default function PostForm({
         <div>
           <label
             htmlFor="description"
-            className="badge text-light-text-secondary dark:text-dark-text-secondary"
+            className="md text-light-text-secondary dark:text-dark-text-secondary"
           >
             설명 (목록 카드에 표시, 선택)
           </label>
@@ -114,7 +124,7 @@ export default function PostForm({
           <div>
             <label
               htmlFor="category"
-              className="badge text-light-text-secondary dark:text-dark-text-secondary"
+              className="md text-light-text-secondary dark:text-dark-text-secondary"
             >
               카테고리
             </label>
@@ -134,7 +144,7 @@ export default function PostForm({
           </div>
 
           <div className="flex items-end pb-2.5">
-            <label className="flex items-center gap-2 badge text-light-text-secondary dark:text-dark-text-secondary">
+            <label className="flex items-center gap-2 md text-light-text-secondary dark:text-dark-text-secondary">
               <input
                 type="checkbox"
                 name="is_published"
@@ -145,60 +155,55 @@ export default function PostForm({
           </div>
         </div>
 
-        <div>
-          <label
-            htmlFor="thumnail_url"
-            className="badge text-light-text-secondary dark:text-dark-text-secondary"
-          >
-            썸네일 이미지 URL
-          </label>
-          <input
-            id="thumnail_url"
-            name="thumnail_url"
-            type="url"
-            required
-            defaultValue={post?.thumnail_url ?? ""}
-            className={inputClassName}
-          />
-        </div>
+        <ThumbnailInput value={thumbnailUrl} onChange={setThumbnailUrl} />
 
         <div>
-          <span className="badge text-light-text-secondary dark:text-dark-text-secondary">
+          <span
+            id={contentLabelId}
+            className="md text-light-text-secondary dark:text-dark-text-secondary"
+          >
             본문
           </span>
           <div className="mt-1">
-            <TiptapEditor content={content} onChange={setContent} />
+            <TiptapEditor
+              content={content}
+              onChange={setContent}
+              ariaLabelledBy={contentLabelId}
+            />
           </div>
           <input type="hidden" name="content" value={content} />
         </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            type="submit"
-            className="rounded-full bg-light-accent px-6 py-2 badge text-white transition-opacity duration-200 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-accent dark:text-dark-surface dark:focus-visible:outline-dark-accent"
-          >
-            {post ? "저장" : "작성"}
-          </button>
-
-          {deleteAction && (
-            <form
-              action={deleteAction}
-              onSubmit={(event) => {
-                if (!window.confirm("이 게시물을 삭제할까요? 되돌릴 수 없습니다.")) {
-                  event.preventDefault();
-                }
-              }}
-            >
-              <button
-                type="submit"
-                className="rounded-full border border-light-border px-6 py-2 badge text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text-secondary dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
-              >
-                삭제
-              </button>
-            </form>
-          )}
-        </div>
       </form>
+
+      <div className="mt-6 flex items-center gap-3">
+        <button
+          type="submit"
+          form={formId}
+          className=" md rounded-full bg-light-accent px-6 py-2 text-white transition-opacity duration-200 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-accent dark:text-dark-surface dark:focus-visible:outline-dark-accent"
+        >
+          {post ? "저장" : "작성"}
+        </button>
+
+        {deleteAction && (
+          <form
+            action={deleteAction}
+            onSubmit={(event) => {
+              if (
+                !window.confirm("이 게시물을 삭제할까요? 되돌릴 수 없습니다.")
+              ) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <button
+              type="submit"
+              className="rounded-full border border-light-border px-6 py-2 md text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text-secondary dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+            >
+              삭제
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
