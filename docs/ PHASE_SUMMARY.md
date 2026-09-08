@@ -614,7 +614,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      → DB 권한을 우회하지 않고, 대신 Playwright route 모킹으로 클라이언트 로직만
        독립적으로 검증하는 방식으로 전환 (실제 데이터베이스에 손대지 않아 더 안전했음)
 
-📍 다음: Phase 14 - Hero 좌측 카피 Fade-in
+📍 다음: Phase 1️⃣4️⃣: Experience Projects 섹션 테스트 콘텐츠
 ```
 
 ---
