@@ -6,9 +6,10 @@ import { LAYOUT } from "@/lib/constants";
 
 export default async function PostsPage() {
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["posts"],
-    queryFn: getPublishedPosts,
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["posts", "All"],
+    queryFn: () => getPublishedPosts({ offset: 0 }),
+    initialPageParam: 0,
   });
 
   return (
