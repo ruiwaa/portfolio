@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 interface TiptapEditorProps {
   content: string;
   onChange: (html: string) => void;
+  ariaLabelledBy?: string;
 }
 
 interface ToolbarButtonProps {
@@ -35,7 +36,11 @@ function ToolbarButton({ active, onClick, label, children }: ToolbarButtonProps)
 
 function Toolbar({ editor }: { editor: Editor }) {
   return (
-    <div className="flex flex-wrap gap-1 border-b border-light-border p-2 dark:border-dark-border">
+    <div
+      role="toolbar"
+      aria-label="서식 도구"
+      className="flex flex-wrap gap-1 border-b border-light-border p-2 dark:border-dark-border"
+    >
       <ToolbarButton
         label="굵게"
         active={editor.isActive("bold")}
