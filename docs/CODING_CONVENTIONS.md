@@ -4,15 +4,15 @@
 
 ## 📛 네이밍 규칙
 
-| 대상 | 규칙 | 예시 |
-|------|------|------|
-| 라우팅 폴더 | kebab-case | `app/user-profile/` |
-| 컴포넌트 파일 | PascalCase | `PostCard.tsx` |
-| 함수/훅 파일 | camelCase | `useFetchPosts.ts` |
-| 동적 라우트 | 대괄호 | `[slug]/page.tsx` |
-| 비라우팅 폴더 | 언더바 접두사 | `app/_components/` |
-| 타입/인터페이스 | PascalCase | `Post`, `PostCardProps` |
-| 상수 | UPPER_SNAKE_CASE | `LAYOUT.CONTAINER` |
+| 대상            | 규칙             | 예시                    |
+| --------------- | ---------------- | ----------------------- |
+| 라우팅 폴더     | kebab-case       | `app/user-profile/`     |
+| 컴포넌트 파일   | PascalCase       | `PostCard.tsx`          |
+| 함수/훅 파일    | camelCase        | `useFetchPosts.ts`      |
+| 동적 라우트     | 대괄호           | `[slug]/page.tsx`       |
+| 비라우팅 폴더   | 언더바 접두사    | `app/_components/`      |
+| 타입/인터페이스 | PascalCase       | `Post`, `PostCardProps` |
+| 상수            | UPPER_SNAKE_CASE | `LAYOUT.CONTAINER`      |
 
 ## 🧩 컴포넌트 작성 규칙
 
@@ -20,6 +20,11 @@
 - Props는 인터페이스로 명시적 정의
 - 기본 export는 컴포넌트 하나만
 - 컴포넌트당 하나의 책임만 (UI만 담당, 데이터 fetch는 상위에서)
+- **컴포넌트 파일이 300줄을 넘으면 무조건 분리한다** (import/타입 정의 포함 전체 라인 기준)
+  - 반복되는 UI 블록 → 하위 컴포넌트로 추출
+  - 복잡한 로직(상태, 이펙트, 계산) → 커스텀 훅으로 추출
+  - 상수/데이터 배열이 크면 별도 파일(`constants.ts`, `data.ts`)로 분리
+  - 300줄 임박 시점(250줄 이상)부터 분리를 고려하고, 넘기 전에 미리 나눈다
 
 ```typescript
 interface PostCardProps {
@@ -37,17 +42,17 @@ export function PostCard({ title, description, slug }: PostCardProps) {
 
 ```typescript
 // 1. React/Next
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
 // 2. 외부 라이브러리
-import { motion } from 'motion/react';
+import { motion } from "motion/react";
 
 // 3. 내부 절대경로
-import { Card } from '@/app/_components/ui/Card';
+import { Card } from "@/app/_components/ui/Card";
 
 // 4. 타입
-import type { Post } from '@/types/posts';
+import type { Post } from "@/types/posts";
 ```
 
 ## 🎨 Tailwind 클래스 순서
@@ -57,7 +62,8 @@ import type { Post } from '@/types/posts';
 ```
 
 ```typescript
-className="flex items-center w-full p-6 bg-light-surface text-light-text hover:text-light-accent dark:bg-dark-surface dark:text-dark-text"
+className =
+  "flex items-center w-full p-6 bg-light-surface text-light-text hover:text-light-accent dark:bg-dark-surface dark:text-dark-text";
 ```
 
 ## 🔒 타입 규칙

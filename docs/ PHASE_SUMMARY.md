@@ -537,6 +537,88 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
 
 ---
 
+## Phase 1️⃣2️⃣: Posts 상세 페이지
+
+**요약:**
+
+```
+✅ 생성된 파일:
+   - app/_components/sections/PostContent.tsx (Tiptap HTML을 dangerouslySetInnerHTML로 렌더링)
+
+✅ 수정된 파일:
+   - app/(routes)/posts/[slug]/page.tsx (플레이스홀더 → 실제 조회/렌더링/메타데이터로 구현)
+   - app/_lib/posts.ts (getPostBySlug 추가 - slug + is_published 필터, maybeSingle)
+   - app/globals.css (.post-content - h2/h3/p/ul/ol/a/code/pre/blockquote/img 등 커스텀 prose 스타일,
+     @tailwindcss/typography 미설치라 디자인 시스템 토큰으로 직접 정의)
+
+✅ 구현 내용:
+   - 동적 라우팅 [slug] + Supabase 단건 조회 (getPostBySlug)
+   - 존재하지 않거나 미공개(is_published=false) 게시물은 notFound()로 404 처리
+   - generateMetadata로 title/description/OG 태그 동적 설정 (게시물 없을 때 폴백 타이틀도 처리)
+   - 카테고리 배지 + 제목 + 발행일 + 썸네일(next/image) + 본문(PostContent) 순서로 렌더링
+
+✅ 검증:
+   - 실제 Supabase 데이터(slug: test-post-1)로 조회 성공 확인 (curl 200)
+   - 존재하지 않는 slug → 404 상태 코드 확인 (curl 404)
+   - <title>, og:description 태그에 실제 게시물 데이터 반영 확인
+   - Playwright로 라이트/다크 모드 스크린샷 확인
+   - bunx tsc --noEmit, bun run lint 통과
+   - bun run build 프로덕션 빌드 성공, /posts/[slug]가 ƒ(Dynamic)로 정상 표시
+
+✅ 트러블슈팅:
+   - notFound() 호출 시 개발 모드 콘솔에 "Encountered a script tag..." React 경고 발견
+     → 원인: layout.tsx의 테마 초기화 인라인 <script> + notFound() 바운더리 조합에서만 발생하는
+       React 개발 모드 전용 경고 (프로덕션 빌드로 재현 시 사라짐 확인) → 실사용에 영향 없어 그대로 둠
+
+📍 다음: Phase 13 - Posts 페이지네이션
+```
+
+---
+
+## Phase 1️⃣3️⃣: Posts 페이지네이션
+
+**요약:**
+
+```
+✅ 수정된 파일:
+   - lib/constants.ts (POSTS_PAGE_SIZE=6 - 클라이언트/서버 공용 상수)
+   - app/_lib/posts.ts (getPublishedPosts가 { category, offset }를 받아
+     { posts, hasMore }를 반환하도록 변경, count: "exact" + range()로 hasMore 계산)
+   - app/api/posts/route.ts (?category=&offset= 쿼리 파라미터 파싱, 유효하지 않은
+     category는 무시)
+   - app/(routes)/posts/page.tsx (prefetchQuery → prefetchInfiniteQuery로 전환)
+   - app/_components/sections/Posts.tsx (useQuery → useInfiniteQuery, 카테고리 필터를
+     클라이언트 필터링에서 서버 쿼리 파라미터로 이동, 하단 "더 많은 글 보기" 버튼 추가)
+
+✅ 구현 내용:
+   - 카테고리 필터가 이제 Supabase 쿼리 단에서 처리됨 (기존엔 전체를 받아 클라이언트에서
+     필터링) - 카테고리 전환 시 useInfiniteQuery의 쿼리 키(["posts", category])가
+     바뀌면서 자동으로 해당 카테고리의 1페이지부터 새로 로드
+   - "더 많은 글 보기" 클릭 → fetchNextPage()로 다음 offset 요청, 기존 목록 뒤에 이어붙임
+   - hasMore가 false면 버튼 자동 숨김 (마지막 페이지 처리)
+
+✅ 검증:
+   - 실 DB에는 테스트 게시물이 1건뿐이라 다중 페이지 상황을 재현할 수 없어,
+     Playwright route 모킹으로 /api/posts 응답을 가로채 Study 14건 / Troubleshooting 3건 /
+     Retrospective 0건의 가상 데이터로 테스트
+   - 초기 6개 → 버튼 클릭 1회 12개 → 2회 14개(마지막 페이지, 버튼 사라짐) 확인
+   - 카테고리 전환 시 해당 카테고리 1페이지로 리셋, 빈 카테고리는 안내 문구 표시 확인
+   - 같은 카테고리로 복귀 시 기존에 불러온 페이지가 유지되는 것도 확인
+     (TanStack Query가 쿼리 키별로 페이지를 누적 캐싱하는 기본 동작 - 의도한 대로임)
+   - 실제 DB(게시물 1건)로도 /api/posts 응답 형태가 { posts, hasMore } 정상 확인
+   - bunx tsc --noEmit, bun run lint 통과
+
+✅ 트러블슈팅:
+   - 서비스 롤 키로 테스트 게시물을 임시로 여러 건 추가해 실 DB에서 페이지네이션을
+     검증하려 했으나 "permission denied for table posts" (INSERT 권한 없음)로 실패
+     → DB 권한을 우회하지 않고, 대신 Playwright route 모킹으로 클라이언트 로직만
+       독립적으로 검증하는 방식으로 전환 (실제 데이터베이스에 손대지 않아 더 안전했음)
+
+📍 다음: Phase 14 - Hero 좌측 카피 Fade-in
+```
+
+---
+
 ## 🎨 라이트 모드 추가
 
 **이 단계에서 해야 할 것:**

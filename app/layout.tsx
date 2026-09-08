@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import Header from "./_components/common/Header";
 import Footer from "./_components/common/Footer";
 import QueryProvider from "./_components/providers/QueryProvider";
@@ -42,7 +43,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {/* next/script(beforeInteractive)를 써야 클라이언트 재렌더링(예: notFound() 바운더리) 시
+            React가 "Encountered a script tag..." 경고를 띄우지 않음 - 일반 <script>는 프레임워크가
+            특별 취급하지 않아 재조정 때마다 이 경고의 대상이 됨 */}
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <QueryProvider>
