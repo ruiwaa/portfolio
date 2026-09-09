@@ -177,13 +177,13 @@
 
 ### Phase 14 (30분): Experience Projects 섹션 테스트 콘텐츠
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 14 프롬프트 실행
-  - [ ] PROJECTS 섹션 헤더 추가
-  - [ ] 테스트 프로젝트 카드 3개 추가
-- [ ] 테스트:
-  - [ ] 이미지/제목/설명/태그 표시 확인
-  - [ ] 카드 배경색 순환 확인
-  - [ ] 반응형(모바일 1열) 확인
+- [x] CLAUDE_CODE_PROMPTS.md Phase 14 프롬프트 실행
+  - [x] PROJECTS 섹션 헤더 추가
+  - [x] 테스트 프로젝트 카드 3개 추가
+- [x] 테스트:
+  - [x] 이미지/제목/설명/태그 표시 확인
+  - [x] 카드 배경색 순환 확인 (sky/peach/mint accent)
+  - [x] 반응형(모바일 1열) 확인
 - [ ] Git 커밋: `git commit -m "feat: Experience 페이지에 Projects 테스트 콘텐츠 추가"`
 
 ### Phase 15 (25분): Resume 그리드 배경 웨이브 효과
