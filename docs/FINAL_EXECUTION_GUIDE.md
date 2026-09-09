@@ -186,16 +186,17 @@ Tailwind에 적용해줄래?"
 - 하단 "더 많은 글 보기" 버튼으로 추가 로드
 ```
 
-### **Phase 14** (15분): Hero 좌측 카피 Fade-in
+### **Phase 14** (30분): Experience Projects 섹션 테스트 콘텐츠
 
 ```
 📝 프롬프트:
 "CLAUDE_CODE_PROMPTS.md의 Phase 14 프롬프트"
 
 포함사항:
-- Hero 메인 카피 3줄 stagger fade-in
-- 서브텍스트/CTA 버튼 순서대로 등장
-- prefers-reduced-motion 대응
+- EXPERIENCE 타임라인 하단에 PROJECTS 섹션 추가
+- 테스트용 프로젝트 카드 3개 (이미지+제목+설명+태그)
+- 카드 배경 파스텔 3색 순환 (Sky/Peach/Mint)
+- 실제 데이터는 추후 교체 예정 (하드코딩 + TODO 주석)
 ```
 
 ### **Phase 15** (25분): Resume 그리드 배경 웨이브 효과
@@ -267,7 +268,7 @@ bun run dev
 - [ ] Phase 11: Hero + Header 보완
 - [ ] Phase 12: Posts 상세
 - [ ] Phase 13: Posts 페이지네이션
-- [ ] Phase 14: Hero 좌측 카피 Fade-in
+- [ ] Phase 14: Experience Projects 테스트 콘텐츠
 - [ ] Phase 15: Resume 그리드 배경 웨이브 효과
 - [ ] 각 Phase마다 `git commit`
 
@@ -301,27 +302,27 @@ bun run dev
 
 ## 📊 **시간 분배**
 
-| 단계          | 시간                      | 작업               |
-| ------------- | ------------------------- | ------------------ |
-| 가이드 읽기   | 50분                      | 이해               |
-| Phase 1       | 15분                      | 색상/폰트/다크모드 |
-| Phase 2-3     | 25분                      | Header/Toggle      |
-| Phase 4       | 15분                      | Card/Badge         |
-| Phase 5       | 20분                      | MyRecorder         |
-| Phase 6       | 20분                      | Timeline           |
-| Phase 7       | 30분                      | Posts              |
-| Phase 8       | 25분                      | Resume             |
-| Phase 9       | 10분                      | Footer             |
-| Phase 10      | 25분                      | About Me           |
-| Phase 11      | 15분                      | Hero               |
-| Phase 12      | 25분                      | Posts 상세         |
-| Phase 13      | 20분                      | Posts 페이지네이션 |
-| Phase 14      | 15분                      | Hero Fade-in       |
-| Phase 15      | 25분                      | Resume 웨이브 배경 |
-| **구현 소계** | **245분**                 |                    |
-| 라이트 모드   | 30분                      | 추가 스타일        |
-| 검증          | 30분                      | 테스트             |
-| **총**        | **385분 (약 6시간 25분)** |                    |
+| 단계          | 시간                      | 작업                              |
+| ------------- | ------------------------- | --------------------------------- |
+| 가이드 읽기   | 50분                      | 이해                              |
+| Phase 1       | 15분                      | 색상/폰트/다크모드                |
+| Phase 2-3     | 25분                      | Header/Toggle                     |
+| Phase 4       | 15분                      | Card/Badge                        |
+| Phase 5       | 20분                      | MyRecorder                        |
+| Phase 6       | 20분                      | Timeline                          |
+| Phase 7       | 30분                      | Posts                             |
+| Phase 8       | 25분                      | Resume                            |
+| Phase 9       | 10분                      | Footer                            |
+| Phase 10      | 25분                      | About Me                          |
+| Phase 11      | 15분                      | Hero                              |
+| Phase 12      | 25분                      | Posts 상세                        |
+| Phase 13      | 20분                      | Posts 페이지네이션                |
+| Phase 14      | 30분                      | Experience Projects 테스트 콘텐츠 |
+| Phase 15      | 25분                      | Resume 웨이브 배경                |
+| **구현 소계** | **260분**                 |                                   |
+| 라이트 모드   | 30분                      | 추가 스타일                       |
+| 검증          | 30분                      | 테스트                            |
+| **총**        | **400분 (약 6시간 40분)** |                                   |
 
 ---
 
