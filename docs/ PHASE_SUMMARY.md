@@ -614,7 +614,59 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      → DB 권한을 우회하지 않고, 대신 Playwright route 모킹으로 클라이언트 로직만
        독립적으로 검증하는 방식으로 전환 (실제 데이터베이스에 손대지 않아 더 안전했음)
 
-📍 다음: Phase 14 - Hero 좌측 카피 Fade-in
+📍 다음: Phase 1️⃣4️⃣: Experience Projects 섹션 테스트 콘텐츠
+```
+
+---
+
+## Phase 1️⃣4️⃣: Experience Projects 섹션 테스트 콘텐츠
+
+**요약:**
+
+```
+✅ 생성된 파일:
+   - app/_components/sections/Projects.tsx (PROJECTS 섹션 + 테스트 프로젝트 카드 3개)
+
+✅ 수정된 파일:
+   - app/(routes)/experience/page.tsx (Projects 섹션 추가, Experience와의 mt/mb 간격 조정)
+   - app/_components/sections/Experience.tsx (스크롤 진입 시 페이드인 애니메이션 추가)
+
+✅ 구현 내용:
+   - 테스트 프로젝트 카드 3개, accent 색상 sky/peach/mint로 순환 (Card 컴포넌트의
+     accent prop 재사용, About Intro 배경 도형과 동일한 dark:bg-{accent}/45 처리)
+   - 카드 내부: 이미지/비디오(next/image 또는 <video>) + 제목 + 설명 + 태그(Badge) +
+     배포/GitHub/포스트 외부 링크(아이콘 버튼) + "자세히 보기" 토글로 여는 상세 설명 목록
+   - GitHub 아이콘은 lucide-react에 없어 react-icons/si의 SiGithub로 대체 (Header.tsx와
+     동일 패턴), 배포/포스트 링크는 lucide-react의 Globe/FileText 사용
+   - 접근성: 링크에 aria-label(새 탭에서 열림 안내) + title, 토글 버튼에
+     aria-expanded/aria-controls, 포커스 시 focus-visible:outline, 카드 배경이
+     다크모드에서 어두운 파스텔 톤으로 바뀌므로 텍스트/보더 색상도 dark:text-dark-text /
+     dark:text-white/80 / dark:border-white/40으로 재조정해 대비 확보
+   - 반응형: 모바일에서는 flex-col(이미지 위, 콘텐츠 아래)로 1열, sm 이상에서
+     flex-row로 전환, 카드 최대 너비 max-w-4xl + mx-auto로 중앙 정렬
+   - 스크롤 위치 기반 페이드인: 카드마다 개별 useInView 훅으로 뷰포트 진입 시 애니메이션
+     (섹션 전체가 한 번에 나타나지 않고 스크롤함에 따라 카드가 하나씩 나타남),
+     Card 컴포넌트가 ref를 forward하지 않아 <div ref={ref}>로 감싸는 방식 사용,
+     애니메이션 길이는 0.6s → 0.35s로 단축(사용자 요청)
+   - Experience 섹션에도 동일한 스크롤 페이드인 패턴 적용, 페이지 진입 시 Experience만
+     먼저 보이도록 mt-24 + mb-[5vh]로 간격 조정
+
+✅ 테스트 완료:
+   - bunx tsc --noEmit, bun run lint 매 변경마다 통과 확인 (경고 0건)
+   - bun run build 프로덕션 빌드 성공, /experience가 ○(Static)으로 정상 프리렌더링 확인
+   - 사용자가 실제 브라우저(라이트/다크 모드, 데스크톱/모바일 폭)에서 직접 확인하며
+     카드 너비/이미지 크기/카드 간격/아이콘 대비/다크모드 배경 등을 여러 차례 반복
+     피드백 → 즉시 반영하는 방식으로 시각 검증 진행 (본 세션에는 별도 스크린샷 자동화
+     도구가 연결되어 있지 않아 Playwright 자동 캡처는 하지 못함)
+
+✅ 트러블슈팅:
+   - Card 컴포넌트가 ref를 forward하지 않아 <Card ref={ref}>가 동작하지 않음
+     → <div ref={ref}>로 Card를 감싸고 페이드인 클래스를 그 wrapper에 적용하는 방식으로 해결
+   - 섹션 레벨 단일 useInView로는 gap-[12vh]로 떨어진 카드들이 스크롤 진입 시점과
+     무관하게 섹션 진입 시 한 번에 애니메이션이 끝나버림 → useInView를 ProjectCard 내부로
+     옮겨 카드별로 독립적인 관찰자를 갖도록 수정
+
+📍 다음: Phase 15 - Resume 그리드 배경 웨이브 효과
 ```
 
 ---

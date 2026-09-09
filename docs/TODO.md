@@ -120,69 +120,71 @@
 
 ### Phase 9 (10분): Footer 컴포넌트
 
-- [x] CLAUDE_CODE_PROMPTS.md Phase 9 프롬프트 실행
-  - [x] Footer.tsx 생성
-  - [x] 로고, 저작권 문구, 외부 링크
-- [x] 테스트:
-  - [x] 외부 링크 새 탭 열림 (`rel="noopener noreferrer"`)
-  - [x] 라이트/다크 모드
-- [x] Git 커밋 완료 (이전 세션)
+- [ ] CLAUDE_CODE_PROMPTS.md Phase 9 프롬프트 실행
+  - [ ] Footer.tsx 생성
+  - [ ] 로고, 저작권 문구, 외부 링크
+- [ ] 테스트:
+  - [ ] 외부 링크 새 탭 열림
+  - [ ] 라이트/다크 모드
+- [ ] Git 커밋: `git commit -m "feat: 푸터 컴포넌트 추가"`
 
 ### Phase 10 (25분): About Me 페이지
 
-- [x] AboutIntro.tsx / AboutInfo.tsx / AboutVision.tsx 생성 (기획 단계의 단일 AboutInfo.tsx에서
-      인사말+외부링크(AboutIntro) / 기술스택+교육(AboutInfo) / 기록의 여정(AboutVision)으로 재분리)
-  - [x] app/(routes)/about/page.tsx 생성 — AboutIntro → AboutVision → AboutInfo 순서로 세로 배치
-- [x] 테스트:
-  - [x] ~~정보 테이블 표시~~ → 인적사항 테이블을 "교육 및 어학" 코딩 스타일 타임라인으로 대체 (요청에 따라 범위 변경)
-  - [x] 기술 배지 표시 (react-icons/si 브랜드 로고 + 시그니처 컬러, 호버/포커스 시 상세 카드)
-  - [x] 기록의 여정 4단계 타임라인 (클릭 시 우측 상세 카드로 전환, 굵은 점선 테두리)
-  - [x] ~~2단 레이아웃~~ → 세로 1단 레이아웃 + 스크롤 인뷰 애니메이션으로 변경 (요청에 따라 범위 변경)
-  - [x] 라이트/다크 모드
-- [x] Git 커밋 완료, PR #17 머지 (dev)
+- [ ] CLAUDE_CODE_PROMPTS.md Phase 10 프롬프트 실행
+  - [ ] AboutInfo.tsx, AboutVision.tsx 생성
+  - [ ] app/(routes)/about/page.tsx 생성
+- [ ] 테스트:
+  - [ ] 정보 테이블 표시
+  - [ ] 기술 배지 표시
+  - [ ] 기록의 여정 4단계 타임라인
+  - [ ] 2단 레이아웃
+  - [ ] 라이트/다크 모드
+- [ ] Git 커밋: `git commit -m "feat: About Me 페이지 추가"`
 
 ### Phase 11 (15분): Home Hero 섹션
 
-- [x] Hero.tsx 생성 (Phase 5 MY RECORDER 세션에서 함께 구현되어 이미 커밋되어 있음 - 이번 세션은 검증 + 문서 정리)
-- [x] 테스트 (Playwright로 검증):
-  - [x] Hero 텍스트/CTA 버튼 표시 ("기록하고, 배우고, 나아갑니다" / FRONTEND DEVELOPER / VIEW PROJECTS)
-  - [x] CTA 버튼 이동 확인 (`/experience`로 정상 이동)
-  - [x] 라이트/다크 모드 (콘솔 에러 0건)
-- [x] Git 커밋: 별도 코드 변경 없음 (기존 구현이 체크리스트 충족) — 문서만 갱신
+- [ ] CLAUDE_CODE_PROMPTS.md Phase 11 프롬프트 실행
+  - [ ] Hero.tsx 생성
+- [ ] 테스트:
+  - [ ] Hero 텍스트/CTA 버튼 표시
+  - [ ] CTA 버튼 이동 확인
+  - [ ] 라이트/다크 모드
+- [ ] Git 커밋: `git commit -m "feat: 홈 Hero 섹션 추가"`
 
 ### Phase 12 (25분): Posts 상세 페이지
 
-- [x] app/(routes)/posts/[slug]/page.tsx 생성 (generateMetadata + notFound)
-  - [x] PostContent.tsx 생성 (Tiptap HTML 렌더링, `.post-content` 전용 스타일 추가)
-  - [x] `getPostBySlug` 추가 (app/_lib/posts.ts)
-- [x] 테스트:
-  - [x] slug 단건 조회 (`getPostBySlug` - `is_published` 필터 포함)
-  - [x] 404 처리 (`notFound()`, 실제 200/404 상태 코드까지 확인)
-  - [x] 본문 렌더링 (`dangerouslySetInnerHTML` + `.post-content` 스타일)
-  - [x] 메타데이터 동적 설정 (`generateMetadata` - title/description/OG 확인)
-  - [x] 라이트/다크 모드
-- [ ] Git 커밋
+- [ ] CLAUDE_CODE_PROMPTS.md Phase 12 프롬프트 실행
+  - [ ] app/(routes)/posts/[slug]/page.tsx 생성
+  - [ ] PostContent.tsx 생성
+- [ ] 테스트:
+  - [ ] slug 단건 조회
+  - [ ] 404 처리
+  - [ ] 본문 렌더링
+  - [ ] 메타데이터 동적 설정
+  - [ ] 라이트/다크 모드
+- [ ] Git 커밋: `git commit -m "feat: Posts 상세 페이지와 콘텐츠 렌더링 추가"`
 
 ### Phase 13 (20분): Posts 페이지네이션
 
-- [x] "더 많은 글 보기" 버튼 추가 (Posts.tsx)
-  - [x] Supabase range() 페이지네이션 (getPublishedPosts에 offset/category 파라미터 추가,
-        count: "exact"로 hasMore 계산)
-- [x] 테스트 (Playwright, /api/posts 모킹으로 다중 페이지 상황 재현 - 실 DB엔 테스트 게시물 1건뿐):
-  - [x] 버튼 클릭 시 추가 로드 (6→12→14개, 마지막 페이지까지 누적 확인)
-  - [x] 필터 변경 시 초기화 (카테고리 전환 시 해당 카테고리의 1페이지부터 새로 로드,
-        같은 카테고리로 복귀 시 기존에 불러온 페이지는 캐시로 유지됨 - TanStack Query 기본 동작)
-  - [x] 마지막 페이지 처리 (hasMore=false일 때 버튼 자동 숨김)
-- [ ] Git 커밋
-
-### Phase 14 (15분): Hero 좌측 카피 Fade-in
-
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 14 프롬프트 실행
-  - [ ] Hero 메인 카피 3줄 stagger fade-in
+- [ ] CLAUDE_CODE_PROMPTS.md Phase 13 프롬프트 실행
+  - [ ] "더 많은 글 보기" 버튼 추가
+  - [ ] Supabase range() 페이지네이션
 - [ ] 테스트:
-  - [ ] fade-in 타이밍/순서 확인
-  - [ ] prefers-reduced-motion 처리
-- [ ] Git 커밋: `git commit -m "feat: Hero 좌측 카피 fade-in 애니메이션 추가"`
+  - [ ] 버튼 클릭 시 추가 로드
+  - [ ] 필터 변경 시 초기화
+  - [ ] 마지막 페이지 처리
+- [ ] Git 커밋: `git commit -m "feat: Posts 목록 페이지네이션 추가"`
+
+### Phase 14 (30분): Experience Projects 섹션 테스트 콘텐츠
+
+- [x] CLAUDE_CODE_PROMPTS.md Phase 14 프롬프트 실행
+  - [x] PROJECTS 섹션 헤더 추가
+  - [x] 테스트 프로젝트 카드 3개 추가
+- [x] 테스트:
+  - [x] 이미지/제목/설명/태그 표시 확인
+  - [x] 카드 배경색 순환 확인 (sky/peach/mint accent)
+  - [x] 반응형(모바일 1열) 확인
+- [ ] Git 커밋: `git commit -m "feat: Experience 페이지에 Projects 테스트 콘텐츠 추가"`
 
 ### Phase 15 (25분): Resume 그리드 배경 웨이브 효과
 
@@ -402,3 +404,12 @@ Step 6 (배포): 30분
 ✅ 다크 모드 설계 완료
 ✅ Claude Code 프롬프트 준비 완료
 ```
+
+### 다음 할 일
+
+```
+🚀 FINAL_EXECUTION_GUIDE.md 읽기
+🚀 Phase 1 시작
+```
+
+---
