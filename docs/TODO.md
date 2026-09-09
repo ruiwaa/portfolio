@@ -188,14 +188,44 @@
 
 ### Phase 15 (25분): Resume 그리드 배경 웨이브 효과
 
-- [ ] CLAUDE_CODE_PROMPTS.md Phase 15 프롬프트 실행
-  - [ ] 그리드 배경 물결/입체 효과
-- [ ] 테스트:
-  - [ ] 매우 느린 속도로 자연스럽게 반복
-  - [ ] 전경 요소 영향 없음
-  - [ ] prefers-reduced-motion 처리
-  - [ ] 성능(스크롤 등) 영향 없음
-- [ ] Git 커밋: `git commit -m "feat: Resume 그리드 배경 웨이브 효과 추가"`
+- [x] CLAUDE_CODE_PROMPTS.md Phase 15 프롬프트 실행
+  - [x] 그리드 배경 물결/입체 효과 (WebGL 프래그먼트 셰이더 - 3D Wave Terrain)
+- [x] 테스트:
+  - [x] 매우 느린 속도로 자연스럽게 반복 (시간 계수 0.2, 다중 주파수 사인파 + 방사형 리플)
+  - [x] 전경 요소 영향 없음 (canvas는 fixed inset-0 -z-10 pointer-events-none)
+  - [x] prefers-reduced-motion 처리 (감지 시 RAF 루프를 돌리지 않고 정적 프레임 1장만 렌더)
+  - [x] 성능(스크롤 등) 영향 없음 (requestAnimationFrame + transform 계열 GPU 렌더링,
+        스크롤 이벤트에 연결되어 있지 않음)
+- [ ] Git 커밋: `git commit -m "feat: Resume 배경에 WebGL 3D 파도 격자 셰이더 적용"`
+
+> 시도 기록: CSS 기반으로 대각선 드리프트 → 좌우 스웨이+하이라이트 → 물결 SVG 라인 →
+> perspective 기울임 → 띠 분할 곡면 웨이브까지 다섯 차례 반복했으나 CSS만으로는 "굴곡있는
+> 입체 웨이브"를 만들기 어려워 사용자가 효과를 제거 요청. 이후 사용자가 WebGL 셰이더
+> 방식을 명시적으로 요청해 최종적으로 이 방식으로 재구현. 이후 사용자 피드백에 따라
+> ① 화이트+연회색 격자로 단순화, ② 그리드가 Footer까지 비치던 버그 수정(fixed → absolute로
+> Resume section에 한정), ③ 속도를 0.15 → 0.6 → 0.9로 조정, ④ main 영역을 다 못 채우던
+> 레이아웃 버그 수정(main을 flex 컨테이너로, section을 flex-1로), ⑤ 마우스 호버 시 그리드가
+> 움푹 파이는 인터랙션 추가 및 반경 축소(0.35 → 0.16)까지 추가로 반복.
+
+### 추가 작업 (Phase 목록 외): 커스텀 404 페이지 + MY RECORDER 다크모드 색상 통일
+
+- [x] `app/not-found.tsx` 신규 작성 - Resume의 WebGL 그리드 배경(`ResumeWaveGrid`)을 그대로
+      재사용, SYS.WARN 상태 배지 + "404" + 서브텍스트 + "홈으로 돌아가기"/"이전 기록으로
+      복귀" 버튼 2개 구성
+  - [x] `app/_components/common/HistoryBackButton.tsx` 신규 - `useRouter().back()`을
+        쓰는 클라이언트 컴포넌트로 분리(정적 링크로는 브라우저 히스토리 뒤로가기를
+        구현할 수 없어서)
+  - [x] "404" 숫자 자간 조정 (`tracking-widest` → `tracking-tighter`)
+- [x] `app/_components/sections/MyRecorder.tsx` - MY RECORDER 카드 4개(mint/peach/sky/
+      purple) 다크모드 배경을 About Intro 배경 도형과 동일한 `dark:bg-{accent}/45`로 통일.
+      AboutIntro에는 purple 색상이 없어 나머지 3색과 균형을 맞춰 동일하게 45% 적용.
+      원형 화살표 배지 색상도 어두워진 카드 배경에 묻히지 않도록
+      `dark:bg-dark-surface/dark:text-dark-text` → `dark:bg-dark-text/dark:text-dark-surface`로 반전
+- [x] 테스트: 헤드리스 Chrome + CDP로 실제 마우스 이동 이벤트를 캔버스에 보내 굴곡/파임
+      효과 스크린샷 확보, `curl`로 404 상태 코드 확인, 다크모드 스크린샷으로 카드/404
+      페이지 색상 확인
+- [x] `bunx tsc --noEmit`, `bun run lint`, `bun run build` 매 변경마다 통과 확인
+- [ ] Git 커밋: 아직 미완료 (여러 건 - 아래 PR 문서 참고)
 
 ---
 
