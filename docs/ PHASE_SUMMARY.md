@@ -671,7 +671,319 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
 
 ---
 
-## 🎨 라이트 모드 추가
+## Phase 1️⃣5️⃣: Resume 그리드 배경 웨이브 효과
+
+**요약:**
+
+```
+✅ CSS 시도 기록 (다섯 차례 반복 후 사용자가 WebGL 셰이더 방식을 명시적으로 요청):
+   1. 대각선 translate3d로 격자 전체를 32px/32s 한 방향 이동
+      → "애니메이션이 안 보인다" 피드백. macOS Reduce Motion은 defaults read로 꺼져
+        있음을 확인했고, 완전히 균일한 주기 패턴을 그대로 밀면 기준점이 없어 움직임이
+        거의 감지되지 않고 속도도 초당 1px로 너무 느렸던 것이 원인으로 파악됨
+   2. 좌우 스웨이 애니메이션 + 은은한 방사형 하이라이트 추가
+      → "파도 물결 같은 웨이브 효과"를 원한다는 재요청
+   3. 격자선을 곡선 물결 SVG 라인 3겹으로 교체, marquee와 동일한 가로 흐름 방식
+      → "격자무늬가 파도 타는 느낌"이라고 재차 구체화 (물결선 교체가 아니라 격자 자체가
+        웨이브를 타야 한다는 의도)
+   4. 직선 격자를 유지한 채 판 전체를 perspective + rotateX로 기울이는(pitch/bob) 방식
+      → "이런 느낌이 아니라 굴곡이 있는 것처럼 입체적인 웨이브"라고 재차 명확화
+   5. 격자를 가로 띠 14개로 쪼개 띠마다 다른 위상(animation-delay)으로 스웨이시켜 곡면처럼
+      굽이치는 웨이브 구현
+      → "효과없애" 요청으로 CSS 웨이브 효과 자체를 제거, 정적 그리드로 임시 복귀
+   6. 사용자가 WebGL 셰이더(Fragment Shader) 기반 3D Wave Terrain을 구체적인 기술 스펙
+      (그리드 34~35분할, 색상 hex값, 시간 계수 0.2, u_mouse 반응, fixed 레이어 배치 등)과
+      함께 명시적으로 요청 → CSS 반복을 중단하고 WebGL로 재구현 (아래 최종 구현)
+
+✅ 최종 구현 (WebGL Fragment Shader):
+   - 신규: app/_lib/wave-grid.ts - 정점/프래그먼트 셰이더 소스, WebGL 프로그램 컴파일·
+     링크·유니폼 바인딩을 담당하는 순수 함수형 렌더러 팩토리(createWaveGridRenderer)
+   - 신규: app/_components/sections/ResumeWaveGrid.tsx - canvas ref, RAF 루프,
+     ResizeObserver, pointermove/테마 변경 이벤트 리스너 등 React 생명주기만 담당
+   - 수정: app/_components/sections/Resume.tsx - <ResumeWaveGrid />를 섹션 최상단에
+     마운트, 기존 grid-pattern-bg 클래스는 제거(셰이더가 배경/격자/비네팅을 전부 그림)
+   - 수정: app/globals.css - 더 이상 쓰이지 않는 grid-pattern-bg 규칙 삭제
+   - 프래그먼트 셰이더: 다중 주파수 사인파 3개 + 중심 방사형 리플 + 마우스 위치(u_mouse)
+     반응 리플을 합성해 높이값(terrain)을 계산 → 그 높이값만큼 격자 UV를 미세하게 뒤틀어
+     굴곡진 지형처럼 보이게 하고, 인접 지점과의 높이 차(기울기)로 능선을 추정해 라인
+     컬러를 연회색(#E2E4EC)→슬레이트(#BAC3D4)로 그라데이션
+   - 시간 계수 0.2를 곱해 매우 느리고 명상적인 속도로 조정, 모서리로 갈수록 흐려지는
+     비네팅으로 중앙 텍스트 가독성 확보
+   - fwidth 기반 안티앨리어싱은 OES_standard_derivatives 확장이 있을 때만 사용하고,
+     없으면 고정 폭으로 대체(buildFragmentShaderSource(hasDerivatives) 분기) - 확장
+     미지원 환경에서도 렌더링이 계속되도록 함
+   - canvas는 pointer-events-none fixed inset-0 -z-10으로 배치해 텍스트/버튼 클릭을
+     막지 않고 최하단 레이어로 표시
+   - ResizeObserver로 canvas 레이아웃 크기 변화를 감지해 devicePixelRatio(최대 2)
+     기준으로 backing store 해상도를 다시 맞춤
+   - prefers-reduced-motion 감지 시 첫 프레임만 정적으로 렌더링하고 requestAnimationFrame
+     루프를 시작하지 않음
+   - 다크모드는 document.documentElement의 "dark" 클래스 + 기존 ThemeToggle이 쏘는
+     "theme-change" 커스텀 이벤트를 그대로 구독해 u_dark 유니폼을 갱신 (라이트: #FFFFFF~
+     #F9FAFC 배경/연회색·슬레이트 라인, 다크: #141313 배경에 기존 dark-border 톤 +
+     블루 계열 능선 하이라이트)
+   - 셰이더 컴파일/링크 실패 시 조용히 무시하지 않고 console.error로 정보 로그를 남기도록
+     구현(디버깅 편의 + 실패해도 페이지 크래시 없이 캔버스만 비어있게 우아하게 저하)
+
+✅ 테스트 완료:
+   - bunx tsc --noEmit, bun run lint, bun run build(프로덕션 빌드 성공, /resume 여전히
+     ○ Static) 통과 확인
+   - 두 파일 모두 300줄 미만(wave-grid.ts 197줄, ResumeWaveGrid.tsx 88줄)으로
+     CODING_CONVENTIONS.md의 컴포넌트 파일 300줄 제한 준수 확인
+   - GLSL 셰이더 자체는 tsc/lint로 검증되지 않는 문자열이라, 실제 WebGL 컨텍스트에서
+     별도로 컴파일·렌더링 테스트를 진행: mock gl로 wave-grid.ts가 실제로 생성하는
+     정점/프래그먼트 셰이더 소스를 추출한 뒤, 로컬 정적 서버 + 헤드리스 Chrome에서 그
+     소스를 그대로 컴파일·링크·draw까지 실행해 gl.getError()===0과 여러 지점의
+     readPixels 값이 서로 다른(즉 배경색 고정이 아니라 지형/격자/비네팅이 실제로 계산되고
+     있는) 것을 확인. OES_standard_derivatives 확장 분기(fwidth 사용 버전)는 이
+     헤드리스 환경(소프트웨어 렌더러)이 해당 확장을 지원하지 않아 그 환경에서는
+     컴파일이 실패했지만, 프로덕션 코드가 정확히 같은 gl.getExtension 결과에 따라
+     자동으로 검증된 대체(고정 폭) 셰이더를 선택하도록 되어 있어 실제 동작에는 영향 없음
+   - 실제 브라우저에서의 시각적 확인(격자 굴곡·색상 그라데이션·비네팅·마우스 반응이
+     기대한 대로 "느껴지는지")은 이 세션에 연결된 대화형 브라우저가 없어 사용자 확인이
+     필요함
+
+📍 다음: 사용자가 실제 브라우저에서 /resume을 열어 시각적으로 확인 필요 (굴곡 강도,
+   격자 촘촘함, 능선 색상 대비, 마우스 반응 정도 등 튜닝 여지 있음)
+```
+
+## 🔧 트러블슈팅: "적용이 안됐는데?" (WebGL 캔버스가 안 보임)
+
+**문제**
+
+위 최초 구현을 사용자가 개발 서버에서 확인했을 때 배경 효과가 전혀 보이지 않는다고 보고.
+
+**원인 진단**
+
+1. **실제 버그**: `<canvas>`는 대체 요소(replaced element)라서 `position: fixed; inset: 0;`만으로는
+   뷰포트 전체로 늘어나지 않고 고유 크기(기본 300×150px)로 좌상단에만 렌더링됨 -
+   `className`에 `h-full`/`w-full` 계열 클래스가 빠져 있었음
+2. **실제 버그**: `resize()`에 `if (canvas.width === width && canvas.height === height) return;`
+   가드가 있어, React가 개발 모드에서 effect를 두 번 실행(mount → cleanup → 재-mount)할 때
+   두 번째 mount에서 만들어진(실제로 화면을 그리는) renderer는 `canvas.width/height`가
+   이전 mount 값과 같다는 이유로 이 가드에 걸려 `renderer.resize()`(viewport/`u_resolution`
+   설정)가 한 번도 호출되지 않음 → `u_resolution`이 0으로 남아 프래그먼트 셰이더에서
+   0 나누기가 발생할 수 있는 상태였음
+3. **GLSL 스펙 위반(잠재적 버그)**: `smoothstep(edge0, edge1, x)`는 GLSL 스펙상 `edge0 < edge1`을
+   요구하는데, "중심에서 멀어질수록 감쇠"를 표현하려고 `smoothstep(0.85, 0.0, d)`처럼 edge
+   순서를 반대로 쓴 곳이 3곳 있었음(스펙상 undefined behavior) → `1.0 - smoothstep(0.0, 0.85, d)`
+   형태로 edge 순서를 올바르게 교정
+4. **디버깅 방법론 이슈(실제 사용자 버그 아님)**: 위 1, 2를 고친 뒤에도 헤드리스 Chrome +
+   CDP(Runtime.evaluate)로 비동기에 `readPixels`/`toDataURL`을 호출해 검증하니 계속 검은
+   화면으로 나와 한동안 추가 원인을 의심함 → `preserveDrawingBuffer: true`를 임시로 켜서
+   테스트해보니 실제로는 물결 리플이 정상 렌더링되고 있었음을 확인. 기본값
+   `preserveDrawingBuffer: false`에서는 브라우저가 합성 직후 드로잉 버퍼를 비울 수 있는데,
+   실제 브라우저 탭은 매 프레임을 화면에 연속으로 합성/표시하므로 이 문제와 무관하고,
+   CDP로 루프 밖에서 비동기로 읽어들이는 내 테스트 방식에서만 발생하는 경합이었음
+   (실제 사용자에게 영향 없어 최종 코드에는 preserveDrawingBuffer를 추가하지 않음)
+
+**해결**
+
+- `ResumeWaveGrid.tsx`의 canvas className에 `h-screen w-screen` 추가
+- `resize()`를 "캔버스 백킹 버퍼 크기 재할당은 변경 시에만, `renderer.resize()` 호출은 항상"
+  구조로 변경
+- `wave-grid.ts`의 smoothstep 호출 3곳 모두 `edge0 < edge1` 순서로 교정
+
+**결과**
+
+- 헤드리스 Chrome + CDP로 `document.querySelector("canvas")`의 `clientWidth/Height`가
+  `window.innerWidth/innerHeight`와 정확히 일치함을 확인 (뷰포트 전체를 덮음)
+- `preserveDrawingBuffer: true`로 임시 전환해 `canvas.toDataURL()`을 디코딩한 결과, 중심에서
+  퍼지는 동심원 리플과 의도한 라이트 톤 배경/그라데이션이 실제로 렌더링되고 있음을 시각적으로
+  확인 (스크린샷 확보)
+- `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 재통과 확인
+- 사용자가 화면이 안 보였던 근본 원인(캔버스 크기 0에 가까움 + Strict Mode 재마운트 시
+  리사이즈 스킵)은 해결되었으므로, 새로고침 시 실제로 보일 것으로 기대됨 - 다만 실제
+  브라우저에서의 최종 육안 확인은 사용자 몫으로 남아있음
+
+## 🔧 Resume 배경 셰이더 재작성: 새 프롬프트로 단순화 + 그리드 라인 수식 버그 발견
+
+**요청**: 사용자가 다음 프롬프트로 그리드 배경을 다시 만들어달라고 요청 - "화이트 배경 +
+은은한 연회색 사각 격자선", "파도 물결처럼 매우 느리고 잔잔하게 일렁이는 3D 굴곡 효과",
+"최하단 레이어(z-index: -10, pointer-events: none)로 고정".
+
+**변경 내용**:
+- `app/_lib/wave-grid.ts`를 이 세 조건에 맞춰 단순화: 방사형 리플/마우스 반응/능선
+  하이라이트 그라데이션/비네팅을 모두 제거하고, 다중 주파수 사인파 지형(진폭도 더 낮춰
+  "잔잔하게")으로 격자 UV만 미세하게 뒤트는 구조로 축소. `u_mouse` 유니폼과 관련 로직도
+  `render()` 시그니처에서 제거
+- `app/_components/sections/ResumeWaveGrid.tsx`에서 pointermove 리스너 및 마우스 좌표
+  추적 코드 삭제, `TIME_SPEED`를 0.2 → 0.15로 낮춰 더 느긋하게 조정
+- 다크 모드는 프롬프트에 언급 없었지만, 이 사이트 다크 토큰(`dark:text-dark-text`가
+  흰색)과 화이트 배경이 겹치면 텍스트가 안 보이는 회귀가 생기므로 `u_dark` 분기는 유지
+
+**트러블슈팅 - 그리드 라인이 안 보이고 균일한 회색으로만 채워짐**
+
+- **문제**: 단순화 후 `preserveDrawingBuffer: true`로 스크린샷을 떠보니 격자선 없이
+  전체가 라인 컬러(연회색)로 균일하게 채워져 있었음
+- **원인**: `gridDist`(셀 중심 0 ~ 셀 경계 0.5)에 대해
+  `1.0 - smoothstep(0.0, aa, gridDist - 0.48)` 형태로 계산했는데, `gridDist - 0.48`은
+  셀 중심 근처에서 음수(-0.48)이고 경계 근처에서만 살짝 양수(+0.02)가 됨 →
+  `smoothstep(0.0, aa, x)`는 x<0(edge0 미달)일 때 0을 반환하므로, 셀 중심을 포함한
+  대부분 영역에서 `1.0 - 0 = 1.0`(=라인 색 100%)이 나오고, 오히려 경계 근처에서만 값이
+  줄어드는 **완전히 뒤집힌 수식**이었음(이전의 더 복잡했던 버전에도 동일한 수식이 있었으나
+  방사형/비네팅 효과에 시각적으로 가려져 있었던 것으로 추정)
+- **해결**: `lineEdge = 0.5 - aa*1.5`로 두고 `smoothstep(lineEdge, 0.5, gridDist)`로
+  교정 - gridDist가 0(중심)일 때 0, 0.5(경계)에 가까워질 때만 1로 올라가는 올바른 방향의
+  수식으로 변경
+- **결과**: `preserveDrawingBuffer: true`로 다시 스크린샷 확인 → 화이트 배경 위에 은은한
+  연회색 사각 격자선이 선명하게 보이고, 격자선 자체가 완만하게 곡선처럼 휘어 있어(3D 굴곡)
+  파도가 잔잔하게 일렁이는 느낌을 확인. 확인 후 `preserveDrawingBuffer`는 실제 사용자
+  경험에는 불필요하므로 최종 코드에서 제거
+- `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과 확인
+
+## 🔧 애니메이션 속도 조정 + 배경 범위를 Resume 섹션으로 한정
+
+**요청**: "애니메이션 효과 속도가 너무 느려", "기존에 푸터까지 격자 그리드 배경이
+들어가있었어? 그게 아니라면 푸터 부분에는 배경 제거해."
+
+**진단**: `Footer.tsx`에는 배경색이 지정되어 있지 않음(`border-t`만 있음). 캔버스가
+`position: fixed; inset: 0;`으로 뷰포트 전체에 고정되어 있었기 때문에, 스크롤해서
+푸터가 보이는 시점에도 그 뒤로 그리드가 그대로 비쳐 보이는 게 실제 동작이었음 -
+의도한 것이 아니라 배경 색이 없는 요소 뒤로 fixed 레이어가 계속 노출된 것.
+
+**해결**:
+- `app/_components/sections/ResumeWaveGrid.tsx`: canvas의 `fixed inset-0` →
+  `absolute inset-0`으로 변경. 부모인 Resume `<section>`이 이미 `relative`
+  `overflow-hidden`이라, absolute로 바꾸면 캔버스가 그 section 박스 안에만 그려지고
+  스크롤에 딸려 함께 사라짐(더 이상 뷰포트에 고정되지 않음)
+- `TIME_SPEED`를 0.15 → 0.6으로 올려 애니메이션을 눈에 띄게 빠르게 함
+
+**검증**:
+- 헤드리스 Chrome + CDP로 `canvas.getBoundingClientRect()`가 Resume section의
+  `getBoundingClientRect()`와 정확히 일치(741×416.9, top 57)하고, 캔버스 하단(473.9)이
+  Footer 시작 지점(473.9)과 정확히 맞아떨어져 더 이상 겹치지 않음을 확인
+- `preserveDrawingBuffer: true`로 임시 전환해 스크린샷 재확인 - 그리드/곡률이 정상
+  렌더링됨을 확인 후 해당 플래그 제거
+- `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과 확인
+
+## 🔧 그리드가 메인 영역을 다 못 채움 + 속도 추가 조정
+
+**요청**: "그리드 배경이 메인영역에 다 안찼어", "속도보다 0.3초 빠르게 바꿔"
+
+**원인**: 이전 검증은 작은 헤드리스 뷰포트(469px 높이)에서만 확인했는데, 그 화면은
+Resume 콘텐츠(거대한 RESUME 제목 폰트 등) 자체가 뷰포트보다 커서 우연히 section이
+main과 크기가 맞아떨어졌던 것. 실제 데스크톱 크기(1440×900)로 다시 확인해보니 section
+높이(569px)가 main의 실제 높이(655px)보다 작아 86px의 빈 공간이 있었음 - `min-h-[70vh]`
+는 "최소" 높이일 뿐이라, `<main className="flex-1">`이 남는 세로 공간을 더 많이 차지할
+때는 그 차이만큼 캔버스가 못 채우는 구조였음. 처음 시도한 `h-full`도 이 flex 체인에서
+퍼센트 높이가 순환 참조로 무시되어 효과가 없었음
+
+**해결**:
+- `app/(routes)/resume/page.tsx`: `<main className="flex-1">` → `<main className="flex flex-1 flex-col">`
+- `app/_components/sections/Resume.tsx`: section의 `h-full` → `flex-1`로 교체
+  (`min-h-[70vh]`는 최소 높이 floor로 유지) - main이 flex 컨테이너가 되고 section이
+  그 안에서 flex-1로 남는 공간을 모두 차지하도록 구조를 바꿔, 퍼센트 높이의 순환 참조
+  문제를 근본적으로 피함
+- `ResumeWaveGrid.tsx`의 `TIME_SPEED`를 0.6 → 0.9로 조정
+
+**검증**: 헤드리스 Chrome을 3가지 뷰포트(800×600, 1440×900, 1440×1600)로 각각 새로
+띄워 canvas/section/main의 `getBoundingClientRect()`가 세 크기 모두에서 완전히
+일치하고(gap=0), Footer 시작 지점과도 정확히 맞아떨어짐을 확인. `bunx tsc --noEmit`,
+`bun run lint`, `bun run build` 모두 통과.
+
+## 🔧 마우스 호버 시 그리드가 움푹 파이는(dent) 효과 추가
+
+**요청**: "그리드 배경에 마우스를 대면 그리드 굴곡이 움푹 파져보이는 효과를 추가해줘"
+
+**구현**:
+- `app/_lib/wave-grid.ts`: `u_mouse` 유니폼을 다시 추가하고, `dentAmount(p)` 함수로
+  마우스 위치에서 `DENT_RADIUS`(0.35) 안쪽만 부드럽게 감쇠하는 depth(0~1)를 계산.
+  `terrain()`에서 이 값만큼 높이를 **빼서**(이전 버전의 "튀어나오는" 리플과 반대 방향)
+  마우스 주변이 움푹 파이게 하고, `main()`에서도 같은 값으로 색상을 살짝 어둡게 곱해
+  파인 안쪽에 그림자가 지는 느낌을 더함
+- `app/_components/sections/ResumeWaveGrid.tsx`: canvas 자체가 `pointer-events-none`이라
+  자체 이벤트를 못 받으므로 `window`에서 `pointermove`를 추적하다가, 매번
+  `canvas.getBoundingClientRect()`로 캔버스(=Resume 섹션) 영역 안인지 확인 후에만
+  좌표를 셰이더의 p 공간(종횡비 보정 + Y축 반전)으로 변환해서 넘김. 영역 밖이거나
+  `pointerleave` 시에는 화면 밖 값(-10,-10)으로 되돌려 파임 효과가 사라지게 함
+
+**검증**: 헤드리스 Chrome + CDP `Input.dispatchMouseEvent`로 실제 마우스 이동 이벤트를
+캔버스 좌표(30%, 50% 지점)로 보낸 뒤 `preserveDrawingBuffer: true`로 스크린샷 비교 -
+마우스가 없을 때는 평평한 격자, 마우스를 올렸을 때는 그 지점 주변 격자선이 원형으로
+안쪽으로 휘어져 들어가며 은은하게 어두워지는 것을 확인(스크린샷 확보). 확인 후
+`preserveDrawingBuffer`는 제거. `bunx tsc --noEmit`, `bun run lint`, `bun run build`
+모두 통과.
+
+## ✨ 커스텀 404 페이지 추가 (Resume 배경 재사용)
+
+**요청**: 사용자가 다크 톤 목업 이미지를 참고로 제시하며, Resume의 그리드 배경/애니메이션은
+그대로 쓰고 안의 텍스트/버튼만 새로 구성한 404 페이지를 요청
+
+**구현**:
+- `app/not-found.tsx` (신규) - Next.js App Router의 전역 404 페이지. 다른 page.tsx와
+  동일하게 `<main className="flex flex-1 flex-col">` + `<section flex-1 min-h-[70vh]>`
+  구조를 그대로 따르고, 배경으로 `ResumeWaveGrid`를 그대로 재사용(별도 수정 없이
+  import해서 그대로 사용 - Resume 전용 로직에 의존하지 않는 순수 배경 컴포넌트라
+  재사용에 문제 없음)
+- 콘텐츠: 빨간 점 + `SYS.WARN // ROUTE_NOT_FOUND :: UNRECORDED_PATH` 상태 배지(기존
+  Resume의 `SYS.READY // DOC.AVAILABLE` 배지와 같은 `badge` 타이포그래피 규칙 재사용,
+  점 색상만 기존 `.status-dot`의 초록 대신 경고 의미로 빨강 사용), 큰 "404" 헤딩,
+  "| 기록되지 않은 경로입니다" 서브텍스트, 버튼 2개
+- 버튼 2개는 Resume의 필드/아웃라인 버튼 컨벤션을 그대로 재사용:
+  - "홈으로 돌아가기"(ArrowLeft 아이콘) - `next/link`로 `/`로 이동, 채워진 버튼
+  - "이전 기록으로 복귀"(History 아이콘) - 브라우저 히스토리를 뒤로 가는 동작이라 정적
+    링크로 불가능 → `app/_components/common/HistoryBackButton.tsx`(신규, client
+    component)로 분리해 `useRouter().back()` 호출, 아웃라인 버튼
+
+**트러블슈팅 - 다크모드 스크린샷에서 텍스트/버튼이 안 보임**
+- **문제**: 헤드리스 Chrome으로 `document.documentElement.classList.add("dark")`만
+  실행해 다크모드를 흉내내고 스크린샷을 찍었더니 404 텍스트와 버튼이 거의 안 보이는
+  깨진 화면으로 나옴
+- **원인**: 실제 `ThemeToggle`은 클래스 토글과 함께 `theme-change` 커스텀 이벤트를
+  `window`에 디스패치하는데, `ResumeWaveGrid`는 그 이벤트를 구독해서만 `u_dark`
+  유니폼을 갱신함. 테스트에서 클래스만 바꾸고 이벤트를 안 보냈으니 WebGL 배경만 계속
+  라이트 모드로 남아, 다크모드로 하얗게 바뀐 텍스트가 (여전히 밝은) 배경과 거의 같은
+  색이 되어 안 보이는 것처럼 보인 것 - 실제 사용자가 토글을 클릭하면 이벤트가 같이
+  발생하므로 실제 버그 아니었음
+- **해결**: 테스트 스크립트에서 클래스 토글과 함께 `window.dispatchEvent(new
+  Event("theme-change"))`도 같이 실행하도록 수정
+- **결과**: 다시 스크린샷 확인 - 다크 배경/흰 404 텍스트/채워진 버튼/아웃라인 버튼
+  모두 정상 렌더링됨을 확인(스크린샷 확보)
+
+**검증**: `curl`로 `/존재하지-않는-경로` 요청 시 404 상태 코드 및 기대한 텍스트가 모두
+포함된 HTML 응답 확인, `bun run build`에서 `/_not-found`가 `○ (Static)`으로 정상
+프리렌더링됨을 확인, 헤드리스 Chrome 스크린샷으로 라이트/다크 모드 모두 시각적으로
+확인. `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과.
+
+## 🔧 마우스 파임 반경 축소 + 404 숫자 자간 조정
+
+**요청**: "pointer 크기를 좀 더 줄여줘 지금 너무 커", "404숫자 간격 좁혀"
+
+**변경**:
+- `app/_lib/wave-grid.ts`: `DENT_RADIUS`를 0.35 → 0.16으로 축소 (파이는 영역 지름이
+  약 절반으로 작아짐)
+- `app/not-found.tsx`: "404" 헤딩의 `tracking-widest` → `tracking-tighter`로 교체해
+  숫자 사이 간격을 좁힘
+
+**검증**: 헤드리스 Chrome + CDP `Input.dispatchMouseEvent`로 다시 마우스 이동을 보내
+파임 영역이 이전보다 작아진 것을 스크린샷으로 확인. `bunx tsc --noEmit`, `bun run lint`,
+`bun run build` 모두 통과.
+
+## 🎨 MY RECORDER 카드 다크모드 색상을 About Intro와 통일
+
+**요청**: "홈페이지의 레코드 카드 색상 다크모드 시에 about의 intro 도형 모형 색상을
+넣어줘, 1개 모자른 색상을 임의로 색상 균형이 맞는 조합으로 변경해"
+
+**배경**: `MyRecorder.tsx`의 카드 4개(mint/peach/sky/purple)는 `Card` 컴포넌트의
+accent가 지정되면 다크모드에서도 라이트 모드와 동일한 밝은 파스텔 색을 그대로 쓰도록
+되어 있었음(이 세션에서 여러 차례 확인된 "파스텔 accent 배경은 라이트/다크 동일" 원칙).
+반면 `AboutIntro.tsx`의 배경 도형 3개(mint/peach/sky)는 다크모드에서 45% 불투명도로
+어둡게 처리되어 있었음 - 이 45% 처리를 MY RECORDER 카드에도 적용해달라는 요청.
+AboutIntro에는 purple 도형이 없어 대응되는 값이 없는 상태("1개 모자른 색상").
+
+**변경** (`app/_components/sections/MyRecorder.tsx`):
+- `DARK_ACCENT_BG` 맵을 추가해 mint/peach/sky/purple 네 accent 모두
+  `dark:bg-{accent}/45`를 Card의 className에 주입 - purple은 참고할 값이 없어
+  나머지 3색과 동일한 45%를 그대로 적용(가장 균형 잡힌 선택으로 판단)
+- 카드 배경이 다크모드에서 어두워지면서, 기존 `dark:bg-dark-surface
+  dark:text-dark-text`(어두운 원 배지)가 카드 배경에 묻히게 되어
+  `dark:bg-dark-text dark:text-dark-surface`(흰 원 + 어두운 아이콘)로 반전
+
+**검증**: 헤드리스 Chrome으로 다크모드 전환(클래스 토글 + `theme-change` 이벤트
+디스패치) 후 홈페이지 스크린샷 확보 - 네 카드가 은은하게 톤 다운된 파스텔로
+통일되고, 원형 배지도 카드 배경 위에서 잘 보이는 것을 확인. `bunx tsc --noEmit`,
+`bun run lint`, `bun run build` 모두 통과.
 
 **이 단계에서 해야 할 것:**
 

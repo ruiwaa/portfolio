@@ -5,6 +5,15 @@ import { LAYOUT } from "@/lib/constants";
 
 type Accent = "mint" | "peach" | "sky" | "purple";
 
+// About Intro 배경 도형과 동일한 다크모드 처리(45% 불투명도) - AboutIntro에는 purple 색상이
+// 없어 mint/peach/sky와 균형을 맞춰 동일한 45%를 그대로 적용
+const DARK_ACCENT_BG: Record<Accent, string> = {
+  mint: "dark:bg-mint/45",
+  peach: "dark:bg-peach/45",
+  sky: "dark:bg-sky/45",
+  purple: "dark:bg-purple/45",
+};
+
 interface RecorderItem {
   number: string;
   label: string;
@@ -39,7 +48,7 @@ export default function MyRecorder() {
             >
               <Card
                 accent={item.accent}
-                className="flex min-h-30 items-center transition-[filter] duration-200 group-hover:brightness-95"
+                className={`flex min-h-30 items-center transition-[filter] duration-200 group-hover:brightness-95 ${DARK_ACCENT_BG[item.accent]}`}
               >
                 <div className="flex  flex-row w-full items-center justify-between">
                   <h2 className="headline-lg min-w-0 text-light-text dark:text-dark-accent dark:[-webkit-text-stroke:1px_gray]">
@@ -47,7 +56,7 @@ export default function MyRecorder() {
                   </h2>
                   <span
                     aria-hidden="true"
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-light-surface text-light-text transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 dark:bg-dark-surface dark:text-dark-text"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-light-surface text-light-text transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 dark:bg-dark-text dark:text-dark-surface"
                   >
                     <ArrowUpRight size={16} strokeWidth={3} />
                   </span>

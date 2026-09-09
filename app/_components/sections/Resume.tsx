@@ -1,3 +1,5 @@
+import ResumeWaveGrid from "@/app/_components/sections/ResumeWaveGrid";
+
 // TODO: 실제 이력서 링크(Notion 등)와 PDF 파일 경로로 교체
 const RESUME_VIEW_URL = "#";
 const RESUME_PDF_URL = "#";
@@ -6,8 +8,10 @@ export default function Resume() {
   return (
     <section
       aria-label="이력서"
-      className="grid-pattern-bg relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden py-20"
+      className="relative flex flex-1 min-h-[70vh] flex-col items-center justify-center overflow-hidden py-20"
     >
+      <ResumeWaveGrid />
+
       <h1 className="text-[clamp(4rem,15vw,12rem)] font-bold tracking-widest text-light-text dark:text-dark-text">
         RESUME
       </h1>
