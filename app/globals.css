@@ -172,6 +172,10 @@
   .marquee-track {
     animation: marquee-scroll 28s linear infinite;
   }
+
+  .dot-loading {
+    animation: dot-loading-pulse 1.4s ease-in-out infinite;
+  }
 }
 
 .delay-300 {
@@ -218,6 +222,35 @@
   }
   to {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* 순차 도트 로딩 스피너 - 커지면서 밝아지고(0~20%), 한 번 깜빡인 뒤(20~50%),
+   작아지며 사라진다(50~100%). 점마다 animation-delay를 줘서 순서대로 재생됨 */
+@keyframes dot-loading-pulse {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  35% {
+    transform: scale(1.15);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.9);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.4);
+    opacity: 0;
   }
 }
 
