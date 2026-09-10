@@ -69,24 +69,29 @@ export default function ResumeWaveGrid() {
       mouse[1] = MOUSE_OFFSCREEN[1];
     }
 
+    function renderFrame(now: number) {
+      const elapsedSeconds = ((now - startTime) / 1000) * TIME_SPEED;
+      renderer.render(elapsedSeconds, mouse[0], mouse[1], isDark);
+    }
+
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DEVICE_PIXEL_RATIO);
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        MAX_DEVICE_PIXEL_RATIO,
+      );
       const width = Math.round(canvas.clientWidth * dpr);
       const height = Math.round(canvas.clientHeight * dpr);
-      // 캔버스 백킹 버퍼 크기 재할당은 변경 시에만, viewport/u_resolution 갱신은
-      // (Strict Mode의 마운트→언마운트→재마운트로 renderer가 새로 만들어졌을 때도)
-      // 매번 호출해야 함 - 그렇지 않으면 새 renderer의 u_resolution이 0으로 남아
-      // 프래그먼트 셰이더에서 0 나누기가 발생해 화면이 검게 나옴
+
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
       }
       renderer.resize(width, height);
+      renderFrame(performance.now());
     }
 
     function draw(now: number) {
-      const elapsedSeconds = ((now - startTime) / 1000) * TIME_SPEED;
-      renderer.render(elapsedSeconds, mouse[0], mouse[1], isDark);
+      renderFrame(now);
       if (!prefersReducedMotion) {
         animationFrameId = requestAnimationFrame(draw);
       }
