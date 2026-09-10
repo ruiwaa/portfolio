@@ -96,10 +96,6 @@ export default function Hero() {
         <h1 className="h1 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] text-light-text dark:text-dark-text">
           <span className="block w-fit">안녕하세요.</span>
           <span className="block w-fit">
-            {/* h1(.h1)은 60px bold로 WCAG "large text" 기준(24px 이상 또는 18.66px 이상 bold)을
-                충족해 최소 대비 3:1이 기준 - 라이트 모드는 밝은 파랑(blue-500, 흰 배경 대비 3.68:1)에서
-                짙은 남색(blue-900, 10.37:1)까지 폭넓게 걸쳐 그라데이션이 뚜렷이 보이도록 함(전 구간
-                3:1 이상 충족). 다크모드 gray-300~500은 dark-surface 대비 3.8~12.6:1로 기준 충족해 유지 */}
             <span className="bg-linear-to-r from-blue-500 via-blue-700 to-blue-900 bg-clip-text text-transparent dark:from-gray-300 dark:via-gray-400 dark:to-gray-500">
               장예지
             </span>{" "}
@@ -158,7 +154,7 @@ export default function Hero() {
         </p>
       </div>
       {showGreeting && (
-        <div className="relative mt-10 h-35 w-35 ml-auto">
+        <div className="relative mt-10 h-35 w-35 ml-auto mr-10 md:mr-0">
           <span
             aria-hidden="true"
             style={{
