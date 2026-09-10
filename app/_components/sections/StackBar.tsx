@@ -1,12 +1,12 @@
 const STACK_ITEMS = [
-  "REACT 18",
+  "REACT",
   "NEXT.JS (APP ROUTER)",
   "TYPESCRIPT",
   "TAILWIND CSS",
   "SUPABASE",
   "WEB PERFORMANCE & CORE VITALS",
-  "ACCESSIBILITY FIRST",
-  "DESIGN SYSTEMS",
+  "WEB ACCESSIBILITY",
+  "RESPONSIVE UI",
 ];
 
 export default function StackBar() {

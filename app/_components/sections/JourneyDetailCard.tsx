@@ -57,7 +57,7 @@ export default function JourneyDetailCard({
     <div
       ref={cardRef}
       aria-live="polite"
-      className={`flex flex-col relative h-full rounded-xl border-4 border-transparent bg-light-surface-dim p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
+      className={`flex flex-col relative h-full rounded-xl border-4 border-white md:border-transparent bg-light-surface-dim p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
     >
@@ -82,20 +82,26 @@ export default function JourneyDetailCard({
         />
       </svg>
 
-      {dots.map((point, index) => (
-        <span
-          key={index}
-          aria-hidden="true"
-          style={{
-            left: point.x - CARD_BORDER_WIDTH,
-            top: point.y - CARD_BORDER_WIDTH,
-            animationDelay: `${(index / dots.length) * BORDER_SWEEP_DURATION_MS}ms`,
-          }}
-          className={`absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light-accent motion-safe:opacity-0 dark:bg-dark-accent ${
-            isInView ? "motion-safe:animate-[pop-in_220ms_ease-out_both]" : ""
-          }`}
-        />
-      ))}
+      {/* 모바일에서는 점 애니메이션 대신 위의 border-white로 테두리를 표시하고,
+          md 이상에서만 점이 테두리를 도는 애니메이션을 적용함 */}
+      <div className="hidden md:contents">
+        {dots.map((point, index) => (
+          <span
+            key={index}
+            aria-hidden="true"
+            style={{
+              left: point.x - CARD_BORDER_WIDTH,
+              top: point.y - CARD_BORDER_WIDTH,
+              animationDelay: `${(index / dots.length) * BORDER_SWEEP_DURATION_MS}ms`,
+            }}
+            className={`absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light-accent motion-safe:opacity-0 dark:bg-dark-accent ${
+              isInView
+                ? "motion-safe:animate-[pop-in_220ms_ease-out_both]"
+                : ""
+            }`}
+          />
+        ))}
+      </div>
 
       <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
         STEP {active.step}
