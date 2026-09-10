@@ -250,6 +250,41 @@
 - [x] `bunx tsc --noEmit`, `bun run lint`, `bun run build` 매 변경마다 통과 확인
 - [x] Git 커밋 완료 (`e48b9db`, `ab724ed`)
 
+### 추가 작업 (Phase 목록 외): About 모바일 카드 테두리 + Home Hero 인사말/기술스택 배지
+
+- [x] `app/_components/sections/JourneyDetailCard.tsx` - 모바일(`md` 미만)에서는 점이
+      테두리를 도는 애니메이션 대신 `border-white`로 고정 테두리만 표시, `md` 이상에서만
+      기존 점 애니메이션 적용(`hidden md:contents`로 점 자체를 모바일에서 렌더링 제외)
+- [x] `app/_components/sections/Hero.tsx` - Home Hero 개편
+  - [x] 밑줄 애니메이션이 끝나면(1700ms 후) "기록하고, 배우고, 나아갑니다" 3줄 헤드라인이
+        "안녕하세요. / 장예지 입니다." 인사말로 전환되도록 `showGreeting` 상태 추가
+  - [x] "장예지" 글자에 밑줄 3개와 같은 파란 계열 그라데이션 적용, 첫 색상 접근성 위반
+        피드백에 따라 `blue-300~500` → `blue-600~800`으로 1차 수정 후, 그라데이션이 잘
+        안 보인다는 피드백에 따라 `blue-500 → blue-700 → blue-900`(대비 3.68~10.37:1,
+        h1이 60px bold라 WCAG large-text 기준 3:1 충족)로 범위를 넓혀 재수정
+  - [x] "FRONTEND DEVELOPER"와 같은 JetBrains Mono 폰트로 소개 문구 2줄 추가
+  - [x] 인사말 아래 책 이미지 등장 - 사용자가 제공한 이미지 여러 장(`yeji'sbook.png`,
+        `book.png`, `book.svg`, `book.jpg`)의 배경(누끼) 제거를 여러 차례 시도했으나
+        만족스럽지 않아, 최종적으로 이미지 대신 iOS 책 이모지(📖)로 교체
+  - [x] React/Next.js/TypeScript/Tailwind CSS/Supabase 배지가 책 등장 후 순서대로
+        팝업하며 주위에 흩뿌려지도록 추가, 브랜드 색상 블러 글로우 적용
+        - Tailwind 로고는 24x24 viewBox 내 실제 로고 비율이 TypeScript보다 작아 같은
+          `size`에서 더 작아 보이는 문제를 발견해 `size`를 개별 조정(TypeScript 18 →
+          Tailwind 30)해 시각적 높이를 맞춤
+        - 배지마다 기준점(모서리/중심)이 섞여 배치 높이가 들쭉날쭉해 보이던 문제를
+          모든 배지를 중심 기준(`-translate-x/y-1/2`)으로 통일해 해결
+        - 책과 배지 사이 간격을 고정값(5px)으로 맞춘 뒤, 사용자 요청에 따라 배지마다
+          반지름(82~98px)을 조금씩 다르게 줘 기계적이지 않은 자연스러운 흩뿌림으로 조정
+- [x] `app/_components/sections/StackBar.tsx` - 하단 마퀴 문구 목록 일부 수정
+      (`REACT 18` → `REACT`, `ACCESSIBILITY FIRST`/`DESIGN SYSTEMS` →
+      `WEB ACCESSIBILITY`/`RESPONSIVE UI`)
+- [x] 테스트: 매 변경마다 헤드리스 Chrome + CDP로 라이트/다크 모드 스크린샷 확인,
+      배지 위치는 `getBoundingClientRect`/`getBBox`로 실제 렌더링 좌표를 측정해 검증
+- [x] `bunx tsc --noEmit`, `bun run lint` 매 변경마다 통과 확인
+- [x] Git 커밋 완료 (`bf3d135`, `2c627a5`, `66aad9d`, `5beba62`)
+- [ ] 더 이상 참조되지 않는 `public/book-transparent.png`, `public/book.jpg` 삭제
+      여부 확인 필요 - 책 이미지를 이모지로 교체하면서 사용하지 않게 됨
+
 ---
 
 ## 🎨 **Step 3: 라이트 모드 추가 (30분)**
