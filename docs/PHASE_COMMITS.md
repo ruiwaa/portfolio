@@ -541,7 +541,3 @@ git add tailwind.config.ts styles/typography.css lib/constants.ts
 git commit -m "feat: 색상, 폰트, 다크모드 시스템 설정"
 git push
 ```
-
----
-
-**각 Phase 끝날 때마다 이 가이드를 참고하면 돼!** ✨
