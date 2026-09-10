@@ -225,7 +225,30 @@
       효과 스크린샷 확보, `curl`로 404 상태 코드 확인, 다크모드 스크린샷으로 카드/404
       페이지 색상 확인
 - [x] `bunx tsc --noEmit`, `bun run lint`, `bun run build` 매 변경마다 통과 확인
-- [ ] Git 커밋: 아직 미완료 (여러 건 - 아래 PR 문서 참고)
+- [x] Git 커밋 완료 (`5210237`, `c09ce9f`, `d1440c4`, `fea23b1`), PR #29로 dev에 머지 완료
+
+### 추가 작업 (Phase 목록 외): 로딩 스피너 + Projects 제목 애니메이션 타이밍 수정
+
+- [x] `app/_components/ui/DotLoadingSpinner.tsx` 신규 - 점 3개가 순서대로 커지며
+      깜빡이다 사라지는 순차 도트 로딩 스피너
+  - [x] 색상은 Home Hero 헤드라인 밑줄 3개와 동일(라이트 blue-300/400/500, 다크
+        gray-300/400/500), `animation-delay`로 순서대로 재생
+  - [x] `size?: "sm" | "md" | "lg"` prop으로 점 크기/간격을 함께 조절할 수 있게 구현
+  - [x] `prefers-reduced-motion` 대응 (기존 컨벤션대로 no-preference 블록 안에서만
+        애니메이션 클래스 적용)
+- [x] `app/loading.tsx` 신규 - Next.js App Router 전역 로딩 UI. 자체 `loading.tsx`가
+      없는 모든 라우트에 적용되며 Header/Footer는 유지된 채 `<main>` 영역만 스피너로
+      교체됨(`size="lg"`) - 실제로 서버 데이터 페칭이 있는 `/posts`, `/posts/[slug]`에서
+      체감 가능
+- [x] `app/_components/sections/Projects.tsx` - "PROJECTS" 제목이 카드보다 늦게
+      나타나던 버그 수정: 제목의 `useInView`가 카드 3개(간격 12vh)를 포함한 전체
+      `<section>`을 관찰하고 있어 `threshold(20%)` 충족 시점이 각 카드보다 훨씬 늦었음 →
+      제목에 별도 `ref`를 줘서 자기 자신의 작은 영역만 관찰하도록 수정
+- [x] 테스트: 헤드리스 Chrome + CDP로 실제 클릭 네비게이션 발생시켜 로딩 스피너가 뜨는
+      것 확인(서버에 임시 지연을 걸어 확인 후 원복), 스크롤 위치별로 제목/카드의
+      `isInView` 트리거 시점을 비교해 제목이 카드보다 먼저 트리거됨을 확인
+- [x] `bunx tsc --noEmit`, `bun run lint`, `bun run build` 매 변경마다 통과 확인
+- [x] Git 커밋 완료 (`e48b9db`, `ab724ed`)
 
 ---
 
