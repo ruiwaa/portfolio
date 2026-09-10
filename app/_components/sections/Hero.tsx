@@ -93,13 +93,9 @@ export default function Hero() {
         SYS.LOG // CONTINUOUS LEARNING_
       </span>
       {showGreeting ? (
-        <h1 className="h1 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] text-light-text dark:text-dark-text">
+        <h1 className="h1 motion-safe:animate-[fade-up-in_1.2s_ease-out_both] text-light-text dark:text-dark-text">
           <span className="block w-fit">안녕하세요.</span>
           <span className="block w-fit">
-            {/* h1(.h1)은 60px bold로 WCAG "large text" 기준(24px 이상 또는 18.66px 이상 bold)을
-                충족해 최소 대비 3:1이 기준 - 라이트 모드는 밝은 파랑(blue-500, 흰 배경 대비 3.68:1)에서
-                짙은 남색(blue-900, 10.37:1)까지 폭넓게 걸쳐 그라데이션이 뚜렷이 보이도록 함(전 구간
-                3:1 이상 충족). 다크모드 gray-300~500은 dark-surface 대비 3.8~12.6:1로 기준 충족해 유지 */}
             <span className="bg-linear-to-r from-blue-500 via-blue-700 to-blue-900 bg-clip-text text-transparent dark:from-gray-300 dark:via-gray-400 dark:to-gray-500">
               장예지
             </span>{" "}
@@ -132,16 +128,15 @@ export default function Hero() {
         </h1>
       )}
       {showGreeting && (
-        // 소개 문구(h1, Syne)와 구분되도록 FRONTEND DEVELOPER와 같은 JetBrains Mono 폰트 사용
         <>
           <p
-            style={{ animationDelay: "150ms" }}
+            style={{ animationDelay: "190ms" }}
             className="font-mono motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
           >
             다양한 사용자를 고려하고,
           </p>
           <p
-            style={{ animationDelay: "150ms" }}
+            style={{ animationDelay: "190ms" }}
             className="font-mono motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
           >
             배우는 것을 멈추지 않습니다.
@@ -149,7 +144,7 @@ export default function Hero() {
         </>
       )}
       <div className="anim-cta-entrance mt-6">
-        <p className="body flex items-center gap-2 text-light-text-secondary dark:text-lime-400">
+        <p className="body flex items-center gap-2 text-green-600/70 text-shadow-sm dark:text-lime-400">
           <span
             aria-hidden="true"
             className="h-4 w-px bg-light-border dark:bg-dark-border "
@@ -158,15 +153,18 @@ export default function Hero() {
         </p>
       </div>
       {showGreeting && (
-        <div className="relative mt-10 h-35 w-35 ml-auto">
+        <div className="group relative mt-10 h-35 w-35 ml-auto mr-10 md:mr-0">
           <span
             aria-hidden="true"
             style={{
-              animationDelay: "300ms",
+              animationDelay: "400ms",
               fontSize: "140px",
               lineHeight: 1,
             }}
-            className="motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] block"
+            // 호버 시 리프트(-translate-y-2)만으로는 눈에 덜 띄어서, 살짝 커지고(scale) 기울어지며
+            // (rotate) 테마별 브랜드 색상(라이트 blue accent #0066cc / 다크 흰색)으로 은은하게
+            // 빛나는 글로우(drop-shadow)까지 함께 줘서 호버했을 때 확실히 시선이 가도록 강화
+            className="motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] motion-safe:transition-[transform,filter] motion-safe:duration-1000 motion-safe:ease-out motion-safe:group-hover:-translate-y-2 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-3 motion-safe:group-hover:filter-[drop-shadow(0_0_18px_rgba(0,102,204,0.55))] dark:motion-safe:group-hover:filter-[drop-shadow(0_0_18px_rgba(255,255,255,0.4))] block"
           >
             📖
           </span>
@@ -174,23 +172,26 @@ export default function Hero() {
             ({ Icon, label, color, top, left, standalone, size }, index) => (
               <span
                 key={label}
-                aria-hidden="true"
-                title={label}
-                style={{
-                  top: `${top}px`,
-                  left: `${left}px`,
-                  animationDelay: `${TECH_BADGE_START_DELAY_MS + index * TECH_BADGE_STAGGER_MS}ms`,
-                  ...(standalone
-                    ? { filter: "drop-shadow(0 0 6px currentColor)" }
-                    : { boxShadow: `0 0 10px 0px ${color}80` }),
-                }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 motion-safe:opacity-0 motion-safe:animate-[pop-in_300ms_ease-out_both] ${
-                  standalone
-                    ? "flex h-9 w-9 items-center justify-center text-black dark:text-white"
-                    : "flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black"
-                }`}
+                style={{ top: `${top}px`, left: `${left}px` }}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
               >
-                <Icon aria-hidden="true" size={size} color={color} />
+                <span
+                  aria-hidden="true"
+                  title={label}
+                  style={{
+                    animationDelay: `${TECH_BADGE_START_DELAY_MS + index * TECH_BADGE_STAGGER_MS}ms`,
+                    ...(standalone
+                      ? { filter: "drop-shadow(0 0 6px currentColor)" }
+                      : { boxShadow: `0 0 10px 0px ${color}80` }),
+                  }}
+                  className={`motion-safe:opacity-0 motion-safe:animate-[pop-in_300ms_ease-out_both] motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:-translate-y-2 ${
+                    standalone
+                      ? "flex h-9 w-9 items-center justify-center text-black dark:text-white"
+                      : "flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black"
+                  }`}
+                >
+                  <Icon aria-hidden="true" size={size} color={color} />
+                </span>
               </span>
             ),
           )}
