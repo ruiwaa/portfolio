@@ -528,6 +528,34 @@ git push
 
 ---
 
+## Phase 2️⃣9️⃣: Resume 페이지 버튼을 피그마/노션 링크로 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] "이력서 보기" + "PDF 다운로드" 버튼 제거
+- [ ] "피그마로 보기"(채워진 버튼) + "노션으로 보기"(아웃라인 버튼) 추가
+- [ ] SiFigma/SiNotion 로고가 버튼 텍스트 왼쪽에 가로로 배치됨
+- [ ] 로고 색상이 버튼 텍스트 색(currentColor)을 그대로 따라감 확인
+- [ ] RESUME_FIGMA_URL/RESUME_NOTION_URL 플레이스홀더 확인 (실제 링크는 추후 교체)
+- [ ] 라이트/다크 모드 테스트
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `feat`
+**메시지**: `feat: Resume 버튼을 피그마/노션 링크로 교체`
+
+```bash
+git add app/_components/sections/Resume.tsx docs/DOMAIN.md
+git commit -m "feat: Resume 버튼을 피그마/노션 링크로 교체"
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

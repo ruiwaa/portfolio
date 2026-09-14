@@ -405,12 +405,91 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 ⚠️ 미완료:
    - "이력서 보기"/"PDF 다운로드" 링크는 실제 Notion 링크나 PDF 파일이 없어서 href="#" 플레이스홀더
 
-📍 다음: 라이트 모드 추가
+📍 다음: Phase 9 (최종 검증)
 ```
 
 ---
 
-## Phase 9️⃣: Footer 컴포넌트
+## Phase 9️⃣: 최종 검증
+
+**이 단계에서 확인할 것:**
+
+```bash
+# 1. 타입 체크
+bun run type-check
+
+# 2. 린트
+bun run lint
+
+# 3. 빌드
+bun run build
+
+# 4. 개발 서버 (라이트/다크 모드 확인)
+bun run dev
+```
+
+**확인 항목:**
+
+- [x] 모든 페이지 렌더링 (`bun run build` + `next start`로 모든 라우트 200 확인, 없는 경로 404 확인)
+- [ ] 모든 인터랙션 작동 (필터/햄버거 메뉴 로직·마크업은 확인, 실제 클릭은 브라우저 미연결로 미검증)
+- [x] 라이트 모드
+- [x] 다크 모드 (페이지당 `dark:` 클래스 약 60개 적용 확인)
+- [ ] 라이트/다크 전환 (토글 로직은 확인, 실제 클릭 전환은 미검증)
+- [ ] 모바일 반응형 (반응형 클래스는 적용, 실기기/브라우저 시각 확인은 못 함)
+- [x] 폰트 로드 (Syne/JetBrains Mono `<html>` 클래스 확인)
+- [ ] Lighthouse 90+ (선택) — 실행 환경 없어서 미실시
+
+**완성:**
+
+```
+✅ 포트폴리오 완성! (Phase 1~8)
+✅ WCAG AA 접근성 준수 (시멘틱 태그, aria-*, focus-visible 기준으로 구현)
+✅ 배포 준비 - 코드 레벨은 완료, 브라우저 실사용 테스트는 남음
+```
+
+📍 다음: Phase 🔟 (Posts를 TanStack Query로 전환)
+
+---
+
+## Phase 🔟: Posts를 TanStack Query로 전환
+
+**계기**: 8개 Phase 완료 후, Posts의 캐싱을 TanStack Query로 관리하고 싶다는 요청으로 진행. 기존엔 SSR/RSC 직접 fetch + `revalidate=60`(ISR) 방식이었음.
+
+**요약:**
+
+```
+✅ 생성된 파일:
+   - app/api/posts/route.ts (Route Handler - ARCHITECTURE.md의 "필요시" 슬롯이 실제로 필요해짐)
+   - app/_components/providers/QueryProvider.tsx (브라우저용 QueryClient, staleTime 60초)
+   - app/_lib/query-client.ts (서버 컴포넌트 prefetch 전용, React.cache로 요청 단위 메모이제이션)
+
+✅ 수정된 파일:
+   - app/_components/sections/Posts.tsx (posts prop 제거 → useQuery로 /api/posts 직접 fetch,
+     isLoading/isError 직접 처리)
+   - app/(routes)/posts/page.tsx (Suspense+비동기 서버 컴포넌트 → prefetchQuery + dehydrate +
+     HydrationBoundary로 교체, revalidate=60 제거)
+   - app/layout.tsx (QueryProvider 마운트)
+
+✅ 구현한 것:
+   - /api/posts: dynamic="force-dynamic"으로 항상 최신 데이터 반환
+   - 서버에서 미리 fetch(getPublishedPosts 직접 호출) → dehydrate → 클라이언트 하이드레이션
+     (첫 로딩에 스켈레톤 깜빡임 없음), 이후 재검증은 /api/posts를 통해 클라이언트에서 fetch
+   - staleTime 60초 - 그 안에는 캐시 재사용, 지나면 마운트/포커스 시 자동 백그라운드 refetch
+   - QueryProvider는 최초 common/에 넣었다가 사용자 요청으로 providers/ 폴더 신설 후 이동
+
+✅ 테스트 완료:
+   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
+   - dev 서버에서 /api/posts 실제 Supabase 데이터 응답 확인
+   - /posts 페이지 하이드레이션 데이터 렌더링 확인 (RSC 페이로드에 dehydratedState 포함 확인)
+   - 프로덕션 빌드에서 /api/posts는 ƒ(Dynamic), /posts 페이지 자체는 여전히 ○(Static)로 잡히는 것
+     확인 - 다만 클라이언트가 staleTime 기준으로 자동 재검증하므로 자체 치유됨을 확인
+
+📍 다음: Phase 1️⃣1️⃣ (Footer 컴포넌트)
+```
+
+---
+
+## Phase 1️⃣1️⃣: Footer 컴포넌트
 
 **요약 (이전 세션에서 완료, 이번 세션에서 문서만 정리):**
 
@@ -428,7 +507,7 @@ Tailwind CSS와 폰트를 프로젝트에 설정하고, 라이트/다크 모드�
 
 ---
 
-## Phase 🔟: About Me 페이지
+## Phase 1️⃣2️⃣: About Me 페이지
 
 **이 Phase에서 해야 할 것:**
 
@@ -512,7 +591,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
 
 ---
 
-## Phase 1️⃣1️⃣: Home Hero 섹션
+## Phase 1️⃣3️⃣: Home Hero 섹션
 
 **요약 (Phase 5 MY RECORDER 세션에서 함께 구현되어 이미 커밋되어 있었음, 이번 세션은 검증 + 문서 정리):**
 
@@ -532,12 +611,12 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
    - 라이트/다크 모드 전환 후 스크린샷 비교, 콘솔 에러 0건 확인
    - bunx tsc --noEmit, bun run lint 통과 확인
 
-📍 다음: Phase 12 - Posts 상세 페이지
+📍 다음: Phase 14 - Posts 상세 페이지
 ```
 
 ---
 
-## Phase 1️⃣2️⃣: Posts 상세 페이지
+## Phase 1️⃣4️⃣: Posts 상세 페이지
 
 **요약:**
 
@@ -570,12 +649,12 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      → 원인: layout.tsx의 테마 초기화 인라인 <script> + notFound() 바운더리 조합에서만 발생하는
        React 개발 모드 전용 경고 (프로덕션 빌드로 재현 시 사라짐 확인) → 실사용에 영향 없어 그대로 둠
 
-📍 다음: Phase 13 - Posts 페이지네이션
+📍 다음: Phase 15 - Posts 페이지네이션
 ```
 
 ---
 
-## Phase 1️⃣3️⃣: Posts 페이지네이션
+## Phase 1️⃣5️⃣: Posts 페이지네이션
 
 **요약:**
 
@@ -614,12 +693,12 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      → DB 권한을 우회하지 않고, 대신 Playwright route 모킹으로 클라이언트 로직만
        독립적으로 검증하는 방식으로 전환 (실제 데이터베이스에 손대지 않아 더 안전했음)
 
-📍 다음: Phase 1️⃣4️⃣: Experience Projects 섹션 테스트 콘텐츠
+📍 다음: Phase 1️⃣6️⃣: Experience Projects 섹션 테스트 콘텐츠
 ```
 
 ---
 
-## Phase 1️⃣4️⃣: Experience Projects 섹션 테스트 콘텐츠
+## Phase 1️⃣6️⃣: Experience Projects 섹션 테스트 콘텐츠
 
 **요약:**
 
@@ -666,12 +745,12 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
      무관하게 섹션 진입 시 한 번에 애니메이션이 끝나버림 → useInView를 ProjectCard 내부로
      옮겨 카드별로 독립적인 관찰자를 갖도록 수정
 
-📍 다음: Phase 15 - Resume 그리드 배경 웨이브 효과
+📍 다음: Phase 17 - Resume 그리드 배경 웨이브 효과
 ```
 
 ---
 
-## Phase 1️⃣5️⃣: Resume 그리드 배경 웨이브 효과
+## Phase 1️⃣7️⃣: Resume 그리드 배경 웨이브 효과
 
 **요약:**
 
@@ -747,7 +826,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
    격자 촘촘함, 능선 색상 대비, 마우스 반응 정도 등 튜닝 여지 있음)
 ```
 
-## 🔧 트러블슈팅: "적용이 안됐는데?" (WebGL 캔버스가 안 보임)
+## Phase 1️⃣8️⃣: WebGL 캔버스가 안 보이는 문제 수정
 
 **문제**
 
@@ -796,7 +875,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
   리사이즈 스킵)은 해결되었으므로, 새로고침 시 실제로 보일 것으로 기대됨 - 다만 실제
   브라우저에서의 최종 육안 확인은 사용자 몫으로 남아있음
 
-## 🔧 Resume 배경 셰이더 재작성: 새 프롬프트로 단순화 + 그리드 라인 수식 버그 발견
+## Phase 1️⃣9️⃣: Resume 배경 셰이더 재작성 및 그리드 라인 버그 수정
 
 **요청**: 사용자가 다음 프롬프트로 그리드 배경을 다시 만들어달라고 요청 - "화이트 배경 +
 은은한 연회색 사각 격자선", "파도 물결처럼 매우 느리고 잔잔하게 일렁이는 3D 굴곡 효과",
@@ -832,7 +911,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
   경험에는 불필요하므로 최종 코드에서 제거
 - `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과 확인
 
-## 🔧 애니메이션 속도 조정 + 배경 범위를 Resume 섹션으로 한정
+## Phase 2️⃣0️⃣: 웨이브 배경 애니메이션 속도 조정 및 범위 한정
 
 **요청**: "애니메이션 효과 속도가 너무 느려", "기존에 푸터까지 격자 그리드 배경이
 들어가있었어? 그게 아니라면 푸터 부분에는 배경 제거해."
@@ -857,7 +936,7 @@ About Me 페이지를 구현합니다. 인사말/외부 링크, 기술 스택, �
   렌더링됨을 확인 후 해당 플래그 제거
 - `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과 확인
 
-## 🔧 그리드가 메인 영역을 다 못 채움 + 속도 추가 조정
+## Phase 2️⃣1️⃣: 웨이브 그리드 영역 채움 버그 및 속도 재조정
 
 **요청**: "그리드 배경이 메인영역에 다 안찼어", "속도보다 0.3초 빠르게 바꿔"
 
@@ -882,7 +961,7 @@ main과 크기가 맞아떨어졌던 것. 실제 데스크톱 크기(1440×900)�
 일치하고(gap=0), Footer 시작 지점과도 정확히 맞아떨어짐을 확인. `bunx tsc --noEmit`,
 `bun run lint`, `bun run build` 모두 통과.
 
-## 🔧 마우스 호버 시 그리드가 움푹 파이는(dent) 효과 추가
+## Phase 2️⃣2️⃣: 마우스 호버 그리드 dent 효과 추가
 
 **요청**: "그리드 배경에 마우스를 대면 그리드 굴곡이 움푹 파져보이는 효과를 추가해줘"
 
@@ -905,7 +984,7 @@ main과 크기가 맞아떨어졌던 것. 실제 데스크톱 크기(1440×900)�
 `preserveDrawingBuffer`는 제거. `bunx tsc --noEmit`, `bun run lint`, `bun run build`
 모두 통과.
 
-## ✨ 커스텀 404 페이지 추가 (Resume 배경 재사용)
+## Phase 2️⃣3️⃣: 커스텀 404 페이지 추가
 
 **요청**: 사용자가 다크 톤 목업 이미지를 참고로 제시하며, Resume의 그리드 배경/애니메이션은
 그대로 쓰고 안의 텍스트/버튼만 새로 구성한 404 페이지를 요청
@@ -946,7 +1025,7 @@ main과 크기가 맞아떨어졌던 것. 실제 데스크톱 크기(1440×900)�
 프리렌더링됨을 확인, 헤드리스 Chrome 스크린샷으로 라이트/다크 모드 모두 시각적으로
 확인. `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과.
 
-## 🔧 마우스 파임 반경 축소 + 404 숫자 자간 조정
+## Phase 2️⃣4️⃣: 마우스 파임 반경 및 404 자간 조정
 
 **요청**: "pointer 크기를 좀 더 줄여줘 지금 너무 커", "404숫자 간격 좁혀"
 
@@ -960,7 +1039,7 @@ main과 크기가 맞아떨어졌던 것. 실제 데스크톱 크기(1440×900)�
 파임 영역이 이전보다 작아진 것을 스크린샷으로 확인. `bunx tsc --noEmit`, `bun run lint`,
 `bun run build` 모두 통과.
 
-## 🎨 MY RECORDER 카드 다크모드 색상을 About Intro와 통일
+## Phase 2️⃣5️⃣: MY RECORDER 카드 다크모드 색상 통일
 
 **요청**: "홈페이지의 레코드 카드 색상 다크모드 시에 about의 intro 도형 모형 색상을
 넣어줘, 1개 모자른 색상을 임의로 색상 균형이 맞는 조합으로 변경해"
@@ -985,7 +1064,7 @@ AboutIntro에는 purple 도형이 없어 대응되는 값이 없는 상태("1개
 통일되고, 원형 배지도 카드 배경 위에서 잘 보이는 것을 확인. `bunx tsc --noEmit`,
 `bun run lint`, `bun run build` 모두 통과.
 
-## ✨ 순차 도트 로딩 스피너 + 페이지 이동 로딩 UI 추가
+## Phase 2️⃣6️⃣: 순차 도트 로딩 스피너 및 페이지 로딩 UI 추가
 
 **요청**: "3개의 점이 순차적으로 커지며 깜빡이다 사라지는 미니멀한 순차 도트 로딩
 스피너를 만들어줘. 다크모드 및 라이트 모드 시 점의 색상은 home 페이지의 hero
@@ -1020,7 +1099,7 @@ AboutIntro에는 purple 도형이 없어 대응되는 값이 없는 상태("1개
   이후 지연 코드 제거 요청에 따라 다시 원복
 - `bunx tsc --noEmit`, `bun run lint`, `bun run build` 매 변경마다 통과
 
-## 🔧 Projects 제목이 카드보다 늦게 나타나는 애니메이션 타이밍 버그 수정
+## Phase 2️⃣7️⃣: Projects 제목 애니메이션 타이밍 버그 수정
 
 **요청**: "exprience 페이지에서 project 제목이 나오는 애니메이션 타이밍이 안 맞아.
 프로젝트 카드 보다 늦게 나와 수정해"
@@ -1042,7 +1121,7 @@ AboutIntro에는 purple 도형이 없어 대응되는 값이 없는 상태("1개
 확인 - 제목이 카드보다 먼저(또는 최소한 늦지 않게) 나타나는 순서로 정상화됨.
 `bunx tsc --noEmit`, `bun run lint`, `bun run build` 모두 통과.
 
-## 🔄 추가 작업: About 모바일 카드 테두리 + Home Hero 인사말/기술스택 배지
+## Phase 2️⃣8️⃣: About 모바일 카드 테두리 및 Home Hero 인사말/기술스택 배지 추가
 
 **요청**: "about에서 모바일 버전일때는 레코드 세부 내용 카드의 점 애니메이션 적용하지
 마. border 색상은 흰색으로" → 이어서 "hero부분에서 밑줄로 글귀 스타일링을 마친뒤에
@@ -1163,84 +1242,27 @@ Tailwind 임의값 클래스(`-top-3 -left-4` 등), 일부는 중심 기준(`lef
    - 새로고침 후 유지
    - bun run type-check
 
-📍 다음: 최종 검증
+📍 다음: 없음 (Phase 9·10로 재배치된 최종 검증/Posts TanStack Query 전환 참고)
 ```
 
----
+## Phase 2️⃣9️⃣: Resume 페이지 버튼을 피그마/노션 링크로 교체
 
-## ✅ 최종 검증
+**요청**: "이력서 페이지에 pdf 다운로드 버튼을 제거하고, 이력서 보기를 피그마로 보기, 노션으로 보기 버튼 두개로 나눠서, 현재 버튼 두개를 이걸로 교체해주고 피그마 노션 각각 로고디자인을 넣어서 버튼 텍스트와 함께 가로로 배치해"
 
-**이 단계에서 확인할 것:**
+**변경** (`app/_components/sections/Resume.tsx`):
+- 기존 "이력서 보기"(채워진 버튼) + "PDF 다운로드"(아웃라인 버튼) 2개를 "피그마로 보기"(채워진 버튼) +
+  "노션으로 보기"(아웃라인 버튼)로 전면 교체
+- `RESUME_VIEW_URL`/`RESUME_PDF_URL` 상수를 `RESUME_FIGMA_URL`/`RESUME_NOTION_URL`로 교체
+  (둘 다 아직 `#` 플레이스홀더, TODO 주석으로 실제 링크 교체 필요 명시)
+- `react-icons/si`의 `SiFigma`/`SiNotion` 로고를 각 버튼 텍스트 왼쪽에 `inline-flex items-center gap-2`로
+  가로 배치
+- 로고 색상은 브랜드 고정 hex 대신 `currentColor`를 그대로 상속하도록 둬서, 기존 Header.tsx의
+  GitHub/Velog 아이콘과 동일한 패턴 유지 - 채워진 버튼(흰 로고)/아웃라인 버튼(다크 텍스트 색 로고)
+  모두 라이트·다크 모드 전환 시 버튼 텍스트 색과 자동으로 맞춰짐
 
-```bash
-# 1. 타입 체크
-bun run type-check
+**검증**:
+- `bunx tsc --noEmit`, `bunx eslint app/_components/sections/Resume.tsx` 모두 통과
+- 실제 브라우저에서의 시각적 확인(로고 정렬/크기, 라이트·다크 모드 대비)은 이 세션에 연결된
+  대화형 브라우저가 없어 사용자 확인 필요
 
-# 2. 린트
-bun run lint
-
-# 3. 빌드
-bun run build
-
-# 4. 개발 서버 (라이트/다크 모드 확인)
-bun run dev
-```
-
-**확인 항목:**
-
-- [x] 모든 페이지 렌더링 (`bun run build` + `next start`로 모든 라우트 200 확인, 없는 경로 404 확인)
-- [ ] 모든 인터랙션 작동 (필터/햄버거 메뉴 로직·마크업은 확인, 실제 클릭은 브라우저 미연결로 미검증)
-- [x] 라이트 모드
-- [x] 다크 모드 (페이지당 `dark:` 클래스 약 60개 적용 확인)
-- [ ] 라이트/다크 전환 (토글 로직은 확인, 실제 클릭 전환은 미검증)
-- [ ] 모바일 반응형 (반응형 클래스는 적용, 실기기/브라우저 시각 확인은 못 함)
-- [x] 폰트 로드 (Syne/JetBrains Mono `<html>` 클래스 확인)
-- [ ] Lighthouse 90+ (선택) — 실행 환경 없어서 미실시
-
-**완성:**
-
-```
-✅ 포트폴리오 완성! (Phase 1~8)
-✅ WCAG AA 접근성 준수 (시멘틱 태그, aria-*, focus-visible 기준으로 구현)
-✅ 배포 준비 - 코드 레벨은 완료, 브라우저 실사용 테스트는 남음
-```
-
----
-
-## 🔄 추가 작업: Posts를 TanStack Query로 전환
-
-**계기**: 8개 Phase 완료 후, Posts의 캐싱을 TanStack Query로 관리하고 싶다는 요청으로 진행. 기존엔 SSR/RSC 직접 fetch + `revalidate=60`(ISR) 방식이었음.
-
-**요약:**
-
-```
-✅ 생성된 파일:
-   - app/api/posts/route.ts (Route Handler - ARCHITECTURE.md의 "필요시" 슬롯이 실제로 필요해짐)
-   - app/_components/providers/QueryProvider.tsx (브라우저용 QueryClient, staleTime 60초)
-   - app/_lib/query-client.ts (서버 컴포넌트 prefetch 전용, React.cache로 요청 단위 메모이제이션)
-
-✅ 수정된 파일:
-   - app/_components/sections/Posts.tsx (posts prop 제거 → useQuery로 /api/posts 직접 fetch,
-     isLoading/isError 직접 처리)
-   - app/(routes)/posts/page.tsx (Suspense+비동기 서버 컴포넌트 → prefetchQuery + dehydrate +
-     HydrationBoundary로 교체, revalidate=60 제거)
-   - app/layout.tsx (QueryProvider 마운트)
-
-✅ 구현한 것:
-   - /api/posts: dynamic="force-dynamic"으로 항상 최신 데이터 반환
-   - 서버에서 미리 fetch(getPublishedPosts 직접 호출) → dehydrate → 클라이언트 하이드레이션
-     (첫 로딩에 스켈레톤 깜빡임 없음), 이후 재검증은 /api/posts를 통해 클라이언트에서 fetch
-   - staleTime 60초 - 그 안에는 캐시 재사용, 지나면 마운트/포커스 시 자동 백그라운드 refetch
-   - QueryProvider는 최초 common/에 넣었다가 사용자 요청으로 providers/ 폴더 신설 후 이동
-
-✅ 테스트 완료:
-   - bun run type-check → `bunx tsc --noEmit` 통과, `bunx eslint` 통과
-   - dev 서버에서 /api/posts 실제 Supabase 데이터 응답 확인
-   - /posts 페이지 하이드레이션 데이터 렌더링 확인 (RSC 페이로드에 dehydratedState 포함 확인)
-   - 프로덕션 빌드에서 /api/posts는 ƒ(Dynamic), /posts 페이지 자체는 여전히 ○(Static)로 잡히는 것
-     확인 - 다만 클라이언트가 staleTime 기준으로 자동 재검증하므로 자체 치유됨을 확인
-
-📍 다음: (사용자 지정 대기)
-```
-
----
+📍 다음: 실제 피그마/노션 이력서 링크로 `RESUME_FIGMA_URL`/`RESUME_NOTION_URL` 교체 필요
