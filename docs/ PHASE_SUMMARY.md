@@ -1266,3 +1266,98 @@ Tailwind 임의값 클래스(`-top-3 -left-4` 등), 일부는 중심 기준(`lef
   대화형 브라우저가 없어 사용자 확인 필요
 
 📍 다음: 실제 피그마/노션 이력서 링크로 `RESUME_FIGMA_URL`/`RESUME_NOTION_URL` 교체 필요
+
+## Phase 3️⃣0️⃣: Badge 컴포넌트 모바일 대응 compact 사이즈 추가
+
+**요청**: "aboutInfo에서 모바일 사이즈도 고려하여, 기술스택 뱃지 크기 수정해"
+
+**변경** (`app/_components/ui/Badge.tsx`):
+- `size?: "default" | "compact"` prop 추가, 기존 `h-8`/`px-2`/`py-1`/`text-[16px]` 등 크기 관련
+  클래스를 `SIZE_CLASSES` 맵으로 이동
+- `compact`: 모바일에서 `h-6`/`text-[12px]`/좁은 padding·gap으로 작게 시작해 `sm:` 이상에서
+  기존 `default` 크기(`h-8`/`text-[16px]`)로 복귀
+- `size`를 넘기지 않으면 `default`(기존과 동일)라 Projects/Posts/포스트 상세 페이지 등 다른
+  Badge 사용처는 영향 없음 - className으로 크기 클래스를 덧붙이는 대신 통째로 교체하는 방식을
+  택한 이유는, 같은 유틸리티 레이어 클래스끼리(컴포넌트 기본 클래스 vs 전달받은 className) 충돌하면
+  어느 쪽이 이길지 컴파일 순서에 따라 불확실해지기 때문
+
+**검증**:
+- `bunx tsc --noEmit`, `bunx eslint` 통과
+- 빌드 산출물(`.next/server/app/about.html`)에서 `h-6 ... sm:h-8 ...` 반응형 클래스가 실제로
+  렌더링된 것 확인
+
+📍 다음: Phase 3️⃣1️⃣ - Experience/Projects·About 섹션 공유 컴포넌트로 분리
+
+## Phase 3️⃣1️⃣: Experience/Projects·About 섹션 공유 컴포넌트로 분리
+
+**요청**: "about me를 먼저 보여줘, 그리고 경험 및 프로젝트 페이지 컴포넌트 그대로 쓰면 되잖아." →
+이어서 "근데 home페이지의 page.tsx에 왜 about me만 section 태그를 썼어"(구조 일관성 지적) →
+"about me 페이지에서는 aboutIntro가 필요해"
+
+**변경**:
+- 신규 `app/_components/sections/ExperienceProjects.tsx`, `app/_components/sections/AboutSections.tsx` -
+  `/experience`, `/about` 페이지가 각각 쓰던 컴포넌트 조합(Experience+Projects, AboutVision+AboutInfo)을
+  그대로 추출해, 홈/about/experience 세 곳이 동일한 컴포넌트를 공유하도록 함
+- `Experience.tsx`, `Projects.tsx`, `AboutVision.tsx`에 `headingClassName?: string` prop 추가
+  (기본값은 기존 스타일 그대로) - 홈페이지에서만 제목을 더 크고 다크모드에 흰색으로 강조할 수 있게
+  하면서, `/about`·`/experience`는 prop을 넘기지 않아 원래(작고 회색) 스타일 유지
+- `app/(routes)/experience/page.tsx`, `app/(routes)/about/page.tsx`를 새 공유 컴포넌트를 쓰도록 정리,
+  `about/page.tsx`에는 `AboutIntro`를 다시 추가(홈페이지가 쓰는 공유 `AboutSections`에는 넣지 않아
+  `/about`에서만 보임)
+- 홈페이지(`app/page.tsx`)의 About Me 영역을 감싸던 불필요한 `<section aria-label="About Me">`를
+  제거 - `AboutVision`/`AboutInfo`가 이미 각자 `<section aria-labelledby=...>`로 자체 랜드마크를
+  갖고 있어(Experience/Projects도 마찬가지) 중복이었음
+
+**검증**:
+- 커밋 단위로 `git stash --keep-index`를 이용해 스테이징된 상태만 따로 `bunx tsc --noEmit` 통과 확인
+- `bunx eslint`, `bun run build` 통과, `/`·`/about`·`/experience` 모두 여전히 `○ Static`
+
+📍 다음: Phase 3️⃣2️⃣ - About 기술 스택 섹션 정리 및 호버 카드 오버플로우 수정
+
+## Phase 3️⃣2️⃣: About 기술 스택 섹션 정리 및 호버 카드 오버플로우 수정
+
+**요청**: "그리고 아예 학습이라는 컴포넌트 삭제해" → 이어서 "about me 페이지에서는... 기술스택에
+호버시 나오는 기술스택 세부 내용이 해당 페이지 메인 높이 안에 들어오게 수정해" → "aboutInfo에서
+모바일 사이즈도 고려하여, 기술스택 뱃지 크기 수정해"(Phase 30의 compact 배지를 실제 적용하는 부분)
+
+**변경** (`app/_components/sections/AboutInfo.tsx`):
+- "학습" 섹션(BookOpen 아이콘 + 학력/어학·자격증 플레이스홀더 타임라인) 전체 제거
+- 트러블슈팅: 학습 섹션을 지우면서 `/about` 페이지의 마지막 콘텐츠인 AboutInfo 자체 높이가 크게
+  줄어, 기술 스택 배지 호버 시 아래로 펼쳐지는 상세 설명 카드(`position: absolute; top-full`)가
+  필요로 하는 공간을 받쳐줄 콘텐츠가 없어져 바로 뒤에 오는 Footer 쪽으로 넘치던 문제 발생 →
+  `<section>`에 `pb-30`(이후 `pb-48`로 한 차례 더 조정) 추가로 해결
+- Phase 30에서 만든 `Badge`의 `size="compact"`를 기술 스택 배지에 적용하고 아이콘도
+  `h-3 w-3 sm:h-3.5 sm:w-3.5`로 축소, `<ul>`에 `flex-wrap` 추가해 좁은 화면에서 배지 5개가
+  한 줄에 억지로 끼지 않도록 함
+- "해당 기술 스택에 마우스를 올리면 세부 기술 내용을 확인할 수 있습니다" 안내 문구 추가
+
+**검증**: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과
+
+📍 다음: Phase 3️⃣3️⃣ - 홈페이지 MY RECORDER 카드 제거 및 Hero 중심 레이아웃 개편
+
+## Phase 3️⃣3️⃣: 홈페이지 MY RECORDER 카드 제거 및 Hero 중심 레이아웃 개편
+
+**요청**: "home 페이지에서 record card 제거하고, hero 컴포넌트를 중앙 배치하고, 스크롤 하면
+exprience와 about 페이지의 내용들이 나오도록 레이아웃 수정해" → "stack bar 는 푸터 위에 와야지,
+순서 변경해" → "hero 컴포넌트가 너무 가운데로 몰려있어 너비를 조정하고 싶어, 그리고 책 이모티콘
+부분도 위의 텍스트 기준 맨아래 오른쪽에 위치했으면 좋겠어" → "기록하고 ,배우고 이 텍스트 문자
+간격이 좀 더 있었으면 좋겟어"
+
+**변경**:
+- `app/_components/sections/MyRecorder.tsx` 삭제, `app/page.tsx`에서 제거
+- 홈 레이아웃을 Hero(중앙 배치, `min-h`로 첫 화면 확보) → About Me → Experience & Projects →
+  StackBar 순으로 재구성(Phase 31의 공유 컴포넌트 사용). 기존엔 Hero 바로 아래였던 StackBar를
+  최하단(Footer 바로 위)으로 이동
+- `Hero.tsx`: `<section>`에 `mx-auto w-full max-w-3xl` 적용해 텍스트가 너무 좁게 뭉쳐 보이던
+  너비 문제 조정, 책 이모지+기술배지 묶음 wrapper에 `self-end` 적용해 텍스트 블록 기준 오른쪽
+  아래로 위치 이동, "기록하고,/배우고,/나아갑니다" 헤드라인에 `tracking-wide` 자간 추가
+- 트러블슈팅: 책 이모지 wrapper의 `w-*`/`h-*`를 조정해도 이모지 크기가 안 바뀐다는 질문에,
+  이모지 크기는 `<span>`의 인라인 `fontSize` 스타일로 결정되고 wrapper의 `w-*`/`h-*`는 기술
+  배지 5개를 절대좌표로 배치하기 위한 좌표 기준틀일 뿐이라는 원인을 설명 (해당 요청은 코드
+  수정 없이 원인 설명으로 마무리)
+
+**검증**: 최종적으로 이번 세션 전체 변경분을 유형별 4개 커밋(Badge/refactor/fix/feat)으로 분리해
+커밋했고, `git stash --keep-index`로 각 커밋 단계별 스테이징 상태에서도 `bunx tsc --noEmit`
+통과 확인. `bunx eslint`, `bun run build` 최종 통과.
+
+📍 다음: (사용자 지정 대기)
