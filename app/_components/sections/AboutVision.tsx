@@ -38,13 +38,21 @@ const JOURNEY: JourneyStep[] = [
   },
 ];
 
-export default function AboutVision() {
+interface AboutVisionProps {
+  headingClassName?: string;
+}
+
+const DEFAULT_HEADING_CLASSNAME =
+  "text-light-text-secondary dark:text-dark-text-secondary";
+
+export default function AboutVision({
+  headingClassName = DEFAULT_HEADING_CLASSNAME,
+}: AboutVisionProps) {
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
   const active = JOURNEY[activeIndex];
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  // 뷰포트 중앙의 가느다란 띠를 스크롤로 지나가는 단계를 순서대로 활성화 (클릭 선택은 그대로 유지)
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -70,7 +78,7 @@ export default function AboutVision() {
     <section ref={ref} aria-labelledby="about-vision-heading">
       <h2
         id="about-vision-heading"
-        className="section-header text-light-text-secondary dark:text-dark-text-secondary"
+        className={`section-header ${headingClassName}`}
       >
         기록의 여정
       </h2>

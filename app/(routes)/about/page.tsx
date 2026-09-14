@@ -1,6 +1,5 @@
-import AboutInfo from "@/app/_components/sections/AboutInfo";
 import AboutIntro from "@/app/_components/sections/AboutIntro";
-import AboutVision from "@/app/_components/sections/AboutVision";
+import AboutSections from "@/app/_components/sections/AboutSections";
 import { LAYOUT } from "@/lib/constants";
 
 export default function AboutPage() {
@@ -12,10 +11,9 @@ export default function AboutPage() {
         About Me
       </h1>
 
-      <div className={`mt-12 grid grid-cols-1 ${LAYOUT.sectionGap}`}>
-        <AboutIntro />
-        <AboutVision />
-        <AboutInfo />
+      <AboutIntro />
+      <div className="mt-50">
+        <AboutSections />
       </div>
     </main>
   );

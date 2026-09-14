@@ -209,7 +209,16 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
   );
 }
 
-export default function Projects() {
+interface ProjectsProps {
+  headingClassName?: string;
+}
+
+const DEFAULT_HEADING_CLASSNAME =
+  "text-light-text-secondary dark:text-dark-text-secondary";
+
+export default function Projects({
+  headingClassName = DEFAULT_HEADING_CLASSNAME,
+}: ProjectsProps) {
   // 카드가 3개(간격 12vh)라 section 전체 높이가 매우 길어서, section 기준으로
   // threshold(20%)를 계산하면 각 카드 자체보다 훨씬 늦게 트리거됨 - 제목은 자기 자신의
   // 작은 영역만 관찰하도록 별도 ref를 둠
@@ -220,7 +229,7 @@ export default function Projects() {
     <section aria-label="프로젝트">
       <h2
         ref={headingRef}
-        className={`section-header motion-safe:opacity-0 text-light-text-secondary dark:text-dark-text-secondary ${
+        className={`section-header motion-safe:opacity-0 ${headingClassName} ${
           isHeadingInView
             ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]"
             : ""
