@@ -6,13 +6,13 @@ export default function AboutIntro() {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-labelledby="about-intro-heading" className="m-10">
+    <section ref={ref} aria-labelledby="about-intro-heading" className="mt-20">
       <h2 id="about-intro-heading" className="sr-only">
         소개
       </h2>
       <p
         style={{ animationDelay: "0ms" }}
-        className={`relative mt-10 text-2xl text-center motion-safe:opacity-0 text-light-text-secondary dark:text-dark-accent ${
+        className={`relative m-10 text-2xl text-center motion-safe:opacity-0 text-light-text-secondary dark:text-dark-accent ${
           isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
         }`}
       >
