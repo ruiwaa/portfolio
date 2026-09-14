@@ -13,14 +13,7 @@ import HoverDisclosure from "@/app/_components/ui/HoverDisclosure";
 import { useInView } from "@/app/_hooks/useInView";
 
 import type { IconType } from "react-icons";
-import { BookOpen, Code2 } from "lucide-react";
-
-interface EducationEntry {
-  period: string;
-  title: string;
-  subtitle: string;
-  details: string[];
-}
+import { Code2 } from "lucide-react";
 
 interface Skill {
   name: string;
@@ -28,22 +21,6 @@ interface Skill {
   color?: string;
   level: string[];
 }
-
-// TODO: 실제 학력/어학·자격증으로 교체
-const EDUCATION: EducationEntry[] = [
-  {
-    period: "0000 - 0000",
-    title: "학교명을 입력하세요",
-    subtitle: "전공을 입력하세요",
-    details: ["학습 내용을 입력하세요", "학습 내용을 입력하세요"],
-  },
-  {
-    period: "0000",
-    title: "어학·자격증명을 입력하세요",
-    subtitle: "발급·시행 기관을 입력하세요",
-    details: ["세부 내용을 입력하세요"],
-  },
-];
 
 // TODO: 실제 숙련도 문구로 교체
 const SKILLS: Skill[] = [
@@ -97,17 +74,20 @@ export default function AboutInfo() {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-labelledby="about-info-heading">
+    <section ref={ref} aria-labelledby="about-info-heading" className="pb-30">
       <h2 id="about-info-heading" className="sr-only">
         프로필 정보
       </h2>
       <h3 className="section-header mt-10 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
         <Code2 aria-hidden="true" /> 기술 스택
       </h3>
-      <div className="mt-8">
+      <p className="text-lg text-center mt-2">
+        해당 기술 스택에 마우스를 올리면 세부 기술 내용을 확인할 수 있습니다.
+      </p>
+      <div className="mt-5">
         <ul
           aria-label="기술 스택"
-          className="relative flex flex-row justify-center gap-2"
+          className="relative flex flex-row flex-wrap justify-center gap-2"
         >
           {SKILLS.map(({ name, Icon, color, level }, index) => {
             const detailId = `skill-detail-${name
@@ -128,10 +108,11 @@ export default function AboutInfo() {
                 >
                   <Badge
                     label={name}
+                    size="compact"
                     icon={
                       <Icon
                         aria-hidden="true"
-                        className="h-3.5 w-3.5"
+                        className="h-3 w-3 sm:h-3.5 sm:w-3.5"
                         style={color ? { color } : undefined}
                       />
                     }
@@ -142,58 +123,6 @@ export default function AboutInfo() {
           })}
         </ul>
       </div>
-
-      <h3 className="section-header mt-50 md:mt-45 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
-        <BookOpen aria-hidden="true" /> 학습
-      </h3>
-
-      <ol className="mt-8 grid grid-cols-[auto_minmax(0,28rem)] justify-center gap-x-6 gap-y-10">
-        {EDUCATION.map((entry, index) => {
-          const entranceStyle = { animationDelay: `${150 + index * 120}ms` };
-          const entranceClassName = `motion-safe:opacity-0 ${
-            isInView
-              ? "motion-safe:animate-[fade-up-in_0.5s_ease-out_both]"
-              : ""
-          }`;
-
-          return (
-            <li key={index} className="contents">
-              <span
-                style={entranceStyle}
-                className={`badge whitespace-nowrap pt-0.5 text-light-text-secondary dark:text-dark-text-secondary ${entranceClassName}`}
-              >
-                <span
-                  aria-hidden="true"
-                  className="status-dot dark:text-dark-accent mr-2"
-                >
-                  {" "}
-                </span>
-                {entry.period}
-              </span>
-
-              <div style={entranceStyle} className={entranceClassName}>
-                <p className="body font-bold text-light-text dark:text-dark-text">
-                  {entry.title}
-                </p>
-                <p className="body mt-1 text-light-text-secondary dark:text-dark-text-secondary">
-                  {entry.subtitle}
-                </p>
-                <ul className="mt-3 space-y-1.5">
-                  {entry.details.map((detail, detailIndex) => (
-                    <li
-                      key={detailIndex}
-                      className="badge flex gap-2 text-light-text-secondary dark:text-dark-text-secondary"
-                    >
-                      <span aria-hidden="true">•</span>
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
     </section>
   );
 }

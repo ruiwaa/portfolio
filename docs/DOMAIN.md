@@ -27,11 +27,11 @@ create table public.posts (
 ## 🧭 사용자 여정
 
 ```
-1. Home 진입 → MY RECORDER 카드로 섹션 이동
+1. Home 진입 → Hero 확인 → 스크롤하면 About Me, Experience & Projects 콘텐츠가 이어서 등장
 2. About Me → 프로필/기술스택/비전 확인
 3. Experience & Projects → 경력 타임라인 + 프로젝트 확인
 4. Posts → 카테고리 필터 → 글 읽기
-5. Resume → Notion 링크 또는 PDF 다운로드
+5. Resume → 피그마로 보기 또는 노션으로 보기
 ```
 
 ## 🎯 성능 목표

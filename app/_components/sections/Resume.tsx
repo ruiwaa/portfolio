@@ -1,8 +1,10 @@
+import { SiFigma, SiNotion } from "react-icons/si";
+
 import ResumeWaveGrid from "@/app/_components/sections/ResumeWaveGrid";
 
-// TODO: 실제 이력서 링크(Notion 등)와 PDF 파일 경로로 교체
-const RESUME_VIEW_URL = "#";
-const RESUME_PDF_URL = "#";
+// TODO: 실제 피그마/노션 이력서 링크로 교체
+const RESUME_FIGMA_URL = "#";
+const RESUME_NOTION_URL = "#";
 
 export default function Resume() {
   return (
@@ -18,16 +20,18 @@ export default function Resume() {
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
         <a
-          href={RESUME_VIEW_URL}
-          className="body rounded-full bg-light-text px-6 py-3 text-light-surface transition-colors duration-200 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-text dark:text-dark-surface dark:focus-visible:outline-dark-accent"
+          href={RESUME_FIGMA_URL}
+          className="body inline-flex items-center gap-2 rounded-full bg-light-text px-6 py-3 text-light-surface transition-colors duration-200 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-text dark:text-dark-surface dark:focus-visible:outline-dark-accent"
         >
-          이력서 보기
+          <SiFigma aria-hidden="true" className="h-4 w-4" />
+          피그마로 보기
         </a>
         <a
-          href={RESUME_PDF_URL}
-          className="body rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+          href={RESUME_NOTION_URL}
+          className="body inline-flex items-center gap-2 rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
         >
-          PDF 다운로드
+          <SiNotion aria-hidden="true" className="h-4 w-4" />
+          노션으로 보기
         </a>
       </div>
 

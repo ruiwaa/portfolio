@@ -528,6 +528,145 @@ git push
 
 ---
 
+## Phase 2️⃣9️⃣: Resume 페이지 버튼을 피그마/노션 링크로 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] "이력서 보기" + "PDF 다운로드" 버튼 제거
+- [ ] "피그마로 보기"(채워진 버튼) + "노션으로 보기"(아웃라인 버튼) 추가
+- [ ] SiFigma/SiNotion 로고가 버튼 텍스트 왼쪽에 가로로 배치됨
+- [ ] 로고 색상이 버튼 텍스트 색(currentColor)을 그대로 따라감 확인
+- [ ] RESUME_FIGMA_URL/RESUME_NOTION_URL 플레이스홀더 확인 (실제 링크는 추후 교체)
+- [ ] 라이트/다크 모드 테스트
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `feat`
+**메시지**: `feat: Resume 버튼을 피그마/노션 링크로 교체`
+
+```bash
+git add app/_components/sections/Resume.tsx docs/DOMAIN.md
+git commit -m "feat: Resume 버튼을 피그마/노션 링크로 교체"
+git push
+```
+
+---
+
+## Phase 3️⃣0️⃣: Badge 컴포넌트 모바일 대응 compact 사이즈 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] Badge에 size?: "default" | "compact" prop 추가
+- [ ] compact가 모바일에서 더 작게, sm: 이상에서 기존 크기로 복귀하는지 확인
+- [ ] size 생략 시 기존과 동일(default)한지 확인 - Projects/Posts/포스트 상세의
+      기존 Badge 사용처가 그대로인지 확인
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `feat`
+**메시지**: `feat: Badge 컴포넌트에 모바일 대응 compact 사이즈 옵션 추가`
+
+```bash
+git add app/_components/ui/Badge.tsx
+git commit -m "feat: Badge 컴포넌트에 모바일 대응 compact 사이즈 옵션 추가"
+git push
+```
+
+---
+
+## Phase 3️⃣1️⃣: Experience/Projects·About 섹션 공유 컴포넌트로 분리
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] ExperienceProjects.tsx, AboutSections.tsx 신규 생성
+- [ ] Experience/Projects/AboutVision에 headingClassName prop 추가 (기본값 = 기존 스타일)
+- [ ] /experience, /about 페이지가 새 공유 컴포넌트를 쓰도록 정리
+- [ ] /about 페이지에 AboutIntro 복원 확인
+- [ ] 홈페이지 About Me의 불필요한 <section> 래퍼 제거 확인
+- [ ] /, /about, /experience 모두 여전히 ○ Static 확인
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `refactor`
+**메시지**: `refactor: Experience/Projects, About 섹션을 홈·about·experience 페이지가 공유하는 컴포넌트로 분리`
+
+```bash
+git add app/_components/sections/Experience.tsx app/_components/sections/Projects.tsx \
+  app/_components/sections/AboutVision.tsx app/_components/sections/AboutIntro.tsx \
+  app/_components/sections/ExperienceProjects.tsx app/_components/sections/AboutSections.tsx \
+  app/\(routes\)/experience/page.tsx app/\(routes\)/about/page.tsx
+git commit -m "refactor: Experience/Projects, About 섹션을 홈·about·experience 페이지가 공유하는 컴포넌트로 분리"
+git push
+```
+
+---
+
+## Phase 3️⃣2️⃣: About 기술 스택 섹션 정리 및 호버 카드 오버플로우 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] "학습" 섹션(EDUCATION 플레이스홀더) 완전 제거 확인
+- [ ] 기술 스택 배지 호버 카드가 페이지 하단(Footer)에 가려지지 않는지 확인
+- [ ] 기술 스택 배지에 size="compact" 적용, 모바일에서 flex-wrap 확인
+- [ ] 안내 문구("마우스를 올리면...") 표시 확인
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `fix`
+**메시지**: `fix: About 기술 스택 섹션 정리 및 호버 상세 설명 오버플로우 수정`
+
+```bash
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "fix: About 기술 스택 섹션 정리 및 호버 상세 설명 오버플로우 수정"
+git push
+```
+
+---
+
+## Phase 3️⃣3️⃣: 홈페이지 MY RECORDER 카드 제거 및 Hero 중심 레이아웃 개편
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] MyRecorder.tsx 삭제 및 홈페이지에서 참조 제거 확인
+- [ ] 홈 레이아웃 순서: Hero → About Me → Experience & Projects → StackBar 확인
+- [ ] StackBar가 Footer 바로 위에 위치하는지 확인
+- [ ] Hero 너비(max-w-3xl)와 책 이모지 위치(self-end) 확인
+- [ ] 헤드라인 tracking-wide 자간 확인
+- [ ] 라이트/다크 모드 테스트
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+**타입**: `feat`
+**메시지**: `feat: 홈페이지 MY RECORDER 카드 제거하고 Hero 중심 스크롤 레이아웃으로 개편`
+
+```bash
+git add app/page.tsx app/_components/sections/Hero.tsx app/_components/sections/MyRecorder.tsx
+git commit -m "feat: 홈페이지 MY RECORDER 카드 제거하고 Hero 중심 스크롤 레이아웃으로 개편"
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

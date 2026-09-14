@@ -9,6 +9,13 @@ interface TimelineEntry {
   description: string;
 }
 
+interface ExperienceProps {
+  headingClassName?: string;
+}
+
+const DEFAULT_HEADING_CLASSNAME =
+  "text-light-text-secondary dark:text-dark-text-secondary";
+
 // TODO: 실제 경력 데이터로 교체
 const TIMELINE: TimelineEntry[] = [
   {
@@ -23,14 +30,14 @@ const TIMELINE: TimelineEntry[] = [
   },
 ];
 
-export default function Experience() {
+export default function Experience({
+  headingClassName = DEFAULT_HEADING_CLASSNAME,
+}: ExperienceProps) {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
     <section ref={ref} aria-label="경력 타임라인">
-      <h2 className="section-header text-light-text-secondary dark:text-dark-text-secondary">
-        EXPERIENCE
-      </h2>
+      <h2 className={`section-header ${headingClassName}`}>EXPERIENCE</h2>
       <ol className="mt-6 list-none">
         {TIMELINE.map((entry, index) => (
           <li
