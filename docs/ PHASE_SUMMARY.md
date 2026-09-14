@@ -1244,3 +1244,25 @@ Tailwind 임의값 클래스(`-top-3 -left-4` 등), 일부는 중심 기준(`lef
 
 📍 다음: 없음 (Phase 9·10로 재배치된 최종 검증/Posts TanStack Query 전환 참고)
 ```
+
+## Phase 2️⃣9️⃣: Resume 페이지 버튼을 피그마/노션 링크로 교체
+
+**요청**: "이력서 페이지에 pdf 다운로드 버튼을 제거하고, 이력서 보기를 피그마로 보기, 노션으로 보기 버튼 두개로 나눠서, 현재 버튼 두개를 이걸로 교체해주고 피그마 노션 각각 로고디자인을 넣어서 버튼 텍스트와 함께 가로로 배치해"
+
+**변경** (`app/_components/sections/Resume.tsx`):
+- 기존 "이력서 보기"(채워진 버튼) + "PDF 다운로드"(아웃라인 버튼) 2개를 "피그마로 보기"(채워진 버튼) +
+  "노션으로 보기"(아웃라인 버튼)로 전면 교체
+- `RESUME_VIEW_URL`/`RESUME_PDF_URL` 상수를 `RESUME_FIGMA_URL`/`RESUME_NOTION_URL`로 교체
+  (둘 다 아직 `#` 플레이스홀더, TODO 주석으로 실제 링크 교체 필요 명시)
+- `react-icons/si`의 `SiFigma`/`SiNotion` 로고를 각 버튼 텍스트 왼쪽에 `inline-flex items-center gap-2`로
+  가로 배치
+- 로고 색상은 브랜드 고정 hex 대신 `currentColor`를 그대로 상속하도록 둬서, 기존 Header.tsx의
+  GitHub/Velog 아이콘과 동일한 패턴 유지 - 채워진 버튼(흰 로고)/아웃라인 버튼(다크 텍스트 색 로고)
+  모두 라이트·다크 모드 전환 시 버튼 텍스트 색과 자동으로 맞춰짐
+
+**검증**:
+- `bunx tsc --noEmit`, `bunx eslint app/_components/sections/Resume.tsx` 모두 통과
+- 실제 브라우저에서의 시각적 확인(로고 정렬/크기, 라이트·다크 모드 대비)은 이 세션에 연결된
+  대화형 브라우저가 없어 사용자 확인 필요
+
+📍 다음: 실제 피그마/노션 이력서 링크로 `RESUME_FIGMA_URL`/`RESUME_NOTION_URL` 교체 필요
