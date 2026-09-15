@@ -22,9 +22,11 @@ const BORDER_SWEEP_DURATION_MS = 700;
 export default function JourneyDetailCard({
   active,
   isInView,
+  animationDelayMs = 0,
 }: {
   active: JourneyStep;
   isInView: boolean;
+  animationDelayMs?: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ width: number; height: number } | null>(
@@ -57,6 +59,7 @@ export default function JourneyDetailCard({
     <div
       ref={cardRef}
       aria-live="polite"
+      style={{ animationDelay: `${animationDelayMs}ms` }}
       className={`flex flex-col relative h-full rounded-xl border-4 border-white md:border-transparent bg-light-surface-dim p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
