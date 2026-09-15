@@ -1,5 +1,6 @@
 "use client";
 
+import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import TimelineItem from "@/app/_components/ui/TimelineItem";
 import { useInView } from "@/app/_hooks/useInView";
 
@@ -11,6 +12,7 @@ interface TimelineEntry {
 
 interface ExperienceProps {
   headingClassName?: string;
+  animateHeading?: boolean;
 }
 
 const DEFAULT_HEADING_CLASSNAME =
@@ -32,12 +34,15 @@ const TIMELINE: TimelineEntry[] = [
 
 export default function Experience({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
+  animateHeading = false,
 }: ExperienceProps) {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
     <section ref={ref} aria-label="경력 타임라인">
-      <h2 className={`section-header ${headingClassName}`}>EXPERIENCE</h2>
+      <h2 className={`section-header ${headingClassName}`}>
+        {animateHeading ? <AnimatedLetters text="EXPERIENCE" /> : "EXPERIENCE"}
+      </h2>
       <ol className="mt-6 list-none">
         {TIMELINE.map((entry, index) => (
           <li
