@@ -2,12 +2,13 @@ import Hero from "@/app/_components/sections/Hero";
 import StackBar from "@/app/_components/sections/StackBar";
 import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
 import AboutSections from "@/app/_components/sections/AboutSections";
+import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import { LAYOUT } from "@/lib/constants";
 
-// 홈페이지 스크롤 섹션 제목만 /about, /experience 페이지보다 크고(다크모드 흰색으로) 강조 -
-// 두 라우트는 이 prop을 넘기지 않아 각 컴포넌트의 기본(section-header 20px, 다크 회색) 스타일 유지
 const SECTION_HEADING_CLASSNAME =
-  "text-2xl md:text-3xl text-light-text-secondary dark:text-dark-text";
+  "text-xl md:text-3xl text-light-text-secondary dark:text-dark-text mt-3";
+
+const ABOUT_VISION_HEADING_DELAY_MS = 1000;
 
 export default function Home() {
   return (
@@ -21,14 +22,21 @@ export default function Home() {
       <div className={`mt-10 flex flex-col ${LAYOUT.sectionGap}`}>
         <div>
           <h2 className={`section-header ${SECTION_HEADING_CLASSNAME}`}>
-            ABOUT ME
+            <AnimatedLetters text="ABOUT ME" />
           </h2>
           <div>
-            <AboutSections headingClassName={SECTION_HEADING_CLASSNAME} />
+            <AboutSections
+              headingClassName={SECTION_HEADING_CLASSNAME}
+              visionHeadingDelayMs={ABOUT_VISION_HEADING_DELAY_MS}
+              infoClassName="mt-20"
+            />
           </div>
         </div>
 
-        <ExperienceProjects headingClassName={SECTION_HEADING_CLASSNAME} />
+        <ExperienceProjects
+          headingClassName={SECTION_HEADING_CLASSNAME}
+          animateHeadings
+        />
       </div>
 
       <StackBar />

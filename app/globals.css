@@ -52,6 +52,19 @@
   }
 }
 
+/* 글자 하나씩 통통 튀며 나타나는 효과 - overshoot 이징(cubic-bezier(0.34,1.56,0.64,1))과 함께 써서
+   0%->100% 사이에 살짝 더 커졌다 줄어드는 바운스가 나오게 함 */
+@keyframes letter-bounce-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 60%, 0) scale3d(0.3, 0.3, 1);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+}
+
 @keyframes headline-line-in {
   from {
     opacity: 0;

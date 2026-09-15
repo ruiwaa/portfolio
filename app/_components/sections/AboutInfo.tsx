@@ -70,18 +70,35 @@ const SKILLS: Skill[] = [
   },
 ];
 
-export default function AboutInfo() {
+interface AboutInfoProps {
+  className?: string;
+}
+
+export default function AboutInfo({ className = "" }: AboutInfoProps) {
   const { ref, isInView } = useInView<HTMLElement>();
 
   return (
-    <section ref={ref} aria-labelledby="about-info-heading" className="pb-30">
+    <section
+      ref={ref}
+      aria-labelledby="about-info-heading"
+      className={`pb-30 ${className}`}
+    >
       <h2 id="about-info-heading" className="sr-only">
         프로필 정보
       </h2>
-      <h3 className="section-header mt-10 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold">
+      <h3
+        className={`section-header mt-10 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold motion-safe:opacity-0 ${
+          isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
+        }`}
+      >
         <Code2 aria-hidden="true" /> 기술 스택
       </h3>
-      <p className="text-lg text-center mt-2">
+      <p
+        style={{ animationDelay: "450ms" }}
+        className={`text-lg text-center mt-2 motion-safe:opacity-0 ${
+          isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
+        }`}
+      >
         해당 기술 스택에 마우스를 올리면 세부 기술 내용을 확인할 수 있습니다.
       </p>
       <div className="mt-5">
