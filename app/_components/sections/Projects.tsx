@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import Image from "next/image";
 import { FileText, Globe } from "lucide-react";
 import { SiGithub } from "react-icons/si";
+import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
 import { useInView } from "@/app/_hooks/useInView";
@@ -211,6 +212,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
 
 interface ProjectsProps {
   headingClassName?: string;
+  animateHeading?: boolean;
 }
 
 const DEFAULT_HEADING_CLASSNAME =
@@ -218,6 +220,7 @@ const DEFAULT_HEADING_CLASSNAME =
 
 export default function Projects({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
+  animateHeading = false,
 }: ProjectsProps) {
   // 카드가 3개(간격 12vh)라 section 전체 높이가 매우 길어서, section 기준으로
   // threshold(20%)를 계산하면 각 카드 자체보다 훨씬 늦게 트리거됨 - 제목은 자기 자신의
@@ -229,13 +232,17 @@ export default function Projects({
     <section aria-label="프로젝트">
       <h2
         ref={headingRef}
-        className={`section-header motion-safe:opacity-0 ${headingClassName} ${
-          isHeadingInView
-            ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]"
-            : ""
-        }`}
+        className={
+          animateHeading
+            ? `section-header ${headingClassName}`
+            : `section-header motion-safe:opacity-0 ${headingClassName} ${
+                isHeadingInView
+                  ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]"
+                  : ""
+              }`
+        }
       >
-        PROJECTS
+        {animateHeading ? <AnimatedLetters text="PROJECTS" /> : "PROJECTS"}
       </h2>
       <ul className="mt-6 flex flex-col gap-[12vh]">
         {PROJECTS.map((project, index) => (

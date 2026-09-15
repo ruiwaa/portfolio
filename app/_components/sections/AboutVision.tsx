@@ -40,18 +40,36 @@ const JOURNEY: JourneyStep[] = [
 
 interface AboutVisionProps {
   headingClassName?: string;
+  headingAnimationDelayMs?: number;
 }
 
 const DEFAULT_HEADING_CLASSNAME =
   "text-light-text-secondary dark:text-dark-text-secondary";
 
+// "기록의 여정" 제목(fade-up-in 0.6s)이 다 나온 뒤에 RECORD/REFLECT/LEARN/IMPROVE 목록이
+// 이어서 등장하도록, 목록 각 항목의 시작 지연에 제목 지연 + 제목 애니메이션 길이를 더한다
+const HEADING_ANIMATION_DURATION_MS = 600;
+const ITEM_STAGGER_MS = 150;
+const ITEM_ANIMATION_DURATION_MS = 600;
+
 export default function AboutVision({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
+  headingAnimationDelayMs = 0,
 }: AboutVisionProps) {
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
   const active = JOURNEY[activeIndex];
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  const itemsBaseDelayMs = headingAnimationDelayMs + HEADING_ANIMATION_DURATION_MS;
+  // 목록이 전부 나온 뒤에야 세부 내용 카드가 등장하도록 - 단, 이건 페이지 진입 시 첫 등장에만
+  // 적용하고(activeIndex === 0), 이후 스크롤로 다른 단계를 활성화할 때는 지연 없이 바로 전환되게 함
+  const detailCardDelayMs =
+    activeIndex === 0
+      ? itemsBaseDelayMs +
+        (JOURNEY.length - 1) * ITEM_STAGGER_MS +
+        ITEM_ANIMATION_DURATION_MS
+      : 0;
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -78,7 +96,10 @@ export default function AboutVision({
     <section ref={ref} aria-labelledby="about-vision-heading">
       <h2
         id="about-vision-heading"
-        className={`section-header ${headingClassName}`}
+        style={{ animationDelay: `${headingAnimationDelayMs}ms` }}
+        className={`section-header ${headingClassName} motion-safe:opacity-0 ${
+          isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
+        }`}
       >
         기록의 여정
       </h2>
@@ -94,7 +115,9 @@ export default function AboutVision({
                 ref={(el) => {
                   stepRefs.current[index] = el;
                 }}
-                style={{ animationDelay: `${index * 150}ms` }}
+                style={{
+                  animationDelay: `${itemsBaseDelayMs + index * ITEM_STAGGER_MS}ms`,
+                }}
                 className={`group/step motion-safe:opacity-0 relative border-l-2 pb-28 pl-10 last:border-transparent last:pb-0 ${
                   isActive
                     ? "border-light-accent dark:border-dark-accent"
@@ -146,7 +169,11 @@ export default function AboutVision({
 
                 {isActive && (
                   <div className="mt-4 md:hidden">
-                    <JourneyDetailCard active={item} isInView={isInView} />
+                    <JourneyDetailCard
+                      active={item}
+                      isInView={isInView}
+                      animationDelayMs={detailCardDelayMs}
+                    />
                   </div>
                 )}
               </li>
@@ -159,6 +186,7 @@ export default function AboutVision({
             key={activeIndex}
             active={active}
             isInView={isInView}
+            animationDelayMs={detailCardDelayMs}
           />
         </div>
       </div>
