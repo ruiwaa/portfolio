@@ -19,6 +19,22 @@ const BORDER_DOT_SPACING = 8;
 // 점이 많아져도(간격이 촘촘해져도) 테두리 한 바퀴를 도는 총 시간은 이 값으로 고정
 const BORDER_SWEEP_DURATION_MS = 700;
 
+// 본문 속 수치(예: "2,000개", "90점")를 강조색으로 표시하기 위해 숫자(쉼표 포함) 단위로 텍스트를 쪼갬
+function withHighlightedNumbers(text: string) {
+  return text.split(/(\d[\d,]*)/g).map((part, index) =>
+    /^\d[\d,]*$/.test(part) ? (
+      <strong
+        key={index}
+        className="font-bold text-light-accent dark:text-dark-accent"
+      >
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
+
 export default function JourneyDetailCard({
   active,
   isInView,
@@ -64,7 +80,6 @@ export default function JourneyDetailCard({
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
     >
-      {/* 타임라인에서 카드가 가지처럼 뻗어나온 듯한 연결부 - 모바일 인라인 카드에는 표시하지 않음 */}
       <svg
         aria-hidden="true"
         viewBox="0 0 100 60"
@@ -98,22 +113,20 @@ export default function JourneyDetailCard({
               animationDelay: `${(index / dots.length) * BORDER_SWEEP_DURATION_MS}ms`,
             }}
             className={`absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light-accent motion-safe:opacity-0 dark:bg-dark-accent ${
-              isInView
-                ? "motion-safe:animate-[pop-in_220ms_ease-out_both]"
-                : ""
+              isInView ? "motion-safe:animate-[pop-in_220ms_ease-out_both]" : ""
             }`}
           />
         ))}
       </div>
 
-      <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
+      <h3 className="badge text-light-text-secondary dark:text-dark-text-secondary">
         STEP {active.step}
-      </p>
-      <h3 className="body mt-2 text-xl font-bold text-light-text dark:text-dark-text">
-        {active.title}
       </h3>
+      <h4 className="body mt-2 text-xl font-bold text-light-text dark:text-dark-text">
+        {active.title}
+      </h4>
       <p className="body mt-5 text-light-text-secondary dark:text-dark-text-secondary flex-1">
-        {active.detail}
+        {withHighlightedNumbers(active.detail)}
       </p>
     </div>
   );
