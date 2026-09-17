@@ -46,19 +46,21 @@ interface ProjectEntry {
 // TODO: 실제 프로젝트 데이터로 교체
 const PROJECTS: ProjectEntry[] = [
   {
-    title: "프로젝트 이름을 입력하세요",
-    description: "이 자리에 프로젝트 설명을 입력하세요.",
-    tags: ["Next.js", "TypeScript"],
+    title: "예매의 정석 (FE: 4)",
+    description:
+      "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
+    tags: ["HTML", "CSS", "JavaScript"],
     accent: "sky",
     media: {
       type: "image",
       src: "https://picsum.photos/seed/project-1/800/600",
     },
     detail: [
-      "이 자리에 문제 상황과 해결 과정을 입력하세요.",
-      "이 자리에 맡은 역할과 기여한 부분을 입력하세요.",
+      "개발 기간: 2026.02.09 ~ 2026.03.04",
+      "담당 작업: 예매 정석의 영화표 결제 페이지 구현",
     ],
     links: {
+      demoType: "video",
       demo: "#",
       github: "#",
       post: "#",
