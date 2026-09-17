@@ -25,12 +25,14 @@ function withBoldEnglish(text: string) {
     );
 }
 
-// About Intro 배경 도형과 동일한 다크모드 처리(45% 불투명도) - 다크에서는 카드 배경이 어두워지므로
-// 아래 텍스트 색상도 다시 다크 톤으로 전환해야 함
+// About Intro 배경 도형과 동일한 다크모드 처리 - 다크에서는 카드 배경이 어두워지므로
+// 아래 텍스트 색상도 다시 다크 톤으로 전환해야 함. 불투명도는 35%로, 위에 올라가는
+// 흰 텍스트가 WCAG AA 대비(4.5:1)를 확보할 수 있는 한도 안에서 최대한 밝게 맞춤
+// (45%였을 때는 mint 배경에서 흰 텍스트 대비가 4.46:1로 기준 미달이었음)
 const DARK_ACCENT_BG: Record<Accent, string> = {
-  sky: "dark:bg-sky/45",
-  peach: "dark:bg-peach/45",
-  mint: "dark:bg-mint/45",
+  sky: "dark:bg-sky/35",
+  peach: "dark:bg-peach/35",
+  mint: "dark:bg-mint/35",
 };
 
 interface ProjectLinks {
@@ -158,7 +160,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               </li>
             ))}
           </ul>
-          <p className="body mt-2 text-light-text-secondary dark:text-white/80">
+          <p className="body mt-2 text-light-text-secondary dark:text-white">
             {project.description}
           </p>
         </div>
@@ -191,7 +193,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               {project.detail.map((line, index) => (
                 <li
                   key={index}
-                  className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
+                  className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white"
                 >
                   <span aria-hidden="true">•</span>
                   <span>{withBoldEnglish(line)}</span>
