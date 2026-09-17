@@ -1,6 +1,5 @@
 "use client";
 
-import { useId, useState } from "react";
 import Image from "next/image";
 import { FileText, Globe, PlayCircle } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -107,8 +106,6 @@ const PROJECTS: ProjectEntry[] = [
 ];
 
 function ProjectCard({ project }: { project: ProjectEntry }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const panelId = useId();
   const { ref, isInView } = useInView<HTMLDivElement>();
 
   return (
@@ -122,6 +119,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         accent={project.accent}
         className={`mx-auto flex max-w-4xl flex-col items-start overflow-hidden p-0 sm:flex-row ${DARK_ACCENT_BG[project.accent]}`}
       >
+        {/* 고정 높이 - 세부 내용으로 옆 콘텐츠 열이 늘어나도(sm:flex-row) 미디어 크기가 안 바뀌게 함 */}
         <div className="relative h-48 w-full shrink-0 sm:h-64 sm:w-64">
           {project.media.type === "video" ? (
             <video
@@ -183,29 +181,17 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             ))}
           </ul>
 
-          <button
-            type="button"
-            aria-expanded={isOpen}
-            aria-controls={panelId}
-            onClick={() => setIsOpen((open) => !open)}
-            className="badge mt-4 w-fit text-light-accent transition-colors duration-200 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-dark-accent dark:focus-visible:outline-dark-accent"
-          >
-            {isOpen ? "접기" : "자세히 보기"}
-          </button>
-
-          {isOpen && (
-            <ul id={panelId} className="mt-3 space-y-1.5">
-              {project.detail.map((line, index) => (
-                <li
-                  key={index}
-                  className="badge flex gap-2 text-light-text-secondary dark:text-white/80"
-                >
-                  <span aria-hidden="true">•</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="mt-4 space-y-1.5">
+            {project.detail.map((line, index) => (
+              <li
+                key={index}
+                className="badge flex gap-2 text-light-text-secondary dark:text-white/80"
+              >
+                <span aria-hidden="true">•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Card>
     </div>
