@@ -122,8 +122,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         accent={project.accent}
         className={`mx-auto flex max-w-4xl flex-col items-start overflow-hidden p-0 sm:flex-row ${DARK_ACCENT_BG[project.accent]}`}
       >
-        {/* 고정 높이 - 세부 내용으로 옆 콘텐츠 열이 늘어나도(sm:flex-row) 미디어 크기가 안 바뀌게 함 */}
-        <div className="relative h-48 w-full shrink-0 sm:h-64 sm:w-64">
+        <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-64">
           {project.media.type === "video" ? (
             <video
               src={project.media.src}
@@ -141,7 +140,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               alt=""
               fill
               className="object-cover"
-              sizes="(min-width: 640px) 256px, 100vw"
+              sizes="280px, 100vw"
             />
           )}
         </div>
