@@ -137,7 +137,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         accent={project.accent}
         className={`mx-auto flex max-w-4xl flex-col items-start overflow-hidden p-0 sm:flex-row ${DARK_ACCENT_BG[project.accent]}`}
       >
-        <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-64">
+        <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-80">
           {project.media.type === "video" ? (
             <video
               src={project.media.src}
@@ -155,7 +155,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               alt=""
               fill
               className="object-cover"
-              sizes="280px, 100vw"
+              sizes="(min-width: 640px) 320px, 100vw"
             />
           )}
         </div>
