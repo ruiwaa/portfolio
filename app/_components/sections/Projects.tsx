@@ -107,9 +107,10 @@ const PROJECTS: ProjectEntry[] = [
     },
   },
   {
-    title: "프로젝트 이름을 입력하세요",
-    description: "이 자리에 프로젝트 설명을 입력하세요.",
-    tags: ["Tailwind CSS"],
+    title: "GENOVA 오디오 툴킷",
+    description:
+      "영상을 업로드하면 AI가 영상과 음성을 분석해 부족한 효과음을 자동으로 채워 넣고, 음성을 텍스트로 변환해 자막까지 만들어주는 웹 서비스입니다.",
+    tags: ["Next.js", "React", "TypeScript", "Zustand", "TanStack Query"],
     accent: "mint",
     media: {
       type: "image",
@@ -158,7 +159,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         </div>
 
         <div className="flex flex-col items-start sm:flex-row">
-          <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-80">
+          <div className="relative h-60 w-full shrink-0 sm:h-64 sm:w-80 mt-8">
             {project.media.type === "video" ? (
               <video
                 src={project.media.src}
