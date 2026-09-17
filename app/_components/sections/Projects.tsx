@@ -161,6 +161,18 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             ))}
           </ul>
 
+          <ul className="mt-4 space-y-1.5">
+            {project.detail.map((line, index) => (
+              <li
+                key={index}
+                className="font-mono text-base flex gap-2 text-light-text-secondary dark:text-white/80"
+              >
+                <span aria-hidden="true">•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+
           <ul className="mt-4 flex flex-wrap gap-3 self-end">
             {[
               project.links.demoType === "video"
@@ -180,18 +192,6 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 >
                   <Icon aria-hidden="true" size={16} />
                 </a>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="mt-4 space-y-1.5">
-            {project.detail.map((line, index) => (
-              <li
-                key={index}
-                className="badge flex gap-2 text-light-text-secondary dark:text-white/80"
-              >
-                <span aria-hidden="true">•</span>
-                <span>{line}</span>
               </li>
             ))}
           </ul>
