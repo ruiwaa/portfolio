@@ -174,7 +174,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             )}
           </div>
           <div className="flex flex-1 flex-col p-6">
-            <ul className="flex flex-wrap gap-2">
+            <ul className="flex flex-row gap-2">
               {project.tags.map((tag) => (
                 <li key={tag}>
                   <Badge label={tag} />

@@ -18,9 +18,9 @@ export default function TimelineItem({
       <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
         {date}
       </p>
-      <p className="body mt-1 font-bold text-light-text dark:text-dark-text">
+      <h3 className="body mt-1 font-bold text-light-text dark:text-dark-text">
         {role}
-      </p>
+      </h3>
       <p className="body mt-1 text-light-text-secondary dark:text-dark-text-secondary">
         {description}
       </p>
