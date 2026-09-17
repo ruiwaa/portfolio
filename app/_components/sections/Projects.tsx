@@ -10,6 +10,21 @@ import { useInView } from "@/app/_hooks/useInView";
 
 type Accent = "sky" | "peach" | "mint";
 
+// 세부 내용 문장 속 영어 단어(예: "Local Storage", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함
+function withBoldEnglish(text: string) {
+  return text
+    .split(/([A-Za-z][A-Za-z0-9]*(?:\s[A-Za-z][A-Za-z0-9]*)*)/g)
+    .map((part, index) =>
+      /^[A-Za-z]/.test(part) ? (
+        <strong key={index} className="font-semibold">
+          {part}
+        </strong>
+      ) : (
+        part
+      ),
+    );
+}
+
 // About Intro 배경 도형과 동일한 다크모드 처리(45% 불투명도) - 다크에서는 카드 배경이 어두워지므로
 // 아래 텍스트 색상도 다시 다크 톤으로 전환해야 함
 const DARK_ACCENT_BG: Record<Accent, string> = {
@@ -166,7 +181,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
               >
                 <span aria-hidden="true">•</span>
-                <span>{line}</span>
+                <span>{withBoldEnglish(line)}</span>
               </li>
             ))}
           </ul>
