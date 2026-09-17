@@ -86,8 +86,8 @@ const PROJECTS: ProjectEntry[] = [
   {
     title: "행쇼마켓",
     description:
-      "사용자 역할(소비자·판매자)에 따라 주문·찜 상품 관리와 상품 등록·배송 관리 기능을 제공하는 마이페이지를 구현한 사이트입니다.",
-    tags: ["React", "TypeScript", "Supabase", "TanStack Query"],
+      "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 회원으로서 상품 검색, 장바구니 담기, 구매 및 결제, 회원 정보 관리 등을 이용할 수 있도록 구현한 문구류 중심의 오픈마켓 사이트입니다.",
+    tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
     accent: "peach",
     media: {
       type: "image",
