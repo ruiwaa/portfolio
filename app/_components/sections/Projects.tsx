@@ -142,7 +142,7 @@ const PROJECTS: ProjectEntry[] = [
     accent: "purple",
     media: {
       type: "image",
-      src: "https://picsum.photos/seed/project-4/800/600",
+      src: "/projects/jungdanuh-changgo-home.png",
     },
     detail: [
       "Supabase RLS로 사용자별 단어·예문 데이터의 조회·수정·삭제 권한을 DB 레벨에서 제어해 클라이언트 로직에만 의존하지 않는 접근 제어 구조 구현",
