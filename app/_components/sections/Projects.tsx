@@ -53,7 +53,7 @@ const PROJECTS: ProjectEntry[] = [
     accent: "sky",
     media: {
       type: "image",
-      src: "https://picsum.photos/seed/project-1/800/600",
+      src: "/projects/booking-payment-preview.png",
     },
     detail: [
       "개발 기간: 2026.02.09 ~ 2026.03.04",
