@@ -145,6 +145,13 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           <h3 className="body font-bold text-light-text dark:text-dark-text">
             {project.title}
           </h3>
+          <ul className="mt-2 flex flex-row gap-2">
+            {project.tags.map((tag) => (
+              <li key={tag}>
+                <Badge label={tag} />
+              </li>
+            ))}
+          </ul>
           <p className="body mt-2 text-light-text-secondary dark:text-white/80">
             {project.description}
           </p>
@@ -174,15 +181,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             )}
           </div>
           <div className="flex flex-1 flex-col p-6">
-            <ul className="flex flex-row gap-2">
-              {project.tags.map((tag) => (
-                <li key={tag}>
-                  <Badge label={tag} />
-                </li>
-              ))}
-            </ul>
-
-            <ul className="mt-5 space-y-1.5 pr-4">
+            <ul className="space-y-1.5 pr-4">
               {project.detail.map((line, index) => (
                 <li
                   key={index}
