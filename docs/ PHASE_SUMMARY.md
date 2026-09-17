@@ -1360,4 +1360,111 @@ exprience와 about 페이지의 내용들이 나오도록 레이아웃 수정해
 커밋했고, `git stash --keep-index`로 각 커밋 단계별 스테이징 상태에서도 `bunx tsc --noEmit`
 통과 확인. `bunx eslint`, `bun run build` 최종 통과.
 
+📍 다음: Phase 3️⃣4️⃣ - Experience 실제 이력 데이터 반영 및 About 점 애니메이션 제거
+
+## Phase 3️⃣4️⃣: Experience 실제 이력 데이터 반영 및 About 점 애니메이션 제거
+
+**요청**: "About에서 세부 내용 카드에 도트 애니메이션 기능 아예 제거해" → "Experience에서 description
+길이가 너무 길어서 한눈에 안 들어와, x축 패딩값을 줘야 될 것 같아"(이후 최대 너비 제약으로 해결) →
+Experience 타임라인에 실제 경력 입력
+
+**변경**:
+- `JourneyDetailCard.tsx`에서 카드 테두리를 도는 점 애니메이션(`ResizeObserver` 기반 좌표 계산,
+  `pop-in` 애니메이션 span 다수)을 통째로 제거하고, 모바일 전용이던 흰색 테두리를 모든 화면
+  크기에 그대로 사용하도록 단순화. 점 좌표 계산에만 쓰이던 `app/_lib/geometry.ts` 파일 자체를 삭제
+- `Experience.tsx`의 `TIMELINE` 플레이스홀더를 실제 이력(멋쟁이사자처럼 로켓단 23기 인턴십,
+  프론트엔드 16기 최우수 수료)으로 교체
+- `TimelineItem.tsx`: 타임라인 점 색상에 다크모드 분기(`dark:bg-lime-500`) 추가, description에
+  `max-w-prose` 적용 - 와이드 화면에서 문장이 화면 끝까지 한 줄로 늘어나던 문제를 약 65자 지점에서
+  줄바꿈되도록 해결
+
+**검증**: `bunx eslint`, `bunx tsc --noEmit` 통과. 1600px 와이드 뷰포트로 실제 렌더링해 description이
+2줄로 자연스럽게 줄바꿈되는 것을 스크린샷으로 확인
+
+📍 다음: Phase 3️⃣5️⃣ - 예매의 정석 프로젝트 카드 완성
+
+## Phase 3️⃣5️⃣: 예매의 정석 프로젝트 카드 완성
+
+**요청**: Projects 섹션 첫 번째 카드에 실제 프로젝트("예매의 정석") 데이터 입력 → 시연 영상/GitHub
+링크 연결 → 결제 페이지 썸네일 이미지 적용 → "자세히 보기 버튼 없애고 항상 세부 내용을 볼 수 있게
+해줘" → 세부 내용 텍스트 크기·위치·폰트 반복 조정
+
+**변경** (`app/_components/sections/Projects.tsx`):
+- `ProjectLinks`에 `demoType?: "site" | "video"` 필드 추가 - 배포 사이트가 없는 프로젝트는 배포
+  링크 아이콘(`Globe`) 대신 재생 아이콘(`PlayCircle`)과 "시연 영상" 라벨로 표시
+- 첫 번째 카드를 실제 데이터(제목/소개/태그/개발기간/담당작업/시연영상·GitHub 링크/결제 페이지
+  썸네일)로 교체, 세부 내용을 5줄(Local Storage 연동, 할인·포인트 검증, 결제 페이지 가드 로직,
+  URLSearchParams 탭 상태 유지)로 요약
+- "자세히 보기"/"접기" 토글 버튼과 `isOpen` state, `useId` 기반 `panelId`를 제거하고 세부 내용을
+  항상 렌더링하도록 변경
+- 세부 내용 텍스트를 `badge`(12px, monospace)에서 16px → 18px sans-serif(`font-medium`)로 확대,
+  좌우 패딩 추가, 외부 링크 아이콘을 카드 하단으로 이동, 이미지를 세로 중앙 정렬(`my-auto`)하고
+  가로폭을 256px → 320px로 확대
+- 세부 내용 문장 속 영어 단어(Local Storage, URL, URLSearchParams 등)를 정규식으로 감지해 자동으로
+  `font-semibold` 처리하는 `withBoldEnglish` 헬퍼 추가
+
+**검증**: 매 단계마다 `bunx eslint` 통과 확인, Playwright로 데스크톱/모바일 렌더링을 스크린샷으로
+확인하며 반복 조정. 최종 프로덕션 `next build` 통과
+
+📍 다음: Phase 3️⃣6️⃣ - 행쇼마켓 프로젝트 카드 완성 및 카드 레이아웃 개편
+
+## Phase 3️⃣6️⃣: 행쇼마켓 프로젝트 카드 완성 및 카드 레이아웃 개편
+
+**요청**: 두 번째 카드에 "행쇼마켓" 데이터 입력 → "프로젝트 카드의 맨위의 프로젝트 소개 부분이
+한줄을 다 차지하게 만들어줘" → "기술스택도 제목 바로 아래에 맨 왼쪽에 배치"
+
+**변경** (`app/_components/sections/Projects.tsx`):
+- 두 번째 카드를 실제 데이터(Next.js/React 기반 문구류 오픈마켓 소개, 소비자·판매자 마이페이지
+  기능 4줄 요약, 실제 홈 화면 썸네일)로 교체
+- 카드 구조를 `flex-row` 단일 행에서, 제목+태그+소개를 이미지 옆 좁은 텍스트 컬럼이 아니라 카드
+  상단 전체 너비를 차지하는 독립 헤더 블록으로 분리하고, 그 아래에 이미지+세부내용+링크 행을 배치
+  하도록 레이아웃 전면 개편
+- 기술스택 태그 목록을 헤더 블록 안, 제목 바로 아래(좌측 정렬)로 이동
+
+**검증**: `bunx eslint` 통과, 데스크톱/모바일 렌더링 스크린샷으로 헤더 블록이 카드 전체 너비를
+차지하고 태그가 제목 아래 좌측 정렬로 표시되는 것을 확인
+
+📍 다음: Phase 3️⃣7️⃣ - GENOVA 오디오 툴킷 카드 완성 및 다크모드 접근성 수정
+
+## Phase 3️⃣7️⃣: GENOVA 오디오 툴킷 카드 완성 및 다크모드 접근성 수정
+
+**요청**: 세 번째 카드에 "GENOVA 오디오 툴킷"(AI 효과음/자막 생성 인턴십 프로젝트) 데이터 입력 →
+"오디오툴킷 프로젝트만 배포사이트 대신 시연 영상 링크가 두개야, 그리고 깃허브는 올릴 수 없어" →
+"exprien, project 제목 태그 색상이 색상 대조가 매우 낮아서 접근성 위반이래"
+
+**변경** (`app/_components/sections/Projects.tsx`):
+- 세 번째 카드를 실제 데이터(서버·클라이언트 상태 분리 관리, toast·포커스 트랩 확인 모달,
+  WAVE·Web Developer 기반 웹접근성 개선 등 3줄 요약)와 메인 화면 썸네일로 교체
+- `ProjectLinks`에 `demos?: { label, href }[]`(기능별 시연 영상 여러 개), 선택적 `github?: string`
+  필드를 추가 - GENOVA는 효과음/자막 생성 시연 영상 2개를 보여주고, 비공개 레포라 GitHub 아이콘
+  자체를 생략하도록 렌더링 로직을 배열 spread 방식으로 재작성 (기존 단일 `demo` 프로젝트와 하위 호환)
+- **트러블슈팅**: Playwright + axe-core로 Experience/Projects 섹션 색상 대비를 실측한 결과,
+  Experience는 문제없었으나 프로젝트 카드 다크 모드에서 설명·세부 내용 텍스트(`dark:text-white/80`)
+  가 카드의 색상 배경과 대비 3.49~3.6:1로 측정되어 WCAG AA 기준(4.5:1) 위반. 텍스트를 완전
+  불투명한 `dark:text-white`로 바꾸는 것만으로는 mint 배경에서 최대 4.46:1까지밖에 안 나온다는
+  것을 계산으로 확인하고, 카드 다크 모드 배경 틴트를 45%→35%로 낮춰(sky/peach/mint 공통 적용)
+  네 색상 모두 여유 있게 기준을 넘기도록 수정
+
+**검증**: 수정 후 axe-core `color-contrast` 룰로 다크 모드 프로젝트 섹션을 재검사한 결과 **위반
+0건**으로 확인. `bunx eslint`, `bunx tsc --noEmit` 통과
+
+📍 다음: Phase 3️⃣8️⃣ - 중단어 창고 카드 신설 및 완성
+
+## Phase 3️⃣8️⃣: 중단어 창고 카드 신설 및 완성
+
+**요청**: "프로젝트 카드가 하나더 필요해. 기본 구조로 넣어서 색상을 이전 카드들과 겹치지 않게 하나
+만들어" → 중국어 단어 학습 서비스 "중단어 창고" 데이터 입력 → 썸네일 2회 교체(급수별 단어 목록
+→ 홈 화면) → 외부 링크 연결
+
+**변경** (`app/_components/sections/Projects.tsx`):
+- 기존 sky/peach/mint 세 액센트와 겹치지 않는 `purple` 액센트를 `Accent` 타입과 `DARK_ACCENT_BG`에
+  추가해 네 번째 placeholder 카드 신설
+- 네 번째 카드를 실제 데이터(중국어 단어 검색·저장 및 예문 학습 서비스 소개, Supabase RLS 접근
+  제어·SSR 인증·RPC 기반 검색·Lighthouse 성능 개선 4줄 요약, 실제 서비스 화면 썸네일, 배포·GitHub·
+  포스트 링크)로 교체
+
+**검증**: axe-core로 새 `purple` 카드도 다크 모드 색상 대비 재검사해 위반 0건 확인. `bunx eslint`,
+`bunx tsc --noEmit`, `next build` 프로덕션 빌드 통과. `feat-exprience-project-content` 브랜치가
+origin과 완전히 동기화된 상태로 마무리
+
 📍 다음: (사용자 지정 대기)
