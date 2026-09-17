@@ -46,7 +46,7 @@ interface ProjectEntry {
 // TODO: 실제 프로젝트 데이터로 교체
 const PROJECTS: ProjectEntry[] = [
   {
-    title: "예매의 정석 (FE: 4)",
+    title: "예매의 정석",
     description:
       "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
     tags: ["HTML", "CSS", "JavaScript"],
