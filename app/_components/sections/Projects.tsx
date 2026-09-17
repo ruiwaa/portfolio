@@ -114,7 +114,7 @@ const PROJECTS: ProjectEntry[] = [
     accent: "mint",
     media: {
       type: "image",
-      src: "https://picsum.photos/seed/project-3/800/600",
+      src: "/projects/genova-main.png",
     },
     detail: [
       "이 자리에 문제 상황과 해결 과정을 입력하세요.",
