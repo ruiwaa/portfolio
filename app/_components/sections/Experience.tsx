@@ -18,17 +18,18 @@ interface ExperienceProps {
 const DEFAULT_HEADING_CLASSNAME =
   "text-light-text-secondary dark:text-dark-text-secondary";
 
-// TODO: 실제 경력 데이터로 교체
 const TIMELINE: TimelineEntry[] = [
   {
-    date: "0000.00 - 현재",
-    role: "직책을 입력하세요",
-    description: "이 자리에 실제 경력 설명을 입력하세요.",
+    date: "2026.07 - 2026.08",
+    role: "멋쟁이 사자처럼 로켓단 23기 인턴십",
+    description:
+      "KX 엔터테인먼트 연계 프로젝트로, 영상 업로드 시 AI가 효과음을 추천하고 자막을 생성해주는 영상 편집 프로그램의 프론트엔드 전체 개발을 담당했습니다.",
   },
   {
-    date: "0000.00 - 0000.00",
-    role: "직책을 입력하세요",
-    description: "이 자리에 실제 경력 설명을 입력하세요.",
+    date: "2025.11 - 2026.05",
+    role: "멋쟁이 사자처럼 프론트엔드 16기 최우수 수료",
+    description:
+      "HTML, CSS, JavaScript부터 React, Next.js까지 프론트엔드 핵심 기술을 익혔고, 6개월간 팀 프로젝트 2회를 경험했습니다.",
   },
 ];
 

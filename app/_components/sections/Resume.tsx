@@ -4,7 +4,8 @@ import ResumeWaveGrid from "@/app/_components/sections/ResumeWaveGrid";
 
 // TODO: 실제 피그마/노션 이력서 링크로 교체
 const RESUME_FIGMA_URL = "#";
-const RESUME_NOTION_URL = "#";
+const RESUME_NOTION_URL =
+  "https://app.notion.com/p/3dc01fb4da2a80fe89e4c308d593093f?source=copy_link";
 
 export default function Resume() {
   return (
