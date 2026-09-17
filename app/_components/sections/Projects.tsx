@@ -96,7 +96,6 @@ const PROJECTS: ProjectEntry[] = [
     detail: [
       "Supabase 관계형 데이터 조회로 주문·상품 정보를 연동하고, TypeScript로 중첩 데이터의 타입 안정성 확보",
       "Supabase update로 배송 상태를 조회·변경하고, 상태 변경 로직과 UI를 컴포넌트 단위로 분리해 관심사 분리",
-      "Supabase Storage로 프로필 이미지를 업로드해 Database에 URL 저장, 닉네임 중복 검증으로 입력 유효성 확보",
       "TanStack Query로 서버 상태를 관리하고, 데이터 수정 후 Query invalidate로 최신 상태 유지",
       "Supabase 호출을 API 함수로, 조회·검증 로직을 Custom Hook으로 분리해 재사용성과 유지보수성 향상",
     ],
@@ -117,8 +116,9 @@ const PROJECTS: ProjectEntry[] = [
       src: "/projects/genova-main.png",
     },
     detail: [
-      "이 자리에 문제 상황과 해결 과정을 입력하세요.",
-      "이 자리에 맡은 역할과 기여한 부분을 입력하세요.",
+      "서버에 저장된 데이터는 TanStack Query로, 아직 확정되지 않은 임시 작업 상태는 Zustand로 분리 관리해 불필요한 서버 요청 최소화",
+      "생성부터 다운로드까지 toast로 즉각 피드백을 제공하고, 되돌리기 어려운 동작에는 포커스 트랩이 적용된 확인 모달로 작업 유실 방지",
+      "WAVE·Web Developer로 접근성을 검증해 의미 있는 태그로 마크업을 정리하고, 장식용 아이콘에는 aria-hidden 처리",
     ],
     links: {
       demo: "#",
@@ -143,10 +143,10 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         className={`mx-auto flex max-w-4xl flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
       >
         <div className="p-6 pb-0">
-          <h3 className="body font-bold text-light-text dark:text-dark-text">
+          <h3 className="text-2xl font-bold text-light-text dark:text-dark-text">
             {project.title}
           </h3>
-          <ul className="mt-2 flex flex-row gap-2">
+          <ul className="mt-2 flex flex-wrap md:flex-row gap-2">
             {project.tags.map((tag) => (
               <li key={tag}>
                 <Badge label={tag} />
@@ -158,7 +158,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </p>
         </div>
 
-        <div className="flex flex-col items-start sm:flex-row">
+        <div className="flex flex-col items-start sm:flex-row p-6">
           <div className="relative h-60 w-full shrink-0 sm:h-64 sm:w-80 mt-8">
             {project.media.type === "video" ? (
               <video
@@ -176,7 +176,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 src={project.media.src}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover shadow-xl"
                 sizes="(min-width: 640px) 320px, 100vw"
               />
             )}
