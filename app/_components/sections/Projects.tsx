@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import Image from "next/image";
-import { FileText, Globe } from "lucide-react";
+import { FileText, Globe, PlayCircle } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import Badge from "@/app/_components/ui/Badge";
@@ -20,6 +20,9 @@ const DARK_ACCENT_BG: Record<Accent, string> = {
 };
 
 interface ProjectLinks {
+  // 배포 사이트를 연결하지 못한 프로젝트는 "site" 대신 "video"로 두고
+  // demo에 시연 영상 링크를 넣는다 - 이 경우 아이콘/라벨이 영상용으로 바뀜
+  demoType?: "site" | "video";
   demo: string;
   github: string;
   post: string;
@@ -161,10 +164,12 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           <ul className="mt-4 flex flex-wrap gap-3 self-end">
             {(
               [
-                ["배포 링크", project.links.demo, Globe],
-                ["GitHub", project.links.github, SiGithub],
-                ["포스트", project.links.post, FileText],
-              ] as const
+                project.links.demoType === "video"
+                  ? (["시연 영상", project.links.demo, PlayCircle] as const)
+                  : (["배포 링크", project.links.demo, Globe] as const),
+                ["GitHub", project.links.github, SiGithub] as const,
+                ["포스트", project.links.post, FileText] as const,
+              ]
             ).map(([label, href, Icon]) => (
               <li key={label}>
                 <a
