@@ -76,7 +76,6 @@ const PROJECTS: ProjectEntry[] = [
       src: "/projects/booking-payment-preview.png",
     },
     detail: [
-      "개발 기간: 2026.02.09 ~ 2026.03.04",
       "Local Storage에 저장된 영화·좌석 정보를 불러와 결제 페이지에 표시",
       "포인트·카드 할인 폼과 유효성 검증 로직을 구현해 할인 금액을 총 합계에 정확히 반영",
       "필수 정보 없이 결제 페이지 URL로 바로 접근 시 이전 단계로 리디렉션하는 가드 로직 구현",
