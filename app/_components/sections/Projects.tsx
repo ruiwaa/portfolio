@@ -8,7 +8,7 @@ import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
 import { useInView } from "@/app/_hooks/useInView";
 
-type Accent = "sky" | "peach" | "mint";
+type Accent = "sky" | "peach" | "mint" | "purple";
 
 // 세부 내용 문장 속 영어 단어(예: "Local Storage", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함
 function withBoldEnglish(text: string) {
@@ -33,6 +33,7 @@ const DARK_ACCENT_BG: Record<Accent, string> = {
   sky: "dark:bg-sky/35",
   peach: "dark:bg-peach/35",
   mint: "dark:bg-mint/35",
+  purple: "dark:bg-purple/35",
 };
 
 interface ProjectLinks {
@@ -130,6 +131,25 @@ const PROJECTS: ProjectEntry[] = [
         { label: "효과음 생성 시연", href: "https://youtu.be/Yb1hK9OoZ7g" },
         { label: "자막 생성 시연", href: "https://youtu.be/vo-SuEB4yI0" },
       ],
+      post: "#",
+    },
+  },
+  {
+    title: "프로젝트 이름을 입력하세요",
+    description: "이 자리에 프로젝트 설명을 입력하세요.",
+    tags: ["기술 스택을 입력하세요"],
+    accent: "purple",
+    media: {
+      type: "image",
+      src: "https://picsum.photos/seed/project-4/800/600",
+    },
+    detail: [
+      "이 자리에 문제 상황과 해결 과정을 입력하세요.",
+      "이 자리에 맡은 역할과 기여한 부분을 입력하세요.",
+    ],
+    links: {
+      demo: "#",
+      github: "#",
       post: "#",
     },
   },
