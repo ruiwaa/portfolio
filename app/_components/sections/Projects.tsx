@@ -37,8 +37,11 @@ interface ProjectLinks {
   // 배포 사이트를 연결하지 못한 프로젝트는 "site" 대신 "video"로 두고
   // demo에 시연 영상 링크를 넣는다 - 이 경우 아이콘/라벨이 영상용으로 바뀜
   demoType?: "site" | "video";
-  demo: string;
-  github: string;
+  demo?: string;
+  // 시연 영상이 기능별로 여러 개인 경우 demo 대신 사용 (예: 효과음 생성/자막 생성 각각의 데모)
+  demos?: { label: string; href: string }[];
+  // 비공개 레포 등으로 GitHub 링크를 공개할 수 없는 프로젝트는 생략
+  github?: string;
   post: string;
 }
 
@@ -121,8 +124,10 @@ const PROJECTS: ProjectEntry[] = [
       "WAVE·Web Developer로 접근성을 검증해 의미 있는 태그로 마크업을 정리하고, 장식용 아이콘에는 aria-hidden 처리",
     ],
     links: {
-      demo: "#",
-      github: "#",
+      demos: [
+        { label: "효과음 생성 시연", href: "#" },
+        { label: "자막 생성 시연", href: "#" },
+      ],
       post: "#",
     },
   },
@@ -196,10 +201,20 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
 
             <ul className="mt-4 flex flex-wrap gap-3 self-end">
               {[
-                project.links.demoType === "video"
-                  ? (["시연 영상", project.links.demo, PlayCircle] as const)
-                  : (["배포 링크", project.links.demo, Globe] as const),
-                ["GitHub", project.links.github, SiGithub] as const,
+                ...(project.links.demos
+                  ? project.links.demos.map(
+                      (d) => [d.label, d.href, PlayCircle] as const,
+                    )
+                  : project.links.demo
+                    ? [
+                        project.links.demoType === "video"
+                          ? (["시연 영상", project.links.demo, PlayCircle] as const)
+                          : (["배포 링크", project.links.demo, Globe] as const),
+                      ]
+                    : []),
+                ...(project.links.github
+                  ? [["GitHub", project.links.github, SiGithub] as const]
+                  : []),
                 ["포스트", project.links.post, FileText] as const,
               ].map(([label, href, Icon]) => (
                 <li key={label}>
