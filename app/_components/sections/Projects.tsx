@@ -160,7 +160,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             ))}
           </ul>
 
-          <ul className="mt-4 space-y-1.5">
+          <ul className="mt-4 space-y-1.5 px-4">
             {project.detail.map((line, index) => (
               <li
                 key={index}
