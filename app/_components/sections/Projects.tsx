@@ -86,7 +86,7 @@ const PROJECTS: ProjectEntry[] = [
   {
     title: "행쇼마켓",
     description:
-      "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 회원으로서 상품 검색, 장바구니 담기, 구매 및 결제, 회원 정보 관리 등을 이용할 수 있도록 구현한 문구류 중심의 오픈마켓 사이트입니다.",
+      "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 다양한 상점의 상품을 구매 할 수 있도록 구현한 문구류 오픈마켓 사이트입니다.",
     tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
     accent: "peach",
     media: {
