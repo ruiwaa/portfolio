@@ -13,7 +13,7 @@ export default function TimelineItem({
     <div className="relative border-l-2 pb-8 pl-6 border-light-border last:border-transparent dark:border-dark-border dark:last:border-transparent">
       <span
         aria-hidden="true"
-        className="absolute -left-1.25 top-1 h-3 w-3 rounded-full bg-light-accent"
+        className="absolute -left-1.25 top-1 h-3 w-3 rounded-full bg-light-accent dark:bg-lime-500"
       />
       <p className="badge text-light-text-secondary dark:text-dark-text-secondary">
         {date}
