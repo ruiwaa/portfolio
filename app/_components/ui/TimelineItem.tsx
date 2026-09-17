@@ -21,7 +21,7 @@ export default function TimelineItem({
       <h3 className="body mt-1 font-bold text-light-text dark:text-dark-text">
         {role}
       </h3>
-      <p className="body mt-1 text-light-text-secondary dark:text-dark-text-secondary">
+      <p className="body mt-1 max-w-prose text-light-text-secondary dark:text-dark-text-secondary">
         {description}
       </p>
     </div>
