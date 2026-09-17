@@ -91,7 +91,7 @@ const PROJECTS: ProjectEntry[] = [
     accent: "peach",
     media: {
       type: "image",
-      src: "https://picsum.photos/seed/project-2/800/600",
+      src: "/projects/hangsho-market-home.png",
     },
     detail: [
       "Supabase 관계형 데이터 조회로 주문·상품 정보를 연동하고, TypeScript로 중첩 데이터의 타입 안정성 확보",
