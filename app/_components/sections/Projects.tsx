@@ -111,7 +111,7 @@ const PROJECTS: ProjectEntry[] = [
   {
     title: "GENOVA 오디오 툴킷",
     description:
-      "영상을 업로드하면 AI가 영상과 음성을 분석해 부족한 효과음을 자동으로 채워 넣고, 음성을 텍스트로 변환해 자막까지 만들어주는 웹 서비스입니다.",
+      "영상을 업로드 시 AI가 영상과 음성을 분석해 알맞은 효과음을 자동으로 채워 넣고, 음성을 텍스트로 변환해 자막까지 만들어주는 웹 서비스입니다.",
     tags: ["Next.js", "React", "TypeScript", "Zustand", "TanStack Query"],
     accent: "mint",
     media: {
@@ -125,8 +125,8 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demos: [
-        { label: "효과음 생성 시연", href: "#" },
-        { label: "자막 생성 시연", href: "#" },
+        { label: "효과음 생성 시연", href: "https://youtu.be/Yb1hK9OoZ7g" },
+        { label: "자막 생성 시연", href: "https://youtu.be/vo-SuEB4yI0" },
       ],
       post: "#",
     },
@@ -208,7 +208,11 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                   : project.links.demo
                     ? [
                         project.links.demoType === "video"
-                          ? (["시연 영상", project.links.demo, PlayCircle] as const)
+                          ? ([
+                              "시연 영상",
+                              project.links.demo,
+                              PlayCircle,
+                            ] as const)
                           : (["배포 링크", project.links.demo, Globe] as const),
                       ]
                     : []),
