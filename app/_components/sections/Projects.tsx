@@ -85,16 +85,20 @@ const PROJECTS: ProjectEntry[] = [
   },
   {
     title: "행쇼마켓",
-    description: "이 자리에 프로젝트 설명을 입력하세요.",
-    tags: ["React", "Supabase"],
+    description:
+      "사용자 역할(소비자·판매자)에 따라 주문·찜 상품 관리와 상품 등록·배송 관리 기능을 제공하는 마이페이지를 구현한 사이트입니다.",
+    tags: ["React", "TypeScript", "Supabase", "TanStack Query"],
     accent: "peach",
     media: {
       type: "image",
       src: "https://picsum.photos/seed/project-2/800/600",
     },
     detail: [
-      "이 자리에 문제 상황과 해결 과정을 입력하세요.",
-      "이 자리에 맡은 역할과 기여한 부분을 입력하세요.",
+      "Supabase 관계형 데이터 조회로 주문·상품 정보를 연동하고, TypeScript로 중첩 데이터의 타입 안정성 확보",
+      "Supabase update로 배송 상태를 조회·변경하고, 상태 변경 로직과 UI를 컴포넌트 단위로 분리해 관심사 분리",
+      "Supabase Storage로 프로필 이미지를 업로드해 Database에 URL 저장, 닉네임 중복 검증으로 입력 유효성 확보",
+      "TanStack Query로 서버 상태를 관리하고, 데이터 수정 후 Query invalidate로 최신 상태 유지",
+      "Supabase 호출을 API 함수로, 조회·검증 로직을 Custom Hook으로 분리해 재사용성과 유지보수성 향상",
     ],
     links: {
       demo: "#",
