@@ -69,7 +69,7 @@ const PROJECTS: ProjectEntry[] = [
     },
   },
   {
-    title: "프로젝트 이름을 입력하세요",
+    title: "행쇼마켓",
     description: "이 자리에 프로젝트 설명을 입력하세요.",
     tags: ["React", "Supabase"],
     accent: "peach",
@@ -145,7 +145,6 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           )}
         </div>
         <div className="flex flex-1 flex-col p-6">
-          {/* 카드 배경이 다크모드에서 어두운 톤(45% 파스텔)으로 바뀌므로 텍스트도 다크 톤 사용 */}
           <h3 className="body font-bold text-light-text dark:text-dark-text">
             {project.title}
           </h3>
@@ -160,11 +159,11 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             ))}
           </ul>
 
-          <ul className="mt-4 space-y-1.5 px-4">
+          <ul className="mt-5 space-y-1.5 pr-4">
             {project.detail.map((line, index) => (
               <li
                 key={index}
-                className="font-sans text-base font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
+                className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
               >
                 <span aria-hidden="true">•</span>
                 <span>{line}</span>
