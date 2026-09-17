@@ -61,7 +61,7 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demoType: "video",
-      demo: "#",
+      demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
       github: "#",
       post: "#",
     },
