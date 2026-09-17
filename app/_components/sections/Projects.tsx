@@ -149,7 +149,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           <h3 className="body font-bold text-light-text dark:text-dark-text">
             {project.title}
           </h3>
-          <p className="body mt-2 flex-1 text-light-text-secondary dark:text-white/80">
+          <p className="body mt-2 text-light-text-secondary dark:text-white/80">
             {project.description}
           </p>
           <ul className="mt-4 flex flex-wrap gap-2">
@@ -164,7 +164,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             {project.detail.map((line, index) => (
               <li
                 key={index}
-                className="font-mono text-base flex gap-2 text-light-text-secondary dark:text-white/80"
+                className="font-sans text-base font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
               >
                 <span aria-hidden="true">•</span>
                 <span>{line}</span>
