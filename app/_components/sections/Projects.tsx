@@ -135,17 +135,20 @@ const PROJECTS: ProjectEntry[] = [
     },
   },
   {
-    title: "프로젝트 이름을 입력하세요",
-    description: "이 자리에 프로젝트 설명을 입력하세요.",
-    tags: ["기술 스택을 입력하세요"],
+    title: "중단어 창고",
+    description:
+      "중국어 단어를 검색·저장하고, 저장한 단어로 직접 예문을 작성·수정하며 학습할 수 있는 서비스입니다. 모든 사용자를 고려해 단어 검색과 예문 작성을 음성 인식으로도 할 수 있습니다.",
+    tags: ["Next.js", "Supabase"],
     accent: "purple",
     media: {
       type: "image",
       src: "https://picsum.photos/seed/project-4/800/600",
     },
     detail: [
-      "이 자리에 문제 상황과 해결 과정을 입력하세요.",
-      "이 자리에 맡은 역할과 기여한 부분을 입력하세요.",
+      "Supabase RLS로 사용자별 단어·예문 데이터의 조회·수정·삭제 권한을 DB 레벨에서 제어해 클라이언트 로직에만 의존하지 않는 접근 제어 구조 구현",
+      "@supabase/ssr로 서버·클라이언트 인증 상태를 관리하고, Proxy에서 세션을 확인해 인증이 필요한 경로 접근을 제어하며 PASSWORD_RECOVERY 상태로 비밀번호 재설정 흐름 구분",
+      "HSK 단어 검색을 Supabase RPC로 처리해 서버에서 관련성 기준으로 정렬 후 필요한 데이터만 전달, 데이터가 늘어도 확장 가능한 검색 구조 구현",
+      "Lighthouse로 LCP·Long Task 등 성능 지표를 측정해 병목을 분석하고, 이미지 최적화·fetchPriority/preload 적용·폰트 최적화·불필요한 Client Component 점검으로 성능 개선 반복",
     ],
     links: {
       demo: "#",
