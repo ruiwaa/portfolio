@@ -139,79 +139,84 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
     >
       <Card
         accent={project.accent}
-        className={`mx-auto flex max-w-4xl flex-col items-start overflow-hidden p-0 sm:flex-row ${DARK_ACCENT_BG[project.accent]}`}
+        className={`mx-auto flex max-w-4xl flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
       >
-        <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-80">
-          {project.media.type === "video" ? (
-            <video
-              src={project.media.src}
-              controls
-              muted
-              playsInline
-              loop
-              className="h-full w-full object-cover"
-            >
-              <track kind="captions" />
-            </video>
-          ) : (
-            <Image
-              src={project.media.src}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(min-width: 640px) 320px, 100vw"
-            />
-          )}
-        </div>
-        <div className="flex flex-1 flex-col p-6">
+        <div className="p-6 pb-0">
           <h3 className="body font-bold text-light-text dark:text-dark-text">
             {project.title}
           </h3>
           <p className="body mt-2 text-light-text-secondary dark:text-white/80">
             {project.description}
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <li key={tag}>
-                <Badge label={tag} />
-              </li>
-            ))}
-          </ul>
+        </div>
 
-          <ul className="mt-5 space-y-1.5 pr-4">
-            {project.detail.map((line, index) => (
-              <li
-                key={index}
-                className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
+        <div className="flex flex-col items-start sm:flex-row">
+          <div className="relative h-60 w-full my-auto shrink-0 sm:h-64 sm:w-80">
+            {project.media.type === "video" ? (
+              <video
+                src={project.media.src}
+                controls
+                muted
+                playsInline
+                loop
+                className="h-full w-full object-cover"
               >
-                <span aria-hidden="true">•</span>
-                <span>{withBoldEnglish(line)}</span>
-              </li>
-            ))}
-          </ul>
+                <track kind="captions" />
+              </video>
+            ) : (
+              <Image
+                src={project.media.src}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(min-width: 640px) 320px, 100vw"
+              />
+            )}
+          </div>
+          <div className="flex flex-1 flex-col p-6">
+            <ul className="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li key={tag}>
+                  <Badge label={tag} />
+                </li>
+              ))}
+            </ul>
 
-          <ul className="mt-4 flex flex-wrap gap-3 self-end">
-            {[
-              project.links.demoType === "video"
-                ? (["시연 영상", project.links.demo, PlayCircle] as const)
-                : (["배포 링크", project.links.demo, Globe] as const),
-              ["GitHub", project.links.github, SiGithub] as const,
-              ["포스트", project.links.post, FileText] as const,
-            ].map(([label, href, Icon]) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${label} (새 탭에서 열림)`}
-                  title={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-light-border text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+            <ul className="mt-5 space-y-1.5 pr-4">
+              {project.detail.map((line, index) => (
+                <li
+                  key={index}
+                  className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white/80"
                 >
-                  <Icon aria-hidden="true" size={16} />
-                </a>
-              </li>
-            ))}
-          </ul>
+                  <span aria-hidden="true">•</span>
+                  <span>{withBoldEnglish(line)}</span>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="mt-4 flex flex-wrap gap-3 self-end">
+              {[
+                project.links.demoType === "video"
+                  ? (["시연 영상", project.links.demo, PlayCircle] as const)
+                  : (["배포 링크", project.links.demo, Globe] as const),
+                ["GitHub", project.links.github, SiGithub] as const,
+                ["포스트", project.links.post, FileText] as const,
+              ].map(([label, href, Icon]) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${label} (새 탭에서 열림)`}
+                    title={label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-light-border text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+                  >
+                    <Icon aria-hidden="true" size={16} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Card>
     </div>
