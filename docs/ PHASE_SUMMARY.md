@@ -1467,4 +1467,32 @@ Experience 타임라인에 실제 경력 입력
 `bunx tsc --noEmit`, `next build` 프로덕션 빌드 통과. `feat-exprience-project-content` 브랜치가
 origin과 완전히 동기화된 상태로 마무리
 
+📍 다음: Phase 3️⃣9️⃣ - 기술 스택 상세 내용 실제화 및 Resume 페이지 링크·PDF 연동
+
+## Phase 3️⃣9️⃣: 기술 스택 상세 내용 실제화 및 Resume 페이지 링크·PDF 연동
+
+**요청**: "프로젝트 카드의 내가 사용한 기술을 종합해서 tech stack 컴포넌트의 세부 내용을 간단하게
+1줄씩 실제 내용을 추가해줘" → "프로젝트 이름은 거론하지말고... 각 기술의 어느 수준까지의 능력에
+도달했는지를 간단하게 정리해주면 돼" → "~할 수 있습니다. 이렇게해 지금 문장표현이 어색해" →
+"애매하게 텍스트가 가운데 배치되어있어, 패딩값을 더 줘봐" → 피그마 보기 링크 연결 및 PDF 다운로드
+버튼 추가 요청 → 이력서 PDF 파일 전달 후 "옮기고 연결해줘"
+
+**변경**:
+- `AboutInfo.tsx`의 `SKILLS` 배열 `level`을 플레이스홀더 2줄에서, 완성한 프로젝트들을 종합한 실제
+  내용 1줄로 교체 → 이후 프로젝트명을 거론하지 않고 "~할 수 있습니다" 형태로 각 기술의 도달 수준을
+  설명하는 문장으로 재작성 (Next.js/React/TypeScript/Tailwind CSS/Supabase 5개)
+- `HoverDisclosure.tsx`의 세부 내용 패널 패딩을 `px-5 py-7` → `px-10 py-8`로 확대 - 가운데 정렬된
+  텍스트가 점선 테두리에 너무 붙어 어색해 보이던 문제 완화
+- `Resume.tsx`: `RESUME_FIGMA_URL`을 실제 피그마 프로토타입 링크로 교체, 피그마/노션 버튼에
+  `target="_blank" rel="noopener"` 추가, `FileDown` 아이콘의 PDF 다운로드 버튼 신규 추가
+- **트러블슈팅**: 이력서 PDF를 받아 임시로 `public/projects/`에 넣었더니 VS Code에서 텍스트가
+  깨져 보인다는 문의 → PDF는 바이너리 파일이라 텍스트 에디터로 열면 원래 그렇게 보이는 정상
+  동작이고, `file` 명령으로 실제 PDF 손상 여부만 확인해드림. 다만 위치가 프로젝트 썸네일 폴더라
+  부적절해 `public/resume/`로 이동, 다운로드 버튼 href를 `encodeURIComponent`로 정확히
+  URL 인코딩한 실제 경로로 연결하고 `download="장예지_개발자이력서.pdf"`로 공백 없는 파일명 지정
+
+**검증**: 매 단계 `bunx eslint` 통과. Playwright로 기술 스택 hover 패널과 Resume 버튼 3개 렌더링을
+스크린샷으로 확인, `curl`로 PDF가 `application/pdf`·2.6MB로 정상 응답하는 것과 `<a>` 태그의
+`href`/`download` 속성이 의도대로 렌더링되는 것을 직접 확인
+
 📍 다음: (사용자 지정 대기)

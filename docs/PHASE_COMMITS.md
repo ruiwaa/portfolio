@@ -667,6 +667,59 @@ git push
 
 ---
 
+## Phase 3️⃣9️⃣: 기술 스택 상세 내용 실제화 및 Resume 페이지 링크·PDF 연동
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] AboutInfo.tsx의 SKILLS level이 프로젝트명 없이 "~할 수 있습니다" 형태로 작성됐는지 확인
+- [ ] HoverDisclosure.tsx 패널 패딩(px-10 py-8)이 적용됐는지 확인
+- [ ] Resume.tsx의 피그마 링크가 실제 프로토타입 URL이고 새 탭(target="_blank")으로 열리는지 확인
+- [ ] PDF 다운로드 버튼 클릭 시 실제 파일이 다운로드되는지 확인 (public/resume/ 경로)
+- [ ] 라이트/다크 모드에서 기술 스택 hover 패널 확인
+- [ ] 타입 체크: bun run type-check
+- [ ] 린트: bun run lint
+```
+
+### 📝 커밋 메시지
+
+이번 Phase는 사용자 피드백에 따라 여러 차례에 걸쳐 아래 순서로 커밋했습니다.
+
+1. `feat`: `기술 스택 상세 문구를 실제 프로젝트 사용 내용으로 교체`
+2. `style`: `기술 스택 상세 문구에서 프로젝트명 제거, 도달 수준으로 표현`
+3. `style`: `기술 스택 문구를 "~할 수 있는 수준입니다"에서 "~할 수 있습니다"로 수정`
+4. `style`: `기술 스택 호버 패널 패딩 확대`
+5. `feat`: `Resume 페이지에 피그마 링크 연결 및 PDF 다운로드 버튼 추가`
+6. `style`: `피그마/노션 링크를 새 탭에서 열리도록 수정`
+7. `feat`: `이력서 PDF 다운로드 버튼 실제 파일로 연결`
+
+```bash
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "feat: 기술 스택 상세 문구를 실제 프로젝트 사용 내용으로 교체"
+
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "style: 기술 스택 상세 문구에서 프로젝트명 제거, 도달 수준으로 표현"
+
+git add app/_components/sections/AboutInfo.tsx
+git commit -m 'style: 기술 스택 문구를 "~할 수 있는 수준입니다"에서 "~할 수 있습니다"로 수정'
+
+git add app/_components/ui/HoverDisclosure.tsx
+git commit -m "style: 기술 스택 호버 패널 패딩 확대"
+
+git add app/_components/sections/Resume.tsx
+git commit -m "feat: Resume 페이지에 피그마 링크 연결 및 PDF 다운로드 버튼 추가"
+
+git add app/_components/sections/Resume.tsx
+git commit -m "style: 피그마/노션 링크를 새 탭에서 열리도록 수정"
+
+git add app/_components/sections/Resume.tsx "public/resume/장예지 개발자이력서.pdf"
+git commit -m "feat: 이력서 PDF 다운로드 버튼 실제 파일로 연결"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
