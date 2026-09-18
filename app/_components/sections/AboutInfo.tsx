@@ -28,7 +28,7 @@ const SKILLS: Skill[] = [
     name: "Next.js",
     Icon: SiNextdotjs,
     level: [
-      "App Router 기반으로 페이지 구조를 설계하고, Lighthouse 지표를 기준으로 이미지·폰트 요청을 최적화할 수 있는 수준입니다.",
+      "App Router 기반으로 페이지 구조를 설계하고, Lighthouse 지표를 기준으로 이미지·폰트 요청을 최적화할 수 있습니다.",
     ],
   },
   {
@@ -36,7 +36,7 @@ const SKILLS: Skill[] = [
     Icon: SiReact,
     color: "#61DAFB",
     level: [
-      "컴포넌트를 재사용 가능한 단위로 나누고, Custom Hook으로 데이터 조회·검증 로직을 분리해 재사용성을 높일 수 있는 수준입니다.",
+      "컴포넌트를 재사용 가능한 단위로 나누고, Custom Hook으로 데이터 조회·검증 로직을 분리해 재사용성을 높일 수 있습니다.",
     ],
   },
   {
@@ -44,7 +44,7 @@ const SKILLS: Skill[] = [
     Icon: SiTypescript,
     color: "#3178C6",
     level: [
-      "복잡하게 중첩된 API 응답에도 명시적 타입을 정의해 타입 안정성을 확보할 수 있는 수준입니다.",
+      "복잡하게 중첩된 API 응답에도 명시적 타입을 정의해 타입 안정성을 확보할 수 있습니다.",
     ],
   },
   {
@@ -52,7 +52,7 @@ const SKILLS: Skill[] = [
     Icon: SiTailwindcss,
     color: "#06B6D4",
     level: [
-      "유틸리티 클래스만으로 다크 모드 대응 UI와 반응형 레이아웃을 빠르게 구현할 수 있는 수준입니다.",
+      "유틸리티 클래스만으로 다크 모드 대응 UI와 반응형 레이아웃을 빠르게 구현할 수 있습니다.",
     ],
   },
   {
@@ -60,7 +60,7 @@ const SKILLS: Skill[] = [
     Icon: SiSupabase,
     color: "#3ECF8E",
     level: [
-      "관계형 데이터 조회·수정, Storage 이미지 업로드부터 RLS 기반 접근 제어와 RPC 서버 로직 구현까지 가능한 수준입니다.",
+      "관계형 데이터 조회·수정, Storage 이미지 업로드부터 RLS 기반 접근 제어와 RPC 서버 로직 구현까지 할 수 있습니다.",
     ],
   },
 ];
