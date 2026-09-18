@@ -1,11 +1,14 @@
+import { FileDown } from "lucide-react";
 import { SiFigma, SiNotion } from "react-icons/si";
 
 import ResumeWaveGrid from "@/app/_components/sections/ResumeWaveGrid";
 
-// TODO: 실제 피그마/노션 이력서 링크로 교체
-const RESUME_FIGMA_URL = "#";
+const RESUME_FIGMA_URL =
+  "https://www.figma.com/proto/sQ07QbfY8jb13qkYDQ5pHD/resume?node-id=0-1&t=Ju3wuINpA5XnSosD-1";
 const RESUME_NOTION_URL =
   "https://app.notion.com/p/3dc01fb4da2a80fe89e4c308d593093f?source=copy_link";
+// TODO: 실제 이력서 PDF 파일로 교체 (public/에 추가 후 경로 연결)
+const RESUME_PDF_URL = "#";
 
 export default function Resume() {
   return (
@@ -33,6 +36,14 @@ export default function Resume() {
         >
           <SiNotion aria-hidden="true" className="h-4 w-4" />
           노션으로 보기
+        </a>
+        <a
+          href={RESUME_PDF_URL}
+          download
+          className="body inline-flex items-center gap-2 rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+        >
+          <FileDown aria-hidden="true" className="h-4 w-4" />
+          PDF 다운로드
         </a>
       </div>
 
