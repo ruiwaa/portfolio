@@ -22,14 +22,14 @@ interface Skill {
   level: string[];
 }
 
-// TODO: 실제 숙련도 문구로 교체
+// 실제로 진행한 프로젝트(예매의 정석/행쇼마켓/GENOVA 오디오 툴킷/중단어 창고)에서
+// 각 기술을 어떻게 썼는지 종합해 한 줄로 정리
 const SKILLS: Skill[] = [
   {
     name: "Next.js",
     Icon: SiNextdotjs,
     level: [
-      "App Router와 라우트 그룹, 동적 라우팅으로 페이지 구조를 설계했습니다.",
-      "서버/클라이언트 컴포넌트를 구분해 데이터 패칭과 렌더링 전략을 최적화했습니다.",
+      "행쇼마켓·GENOVA 오디오 툴킷·중단어 창고에서 App Router 기반으로 페이지를 구성하고, Lighthouse 지표를 기준으로 이미지·폰트 요청을 최적화했습니다.",
     ],
   },
   {
@@ -37,8 +37,7 @@ const SKILLS: Skill[] = [
     Icon: SiReact,
     color: "#61DAFB",
     level: [
-      "함수형 컴포넌트와 훅을 기반으로 재사용 가능한 UI를 구성했습니다.",
-      "useSyncExternalStore 등으로 외부 상태를 안전하게 동기화한 경험이 있습니다.",
+      "행쇼마켓과 GENOVA 오디오 툴킷에서 컴포넌트 단위로 UI를 나누고, Custom Hook으로 데이터 조회·검증 로직을 재사용 가능하게 분리했습니다.",
     ],
   },
   {
@@ -46,8 +45,7 @@ const SKILLS: Skill[] = [
     Icon: SiTypescript,
     color: "#3178C6",
     level: [
-      "Props와 API 응답에 명시적 타입을 정의해 런타임 오류를 줄였습니다.",
-      "any 사용을 지양하고 타입 가드로 안전성을 확보했습니다.",
+      "행쇼마켓에서 Supabase의 중첩된 관계형 데이터 응답에 명시적 타입을 정의해 타입 안정성을 확보했습니다.",
     ],
   },
   {
@@ -55,8 +53,7 @@ const SKILLS: Skill[] = [
     Icon: SiTailwindcss,
     color: "#06B6D4",
     level: [
-      "디자인 토큰 기반의 커스텀 테마와 다크 모드를 구축했습니다.",
-      "유틸리티 클래스만으로 반응형 레이아웃을 빠르게 구현했습니다.",
+      "이 포트폴리오를 포함한 모든 프로젝트에서 유틸리티 클래스로 다크 모드 대응 UI와 반응형 레이아웃을 구현했습니다.",
     ],
   },
   {
@@ -64,8 +61,7 @@ const SKILLS: Skill[] = [
     Icon: SiSupabase,
     color: "#3ECF8E",
     level: [
-      "클라이언트 지연 초기화와 API 라우트로 데이터를 안전하게 조회했습니다.",
-      "게시글 등 도메인 데이터를 스키마 기반으로 관리했습니다.",
+      "행쇼마켓에서는 관계형 데이터 조회·수정과 Storage 이미지 업로드를, 중단어 창고에서는 RLS 기반 접근 제어와 RPC 검색 로직을 구현했습니다.",
     ],
   },
 ];
