@@ -1,12 +1,10 @@
 ---
-title: "포트폴리오"
-duration: "2026.09 ~ 진행 중"
-role: "1인 개발 (기획·디자인·개발)"
-technologies:
-  ["Next.js", "Markdown", "Supabase", "gray-matter", "next-mdx-remote"]
+title: "Supabase에서 Markdown으로: 포트폴리오 콘텐츠 관리 마이그레이션"
+excerpt: "Supabase 기반 콘텐츠 관리가 겪은 sleep·분산 관리·버전 관리 문제를 Git 기반 Markdown 구조로 해결한 과정을 기록합니다."
+date: "2026-09-22"
+tags: ["Next.js", "Markdown", "Architecture"]
+readingTime: 10
 ---
-
-_작성일: 2026-09-22 · 카테고리: Architecture · 태그: nextjs, markdown, supabase, devops_
 
 ## 들어가며
 
@@ -83,18 +81,20 @@ DB 테이블에만 있는 데이터라 git처럼 버전 관리를 할 방법이 
 
 - Velog에서 발행된 글 메타데이터만 배열로 관리
 - 포트폴리오에서는 그 배열을 읽어서 Velog 링크로 표시
+- 포트폴리오에서 직접 쓴 글은 Markdown + Frontmatter로 관리
 - DB 쿼리 제거, Admin UI 삭제
 
 ```typescript
-// app/posts/page.tsx
-const velogPosts = [
+// app/_components/sections/Posts.tsx
+const velogPosts: VelogPost[] = [
   {
     id: 1,
     title: "React Hooks 최적화",
     excerpt: "useCallback, useMemo의 올바른 사용",
     date: "2024-01-15",
-    url: "https://velog.io/@예지/react-hooks",
+    url: "https://velog.io/@ruiwaa/react-hooks",
     readingTime: 8,
+    tags: ["React"],
   },
   // ... 더 많은 글들
 ];
@@ -114,6 +114,10 @@ projects/
 │   ├── page.tsx
 │   ├── case-study.md
 │   └── images/
+
+posts/
+├── portfolio-cms-migration/
+│   └── post.md
 ```
 
 ### 3단계: 기술 구현
@@ -180,6 +184,8 @@ export async function getProject(
 }
 ```
 
+이 글 자체도 이 구조를 그대로 따라 `posts/portfolio-cms-migration/post.md`로 관리됩니다. `lib/posts.ts`가 같은 패턴으로 `posts/` 디렉터리를 읽어 목록과 상세 페이지를 만듭니다.
+
 ---
 
 ## 트러블슈팅
@@ -239,9 +245,12 @@ Next.js 공식 문서에 명시된 표준 동작입니다.
 ### 추가된 코드
 
 ```
-- lib/projects.ts (마크다운 파싱)
-- app/projects/[id]/page.tsx (case-study 렌더링)
+- lib/projects.ts (프로젝트 케이스 스터디 마크다운 파싱)
+- lib/posts.ts (포트폴리오 직접 작성 글 마크다운 파싱)
+- app/(routes)/projects/[id]/page.tsx (case-study 렌더링)
+- app/(routes)/posts/[id]/page.tsx (post 렌더링)
 - projects/*/case-study.md (4개 프로젝트)
+- posts/*/post.md (포트폴리오 직접 작성 글)
 - docs/CONTENT_MANAGEMENT.md (관리 문서)
 ```
 
@@ -286,8 +295,9 @@ Supabase, TanStack Query, Tiptap을 제거하기 전에 grep으로 모든 사용
 
 이제 새로운 콘텐츠를 추가하는 방법은:
 
-1. 로컬에서 `projects/[projectName]/case-study.md` 작성
-2. Git commit/push
-3. Vercel이 자동으로 빌드 및 배포
+1. 프로젝트 케이스 스터디: `projects/[projectName]/case-study.md` 작성
+2. 직접 쓰는 글: `posts/[slug]/post.md` 작성
+3. Git commit/push
+4. Vercel이 자동으로 빌드 및 배포
 
 단순하고 안정적입니다.
