@@ -7,7 +7,7 @@ const RESUME_FIGMA_URL =
   "https://www.figma.com/proto/sQ07QbfY8jb13qkYDQ5pHD/resume?node-id=0-1&t=Ju3wuINpA5XnSosD-1";
 const RESUME_NOTION_URL =
   "https://app.notion.com/p/3dc01fb4da2a80fe89e4c308d593093f?source=copy_link";
-const RESUME_PDF_URL = "/resume/%EC%9E%A5%EC%98%88%EC%A7%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%B4%EB%A0%A5%EC%84%9C.pdf";
+const RESUME_PDF_URL = "/resume/%EC%9E%A5%EC%98%88%EC%A7%80_%EC%9D%B4%EB%A0%A5%EC%84%9C.pdf";
 
 export default function Resume() {
   return (
@@ -42,7 +42,7 @@ export default function Resume() {
         </a>
         <a
           href={RESUME_PDF_URL}
-          download="장예지_개발자이력서.pdf"
+          download="장예지_이력서.pdf"
           className="body inline-flex items-center gap-2 rounded-full border px-6 py-3 border-light-border text-light-text transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-dark-border dark:text-dark-text dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
         >
           <FileDown aria-hidden="true" className="h-4 w-4" />
