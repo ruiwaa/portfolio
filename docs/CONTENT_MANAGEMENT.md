@@ -2,7 +2,7 @@
 
 ## 개요
 
-포트폴리오 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown으로 전환했습니다. 각 프로젝트의 깊이 있는 내용(기술 결정, 트러블슈팅, 회고)은 프로젝트별 마크다운으로 관리하고, 기술 블로그는 Velog와 연동합니다.
+포트폴리오 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown으로 전환했습니다. 각 프로젝트의 깊이 있는 내용(기술 결정, 트러블슈팅, 회고)은 프로젝트별 마크다운으로 관리하고, 기술 블로그는 Velog와 연동합니다. 포트폴리오에서 직접 작성하는 글(운영기, 회고 등)은 프로젝트 케이스 스터디와 동일한 패턴으로 로컬 Markdown 파일로 관리합니다.
 
 ## 배경
 
@@ -82,11 +82,11 @@ technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
 
 ### 2. 기술 블로그 (Velog)
 
-**위치:** velog.io/@예지
+**위치:** velog.io/@ruiwaa
 
 **포트폴리오 표시:**
 
-- app/posts/page.tsx의 velogPosts 배열에 메타데이터 저장
+- app/_components/sections/Posts.tsx의 velogPosts 배열에 메타데이터 저장
 - 클릭 시 → velog.io로 외부 링크
 
 **메타데이터 형식:**
@@ -97,11 +97,37 @@ technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
   title: "포스트 제목",
   excerpt: "요약",
   date: "2024-01-15",
-  url: "https://velog.io/@예지/post-slug",
+  url: "https://velog.io/@ruiwaa/post-slug",
   readingTime: 8,
   tags: ["tag1", "tag2"]
 }
 ```
+
+### 3. 포트폴리오 직접 작성 글 (Markdown)
+
+**파일 위치:**
+
+- `posts/<slug>/post.md`
+
+**Frontmatter 형식:**
+
+```yaml
+---
+title: "글 제목"
+excerpt: "요약"
+date: "2026-09-22"
+tags: ["tag1", "tag2"]
+readingTime: 10
+---
+```
+
+프로젝트 케이스 스터디(`projects/<id>/case-study.md`)와 동일한 gray-matter + MDXRemote 파이프라인을 쓰지만, frontmatter가 `duration`/`role` 대신 `excerpt`/`tags`/`readingTime`을 씁니다 (Velog 메타데이터 형식과 통일).
+
+**렌더링:**
+
+- 구현 위치: `lib/posts.ts` (`getAllLocalPostIds`, `getLocalPost`, `getAllLocalPosts`)
+- 라우트: `app/(routes)/posts/[id]/page.tsx`
+- Posts 섹션(`app/_components/sections/Posts.tsx`)이 `velogPosts` 배열과 `getAllLocalPosts()` 결과를 날짜순으로 합쳐 한 목록에 렌더링 — 로컬 글은 내부 링크(`/posts/[id]`), Velog 글은 외부 링크로 연결됩니다.
 
 ## 워크플로우
 
@@ -132,10 +158,27 @@ git push origin [branch-name]
 # 1. velog.io에서 직접 작성 및 발행
 
 # 2. 포트폴리오에 등록
-# app/posts/page.tsx의 velogPosts 배열에 추가
-git add app/posts/page.tsx
+# app/_components/sections/Posts.tsx의 velogPosts 배열에 추가
+git add app/_components/sections/Posts.tsx
 git commit -m "docs: velog 포스트 추가"
 git push origin main
+```
+
+### 포트폴리오 직접 작성 글 추가
+
+```bash
+# 1. 로컬에서 마크다운 작성
+mkdir posts/[slug]
+vim posts/[slug]/post.md
+
+# 2. Git 커밋
+git add posts/[slug]/post.md
+git commit -m "docs: [slug] 글 추가"
+
+# 3. Push
+git push origin [branch-name]
+
+# 4. 자동 배포
 ```
 
 ## 기술 구현
@@ -147,11 +190,16 @@ git push origin main
 - 마크다운 content 추출
 - 프로젝트 페이지에서 MDXRemote로 렌더링
 
-### Posts 페이지 (app/posts/page.tsx)
+### 마크다운 파싱 (lib/posts.ts)
 
-- velogPosts 배열 정의 (메타데이터)
+- getLocalPost(slug): posts/<slug>/post.md 파싱 (구조는 lib/projects.ts와 동일)
+- getAllLocalPosts(): posts/ 디렉토리 전체를 읽어 Posts 섹션 목록에 전달
+
+### Posts 섹션 (app/_components/sections/Posts.tsx)
+
+- velogPosts 배열(외부 Velog 링크)과 getAllLocalPosts() 결과(로컬 글)를 날짜순으로 병합
 - 각 포스트 카드 렌더링
-- 외부 링크로 velog.io 연결
+- 로컬 글 → 내부 링크(`/posts/[id]`), Velog 글 → 외부 링크(velog.io, 새 탭)
 
 ## 마크다운 작성 규칙
 
@@ -166,8 +214,8 @@ git push origin main
 
 ### Frontmatter
 
-- 필수: title, duration, role
-- 선택: technologies, tags 등
+- 프로젝트 케이스 스터디 (`projects/<id>/case-study.md`): 필수 - title, duration, role / 선택 - technologies
+- 포트폴리오 직접 작성 글 (`posts/<slug>/post.md`): 필수 - title, excerpt, date, readingTime / 선택 - tags
 
 ### 본문 형식
 
@@ -182,6 +230,9 @@ git push origin main
 - Supabase posts 테이블 비활성화
 - Case Study 마크다운 방식으로 전환
 - Velog 외부 링크 연동 시작
+- Velog(@ruiwaa) 발행글 20개를 velogPosts 배열에 실제 등록
+- 포트폴리오 직접 작성 글을 위한 posts/<slug>/post.md 구조 추가 (lib/posts.ts, app/(routes)/posts/[id]/page.tsx)
+- 기존 projects/portfolio/case-study.md를 posts/portfolio-cms-migration/post.md로 이전
 
 ## 향후 개선
 
