@@ -1,191 +1,76 @@
-"use client";
-
-import { useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import Badge from "@/app/_components/ui/Badge";
-import PostsSkeleton from "@/app/_components/sections/PostsSkeleton";
 import { LAYOUT } from "@/lib/constants";
-import type { Post, PostCategory } from "@/types/posts";
-import type { GetPublishedPostsResult } from "@/app/_lib/posts";
 
-type FilterCategory = "All" | PostCategory;
-
-const CATEGORIES: FilterCategory[] = [
-  "All",
-  "Study",
-  "Troubleshooting",
-  "Retrospective",
-];
-
-async function fetchPostsPage(
-  category: FilterCategory,
-  offset: number,
-): Promise<GetPublishedPostsResult> {
-  const params = new URLSearchParams({ offset: String(offset) });
-  if (category !== "All") {
-    params.set("category", category);
-  }
-
-  const response = await fetch(`/api/posts?${params.toString()}`);
-
-  if (!response.ok) {
-    throw new Error("게시물을 불러오지 못했습니다.");
-  }
-
-  return response.json();
+interface VelogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  url: string;
+  readingTime: number;
+  tags: string[];
 }
 
+// velog.io/@예지 에 발행한 글을 여기에 등록 - 새 글 작성 후 이 배열에 추가
+const velogPosts: VelogPost[] = [];
+
 export default function Posts() {
-  const [activeCategory, setActiveCategory] = useState<FilterCategory>("All");
-
-  const {
-    data,
-    isLoading,
-    isError,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["posts", activeCategory],
-    queryFn: ({ pageParam }) => fetchPostsPage(activeCategory, pageParam),
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) =>
-      lastPage.hasMore
-        ? allPages.reduce((sum, page) => sum + page.posts.length, 0)
-        : undefined,
-  });
-
-  const posts: Post[] = data?.pages.flatMap((page) => page.posts) ?? [];
-
-  if (isError) {
-    return (
-      <section aria-label="포스트 목록">
-        <h2 className="section-header text-light-text-secondary dark:text-dark-text-secondary">
-          POSTS
-        </h2>
-        <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary">
-          게시물을 불러오지 못했습니다.
-        </p>
-      </section>
-    );
-  }
-
-  if (isLoading) {
-    return <PostsSkeleton />;
-  }
-
   return (
     <section aria-label="포스트 목록">
       <h2 className="section-header text-light-text-secondary dark:text-dark-text-secondary">
         POSTS
       </h2>
 
-      <div
-        role="tablist"
-        aria-label="카테고리 필터"
-        className={`mt-6 flex flex-wrap ${LAYOUT.componentGap}`}
-      >
-        {CATEGORIES.map((category) => {
-          const isActive = category === activeCategory;
-
-          return (
-            <button
-              key={category}
-              id={`posts-tab-${category}`}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              aria-controls="posts-panel"
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => setActiveCategory(category)}
-              className={`badge rounded-full px-3 py-1 bg-light-surface-dim text-light-text-secondary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:bg-dark-surface-dim dark:text-dark-text-secondary dark:focus-visible:outline-dark-accent ${
-                isActive
-                  ? "bg-light-accent! text-white! dark:bg-dark-accent! dark:text-dark-surface!"
-                  : ""
-              }`}
-            >
-              {category}
-            </button>
-          );
-        })}
-      </div>
-
-      <p aria-live="polite" className="sr-only">
-        {posts.length}개의 포스트가 표시됩니다.
-      </p>
-
-      <div
-        id="posts-panel"
-        role="tabpanel"
-        aria-labelledby={`posts-tab-${activeCategory}`}
-      >
-        {posts.length === 0 ? (
-          <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary text-center">
-            해당 카테고리의 포스트가 없습니다.
-          </p>
-        ) : (
-          <>
-            <ul
-              className={`mt-6 grid grid-cols-1 md:grid-cols-2 ${LAYOUT.componentGap}`}
-            >
-              {posts.map((post) => (
-                <li key={post.id}>
-                  <Link
-                    href={`/posts/${post.slug}`}
-                    className="block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
-                  >
-                    <article className="h-full overflow-hidden rounded-lg bg-light-surface-dim dark:bg-dark-surface-dim">
-                      <div className="relative h-40 w-full">
-                        <Image
-                          src={post.thumnail_url}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="(min-width: 768px) 50vw, 100vw"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <Badge label={post.category} />
-                        <h3 className="body mt-3 font-bold text-light-text dark:text-dark-text">
-                          {post.title}
-                        </h3>
-                        {post.description && (
-                          <p className="body mt-2 text-light-text-secondary dark:text-dark-text-secondary">
-                            {post.description}
-                          </p>
-                        )}
-                        <time
-                          dateTime={post.published_at}
-                          className="badge mt-3 block text-light-text-secondary dark:text-dark-text-secondary"
-                        >
-                          {new Date(post.published_at).toLocaleDateString(
-                            "ko-KR",
-                          )}
-                        </time>
-                      </div>
-                    </article>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            {hasNextPage && (
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => fetchNextPage()}
-                  disabled={isFetchingNextPage}
-                  className="badge rounded-full border border-light-border px-6 py-2 text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent disabled:opacity-50 dark:border-dark-border dark:text-dark-text-secondary dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
-                >
-                  {isFetchingNextPage ? "불러오는 중..." : "더 많은 글 보기"}
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      {velogPosts.length === 0 ? (
+        <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary text-center">
+          아직 등록된 포스트가 없습니다.
+        </p>
+      ) : (
+        <ul
+          className={`mt-6 grid grid-cols-1 md:grid-cols-2 ${LAYOUT.componentGap}`}
+        >
+          {velogPosts.map((post) => (
+            <li key={post.id}>
+              <a
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
+              >
+                <article className="flex h-full flex-col rounded-lg bg-light-surface-dim p-6 dark:bg-dark-surface-dim">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="body font-bold text-light-text dark:text-dark-text">
+                      {post.title}
+                    </h3>
+                    <ExternalLink
+                      aria-hidden="true"
+                      className="mt-1 h-4 w-4 shrink-0 text-light-text-secondary dark:text-dark-text-secondary"
+                    />
+                  </div>
+                  <p className="body mt-2 flex-1 text-light-text-secondary dark:text-dark-text-secondary">
+                    {post.excerpt}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <li key={tag}>
+                        <Badge label={tag} />
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="badge mt-4 flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
+                    <time dateTime={post.date}>
+                      {new Date(post.date).toLocaleDateString("ko-KR")}
+                    </time>
+                    <span aria-hidden="true">·</span>
+                    <span>{post.readingTime}분 읽기</span>
+                  </div>
+                </article>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

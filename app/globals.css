@@ -278,7 +278,8 @@ body {
   color: var(--color-dark-text);
 }
 
-/* Posts 상세 - Tiptap이 생성한 HTML을 렌더링하는 영역 (@tailwindcss/typography 미설치라 직접 정의) */
+/* 마크다운 렌더링 영역 - 프로젝트 case-study(MDXRemote)에서 공용으로 사용
+   (@tailwindcss/typography 미설치라 직접 정의) */
 .post-content {
   color: var(--color-light-text);
   font-size: 17px;
@@ -287,6 +288,18 @@ body {
 
 :where(.dark) .post-content {
   color: var(--color-dark-text);
+}
+
+.post-content :where(h1) {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.post-content :where(h1:first-child) {
+  margin-top: 0;
 }
 
 .post-content :where(h2) {

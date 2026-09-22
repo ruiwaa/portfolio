@@ -3,7 +3,6 @@ import { Syne, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import Header from "./_components/common/Header";
 import Footer from "./_components/common/Footer";
-import QueryProvider from "./_components/providers/QueryProvider";
 import "./globals.css";
 
 const THEME_INIT_SCRIPT = `
@@ -53,11 +52,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <QueryProvider>
-          <Header />
-          {children}
-          <Footer />
-        </QueryProvider>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );
