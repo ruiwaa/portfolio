@@ -1495,4 +1495,48 @@ origin과 완전히 동기화된 상태로 마무리
 스크린샷으로 확인, `curl`로 PDF가 `application/pdf`·2.6MB로 정상 응답하는 것과 `<a>` 태그의
 `href`/`download` 속성이 의도대로 렌더링되는 것을 직접 확인
 
+📍 다음: Phase 4️⃣0️⃣ - 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown/Velog로 전환
+
+## Phase 4️⃣0️⃣: 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown/Velog로 전환
+
+**요청**: `docs/CONTENT_MANAGEMENT.md`를 참고 문서로 제시하며 "콘텐츠 관리 시스템 구현" 스펙(lib/projects.ts
+신규 생성, app/posts/page.tsx의 Supabase 쿼리 제거, 프로젝트 상세 페이지에서 MDXRemote로 case-study.md
+렌더링, app/api/posts·app/admin·Supabase 관련 코드 삭제)을 상세히 전달 → "피그마 프로필사진 바꿨는데
+pdf에 반영이 안됐네" → 새 PDF 파일 전달 후 "업로드했어"
+
+**변경**:
+- `lib/projects.ts` 신규: `getProject(id)`(gray-matter로 frontmatter 분리), `getAllProjectIds()`(빌드
+  타임 정적 생성용) 구현
+- `app/(routes)/projects/[id]/page.tsx` 신규: `next-mdx-remote/rsc`의 `MDXRemote`(+remark-gfm)로
+  case-study.md 렌더링, `generateStaticParams`로 빌드 시 4개 프로젝트 페이지 전부 SSG 확인,
+  frontmatter(기간/역할/기술스택) 표시
+- `projects/{yeamaeui-jeongseok,haengsho-market,genova-audio-toolkit,junghdaneo-changgo}/case-study.md`
+  신규 작성 - 기존 프로젝트 카드(`Projects.tsx`)에 이미 있던 실제 개발 내용을 "기술적 결정" 섹션으로
+  재구성해 재사용 (트러블슈팅/회고는 입력 대기 상태로 남김)
+- `app/(routes)/posts/page.tsx`, `Posts.tsx`: Supabase 쿼리·TanStack Query 무한 스크롤 완전 제거,
+  `velogPosts` 정적 배열 + velog.io 외부 링크 카드로 교체 (현재 빈 배열이라 빈 상태 UI 표시)
+- Admin 전체(`app/admin/**`, `app/_components/admin/**` - TiptapEditor/ThumbnailInput/PostForm/
+  AdminPostList), `app/api/posts/**`, `app/_lib/{admin-auth,admin-posts,admin-storage,posts,
+  query-client}.ts`, `app/_components/providers/QueryProvider.tsx`, `app/(routes)/posts/[slug]/
+  page.tsx`, `PostContent.tsx`/`PostsSkeleton.tsx`, `lib/{supabase,supabase-server}.ts`, `proxy.ts`
+  (관리자 인증 전용 미들웨어), `types/posts.ts` 삭제
+- 요청받은 목록 외에, 삭제 대상 파일들에서만 쓰이던 게 맞는지 grep으로 전수 확인한 뒤
+  `@supabase/ssr`·`@supabase/supabase-js`·`@tanstack/react-query`·`@tiptap/*` 의존성과
+  `next.config.ts`의 admin 전용 `serverActions.bodySizeLimit`, 미사용 picsum·pinimg·Supabase Storage
+  `remotePatterns`도 함께 제거
+- `app/globals.css`의 `.post-content`에 `h1` 스타일 추가(case-study 최상위 섹션용), `docs/
+  ARCHITECTURE.md`를 새 폴더 구조·데이터 흐름으로 갱신
+- 이력서 PDF를 피그마에서 프로필 사진이 바뀐 최신 버전(`장예지_이력서.pdf`)으로 교체, 기존 파일
+  삭제 및 다운로드 버튼 href/파일명 갱신
+
+**트러블슈팅**: 존재하지 않는 `/projects/[id]`로 접근 시 `notFound()`가 정상 호출되지만 `curl`로는
+200이 반환됨 → 앱 전역 `app/loading.tsx`(루트 스트리밍 경계) 때문에 응답이 이미 200으로 스트리밍을
+시작한 뒤 `notFound()`가 던져지는 구조였음. Next.js 공식 문서(node_modules/next/dist/docs)에 명시된
+표준 동작(soft 404, `noindex` 메타 태그)이고 기존 `/posts/[slug]`도 동일 구조였음을 확인, 이번 범위
+밖이라 별도 수정 없이 사실만 기록
+
+**검증**: 매 파일 삭제/의존성 제거 전 grep으로 사용처 전수 확인. `bunx eslint` 프로젝트 전체 통과,
+`next build` 프로덕션 빌드로 4개 project 페이지 SSG 확인, `/admin` 404, `curl`로 PDF `application/pdf`
+정상 응답 확인, Playwright로 홈/Posts(빈 상태)/프로젝트 상세 페이지 실제 렌더링 확인
+
 📍 다음: (사용자 지정 대기)
