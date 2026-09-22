@@ -2,10 +2,11 @@
 title: "포트폴리오"
 duration: "2026.09 ~ 진행 중"
 role: "1인 개발 (기획·디자인·개발)"
-technologies: ["Next.js", "Markdown", "Supabase", "gray-matter", "next-mdx-remote"]
+technologies:
+  ["Next.js", "Markdown", "Supabase", "gray-matter", "next-mdx-remote"]
 ---
 
-*작성일: 2026-09-22 · 카테고리: Architecture · 태그: nextjs, markdown, supabase, devops*
+_작성일: 2026-09-22 · 카테고리: Architecture · 태그: nextjs, markdown, supabase, devops_
 
 ## 들어가며
 
@@ -93,7 +94,7 @@ const velogPosts = [
     excerpt: "useCallback, useMemo의 올바른 사용",
     date: "2024-01-15",
     url: "https://velog.io/@예지/react-hooks",
-    readingTime: 8
+    readingTime: 8,
   },
   // ... 더 많은 글들
 ];
@@ -126,73 +127,56 @@ bun add gray-matter next-mdx-remote remark-gfm
 **lib/projects.ts 구현:**
 
 ```typescript
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { readdir, readFile } from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
 
-export async function getProject(projectId: string) {
-  const caseStudyPath = path.join(
-    process.cwd(),
-    `projects/${projectId}/case-study.md`
-  );
+export interface ProjectFrontmatter {
+  title: string;
+  duration: string;
+  role: string;
+  technologies?: string[];
+}
 
-  if (!fs.existsSync(caseStudyPath)) {
+export interface ProjectData {
+  frontmatter: ProjectFrontmatter;
+  content: string;
+}
+
+const PROJECTS_DIR = path.join(process.cwd(), "projects");
+
+// projects/ 아래 case-study.md를 가진 폴더 이름을 전부 반환 - generateStaticParams에서 사용
+export async function getAllProjectIds(): Promise<string[]> {
+  let entries;
+  try {
+    entries = await readdir(PROJECTS_DIR, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  return entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+}
+
+export async function getProject(
+  projectId: string,
+): Promise<ProjectData | null> {
+  const filePath = path.join(PROJECTS_DIR, projectId, "case-study.md");
+
+  let raw: string;
+  try {
+    raw = await readFile(filePath, "utf-8");
+  } catch {
     return null;
   }
 
-  const fileContents = fs.readFileSync(caseStudyPath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const { data, content } = matter(raw);
 
   return {
-    id: projectId,
-    frontmatter: data,
-    content
+    frontmatter: data as ProjectFrontmatter,
+    content,
   };
-}
-
-export function getAllProjectIds() {
-  const projectsDir = path.join(process.cwd(), 'projects');
-  const dirs = fs.readdirSync(projectsDir);
-  return dirs.filter(dir => 
-    fs.existsSync(path.join(projectsDir, dir, 'case-study.md'))
-  );
-}
-```
-
-**프로젝트 페이지에서 렌더링:**
-
-```typescript
-// app/projects/[id]/page.tsx
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getProject, getAllProjectIds } from '@/lib/projects';
-
-export async function generateStaticParams() {
-  const projectIds = getAllProjectIds();
-  return projectIds.map(id => ({ id }));
-}
-
-export default async function ProjectPage({ params }) {
-  const project = await getProject(params.id);
-
-  if (!project) {
-    notFound();
-  }
-
-  return (
-    <article>
-      <h1>{project.frontmatter.title}</h1>
-      <div className="metadata">
-        <span>{project.frontmatter.duration}</span>
-        <span>{project.frontmatter.role}</span>
-      </div>
-      <div className="content">
-        <MDXRemote 
-          source={project.content}
-          components={{ /* 커스텀 컴포넌트 */ }}
-        />
-      </div>
-    </article>
-  );
 }
 ```
 
@@ -234,13 +218,13 @@ Next.js 공식 문서에 명시된 표준 동작입니다.
 
 ## 최종 결과
 
-| 항목 | 이전 | 이후 |
-|------|------|------|
-| DB 안정성 | Supabase sleep 위험 | ✅ DB 의존도 0 |
-| 콘텐츠 관리 | Admin UI 필수 | ✅ Git 기반 |
-| 버전 관리 | 없음 | ✅ 커밋 히스토리 |
-| 배포 | 수동 (Admin에서) | ✅ Git push → 자동 배포 |
-| 유지보수 | Admin UI 코드 유지 필요 | ✅ 간단함 |
+| 항목        | 이전                    | 이후                    |
+| ----------- | ----------------------- | ----------------------- |
+| DB 안정성   | Supabase sleep 위험     | ✅ DB 의존도 0          |
+| 콘텐츠 관리 | Admin UI 필수           | ✅ Git 기반             |
+| 버전 관리   | 없음                    | ✅ 커밋 히스토리        |
+| 배포        | 수동 (Admin에서)        | ✅ Git push → 자동 배포 |
+| 유지보수    | Admin UI 코드 유지 필요 | ✅ 간단함               |
 
 ### 삭제된 코드
 
