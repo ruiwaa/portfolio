@@ -2,7 +2,7 @@
 
 ## 개요
 
-포트폴리오 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown으로 전환했습니다. 각 프로젝트의 깊이 있는 내용(기술 결정, 트러블슈팅, 회고)은 프로젝트별 마크다운으로 관리하고, 기술 블로그는 Velog와 연동합니다. 포트폴리오에서 직접 작성하는 글(운영기, 회고 등)은 프로젝트 케이스 스터디와 동일한 패턴으로 로컬 Markdown 파일로 관리합니다.
+포트폴리오 콘텐츠 관리 방식을 Supabase에서 Git 기반 Markdown/Velog로 전환했습니다. 프로젝트별 트러블슈팅·회고를 포함한 모든 글은 `posts/` 폴더의 로컬 Markdown 또는 Velog 외부 링크, 두 가지로만 관리하며, 프로젝트 카드의 "포스트" 링크는 이 중 하나로 연결됩니다. 별도의 프로젝트 상세 페이지는 두지 않습니다.
 
 ## 배경
 
@@ -23,65 +23,7 @@
 
 ## 구조
 
-### 1. 프로젝트별 Case Study (Markdown)
-
-**파일 위치:**
-
-- `app/(routes)/projects/[id]/page.tsx` — 모든 프로젝트가 공유하는 동적 라우트
-- `projects/haengsho-market/*.md` (기술 글, 파일명 자유 - 폴더 안 .md 파일 중 이름순으로 첫 번째를 읽음)
-- `projects/haengsho-market/images/` (이미지, 선택)
-- `projects/junghdaneo-changgo/*.md` (기술 글)
-- `projects/junghdaneo-changgo/images/` (이미지, 선택)
-
-각 프로젝트 폴더에는 `.md` 파일을 하나만 두는 것을 권장합니다 (여러 개면 이름순으로 첫 번째만 읽힘). 파일명은 자유지만, 관례상 `case-study.md`를 사용합니다.
-
-**내용 구성:**
-
-각 프로젝트의 특성에 맞게 자유로운 형식으로 작성합니다. 공통 요소는 frontmatter 메타데이터뿐입니다.
-
-**Frontmatter 형식:**
-
-```yaml
----
-title: "프로젝트명"
-duration: "개발 기간 (예: 3개월)"
-role: "담당 역할 (예: 풀스택 프론트엔드)"
-technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
----
-```
-
-**본문 작성 예시:**
-
-```markdown
-# 기술적 결정
-
-## 상태 관리
-
-- Context API vs TanStack Query 비교
-- 최종 선택 및 이유
-
-# 트러블슈팅
-
-## 이슈 1
-
-- 문제 상황
-- 해결 방법
-- 배운 점
-
-# 회고
-
-- 잘한 점
-- 개선할 점
-- 다음에 적용할 학습
-```
-
-**마크다운 렌더링:**
-
-- 파서: gray-matter (frontmatter 분리)
-- 렌더러: MDXRemote (마크다운 → HTML)
-- 구현 위치: lib/projects.ts
-
-### 2. 기술 블로그 (Velog)
+### 1. 기술 블로그 (Velog)
 
 **위치:** velog.io/@ruiwaa
 
@@ -106,7 +48,7 @@ technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
 }
 ```
 
-### 3. 포트폴리오 직접 작성 글 (Markdown)
+### 2. 포트폴리오 직접 작성 글 (Markdown)
 
 **파일 위치:**
 
@@ -126,39 +68,27 @@ readingTime: 10
 ---
 ```
 
-프로젝트 케이스 스터디(`projects/<id>/case-study.md`)와 동일한 gray-matter + MDXRemote 파이프라인을 쓰지만, frontmatter가 `duration`/`role` 대신 `excerpt`/`category`/`project`/`tags`/`readingTime`을 씁니다 (Velog 메타데이터 형식과 통일).
+`project` 값은 Experience 섹션의 프로젝트 카드 제목과 맞춰야 트러블슈팅 탭 아코디언에서 같은 그룹으로 묶입니다 (예: "예매의 정석", "중단어 창고", "포트폴리오").
 
 **렌더링:**
 
-- 구현 위치: `lib/posts.ts` (`getAllLocalPostIds`, `getLocalPost`, `getAllLocalPosts`)
+- 파서: gray-matter (frontmatter 분리)
+- 렌더러: MDXRemote (마크다운 → HTML)
+- 구현 위치: `lib/posts.ts` (`getAllLocalPostIds`, `getLocalPost`, `getAllLocalPosts`), `lib/markdown.ts` (`.md` 파일 탐색)
 - 라우트: `app/(routes)/posts/[id]/page.tsx`
 - Posts 섹션(`app/_components/sections/Posts.tsx`)이 `velogPosts` 배열과 `getAllLocalPosts()` 결과를 날짜순으로 합쳐 한 목록을 만들고, 클라이언트 컴포넌트 `PostsList.tsx`가 카테고리 탭(전체/트러블슈팅/회고/기획/개발)으로 필터링해 렌더링 — 로컬 글은 내부 링크(`/posts/[id]`), Velog 글은 외부 링크로 연결됩니다.
 - 트러블슈팅 탭은 `project` 값으로 그룹핑해 프로젝트별 아코디언(호버로 열기, 클릭으로 토글)으로 렌더링됩니다.
 - 선택된 탭은 URL 쿼리스트링 `?tab=<카테고리명>`으로 저장됩니다 (전체는 파라미터 생략). 새로고침·직접 링크 공유 시에도 같은 탭이 유지됩니다. `useSearchParams`를 쓰는 클라이언트 컴포넌트라 `Posts.tsx`에서 `<Suspense>`로 감싸 정적 렌더링을 유지합니다.
 - 카테고리 값 목록: `lib/constants.ts`의 `POST_CATEGORIES`
 
+### 3. 프로젝트 카드의 포스트 링크
+
+Experience 섹션(`app/_components/sections/Projects.tsx`)의 각 프로젝트 카드에는 "포스트" 아이콘 링크가 있습니다. 이 링크는 별도의 프로젝트 상세 페이지가 아니라, 그 프로젝트를 다룬 **Velog 글 또는 `posts/` 로컬 글**로 바로 연결됩니다.
+
+- 로컬 글이 있으면: `links.post`에 해당 글의 `/posts/[id]` 경로, 또는 트러블슈팅 탭에서 프로젝트별로 모아보게 하려면 `/posts?tab=트러블슈팅`
+- 아직 글이 없으면: `"#"` 플레이스홀더로 둡니다
+
 ## 워크플로우
-
-### Case Study 추가/수정
-
-```bash
-# 1. 로컬에서 마크다운 작성
-vim projects/haengsho-market/case-study.md
-
-# 2. 이미지 추가 (필요시)
-# projects/haengsho-market/images/ 에 저장
-# 마크다운에서: ![alt](./images/filename.png)
-
-# 3. Git 커밋
-git add projects/haengsho-market/case-study.md
-git commit -m "docs: haengsho-market case study 추가"
-
-# 4. Push
-git push origin [branch-name]
-
-# 5. 자동 배포
-# Vercel이 빌드 → yeji.dev에 즉시 반영
-```
 
 ### Velog 포스트 추가
 
@@ -194,18 +124,10 @@ git push origin [branch-name]
 ### 마크다운 파일 탐색 (lib/markdown.ts)
 
 - findMarkdownFile(dir): 폴더 안 .md 파일을 이름순으로 찾아 전체 경로 반환 (파일명 고정 아님)
-- lib/projects.ts, lib/posts.ts가 공통으로 사용
-
-### 마크다운 파싱 (lib/projects.ts)
-
-- getProject(projectId): findMarkdownFile로 찾은 파일을 읽어 파싱
-- gray-matter로 frontmatter 분리
-- 마크다운 content 추출
-- 프로젝트 페이지에서 MDXRemote로 렌더링
 
 ### 마크다운 파싱 (lib/posts.ts)
 
-- getLocalPost(slug): findMarkdownFile로 찾은 파일을 읽어 파싱 (구조는 lib/projects.ts와 동일)
+- getLocalPost(slug): findMarkdownFile로 찾은 파일을 읽어 파싱
 - getAllLocalPosts(): posts/ 디렉토리 전체를 읽어 Posts 섹션 목록에 전달
 
 ### Posts 섹션 (app/_components/sections/Posts.tsx)
@@ -216,25 +138,17 @@ git push origin [branch-name]
 
 ## 마크다운 작성 규칙
 
-### 이미지 참조
-
-```markdown
-![설명](./images/filename.png)
-```
-
-- 상대 경로 사용
-- 프로젝트 폴더 내 images 디렉토리에 저장
-
 ### Frontmatter
 
-- 프로젝트 케이스 스터디 (`projects/<id>/*.md`, 파일명 자유): 필수 - title, duration, role / 선택 - technologies
-- 포트폴리오 직접 작성 글 (`posts/<slug>/*.md`, 파일명 자유): 필수 - title, excerpt, date, category, project, readingTime / 선택 - tags
+- 필수: title, excerpt, date, category, project, readingTime
+- 선택: tags
 
 ### 본문 형식
 
 - 자유로운 마크다운 구조
 - 헤딩, 코드 블록, 표 등 모두 지원
 - GitHub Flavored Markdown 문법 준수
+- MDXRemote로 렌더링되므로 본문에 원본 HTML을 그대로 붙여넣을 때는 JSX로 파싱 가능한 문법인지 확인 (예: `style="padding: 30px"` 같은 문자열 style 속성은 JSX에서 에러가 남 - 필요 없으면 래퍼 태그 자체를 제거)
 
 ## 마이그레이션 기록
 
@@ -256,9 +170,12 @@ git push origin [branch-name]
 - velogPosts와 posts/<slug>/post.md frontmatter에 project 필드 추가, 트러블슈팅 탭을 프로젝트별 아코디언(중단어 창고/포트폴리오)으로 재구성
 - lib/markdown.ts 추가: projects/posts 폴더의 마크다운 파일명 고정(case-study.md/post.md) 대신, 폴더 안 .md 파일을 이름순으로 찾아 읽도록 변경
 - Posts 탭 선택 상태를 URL 쿼리스트링(`?tab=`)과 동기화 (useSearchParams + Suspense)
+- Experience 섹션 중단어 창고 카드의 포스트 링크를 /posts?tab=트러블슈팅으로 연결
+- **projects/<id>/case-study.md + app/(routes)/projects/[id]/page.tsx + lib/projects.ts 시스템을 완전히 제거**하고 posts/로 통합 — 별도 프로젝트 상세 페이지 없이, 프로젝트 카드의 포스트 링크는 Velog 글 또는 posts/ 로컬 글로만 연결
+- yeamaeui-jeongseok 프로젝트의 리팩토링 기록을 posts/yeamaeui-jeongseok-refactoring/post.md로 이전 (category: 트러블슈팅, project: 예매의 정석)
+- 내용이 비어 있던 genova-audio-toolkit/haengsho-market/junghdaneo-changgo의 case-study.md 플레이스홀더는 삭제 (실제 작성된 콘텐츠 없었음)
 
 ## 향후 개선
 
 - Velog RSS 피드 자동 파싱
 - 검색 기능 추가
-- Case Study 자동 목차 생성

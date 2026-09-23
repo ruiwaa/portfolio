@@ -16,17 +16,17 @@ yeji-portfolio/
 │   ├── (routes)/
 │   │   ├── about/page.tsx
 │   │   ├── experience/page.tsx
-│   │   ├── posts/page.tsx          # velogPosts 배열 -> velog.io 외부 링크
-│   │   ├── projects/[id]/page.tsx  # projects/[id]/case-study.md를 MDXRemote로 렌더링
+│   │   ├── posts/page.tsx          # velogPosts 배열(외부) + posts/ 로컬 글을 합쳐 렌더링
+│   │   ├── posts/[id]/page.tsx     # posts/<slug>/*.md를 MDXRemote로 렌더링
 │   │   └── resume/page.tsx
 │   └── api/                         # 필요시 Route Handler
 ├── lib/
-│   ├── projects.ts                  # getProject/getAllProjectIds (gray-matter 파싱)
-│   └── constants.ts                 # 레이아웃/색상 상수
-├── projects/                        # 콘텐츠(코드 아님) - 프로젝트별 case-study.md + images/
-│   └── <project-id>/
-│       ├── case-study.md
-│       └── images/
+│   ├── posts.ts                     # getLocalPost/getAllLocalPosts (gray-matter 파싱)
+│   ├── markdown.ts                  # 폴더 안 .md 파일 탐색 (파일명 고정 아님)
+│   └── constants.ts                 # 레이아웃/색상/POST_CATEGORIES 상수
+├── posts/                           # 콘텐츠(코드 아님) - 포트폴리오 직접 작성 글
+│   └── <slug>/
+│       └── *.md
 ├── hooks/                           # 커스텀 훅
 ├── styles/
 │   └── typography.css
@@ -39,15 +39,15 @@ yeji-portfolio/
 ## 🔄 데이터 흐름
 
 ```
-projects/<id>/case-study.md (Git 파일)
-   ↓ (getProject, 빌드/요청 시 gray-matter로 파싱)
-app/(routes)/projects/[id]/page.tsx
+posts/<slug>/*.md (Git 파일)
+   ↓ (getLocalPost, 빌드/요청 시 gray-matter로 파싱)
+app/(routes)/posts/[id]/page.tsx
    ↓ (frontmatter + content)
 MDXRemote (마크다운 렌더링)
 ```
 
-- 프로젝트 상세: `generateStaticParams`로 `projects/` 하위 폴더를 빌드 시 정적 생성
-- Posts는 DB 없이 `app/_components/sections/Posts.tsx`의 `velogPosts` 배열을 직접 수정해 관리, 클릭 시 velog.io로 외부 링크
+- 로컬 글 상세: `generateStaticParams`로 `posts/` 하위 폴더를 빌드 시 정적 생성
+- Posts 목록: `velogPosts` 배열(외부 Velog 링크)과 `getAllLocalPosts()`(로컬 글)를 합쳐 날짜순으로 정렬, 카테고리 탭(`?tab=`)으로 필터링 - 별도의 프로젝트 상세 페이지는 없고, 프로젝트 카드의 포스트 링크는 Velog 글 또는 이 목록의 로컬 글로 직접 연결됨
 - 클라이언트 상태(테마)는 로컬 state + localStorage
 
 ## 🧱 컴포넌트 원칙
