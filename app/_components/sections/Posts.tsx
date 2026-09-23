@@ -130,13 +130,13 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 11,
-    title: "타임라인 위치 동기화",
+    title: "[인턴십 프로젝트][트러블 슈팅] 타임라인 위치 동기화",
     excerpt:
       "영상 타임라인 UI를 만들며 반복적으로 쓰인 비율 계산, 포인터 캡처 등 위치 동기화 패턴을 정리했습니다.",
     date: "2026-07-12",
     url: "https://velog.io/@ruiwaa/%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8-%EC%9C%84%EC%B9%98-%EB%8F%99%EA%B8%B0%ED%99%94",
-    category: "개발",
-    project: "개인 프로젝트",
+    category: "트러블슈팅",
+    project: "인턴십 프로젝트",
     tags: ["UI", "패턴정리"],
   },
   {
