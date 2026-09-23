@@ -1539,4 +1539,74 @@ pdf에 반영이 안됐네" → 새 PDF 파일 전달 후 "업로드했어"
 `next build` 프로덕션 빌드로 4개 project 페이지 SSG 확인, `/admin` 404, `curl`로 PDF `application/pdf`
 정상 응답 확인, Playwright로 홈/Posts(빈 상태)/프로젝트 상세 페이지 실제 렌더링 확인
 
+📍 다음: Phase 4️⃣1️⃣ - Posts 시스템 완성 (Velog 등록, 카테고리/프로젝트 아코디언, 프로젝트 상세 페이지 통합 제거)
+
+## Phase 4️⃣1️⃣: Posts 시스템 완성 - Velog 등록, 카테고리/프로젝트 아코디언, 프로젝트 상세 페이지 통합 제거
+
+**요청**: "이 파일을 portfolio 폴더의 case-study.md 파일로 만들어"(포트폴리오 자체 CMS 마이그레이션
+회고 글) → "posts 페이지에 안보이는데" → "velog.io/@예지 프로필 링크 확인해서 등록해줘"(실제
+계정은 @ruiwaa로 확인) → "각 프로젝트에 게시글 쓴 건데, 무조건 이름을 case-study.md로 파일명 안
+써도 되는거 아니야? posts 폴더 안에 있는 글들을 다 불러오는 형식 아니야?" → "posts에 넣으려고
+폴더구조 만든거 아니야??" → "해당 md파일의 방식으로 게시글 데이터 관리" → "학습노트 포스트는 전부
+다 제거해줘" → "트러블슈팅, 회고 등으로 나눠서 포스트를 정렬해" → "최근 포스터는 트러블 슈팅이야"
+→ "트러블슈팅 탭메뉴는 호버시 아코디언 컴포넌트처럼 각 프로젝트 단위로 들어가서 확인 할 수
+있도록" → "탭 메뉴의 이름을 searchparams로 읽게 만들어" → "중단어 창고 포스트 링크를 트러블
+슈팅 링크로 연결해" → "파일명 자유롭게 아무 .md나 찾아서 읽도록 바꿔줘" → "프로젝트 상세 페이지는
+없어. 프로젝트 카드 안에 포스트 링크를 누르면 벨로그 외부 링크 또는 로컬에 md로 저장한 포스트랑
+연결되게 하려고 구조를 짠거야" → "완전히 제거하고 posts로 통합" → 런타임 에러 리포트("Cannot read
+properties of undefined (reading 'localeCompare')") → "오류 수정해" → "이 문서도 필요해"(프록시
+인증 트러블슈팅 글, 실제 내용 전달) → "fratter에 readingtime 제거해" → "나머지 부분 문서 확인해서
+커밋해"
+
+**변경**:
+- `posts/portfolio-cms-migration/post.md` 신규: 포트폴리오 자체 CMS 마이그레이션 과정을 case
+  study가 아닌 일반 글로 작성 (이후 파일 구조 재검토 과정에서 최종적으로 이 위치가 맞는 것으로 확정)
+- Velog(`@ruiwaa`) RSS 피드(`v2.velog.io/rss/@ruiwaa`)를 직접 파싱해 실제 발행글을 `Posts.tsx`의
+  `velogPosts` 배열에 등록 (처음 20개 → 학습노트 태그 4개 제거 후 16개, 이후 사용자가 직접
+  타이틀·카테고리·프로젝트를 여러 차례 정정)
+- `lib/posts.ts`, `lib/markdown.ts` 신규: `projects/<id>/case-study.md` 패턴과 동일하게
+  `posts/<slug>/*.md`를 gray-matter로 파싱하는 로컬 글 시스템 구축, `app/(routes)/posts/[id]/
+  page.tsx`에서 `MDXRemote`로 렌더링. 파일명을 `case-study.md`/`post.md`로 고정하지 않고
+  `findMarkdownFile`이 폴더 안의 `.md` 파일을 이름순으로 찾아 읽도록 변경(여러 개면 첫 번째만 사용)
+- `lib/constants.ts`에 `POST_CATEGORIES`(트러블슈팅/회고/기획/개발) 추가, `velogPosts`와 로컬 글
+  frontmatter 모두에 `category`·`project` 필드 추가
+- `PostsList.tsx` 신규(클라이언트 컴포넌트)로 렌더링 분리: 카테고리 탭 필터 UI 추가, 선택된 탭을
+  `?tab=<카테고리명>`으로 `useSearchParams`/`router.replace` 동기화(전체는 파라미터 생략, 새로고침
+  ·링크 공유 시 유지) - 정적 페이지에서 `useSearchParams`를 쓰려면 `<Suspense>` 경계가 필요해
+  `Posts.tsx`에서 감쌈
+- 트러블슈팅 탭은 `project` 값으로 그룹핑해 프로젝트별 아코디언으로 렌더링(마우스 호버 시 열림,
+  클릭으로 토글 - 키보드/터치 접근성 대응), 카드 렌더링은 `PostCard`로 공통화
+- **`app/(routes)/projects/[id]/page.tsx` + `lib/projects.ts` + `projects/<id>/case-study.md` 전체
+  삭제**하고 posts로 완전히 통합 - 별도 프로젝트 상세 페이지 없이 Experience 섹션 프로젝트 카드의
+  "포스트" 링크가 Velog 글 또는 `posts/` 로컬 글로 직접 연결되도록 함(원래 의도했던 구조로 정정).
+  실제 내용이 있던 `yeamaeui-jeongseok`의 리팩토링 기록은 `posts/yeamaeui-jeongseok-refactoring/
+  post.md`로 이전(원본의 `<div style="...">` 문자열 style 속성이 MDX/JSX 파싱 에러를 일으켜 제거,
+  끝부분 짝 안 맞는 코드펜스도 정리). 내용이 비어 있던 나머지 3개 프로젝트의 `case-study.md`
+  플레이스홀더는 손실 없이 삭제
+- Experience 섹션 프로젝트 카드 포스트 링크 순차 연결: 중단어 창고 → `/posts?tab=트러블슈팅`,
+  예매의 정석 → `/posts/yeamaeui-jeongseok-refactoring`(직접), 행쇼마켓 → `/posts?tab=트러블슈팅`,
+  GENOVA 오디오 툴킷 → 관련 Velog 글 직접 연결. 행쇼마켓 카드의 demo/github 링크도 실제 배포·레포
+  URL로 교체
+- `posts/final-project/likeBtn_trouble_shooting.md`, `posts/final-project-proxy/
+  proxy_trouble_shooting.md` 신규(사용자가 직접 작성한 실제 트러블슈팅 기록 전달) - `project`
+  값을 사용자가 직접 "행쇼마켓"으로 정정, 같은 폴더에 `.md` 파일 2개를 두면 하나가 조용히
+  무시되는 구조적 한계 때문에 `final-project-proxy`로 슬러그 폴더 분리
+- `readingTime` 필드를 frontmatter·타입 전체(`PostFrontmatter`, `VelogPost`, `PostItem`,
+  `isValidFrontmatter`, 기존 로컬 글 3개, `CONTENT_MANAGEMENT.md`)에서 완전히 제거 (카드/상세
+  페이지 표시는 이미 이전 단계에서 제거된 상태였음)
+- `docs/CONTENT_MANAGEMENT.md`, `docs/ARCHITECTURE.md`를 posts 단일 구조에 맞게 전면 갱신
+
+**트러블슈팅**: 사용자가 frontmatter 없이 `posts/final-project/likeBtn_trouble_shooting.md`를
+직접 추가하면서 `date`가 `undefined`가 되어 `Posts.tsx`의 정렬 로직
+(`b.date.localeCompare(a.date)`)에서 런타임 에러 발생 → 해당 글에 frontmatter를 채워 즉시 해결하고,
+`lib/posts.ts`에 `isValidFrontmatter` 검증을 추가해 앞으로 필수 필드가 빠진 글은 콘솔 경고만 남기고
+목록에서 자동 제외되도록 방어 처리(사이트 전체 크래시 재발 방지)
+
+**검증**: 매 단계 `bunx eslint`·`bunx tsc --noEmit` 통과. `next build` 프로덕션 빌드로 로컬 글
+전부(포트폴리오 마이그레이션, 예매의 정석, 행쇼마켓 2건) SSG 생성 확인, `/projects/[id]` 라우트
+완전히 404로 사라진 것 확인. Playwright로 탭 필터·프로젝트별 아코디언 호버/클릭 동작, `?tab=` URL
+직접 진입 시 탭 상태 복원, Experience 카드의 각 포스트 링크가 의도한 목적지로 열리는 것을 실제
+클릭·스크린샷으로 검증. 원본 마크다운의 `<div style="...">` 제거 전후로 정적 HTML에 문제되는
+코드가 없는지 `curl`·`page.content()`로 직접 대조 확인
+
 📍 다음: (사용자 지정 대기)
