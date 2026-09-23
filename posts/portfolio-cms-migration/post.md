@@ -109,11 +109,14 @@ const velogPosts: VelogPost[] = [
 파일 구조:
 
 ```
+app/(routes)/
+├── projects/[id]/page.tsx   ← 모든 프로젝트가 공유하는 동적 라우트
+└── posts/[id]/page.tsx      ← 모든 글이 공유하는 동적 라우트
+
 projects/
 ├── haengsho-market/
-│   ├── page.tsx
 │   ├── case-study.md
-│   └── images/
+│   └── images/ (선택)
 
 posts/
 ├── portfolio-cms-migration/

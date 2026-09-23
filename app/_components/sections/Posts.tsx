@@ -170,26 +170,6 @@ const velogPosts: VelogPost[] = [
     tags: ["트러블슈팅", "Next.js"],
   },
   {
-    id: 15,
-    title: "useEffect",
-    excerpt:
-      "useEffect 훅의 역할과 사용 상황, 의존성 배열과 cleanup 함수 작성 방법을 정리했습니다.",
-    date: "2026-06-24",
-    url: "https://velog.io/@ruiwaa/useEffect",
-    readingTime: 4,
-    tags: ["React", "학습노트"],
-  },
-  {
-    id: 16,
-    title: "useState 훅",
-    excerpt:
-      "useState로 상태를 관리하는 방법과 객체 불변성을 유지하며 중첩 객체를 업데이트하는 패턴을 정리했습니다.",
-    date: "2026-06-24",
-    url: "https://velog.io/@ruiwaa/useState-%ED%9B%85",
-    readingTime: 4,
-    tags: ["React", "학습노트"],
-  },
-  {
     id: 17,
     title: "[트러블 슈팅] [중단어 창고]오늘의 단어 컴포넌트 퍼블리싱",
     excerpt:
@@ -200,16 +180,6 @@ const velogPosts: VelogPost[] = [
     tags: ["트러블슈팅", "접근성"],
   },
   {
-    id: 18,
-    title: "함수 컴포넌트 vs 클래스 컴포넌트",
-    excerpt:
-      "클래스 컴포넌트와 함수 컴포넌트의 차이, Hooks 도입 이후 함수 컴포넌트가 주로 쓰이는 이유를 정리했습니다.",
-    date: "2026-06-22",
-    url: "https://velog.io/@ruiwaa/%ED%95%A8%EC%88%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-vs-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8",
-    readingTime: 4,
-    tags: ["React", "학습노트"],
-  },
-  {
     id: 19,
     title: "[트러블 슈팅] [중단어창고] 로그인, 회원가입 폼 개발 기록",
     excerpt:
@@ -218,16 +188,6 @@ const velogPosts: VelogPost[] = [
     url: "https://velog.io/@ruiwaa/%EA%B0%9C%EB%B0%9C-%EB%8B%A8%EA%B3%84-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%ED%8F%BC-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B8%B0%EB%A1%9D",
     readingTime: 6,
     tags: ["트러블슈팅", "Supabase"],
-  },
-  {
-    id: 20,
-    title: "JSX",
-    excerpt:
-      "JSX가 무엇인지, 자바스크립트 안에서 HTML처럼 UI를 작성할 수 있게 해주는 문법의 기본 개념을 정리했습니다.",
-    date: "2026-06-16",
-    url: "https://velog.io/@ruiwaa/JSX",
-    readingTime: 3,
-    tags: ["React", "학습노트"],
   },
 ];
 
