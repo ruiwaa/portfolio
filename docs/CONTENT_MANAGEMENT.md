@@ -100,6 +100,7 @@ technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
   url: "https://velog.io/@ruiwaa/post-slug",
   readingTime: 8,
   category: "트러블슈팅", // "트러블슈팅" | "회고" | "기획" | "개발" (lib/constants.ts의 POST_CATEGORIES)
+  project: "중단어 창고", // 트러블슈팅 탭에서 프로젝트별 아코디언 그룹핑에 사용
   tags: ["tag1", "tag2"]
 }
 ```
@@ -118,18 +119,20 @@ title: "글 제목"
 excerpt: "요약"
 date: "2026-09-22"
 category: "회고" # "트러블슈팅" | "회고" | "기획" | "개발"
+project: "포트폴리오" # 트러블슈팅 탭에서 프로젝트별 아코디언 그룹핑에 사용
 tags: ["tag1", "tag2"]
 readingTime: 10
 ---
 ```
 
-프로젝트 케이스 스터디(`projects/<id>/case-study.md`)와 동일한 gray-matter + MDXRemote 파이프라인을 쓰지만, frontmatter가 `duration`/`role` 대신 `excerpt`/`category`/`tags`/`readingTime`을 씁니다 (Velog 메타데이터 형식과 통일).
+프로젝트 케이스 스터디(`projects/<id>/case-study.md`)와 동일한 gray-matter + MDXRemote 파이프라인을 쓰지만, frontmatter가 `duration`/`role` 대신 `excerpt`/`category`/`project`/`tags`/`readingTime`을 씁니다 (Velog 메타데이터 형식과 통일).
 
 **렌더링:**
 
 - 구현 위치: `lib/posts.ts` (`getAllLocalPostIds`, `getLocalPost`, `getAllLocalPosts`)
 - 라우트: `app/(routes)/posts/[id]/page.tsx`
 - Posts 섹션(`app/_components/sections/Posts.tsx`)이 `velogPosts` 배열과 `getAllLocalPosts()` 결과를 날짜순으로 합쳐 한 목록을 만들고, 클라이언트 컴포넌트 `PostsList.tsx`가 카테고리 탭(전체/트러블슈팅/회고/기획/개발)으로 필터링해 렌더링 — 로컬 글은 내부 링크(`/posts/[id]`), Velog 글은 외부 링크로 연결됩니다.
+- 트러블슈팅 탭은 `project` 값으로 그룹핑해 프로젝트별 아코디언(호버로 열기, 클릭으로 토글)으로 렌더링됩니다.
 - 카테고리 값 목록: `lib/constants.ts`의 `POST_CATEGORIES`
 
 ## 워크플로우
@@ -218,7 +221,7 @@ git push origin [branch-name]
 ### Frontmatter
 
 - 프로젝트 케이스 스터디 (`projects/<id>/case-study.md`): 필수 - title, duration, role / 선택 - technologies
-- 포트폴리오 직접 작성 글 (`posts/<slug>/post.md`): 필수 - title, excerpt, date, category, readingTime / 선택 - tags
+- 포트폴리오 직접 작성 글 (`posts/<slug>/post.md`): 필수 - title, excerpt, date, category, project, readingTime / 선택 - tags
 
 ### 본문 형식
 
@@ -242,6 +245,8 @@ git push origin [branch-name]
 - 학습노트 태그 Velog 글 4개 제거
 - velogPosts와 posts/<slug>/post.md frontmatter에 category 필드 추가 (트러블슈팅/회고/기획/개발)
 - Posts 섹션에 카테고리 탭 필터(PostsList.tsx, 클라이언트 컴포넌트) 추가
+- 포트폴리오 CMS 마이그레이션 글 카테고리를 회고 → 트러블슈팅으로 수정
+- velogPosts와 posts/<slug>/post.md frontmatter에 project 필드 추가, 트러블슈팅 탭을 프로젝트별 아코디언(중단어 창고/포트폴리오)으로 재구성
 
 ## 향후 개선
 

@@ -8,6 +8,7 @@ export interface PostFrontmatter {
   excerpt: string;
   date: string;
   category: PostCategory;
+  project: string;
   tags?: string[];
   readingTime: number;
 }
