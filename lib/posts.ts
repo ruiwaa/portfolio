@@ -1,11 +1,13 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import type { PostCategory } from "./constants";
 
 export interface PostFrontmatter {
   title: string;
   excerpt: string;
   date: string;
+  category: PostCategory;
   tags?: string[];
   readingTime: number;
 }

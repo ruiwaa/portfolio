@@ -1,8 +1,6 @@
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
-import Badge from "@/app/_components/ui/Badge";
-import { LAYOUT } from "@/lib/constants";
+import type { PostCategory } from "@/lib/constants";
 import { getAllLocalPosts } from "@/lib/posts";
+import PostsList, { type PostItem } from "./PostsList";
 
 interface VelogPost {
   id: number;
@@ -11,18 +9,8 @@ interface VelogPost {
   date: string;
   url: string;
   readingTime: number;
+  category: PostCategory;
   tags: string[];
-}
-
-interface PostItem {
-  key: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readingTime: number;
-  tags: string[];
-  href: string;
-  external: boolean;
 }
 
 // velog.io/@ruiwaa 에 발행한 글을 여기에 등록 - 새 글 작성 후 이 배열에 추가
@@ -35,6 +23,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-09-03",
     url: "https://velog.io/@ruiwaa/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-DAY-3-%EC%9E%91%EC%97%85-%EB%AA%A9%EB%A1%9D%EC%97%90-%EB%94%B0%EB%A5%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84",
     readingTime: 5,
+    category: "개발",
     tags: ["포트폴리오", "Claude Code"],
   },
   {
@@ -45,6 +34,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-09-02",
     url: "https://velog.io/@ruiwaa/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-Day-2-claude.md-%EC%9E%91%EC%84%B1-%EB%B0%8F-%EB%94%94%EC%9E%90%EC%9D%B8-%EC%8B%9C%EC%95%88-%EB%A7%8C%EB%93%A4%EA%B8%B0",
     readingTime: 5,
+    category: "기획",
     tags: ["포트폴리오", "Claude Code"],
   },
   {
@@ -55,6 +45,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-09-01",
     url: "https://velog.io/@ruiwaa/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-Day-1-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1-%EB%B0%8F-DB-%EC%84%A4%EA%B3%84",
     readingTime: 5,
+    category: "개발",
     tags: ["포트폴리오", "Next.js"],
   },
   {
@@ -65,6 +56,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-31",
     url: "https://velog.io/@ruiwaa/%ED%8F%AC%ED%86%A0%ED%8F%B4%EB%A6%AC%EC%98%A4-%EA%B8%B0%ED%9A%8D-%EB%8B%A8%EA%B3%84-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%84%B1-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0",
     readingTime: 4,
+    category: "기획",
     tags: ["포트폴리오", "기획"],
   },
   {
@@ -75,7 +67,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-21",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-lighthouse-%EA%B2%80%EC%82%AC-%ED%9B%84-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0-%EC%9E%91%EC%97%85",
     readingTime: 7,
-    tags: ["트러블슈팅", "성능최적화"],
+    category: "트러블슈팅",
+    tags: ["성능최적화"],
   },
   {
     id: 6,
@@ -85,6 +78,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-19",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%9E%AC%EC%84%A4%EC%A0%95-%EB%A7%81%ED%81%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%A0%91%EA%B7%BC-%EC%97%AC%EB%B6%80-%EA%B2%80%EC%A6%9D",
     readingTime: 6,
+    category: "개발",
     tags: ["Supabase", "인증"],
   },
   {
@@ -95,7 +89,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-13",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4%EC%B0%BD%EA%B3%A0-NextTheme%EB%A1%9C-%EB%8B%A4%ED%81%AC-%EB%AA%A8%EB%93%9C-%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0",
     readingTime: 5,
-    tags: ["트러블슈팅", "Next.js"],
+    category: "트러블슈팅",
+    tags: ["Next.js"],
   },
   {
     id: 8,
@@ -105,6 +100,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-12",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EA%B2%80%EC%83%89-%EA%B2%B0%EA%B3%BC-%EA%B4%80%EB%A0%A8%EB%8F%84%EC%88%9C-%EC%A0%95%EB%A0%AC-%EA%B8%B0%EB%8A%A5",
     readingTime: 6,
+    category: "개발",
     tags: ["Supabase", "검색"],
   },
   {
@@ -115,7 +111,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-11",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%84%A4%EC%A0%95-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84-%EA%B8%B0%EB%A1%9D",
     readingTime: 6,
-    tags: ["트러블슈팅", "Supabase"],
+    category: "트러블슈팅",
+    tags: ["Supabase"],
   },
   {
     id: 10,
@@ -126,6 +123,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-08-06",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%82%98%EC%9D%98-%EB%8B%A8%EC%96%B4-%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%97%B0%EB%8F%99-%EB%B0%8F-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC-%EB%B6%84%EB%A6%AC-%EA%B3%BC%EC%A0%95-%EA%B8%B0%EB%A1%9D",
     readingTime: 7,
+    category: "개발",
     tags: ["TanStack Query", "Supabase"],
   },
   {
@@ -136,6 +134,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-07-12",
     url: "https://velog.io/@ruiwaa/%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8-%EC%9C%84%EC%B9%98-%EB%8F%99%EA%B8%B0%ED%99%94",
     readingTime: 5,
+    category: "개발",
     tags: ["UI", "패턴정리"],
   },
   {
@@ -146,6 +145,7 @@ const velogPosts: VelogPost[] = [
     date: "2026-06-30",
     url: "https://velog.io/@ruiwaa/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A8%EB%8B%AC%EC%B0%BD%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90",
     readingTime: 6,
+    category: "개발",
     tags: ["Zustand", "개인프로젝트"],
   },
   {
@@ -156,7 +156,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-06-25",
     url: "https://velog.io/@ruiwaa/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%9D%B4%EB%8F%99-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95",
     readingTime: 5,
-    tags: ["트러블슈팅", "페이지네이션"],
+    category: "트러블슈팅",
+    tags: ["페이지네이션"],
   },
   {
     id: 14,
@@ -167,7 +168,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-06-24",
     url: "https://velog.io/@ruiwaa/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9A%B0%ED%8C%85%EC%97%90-%EB%8C%80%ED%95%9C-Suspense-%EA%B2%BD%EA%B3%A0-%EB%B0%9C%EC%83%9D-%EB%B0%8F-%ED%95%B4%EA%B2%B0",
     readingTime: 4,
-    tags: ["트러블슈팅", "Next.js"],
+    category: "트러블슈팅",
+    tags: ["Next.js"],
   },
   {
     id: 17,
@@ -177,7 +179,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-06-22",
     url: "https://velog.io/@ruiwaa/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EC%98%A4%EB%8A%98%EC%9D%98-%EB%8B%A8%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%8B%B1",
     readingTime: 6,
-    tags: ["트러블슈팅", "접근성"],
+    category: "트러블슈팅",
+    tags: ["접근성"],
   },
   {
     id: 19,
@@ -187,7 +190,8 @@ const velogPosts: VelogPost[] = [
     date: "2026-06-19",
     url: "https://velog.io/@ruiwaa/%EA%B0%9C%EB%B0%9C-%EB%8B%A8%EA%B3%84-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%ED%8F%BC-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EA%B8%B0%EB%A1%9D",
     readingTime: 6,
-    tags: ["트러블슈팅", "Supabase"],
+    category: "트러블슈팅",
+    tags: ["Supabase"],
   },
 ];
 
@@ -202,6 +206,7 @@ export default async function Posts() {
         excerpt: post.excerpt,
         date: post.date,
         readingTime: post.readingTime,
+        category: post.category,
         tags: post.tags,
         href: post.url,
         external: true,
@@ -214,6 +219,7 @@ export default async function Posts() {
         excerpt: post.frontmatter.excerpt,
         date: post.frontmatter.date,
         readingTime: post.frontmatter.readingTime,
+        category: post.frontmatter.category,
         tags: post.frontmatter.tags ?? [],
         href: `/posts/${post.slug}`,
         external: false,
@@ -227,71 +233,7 @@ export default async function Posts() {
         POSTS
       </h2>
 
-      {posts.length === 0 ? (
-        <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary text-center">
-          아직 등록된 포스트가 없습니다.
-        </p>
-      ) : (
-        <ul
-          className={`mt-6 grid grid-cols-1 md:grid-cols-2 ${LAYOUT.componentGap}`}
-        >
-          {posts.map((post) => {
-            const cardClassName =
-              "block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
-            const card = (
-              <article className="flex h-full flex-col rounded-lg bg-light-surface-dim p-6 dark:bg-dark-surface-dim">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="body font-bold text-light-text dark:text-dark-text">
-                        {post.title}
-                      </h3>
-                      {post.external && (
-                        <ExternalLink
-                          aria-hidden="true"
-                          className="mt-1 h-4 w-4 shrink-0 text-light-text-secondary dark:text-dark-text-secondary"
-                        />
-                      )}
-                    </div>
-                    <p className="body mt-2 flex-1 text-light-text-secondary dark:text-dark-text-secondary">
-                      {post.excerpt}
-                    </p>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
-                        <li key={tag}>
-                          <Badge label={tag} />
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="badge mt-4 flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
-                      <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString("ko-KR")}
-                      </time>
-                      <span aria-hidden="true">·</span>
-                      <span>{post.readingTime}분 읽기</span>
-                    </div>
-                  </article>
-            );
-
-            return (
-              <li key={post.key}>
-                {post.external ? (
-                  <a
-                    href={post.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cardClassName}
-                  >
-                    {card}
-                  </a>
-                ) : (
-                  <Link href={post.href} className={cardClassName}>
-                    {card}
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <PostsList posts={posts} />
     </section>
   );
 }

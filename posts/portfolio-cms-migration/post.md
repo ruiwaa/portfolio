@@ -2,6 +2,7 @@
 title: "Supabase에서 Markdown으로: 포트폴리오 콘텐츠 관리 마이그레이션"
 excerpt: "Supabase 기반 콘텐츠 관리가 겪은 sleep·분산 관리·버전 관리 문제를 Git 기반 Markdown 구조로 해결한 과정을 기록합니다."
 date: "2026-09-22"
+category: "회고"
 tags: ["Next.js", "Markdown", "Architecture"]
 readingTime: 10
 ---
