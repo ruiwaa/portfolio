@@ -107,7 +107,7 @@ const PROJECTS: ProjectEntry[] = [
     links: {
       demo: "#",
       github: "#",
-      post: "#",
+      post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
   {

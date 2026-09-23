@@ -175,7 +175,7 @@ git push origin [branch-name]
 - 예매의 정석 카드의 포스트 링크를 /posts?tab=트러블슈팅 대신 /posts/yeamaeui-jeongseok-refactoring으로 직접 연결
 - frontmatter가 없는 글 때문에 발생한 Posts 페이지 크래시 수정 - lib/posts.ts에 isValidFrontmatter 검증 추가 (필수 필드 누락 시 콘솔 경고만 남기고 목록에서 제외)
 - readingTime 필드를 frontmatter/타입에서 완전히 제거 (카드·상세 페이지 표시는 이미 제거된 상태였음)
-- posts/final-project/likeBtn_trouble_shooting.md, posts/final-project-proxy/proxy_trouble_shooting.md 추가 (project: 최종 프로젝트 - 실제 프로젝트명 확인 필요)
+- posts/final-project/likeBtn_trouble_shooting.md, posts/final-project-proxy/proxy_trouble_shooting.md 추가 (project: 행쇼마켓)
 
 ## 향후 개선
 
