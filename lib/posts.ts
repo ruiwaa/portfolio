@@ -2,6 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import type { PostCategory } from "./constants";
+import { findMarkdownFile } from "./markdown";
 
 export interface PostFrontmatter {
   title: string;
@@ -21,7 +22,7 @@ export interface PostData {
 
 const POSTS_DIR = path.join(process.cwd(), "posts");
 
-// posts/ 아래 post.md를 가진 폴더 이름을 전부 반환 - generateStaticParams에서 사용
+// posts/ 아래 .md 파일을 가진 폴더 이름을 전부 반환 - generateStaticParams에서 사용
 export async function getAllLocalPostIds(): Promise<string[]> {
   let entries;
   try {
@@ -30,13 +31,23 @@ export async function getAllLocalPostIds(): Promise<string[]> {
     return [];
   }
 
-  return entries
+  const postDirs = entries
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name);
+
+  const slugsWithMarkdown = await Promise.all(
+    postDirs.map(async (slug) => {
+      const filePath = await findMarkdownFile(path.join(POSTS_DIR, slug));
+      return filePath ? slug : null;
+    }),
+  );
+
+  return slugsWithMarkdown.filter((slug): slug is string => slug !== null);
 }
 
 export async function getLocalPost(slug: string): Promise<PostData | null> {
-  const filePath = path.join(POSTS_DIR, slug, "post.md");
+  const filePath = await findMarkdownFile(path.join(POSTS_DIR, slug));
+  if (!filePath) return null;
 
   let raw: string;
   try {

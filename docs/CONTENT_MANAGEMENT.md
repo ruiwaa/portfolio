@@ -27,12 +27,13 @@
 
 **파일 위치:**
 
-- `projects/haengsho-market/page.tsx` (프로젝트 상세 페이지)
-- `projects/haengsho-market/case-study.md` (기술 글)
-- `projects/haengsho-market/images/` (이미지)
-- `projects/junghdaneo-changgo/page.tsx` (프로젝트 상세 페이지)
-- `projects/junghdaneo-changgo/case-study.md` (기술 글)
-- `projects/junghdaneo-changgo/images/` (이미지)
+- `app/(routes)/projects/[id]/page.tsx` — 모든 프로젝트가 공유하는 동적 라우트
+- `projects/haengsho-market/*.md` (기술 글, 파일명 자유 - 폴더 안 .md 파일 중 이름순으로 첫 번째를 읽음)
+- `projects/haengsho-market/images/` (이미지, 선택)
+- `projects/junghdaneo-changgo/*.md` (기술 글)
+- `projects/junghdaneo-changgo/images/` (이미지, 선택)
+
+각 프로젝트 폴더에는 `.md` 파일을 하나만 두는 것을 권장합니다 (여러 개면 이름순으로 첫 번째만 읽힘). 파일명은 자유지만, 관례상 `case-study.md`를 사용합니다.
 
 **내용 구성:**
 
@@ -109,7 +110,7 @@ technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
 
 **파일 위치:**
 
-- `posts/<slug>/post.md`
+- `posts/<slug>/*.md` (파일명 자유 - 폴더 안 .md 파일 중 이름순으로 첫 번째를 읽음, 관례상 `post.md` 사용)
 
 **Frontmatter 형식:**
 
@@ -189,16 +190,21 @@ git push origin [branch-name]
 
 ## 기술 구현
 
+### 마크다운 파일 탐색 (lib/markdown.ts)
+
+- findMarkdownFile(dir): 폴더 안 .md 파일을 이름순으로 찾아 전체 경로 반환 (파일명 고정 아님)
+- lib/projects.ts, lib/posts.ts가 공통으로 사용
+
 ### 마크다운 파싱 (lib/projects.ts)
 
-- getProject(projectId): 특정 프로젝트의 case-study.md 파싱
+- getProject(projectId): findMarkdownFile로 찾은 파일을 읽어 파싱
 - gray-matter로 frontmatter 분리
 - 마크다운 content 추출
 - 프로젝트 페이지에서 MDXRemote로 렌더링
 
 ### 마크다운 파싱 (lib/posts.ts)
 
-- getLocalPost(slug): posts/<slug>/post.md 파싱 (구조는 lib/projects.ts와 동일)
+- getLocalPost(slug): findMarkdownFile로 찾은 파일을 읽어 파싱 (구조는 lib/projects.ts와 동일)
 - getAllLocalPosts(): posts/ 디렉토리 전체를 읽어 Posts 섹션 목록에 전달
 
 ### Posts 섹션 (app/_components/sections/Posts.tsx)
@@ -220,8 +226,8 @@ git push origin [branch-name]
 
 ### Frontmatter
 
-- 프로젝트 케이스 스터디 (`projects/<id>/case-study.md`): 필수 - title, duration, role / 선택 - technologies
-- 포트폴리오 직접 작성 글 (`posts/<slug>/post.md`): 필수 - title, excerpt, date, category, project, readingTime / 선택 - tags
+- 프로젝트 케이스 스터디 (`projects/<id>/*.md`, 파일명 자유): 필수 - title, duration, role / 선택 - technologies
+- 포트폴리오 직접 작성 글 (`posts/<slug>/*.md`, 파일명 자유): 필수 - title, excerpt, date, category, project, readingTime / 선택 - tags
 
 ### 본문 형식
 
@@ -247,6 +253,7 @@ git push origin [branch-name]
 - Posts 섹션에 카테고리 탭 필터(PostsList.tsx, 클라이언트 컴포넌트) 추가
 - 포트폴리오 CMS 마이그레이션 글 카테고리를 회고 → 트러블슈팅으로 수정
 - velogPosts와 posts/<slug>/post.md frontmatter에 project 필드 추가, 트러블슈팅 탭을 프로젝트별 아코디언(중단어 창고/포트폴리오)으로 재구성
+- lib/markdown.ts 추가: projects/posts 폴더의 마크다운 파일명 고정(case-study.md/post.md) 대신, 폴더 안 .md 파일을 이름순으로 찾아 읽도록 변경
 
 ## 향후 개선
 
