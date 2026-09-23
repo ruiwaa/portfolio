@@ -134,6 +134,7 @@ readingTime: 10
 - 라우트: `app/(routes)/posts/[id]/page.tsx`
 - Posts 섹션(`app/_components/sections/Posts.tsx`)이 `velogPosts` 배열과 `getAllLocalPosts()` 결과를 날짜순으로 합쳐 한 목록을 만들고, 클라이언트 컴포넌트 `PostsList.tsx`가 카테고리 탭(전체/트러블슈팅/회고/기획/개발)으로 필터링해 렌더링 — 로컬 글은 내부 링크(`/posts/[id]`), Velog 글은 외부 링크로 연결됩니다.
 - 트러블슈팅 탭은 `project` 값으로 그룹핑해 프로젝트별 아코디언(호버로 열기, 클릭으로 토글)으로 렌더링됩니다.
+- 선택된 탭은 URL 쿼리스트링 `?tab=<카테고리명>`으로 저장됩니다 (전체는 파라미터 생략). 새로고침·직접 링크 공유 시에도 같은 탭이 유지됩니다. `useSearchParams`를 쓰는 클라이언트 컴포넌트라 `Posts.tsx`에서 `<Suspense>`로 감싸 정적 렌더링을 유지합니다.
 - 카테고리 값 목록: `lib/constants.ts`의 `POST_CATEGORIES`
 
 ## 워크플로우
@@ -254,6 +255,7 @@ git push origin [branch-name]
 - 포트폴리오 CMS 마이그레이션 글 카테고리를 회고 → 트러블슈팅으로 수정
 - velogPosts와 posts/<slug>/post.md frontmatter에 project 필드 추가, 트러블슈팅 탭을 프로젝트별 아코디언(중단어 창고/포트폴리오)으로 재구성
 - lib/markdown.ts 추가: projects/posts 폴더의 마크다운 파일명 고정(case-study.md/post.md) 대신, 폴더 안 .md 파일을 이름순으로 찾아 읽도록 변경
+- Posts 탭 선택 상태를 URL 쿼리스트링(`?tab=`)과 동기화 (useSearchParams + Suspense)
 
 ## 향후 개선
 

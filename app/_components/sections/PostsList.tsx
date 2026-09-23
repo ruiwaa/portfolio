@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import Badge from "@/app/_components/ui/Badge";
 import { LAYOUT, POST_CATEGORIES, type PostCategory } from "@/lib/constants";
+
+const TAB_PARAM = "tab";
 
 export interface PostItem {
   key: string;
@@ -137,8 +140,33 @@ function ProjectAccordion({ posts }: { posts: PostItem[] }) {
   );
 }
 
+function isTab(value: string | null): value is Tab {
+  return (TABS as readonly string[]).includes(value ?? "");
+}
+
 export default function PostsList({ posts }: { posts: PostItem[] }) {
-  const [selectedTab, setSelectedTab] = useState<Tab>("전체");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const rawTab = searchParams.get(TAB_PARAM);
+  const selectedTab: Tab = isTab(rawTab) ? rawTab : "전체";
+
+  const selectTab = useCallback(
+    (tab: Tab) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (tab === "전체") {
+        params.delete(TAB_PARAM);
+      } else {
+        params.set(TAB_PARAM, tab);
+      }
+      const query = params.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, {
+        scroll: false,
+      });
+    },
+    [pathname, router, searchParams],
+  );
 
   const filteredPosts =
     selectedTab === "전체"
@@ -161,7 +189,7 @@ export default function PostsList({ posts }: { posts: PostItem[] }) {
               type="button"
               role="tab"
               aria-selected={isActive}
-              onClick={() => setSelectedTab(tab)}
+              onClick={() => selectTab(tab)}
               className={`badge rounded-full px-4 py-1.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent ${
                 isActive
                   ? "bg-light-accent text-white dark:bg-dark-accent dark:text-dark-surface"

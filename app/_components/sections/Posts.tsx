@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { PostCategory } from "@/lib/constants";
 import { getAllLocalPosts } from "@/lib/posts";
 import PostsList, { type PostItem } from "./PostsList";
@@ -253,7 +254,15 @@ export default async function Posts() {
         POSTS
       </h2>
 
-      <PostsList posts={posts} />
+      <Suspense
+        fallback={
+          <p className="body mt-6 text-light-text-secondary dark:text-dark-text-secondary text-center">
+            불러오는 중...
+          </p>
+        }
+      >
+        <PostsList posts={posts} />
+      </Suspense>
     </section>
   );
 }
