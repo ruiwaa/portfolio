@@ -11,7 +11,6 @@ export interface PostFrontmatter {
   category: PostCategory;
   project: string;
   tags?: string[];
-  readingTime: number;
 }
 
 export interface PostData {
@@ -33,7 +32,6 @@ function isValidFrontmatter(data: unknown): data is PostFrontmatter {
     typeof fm.excerpt === "string" &&
     typeof fm.date === "string" &&
     typeof fm.project === "string" &&
-    typeof fm.readingTime === "number" &&
     (POST_CATEGORIES as readonly string[]).includes(fm.category as string)
   );
 }
@@ -76,7 +74,7 @@ export async function getLocalPost(slug: string): Promise<PostData | null> {
 
   if (!isValidFrontmatter(data)) {
     console.warn(
-      `posts/${slug}: frontmatter가 없거나 필수 필드(title, excerpt, date, category, project, readingTime)가 누락되어 건너뜁니다.`,
+      `posts/${slug}: frontmatter가 없거나 필수 필드(title, excerpt, date, category, project)가 누락되어 건너뜁니다.`,
     );
     return null;
   }

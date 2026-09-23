@@ -5,7 +5,6 @@ date: "2026-09-22"
 category: "트러블슈팅"
 project: "포트폴리오"
 tags: ["Next.js", "Markdown", "Architecture"]
-readingTime: 10
 ---
 
 ## 들어가며
@@ -95,7 +94,6 @@ const velogPosts: VelogPost[] = [
     excerpt: "useCallback, useMemo의 올바른 사용",
     date: "2024-01-15",
     url: "https://velog.io/@ruiwaa/react-hooks",
-    readingTime: 8,
     tags: ["React"],
   },
   // ... 더 많은 글들

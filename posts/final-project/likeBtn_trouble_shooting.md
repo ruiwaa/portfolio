@@ -5,7 +5,6 @@ date: "2026-09-23"
 category: "트러블슈팅"
 project: "최종 프로젝트"
 tags: ["Supabase", "TanStack Query"]
-readingTime: 8
 ---
 
 ## 문제 상황

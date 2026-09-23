@@ -49,8 +49,6 @@ export default async function PostDetailPage(props: PageProps<"/posts/[id]">) {
           <time dateTime={frontmatter.date}>
             {new Date(frontmatter.date).toLocaleDateString("ko-KR")}
           </time>
-          <span aria-hidden="true">·</span>
-          <span>{frontmatter.readingTime}분 읽기</span>
         </div>
 
         {frontmatter.tags && frontmatter.tags.length > 0 && (

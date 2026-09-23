@@ -41,7 +41,6 @@
   excerpt: "요약",
   date: "2024-01-15",
   url: "https://velog.io/@ruiwaa/post-slug",
-  readingTime: 8,
   category: "트러블슈팅", // "트러블슈팅" | "회고" | "기획" | "개발" (lib/constants.ts의 POST_CATEGORIES)
   project: "중단어 창고", // 트러블슈팅 탭에서 프로젝트별 아코디언 그룹핑에 사용
   tags: ["tag1", "tag2"]
@@ -64,7 +63,6 @@ date: "2026-09-22"
 category: "회고" # "트러블슈팅" | "회고" | "기획" | "개발"
 project: "포트폴리오" # 트러블슈팅 탭에서 프로젝트별 아코디언 그룹핑에 사용
 tags: ["tag1", "tag2"]
-readingTime: 10
 ---
 ```
 
@@ -140,7 +138,7 @@ git push origin [branch-name]
 
 ### Frontmatter
 
-- 필수: title, excerpt, date, category, project, readingTime
+- 필수: title, excerpt, date, category, project
 - 선택: tags
 
 ### 본문 형식
@@ -174,6 +172,10 @@ git push origin [branch-name]
 - **projects/<id>/case-study.md + app/(routes)/projects/[id]/page.tsx + lib/projects.ts 시스템을 완전히 제거**하고 posts/로 통합 — 별도 프로젝트 상세 페이지 없이, 프로젝트 카드의 포스트 링크는 Velog 글 또는 posts/ 로컬 글로만 연결
 - yeamaeui-jeongseok 프로젝트의 리팩토링 기록을 posts/yeamaeui-jeongseok-refactoring/post.md로 이전 (category: 트러블슈팅, project: 예매의 정석)
 - 내용이 비어 있던 genova-audio-toolkit/haengsho-market/junghdaneo-changgo의 case-study.md 플레이스홀더는 삭제 (실제 작성된 콘텐츠 없었음)
+- 예매의 정석 카드의 포스트 링크를 /posts?tab=트러블슈팅 대신 /posts/yeamaeui-jeongseok-refactoring으로 직접 연결
+- frontmatter가 없는 글 때문에 발생한 Posts 페이지 크래시 수정 - lib/posts.ts에 isValidFrontmatter 검증 추가 (필수 필드 누락 시 콘솔 경고만 남기고 목록에서 제외)
+- readingTime 필드를 frontmatter/타입에서 완전히 제거 (카드·상세 페이지 표시는 이미 제거된 상태였음)
+- posts/final-project/likeBtn_trouble_shooting.md, posts/final-project-proxy/proxy_trouble_shooting.md 추가 (project: 최종 프로젝트 - 실제 프로젝트명 확인 필요)
 
 ## 향후 개선
 

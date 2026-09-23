@@ -5,7 +5,6 @@ date: "2026-03-04"
 category: "트러블슈팅"
 project: "예매의 정석"
 tags: ["접근성", "리팩토링"]
-readingTime: 15
 ---
 
   

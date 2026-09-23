@@ -14,7 +14,6 @@ export interface PostItem {
   title: string;
   excerpt: string;
   date: string;
-  readingTime: number;
   category: PostCategory;
   project: string;
   tags: string[];
