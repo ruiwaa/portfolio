@@ -55,8 +55,6 @@ function PostCard({ post }: { post: PostItem }) {
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("ko-KR")}
         </time>
-        <span aria-hidden="true">·</span>
-        <span>{post.readingTime}분 읽기</span>
       </div>
     </article>
   );

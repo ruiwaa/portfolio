@@ -90,7 +90,8 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 7,
-    title: "[트러블 슈팅][중단어 창고] NextTheme로 다크 모드 구현 과정에서의 문제 해결",
+    title:
+      "[트러블 슈팅][중단어 창고] NextTheme로 다크 모드 구현 과정에서의 문제 해결",
     excerpt:
       "next-themes로 다크모드를 적용하는 과정에서 발생한 Hydration 오류의 원인과 해결 방법을 기록했습니다.",
     date: "2026-08-13",
@@ -151,14 +152,14 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 12,
-    title: "[개인프로젝트] 모달창을 만들어보자",
+    title: "[중단어창고] 모달창을 만들어보자",
     excerpt:
       "Zustand로 검색 모달 상태를 관리하고, Web Speech API 음성 검색과 React Hook Form·Zod 폼 검증을 구현했습니다.",
     date: "2026-06-30",
     url: "https://velog.io/@ruiwaa/%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A8%EB%8B%AC%EC%B0%BD%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EC%9E%90",
     readingTime: 6,
     category: "개발",
-    project: "개인 프로젝트",
+    project: "중단어 창고",
     tags: ["Zustand", "개인프로젝트"],
   },
   {
