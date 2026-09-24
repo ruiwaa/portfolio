@@ -85,7 +85,7 @@ const PROJECTS: ProjectEntry[] = [
       demoType: "video",
       demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
       github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
-      post: "#",
+      post: "/posts/yeamaeui-jeongseok-refactoring",
     },
   },
   {
@@ -105,9 +105,9 @@ const PROJECTS: ProjectEntry[] = [
       "Supabase 호출을 API 함수로, 조회·검증 로직을 Custom Hook으로 분리해 재사용성과 유지보수성 향상",
     ],
     links: {
-      demo: "#",
-      github: "#",
-      post: "#",
+      demo: "https://final-project-team2.vercel.app/",
+      github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
+      post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
   {
@@ -130,7 +130,7 @@ const PROJECTS: ProjectEntry[] = [
         { label: "효과음 생성 시연", href: "https://youtu.be/Yb1hK9OoZ7g" },
         { label: "자막 생성 시연", href: "https://youtu.be/vo-SuEB4yI0" },
       ],
-      post: "#",
+      post: "https://velog.io/@ruiwaa/%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8-%EC%9C%84%EC%B9%98-%EB%8F%99%EA%B8%B0%ED%99%94",
     },
   },
   {
@@ -159,7 +159,7 @@ const PROJECTS: ProjectEntry[] = [
     links: {
       demo: "http://hanzi-bank.vercel.app",
       github: "http://hanzi-bank.vercel.app",
-      post: "#",
+      post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
 ];

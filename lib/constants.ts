@@ -15,6 +15,10 @@ export const SOCIAL_LINKS = [
 // 클라이언트(Posts.tsx)와 서버(app/_lib/posts.ts) 양쪽에서 페이지당 개수를 동일하게 맞추기 위해 공용 상수로 둠
 export const POSTS_PAGE_SIZE = 6;
 
+// Posts 탭 필터에서 사용 - velogPosts와 posts/<slug>/post.md frontmatter의 category가 이 값 중 하나여야 함
+export const POST_CATEGORIES = ["트러블슈팅", "회고", "기획", "개발"] as const;
+export type PostCategory = (typeof POST_CATEGORIES)[number];
+
 // next.config.ts의 images.remotePatterns와 반드시 동기화 - 여기 없는 호스트의 썸네일은
 // next/image가 아니라 일반 <img>로 렌더링해서, 관리자가 이미지가 아닌(Pinterest 페이지 등)
 // URL을 잘못 입력해도 공개 페이지 전체가 크래시하지 않게 방어한다

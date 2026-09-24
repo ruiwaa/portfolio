@@ -720,6 +720,111 @@ git push
 
 ---
 
+## Phase 4️⃣1️⃣: Posts 시스템 완성 - Velog 등록, 카테고리/프로젝트 아코디언, 프로젝트 상세 페이지 통합 제거
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] velogPosts 배열의 실제 Velog(@ruiwaa) 글 URL·날짜가 정확한지 확인
+- [ ] lib/posts.ts, lib/markdown.ts가 posts/<slug>/*.md를 파일명 무관하게 찾아 읽는지 확인
+- [ ] PostsList.tsx 카테고리 탭 클릭 시 ?tab= 쿼리스트링이 갱신/제거되는지, 새로고침해도 유지되는지 확인
+- [ ] 트러블슈팅 탭에서 project별 아코디언이 호버로 열리고 클릭으로 토글되는지 확인
+- [ ] /projects/[id] 라우트가 완전히 삭제되어 404가 뜨는지 확인
+- [ ] Experience 섹션 각 프로젝트 카드의 포스트 링크가 의도한 목적지로 연결되는지 확인
+- [ ] frontmatter 필수 필드가 빠진 글이 있어도 Posts 페이지가 크래시하지 않고 목록에서만 제외되는지 확인
+- [ ] readingTime 필드가 frontmatter/타입/화면 어디에도 남아있지 않은지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint .
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+이번 Phase는 사용자 피드백에 따라 여러 차례에 걸쳐 아래 순서로 커밋했습니다.
+
+1. `feat`: `포트폴리오 자체 case-study 추가 (Supabase→Markdown 마이그레이션 회고)`
+2. `style`: `포트폴리오 case-study 마크다운 포맷팅 정리`
+3. `feat`: `Velog에 발행된 실제 글 20개를 Posts 페이지에 등록`
+4. `feat`: `포트폴리오 직접 작성 글을 위한 로컬 Markdown Posts 시스템 추가`
+5. `docs`: `CONTENT_MANAGEMENT.md에 로컬 Posts 구조 및 Velog 등록 반영`
+6. `fix`: `학습노트 태그 Velog 글 제거 및 마이그레이션 글 내용 최신화`
+7. `feat`: `Posts 섹션에 카테고리 탭 필터(트러블슈팅/회고/기획/개발) 추가`
+8. `fix`: `포트폴리오 CMS 마이그레이션 글 카테고리를 회고에서 트러블슈팅으로 변경`
+9. `feat`: `트러블슈팅 탭을 프로젝트별 아코디언으로 재구성`
+10. `fix`: `카드에서 예상 읽기 시간 표시 제거, 모달창 글 프로젝트 태깅 수정`
+11. `feat`: `프로젝트/포스트 마크다운 파일명을 고정에서 자유롭게 변경`
+12. `feat`: `Posts 카테고리 탭 선택 상태를 URL searchParams와 동기화`
+13. `fix`: `중단어 창고 프로젝트의 포스트 링크를 트러블슈팅 탭으로 연결`
+14. `refactor`: `프로젝트 상세 페이지 시스템 제거하고 posts로 완전히 통합`
+15. `fix`: `예매의 정석 프로젝트의 포스트 링크를 리팩토링 기록 글로 직접 연결`
+16. `fix`: `frontmatter 없는 새 글 때문에 발생한 Posts 페이지 크래시 수정`
+17. `feat`: `프록시 인증 트러블슈팅 글 추가, readingTime 필드 제거`
+18. `fix`: `final-project 글들의 실제 프로젝트명(행쇼마켓) 반영`
+19. `docs`: `남은 프로젝트 링크/카테고리 정보 반영`
+
+```bash
+git add projects/portfolio/case-study.md app/globals.css
+git commit -m "feat: 포트폴리오 자체 case-study 추가 (Supabase→Markdown 마이그레이션 회고)"
+
+git add projects/portfolio/case-study.md
+git commit -m "style: 포트폴리오 case-study 마크다운 포맷팅 정리"
+
+git add app/_components/sections/Posts.tsx
+git commit -m "feat: Velog에 발행된 실제 글 20개를 Posts 페이지에 등록"
+
+git add "app/(routes)/posts/[id]/page.tsx" app/_components/sections/Posts.tsx lib/posts.ts posts/portfolio-cms-migration/post.md
+git commit -m "feat: 포트폴리오 직접 작성 글을 위한 로컬 Markdown Posts 시스템 추가"
+
+git add docs/CONTENT_MANAGEMENT.md
+git commit -m "docs: CONTENT_MANAGEMENT.md에 로컬 Posts 구조 및 Velog 등록 반영"
+
+git add app/_components/sections/Posts.tsx posts/portfolio-cms-migration/post.md
+git commit -m "fix: 학습노트 태그 Velog 글 제거 및 마이그레이션 글 내용 최신화"
+
+git add app/_components/sections/Posts.tsx app/_components/sections/PostsList.tsx lib/constants.ts lib/posts.ts docs/CONTENT_MANAGEMENT.md posts/portfolio-cms-migration/post.md
+git commit -m "feat: Posts 섹션에 카테고리 탭 필터(트러블슈팅/회고/기획/개발) 추가"
+
+git add posts/portfolio-cms-migration/post.md
+git commit -m "fix: 포트폴리오 CMS 마이그레이션 글 카테고리를 회고에서 트러블슈팅으로 변경"
+
+git add app/_components/sections/Posts.tsx app/_components/sections/PostsList.tsx lib/posts.ts docs/CONTENT_MANAGEMENT.md posts/portfolio-cms-migration/post.md
+git commit -m "feat: 트러블슈팅 탭을 프로젝트별 아코디언으로 재구성"
+
+git add app/_components/sections/Posts.tsx app/_components/sections/PostsList.tsx
+git commit -m "fix: 카드에서 예상 읽기 시간 표시 제거, 모달창 글 프로젝트 태깅 수정"
+
+git add lib/markdown.ts lib/posts.ts lib/projects.ts docs/CONTENT_MANAGEMENT.md
+git commit -m "feat: 프로젝트/포스트 마크다운 파일명을 고정에서 자유롭게 변경"
+
+git add app/_components/sections/Posts.tsx app/_components/sections/PostsList.tsx docs/CONTENT_MANAGEMENT.md
+git commit -m "feat: Posts 카테고리 탭 선택 상태를 URL searchParams와 동기화"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "fix: 중단어 창고 프로젝트의 포스트 링크를 트러블슈팅 탭으로 연결"
+
+git add "app/(routes)/projects/[id]/page.tsx" app/_components/sections/Projects.tsx docs/ARCHITECTURE.md docs/CONTENT_MANAGEMENT.md lib/projects.ts posts/portfolio-cms-migration/post.md posts/yeamaeui-jeongseok-refactoring/post.md projects/genova-audio-toolkit/case-study.md projects/haengsho-market/case-study.md projects/junghdaneo-changgo/case-study.md projects/yeamaeui-jeongseok/case-study.md
+git commit -m "refactor: 프로젝트 상세 페이지 시스템 제거하고 posts로 완전히 통합"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "fix: 예매의 정석 프로젝트의 포스트 링크를 리팩토링 기록 글로 직접 연결"
+
+git add lib/posts.ts posts/final-project/likeBtn_trouble_shooting.md
+git commit -m "fix: frontmatter 없는 새 글 때문에 발생한 Posts 페이지 크래시 수정"
+
+git add "app/(routes)/posts/[id]/page.tsx" app/_components/sections/Posts.tsx app/_components/sections/PostsList.tsx lib/posts.ts docs/CONTENT_MANAGEMENT.md posts/final-project-proxy/proxy_trouble_shooting.md posts/final-project/likeBtn_trouble_shooting.md posts/portfolio-cms-migration/post.md posts/yeamaeui-jeongseok-refactoring/post.md
+git commit -m "feat: 프록시 인증 트러블슈팅 글 추가, readingTime 필드 제거"
+
+git add app/_components/sections/Projects.tsx docs/CONTENT_MANAGEMENT.md posts/final-project-proxy/proxy_trouble_shooting.md posts/final-project/likeBtn_trouble_shooting.md
+git commit -m "fix: final-project 글들의 실제 프로젝트명(행쇼마켓) 반영"
+
+git add app/_components/sections/Posts.tsx app/_components/sections/Projects.tsx posts/final-project-proxy/proxy_trouble_shooting.md
+git commit -m "docs: 남은 프로젝트 링크/카테고리 정보 반영"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
