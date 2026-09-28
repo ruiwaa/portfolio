@@ -1611,19 +1611,24 @@ properties of undefined (reading 'localeCompare')") → "오류 수정해" → "
 
 📍 다음: (사용자 지정 대기)
 
-## Phase 4️⃣2️⃣: README 작성
+## Phase 4️⃣2️⃣: README 작성 및 페이지 구성 표 중심으로 재구성
 
-**요청**: 저장소 루트에 프로젝트를 소개하는 README 작성
+**요청**: 저장소 루트에 프로젝트를 소개하는 README 작성 → "read.me 파일이 안보이는데?? 지금
+브랜치에서" → README 주요 기능을 페이지별로 정리 → 페이지 구성 표에 페이지별 주요 기능 정렬 →
+페이지 구성에 주요 기능 통합, 별도 주요 기능 섹션 삭제 → "왜 브랜치가 늘어났어????" → 통합
+버전(`49b88dc`)을 최종본으로 선택
 
 **변경**:
-- `README.md` 신규(141줄): 사이트 소개(Git 기반 Markdown + Velog 콘텐츠 관리, 전 페이지 정적 생성),
+- `README.md` 신규: 사이트 소개(Git 기반 Markdown + Velog 콘텐츠 관리, 전 페이지 정적 생성),
   GitHub·Velog(`@ruiwaa`) 링크
 - 기술 스택 표: Next.js 16(App Router)·React 19·TypeScript·Tailwind CSS v4·`next/font`, 콘텐츠
   파이프라인(gray-matter, next-mdx-remote, remark-gfm), 아이콘(lucide-react, react-icons), Bun
-- 페이지 구성 표: `/`, `/about`, `/experience`, `/posts`, `/posts/[id]`, `/resume` 경로별 내용
-- 주요 기능: Git 기반 콘텐츠 관리(Supabase 전환 배경), Velog + 로컬 글 통합 목록, 카테고리 탭
-  `?tab=` URL 동기화, 트러블슈팅 프로젝트별 아코디언, 깜빡임 없는 다크 모드, `generateStaticParams`
-  정적 생성
+- 페이지 구성 표를 `경로 | 내용 | 주요 기능` 3열로 재구성: 처음 별도 `✨ 주요 기능` 섹션에 있던
+  6개 항목을 해당 페이지 행으로 옮김 - `/posts`(통합 목록, 카테고리 탭 `?tab=` URL 동기화,
+  트러블슈팅 프로젝트별 아코디언, Git 기반 콘텐츠 관리), `/posts/[id]`(MDX 렌더링,
+  `generateStaticParams` 정적 생성), `/experience`(프로젝트별 데모·GitHub·포스트 링크),
+  `/resume`(PDF 다운로드, 피그마/노션 링크), 공통 행(Header·Footer·테마 토글 - 깜빡임 없는 다크
+  모드). 기능을 어느 페이지에서 볼 수 있는지 한 표에서 확인되도록 `✨ 주요 기능` 섹션은 삭제
 - 폴더 구조 트리(`app/`, `lib/`, `posts/<slug>/`, `public/`, `styles/`, `docs/`)와 역할 주석
 - 시작하기: `bun install`/`bun dev`/`bun run build`/`bun start`/`bun lint`, 별도 환경 변수 불필요 명시
 - 글 추가하기: 로컬 Markdown 글 frontmatter 예시(`category`·`project` 필드 설명 포함, Phase 41에서
@@ -1631,8 +1636,20 @@ properties of undefined (reading 'localeCompare')") → "오류 수정해" → "
   `docs/CONTENT_MANAGEMENT.md` 링크
 - 소개된 프로젝트 표(예매의 정석, 행쇼마켓, GENOVA 오디오 툴킷, 중단어 창고)와 `docs/` 주요 문서 링크 표
 
+**트러블슈팅**:
+- 로컬 `feat-add-readme`에서 README가 제목 한 줄만 보임 → README 커밋(`db08fd8`)이 워크트리
+  브랜치(`feat-add-readme-wt`)에서 만들어져 `origin/feat-add-readme`로만 push되고 로컬 브랜치는
+  받아오지 않아 1커밋 뒤처진 상태였음. 작업 트리가 깨끗한 것을 확인하고 `git merge --ff-only`로
+  원격과 맞춰 해결
+- README 수정 요청마다 백그라운드 작업이 별도 워크트리·브랜치(`feat-readme-features`,
+  `worktree-readme-page-features`, `readme-page-features-2`, `feat-add-readme-wt`)를 만들어 브랜치가
+  늘어나고 README 버전이 브랜치마다 갈라짐 → 사용자가 최종본으로 고른 통합 버전(`49b88dc`)을
+  `feat-add-readme`에 cherry-pick하고, 원격에 먼저 올라가 있던 Phase 42 요약(`4ae529b`)도
+  fast-forward로 받아와 README·요약 문서를 한 브랜치로 합침
+
 **검증**: README 안의 `docs/` 문서 링크 8개가 모두 실제 파일로 존재함을 확인. 기술 스택 표기를
 `package.json`(next 16.3.4, react 19.2.8, tailwindcss ^4 등)과 대조, 스크립트 명령이 `package.json`
-scripts와 일치함을 확인. 코드 변경 없는 문서 전용 변경
+scripts와 일치함을 확인. `git log`로 `feat-add-readme`에 README 작성·요약·통합 커밋이 모두
+순서대로 쌓인 것 확인. 코드 변경 없는 문서 전용 변경
 
 📍 다음: (사용자 지정 대기)
