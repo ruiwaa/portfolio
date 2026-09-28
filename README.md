@@ -23,25 +23,15 @@ DB 없이 **Git 기반 Markdown + Velog 링크**로 콘텐츠를 관리하며, �
 
 ## 📄 페이지 구성
 
-| 경로 | 내용 |
-| --- | --- |
-| `/` | Hero와 함께 About Me, Experience & Projects 섹션이 스크롤로 이어서 등장 |
-| `/about` | 프로필, 기술 스택, 비전 |
-| `/experience` | 경력 타임라인과 프로젝트 카드 (데모·GitHub·관련 포스트 링크) |
-| `/posts` | Velog 글 + 로컬 Markdown 글 통합 목록, 카테고리 탭 필터 |
-| `/posts/[id]` | 로컬 Markdown 글 상세 (MDX 렌더링) |
-| `/resume` | 이력서 PDF 다운로드, 피그마/노션 이력서 링크 |
-
-<br />
-
-## ✨ 주요 기능
-
-- **Git 기반 콘텐츠 관리** — Supabase에서 로컬 Markdown/Velog 구조로 전환해 DB sleeping 문제를 없애고, 콘텐츠 변경 이력을 Git으로 추적
-- **Posts 통합 목록** — Velog 외부 글과 `posts/` 로컬 글을 날짜순으로 합쳐 하나의 목록으로 렌더링
-- **카테고리 탭 + URL 동기화** — 전체/트러블슈팅/회고/기획/개발 탭 상태를 `?tab=` 쿼리스트링에 저장해 새로고침·링크 공유 시에도 유지
-- **트러블슈팅 프로젝트별 아코디언** — frontmatter의 `project` 값으로 글을 그룹핑
-- **다크 모드** — localStorage + `prefers-color-scheme` 기반, 초기 렌더 전 테마를 적용해 깜빡임 방지
-- **정적 생성** — `generateStaticParams`로 로컬 글 상세 페이지를 빌드 시 생성
+| 경로 | 내용 | 주요 기능 |
+| --- | --- | --- |
+| `/` | Hero와 함께 About Me, Experience & Projects 섹션이 스크롤로 이어서 등장 | - |
+| `/about` | 프로필, 기술 스택, 비전 | - |
+| `/experience` | 경력 타임라인과 프로젝트 카드 | 프로젝트별 데모·GitHub·관련 포스트 링크 |
+| `/posts` | Velog 글 + 로컬 Markdown 글 통합 목록 | • **통합 목록** — Velog 외부 글과 `posts/` 로컬 글을 날짜순으로 합쳐 렌더링<br />• **카테고리 탭 + URL 동기화** — 전체/트러블슈팅/회고/기획/개발 탭 상태를 `?tab=` 쿼리스트링에 저장해 새로고침·링크 공유 시에도 유지<br />• **트러블슈팅 프로젝트별 아코디언** — frontmatter의 `project` 값으로 글을 그룹핑<br />• **Git 기반 콘텐츠 관리** — Supabase에서 로컬 Markdown/Velog 구조로 전환해 DB sleeping 문제를 없애고, 콘텐츠 변경 이력을 Git으로 추적 |
+| `/posts/[id]` | 로컬 Markdown 글 상세 | • **MDX 렌더링** — next-mdx-remote + remark-gfm<br />• **정적 생성** — `generateStaticParams`로 빌드 시 상세 페이지 생성 |
+| `/resume` | 이력서 | 이력서 PDF 다운로드, 피그마/노션 이력서 링크 |
+| 공통 | Header, Footer, 테마 토글 | **다크 모드** — localStorage + `prefers-color-scheme` 기반, 초기 렌더 전 테마를 적용해 깜빡임 방지 |
 
 <br />
 
