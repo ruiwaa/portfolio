@@ -825,6 +825,45 @@ git push
 
 ---
 
+## Phase 4️⃣2️⃣: README 작성 및 페이지 구성 표 중심으로 재구성
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] README의 docs/ 문서 링크가 모두 실제 파일로 연결되는지 확인
+- [ ] 기술 스택 표기와 시작하기 명령어가 package.json(dependencies, scripts)과 일치하는지 확인
+- [ ] frontmatter 예시에 Phase 41에서 제거한 readingTime이 남아있지 않은지 확인
+- [ ] 페이지 구성 표의 주요 기능이 실제 해당 페이지에 있는 기능인지 확인
+- [ ] 로컬 feat-add-readme가 origin/feat-add-readme와 어긋나지 않았는지 확인 (git status, git log)
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `README 작성`
+2. `docs`: `Phase 42 작업 완료 사항 정리`
+3. `docs`: `README 페이지 구성에 페이지별 주요 기능 통합, 주요 기능 섹션 삭제`
+4. `docs`: `Phase 42 요약에 README 최종 구성 및 브랜치 정리 트러블슈팅 반영`
+
+### 💻 커밋 명령어
+
+```bash
+git add README.md
+git commit -m "docs: README 작성"
+
+git add "docs/ PHASE_SUMMARY.md"
+git commit -m "docs: Phase 42 작업 완료 사항 정리"
+
+git add README.md
+git commit -m "docs: README 페이지 구성에 페이지별 주요 기능 통합, 주요 기능 섹션 삭제"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 42 요약에 README 최종 구성 및 브랜치 정리 트러블슈팅 반영"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
