@@ -1610,3 +1610,29 @@ properties of undefined (reading 'localeCompare')") → "오류 수정해" → "
 코드가 없는지 `curl`·`page.content()`로 직접 대조 확인
 
 📍 다음: (사용자 지정 대기)
+
+## Phase 4️⃣2️⃣: README 작성
+
+**요청**: 저장소 루트에 프로젝트를 소개하는 README 작성
+
+**변경**:
+- `README.md` 신규(141줄): 사이트 소개(Git 기반 Markdown + Velog 콘텐츠 관리, 전 페이지 정적 생성),
+  GitHub·Velog(`@ruiwaa`) 링크
+- 기술 스택 표: Next.js 16(App Router)·React 19·TypeScript·Tailwind CSS v4·`next/font`, 콘텐츠
+  파이프라인(gray-matter, next-mdx-remote, remark-gfm), 아이콘(lucide-react, react-icons), Bun
+- 페이지 구성 표: `/`, `/about`, `/experience`, `/posts`, `/posts/[id]`, `/resume` 경로별 내용
+- 주요 기능: Git 기반 콘텐츠 관리(Supabase 전환 배경), Velog + 로컬 글 통합 목록, 카테고리 탭
+  `?tab=` URL 동기화, 트러블슈팅 프로젝트별 아코디언, 깜빡임 없는 다크 모드, `generateStaticParams`
+  정적 생성
+- 폴더 구조 트리(`app/`, `lib/`, `posts/<slug>/`, `public/`, `styles/`, `docs/`)와 역할 주석
+- 시작하기: `bun install`/`bun dev`/`bun run build`/`bun start`/`bun lint`, 별도 환경 변수 불필요 명시
+- 글 추가하기: 로컬 Markdown 글 frontmatter 예시(`category`·`project` 필드 설명 포함, Phase 41에서
+  제거한 `readingTime` 미포함), Velog 글은 `Posts.tsx`의 `velogPosts` 배열에 추가하는 방법,
+  `docs/CONTENT_MANAGEMENT.md` 링크
+- 소개된 프로젝트 표(예매의 정석, 행쇼마켓, GENOVA 오디오 툴킷, 중단어 창고)와 `docs/` 주요 문서 링크 표
+
+**검증**: README 안의 `docs/` 문서 링크 8개가 모두 실제 파일로 존재함을 확인. 기술 스택 표기를
+`package.json`(next 16.3.4, react 19.2.8, tailwindcss ^4 등)과 대조, 스크립트 명령이 `package.json`
+scripts와 일치함을 확인. 코드 변경 없는 문서 전용 변경
+
+📍 다음: (사용자 지정 대기)
