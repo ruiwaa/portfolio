@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
 import { LAYOUT } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "Experience & Projects",
+};
 
 export default function ExperiencePage() {
   return (

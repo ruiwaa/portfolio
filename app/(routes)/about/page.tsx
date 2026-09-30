@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import AboutIntro from "@/app/_components/sections/AboutIntro";
 import AboutSections from "@/app/_components/sections/AboutSections";
 import { LAYOUT } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "About Me",
+};
 
 export default function AboutPage() {
   return (
