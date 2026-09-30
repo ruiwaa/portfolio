@@ -58,7 +58,7 @@ const velogPosts: VelogPost[] = [
     url: "https://velog.io/@ruiwaa/%ED%8F%AC%ED%86%A0%ED%8F%B4%EB%A6%AC%EC%98%A4-%EA%B8%B0%ED%9A%8D-%EB%8B%A8%EA%B3%84-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%84%B1-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0",
     category: "기획",
     project: "포트폴리오",
-    tags: ["포트폴리오", "기획"],
+    tags: ["포트폴리오"],
   },
   {
     id: 5,

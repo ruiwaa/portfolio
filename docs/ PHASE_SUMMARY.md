@@ -1652,4 +1652,49 @@ properties of undefined (reading 'localeCompare')") → "오류 수정해" → "
 scripts와 일치함을 확인. `git log`로 `feat-add-readme`에 README 작성·요약·통합 커밋이 모두
 순서대로 쌓인 것 확인. 코드 변경 없는 문서 전용 변경
 
+📍 다음: Phase 4️⃣3️⃣ - 행쇼마켓·인턴십 회고 및 성능 최적화 트러블슈팅 포스트 추가
+
+## Phase 4️⃣3️⃣: 행쇼마켓·인턴십 회고 및 성능 최적화 트러블슈팅 포스트 추가
+
+**요청**: README PR(#64) 머지 후 "지금 내용 반영하고 feat-add-retrospection로 이동하려면 어떻게
+해야돼?" → 파이널 프로젝트 회고 원고 전달 후 "로컬의 md 파일 하나 만들고 회고 탭 눌렀을때 확인할
+수 있게 해" → 성능 최적화 PR 본문 전달 후 "파이널 프로젝트 트러블 슈팅에 성능 최적화라는 제목으로
+게시글 작성해" → 인턴십 회고 원고 전달 후 "인턴십 프로젝트 회고 게시글로 만들어" → "회고 게시글들
+안에 회고 태그가 두번이나 들어가. 수정해" → 같은 문제가 있던 Velog 기획 글도 "그것도 빼줘"
+
+**변경**:
+- 브랜치 준비: 로컬 `dev`가 초기 커밋에 멈춰 있어 `git pull --ff-only`로 PR #64 머지 커밋(`79378f8`)까지
+  맞춘 뒤, 커밋이 없던 `feat-add-retrospection`을 `git merge --ff-only dev`로 따라잡게 하고 push
+- `posts/final-project-retrospective/post.md` 신규(행쇼마켓 파이널 프로젝트 회고): 전달받은 원고의
+  frontmatter를 `lib/posts.ts`의 `isValidFrontmatter` 스키마에 맞게 변환 - `category: "retrospective"` →
+  `"회고"`(POST_CATEGORIES 값만 허용), `summary` → `excerpt`, 필수 필드 `project: "행쇼마켓"` 추가.
+  상세 페이지가 `title`을 이미 `<h1>`로 렌더링하므로 본문 첫 줄 `# 파이널 프로젝트 회고` 제거(h1 중복
+  방지). 원고의 `period` 필드는 사용처는 없지만 무해해서 유지
+- `posts/final-project-performance/performance_optimization.md` 신규(`[행쇼마켓][트러블슈팅] 성능
+  최적화`): 성능 최적화 PR 본문의 6개 항목(미사용 three.js 패키지 제거, RegisterProductForm
+  `getInputProps` 통합, 취소 버튼·모달, CategorySelector 무한 렌더링, Navi 서버 컴포넌트 분리로 CLS
+  0.608→0.000, 이미지 `sizes` 지정)을 각각 문제 상황/원인/해결 과정/결과 구조의 글로 재구성. 제목
+  머리말은 같은 아코디언의 기존 행쇼마켓 글 형식에 맞춤. 스크린샷 2장은 GitHub user-attachments
+  URL이 비로그인 상태에서 200으로 열리는 것을 확인한 뒤 그대로 사용
+- `posts/internship-retrospective/post.md` 신규(인턴십 회고 - 오디오 툴킷): 파이널 회고와 같은 방식으로
+  frontmatter 변환, `project`는 기존 Velog 인턴십 글과 같은 `"인턴십 프로젝트"`로 지정해 같은 그룹으로
+  묶이도록 함
+- 회고 글 2개의 `tags`에서 `"회고"` 제거, `Posts.tsx`의 Velog "포트폴리오 기획 단계" 글 `tags`에서
+  `"기획"` 제거 - 카드가 카테고리 배지와 태그를 함께 보여줘서 같은 단어가 두 번 표시되던 문제
+
+**트러블슈팅**:
+- 성능 최적화 PR 원고 안에서 성능 점수가 세 가지로 서로 달랐음(체크리스트 61→80, 1번 항목 61→71,
+  점수 표 작업 전 71→71→82) → 1번 항목을 기준으로 61 → 71 → 82로 정리하고, 점수 표의 "작업 전 71"은
+  오타로 판단해 61로 적음. 실측값 확인이 필요하다고 사용자에게 알린 상태로 커밋됨
+- 새 글을 추가하고 다시 빌드했는데 트러블슈팅 탭 행쇼마켓 아코디언에 새 글이 보이지 않음 → 앞서 띄운
+  검증용 서버가 `next-server`라는 프로세스명으로 떠 있어 `pkill -f "next start -p 3123"`에 걸리지 않고
+  이전 빌드를 계속 서빙하고 있었음. `lsof -ti tcp:3123`로 포트를 점유한 프로세스를 찾아 종료한 뒤 새
+  빌드로 다시 띄워 행쇼마켓 (3)과 새 글 노출을 확인. 이후 검증 서버는 포트 기준으로 종료
+
+**검증**: 매 글 추가 후 `next build`로 `/posts/final-project-retrospective`, `/posts/final-project-performance`,
+`/posts/internship-retrospective` SSG 생성 확인. Playwright로 `/posts?tab=회고`에 회고 글 2개,
+`/posts?tab=트러블슈팅` 행쇼마켓 아코디언(3)에 성능 최적화 글이 노출되고 클릭 시 상세 페이지로 이동하는
+것, 상세 페이지 `<h1>` 1개·스크린샷 2장 로드(naturalWidth 463/409)를 확인. 태그 수정 후 회고·기획 탭
+카드에서 카테고리 단어가 각각 1번만 표시되는 것 확인. `bunx eslint` 통과
+
 📍 다음: (사용자 지정 대기)

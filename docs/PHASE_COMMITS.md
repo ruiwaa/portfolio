@@ -864,6 +864,52 @@ git push
 
 ---
 
+## Phase 4️⃣3️⃣: 행쇼마켓·인턴십 회고 및 성능 최적화 트러블슈팅 포스트 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 새 글 frontmatter가 isValidFrontmatter 스키마(title, excerpt, date, category, project)를 만족하는지 확인
+- [ ] category 값이 POST_CATEGORIES(트러블슈팅/회고/기획/개발) 중 하나인지 확인
+- [ ] project 값이 같은 프로젝트의 기존 글과 정확히 같은 이름인지 확인 (아코디언 그룹 기준)
+- [ ] 본문에 # 제목이 남아 상세 페이지 h1이 중복되지 않는지 확인
+- [ ] 카드에서 카테고리와 같은 단어가 태그로 한 번 더 표시되지 않는지 확인
+- [ ] 회고 탭 / 트러블슈팅 탭에서 새 글이 보이고 상세 페이지로 이동하는지 확인
+- [ ] 성능 최적화 글의 점수(61 → 71 → 82)가 실측값과 맞는지 확인
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `행쇼마켓 파이널 프로젝트 회고 포스트 추가`
+2. `feat`: `행쇼마켓 성능 최적화 트러블슈팅 포스트 추가`
+3. `feat`: `인턴십 프로젝트(오디오 툴킷) 회고 포스트 추가`
+4. `fix`: `카테고리와 중복되는 기획 태그 제거`
+5. `docs`: `Phase 43 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add posts/final-project-retrospective
+git commit -m "feat: 행쇼마켓 파이널 프로젝트 회고 포스트 추가"
+
+git add posts/final-project-performance
+git commit -m "feat: 행쇼마켓 성능 최적화 트러블슈팅 포스트 추가"
+
+git add posts/internship-retrospective
+git commit -m "feat: 인턴십 프로젝트(오디오 툴킷) 회고 포스트 추가"
+
+git add app/_components/sections/Posts.tsx
+git commit -m "fix: 카테고리와 중복되는 기획 태그 제거"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 43 작업 완료 사항 정리"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
