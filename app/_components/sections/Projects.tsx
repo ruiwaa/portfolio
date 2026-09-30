@@ -84,7 +84,7 @@ const PROJECTS: ProjectEntry[] = [
     links: {
       demoType: "video",
       demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
-      github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
+      github: "https://github.com/ruiwaa/vanilla-project-team1",
       post: "/posts/yeamaeui-jeongseok-refactoring",
     },
   },
@@ -106,7 +106,7 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demo: "https://final-project-team2.vercel.app/",
-      github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
+      github: "https://github.com/ruiwaa/final-project-team2",
       post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
@@ -158,7 +158,7 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demo: "http://hanzi-bank.vercel.app",
-      github: "http://hanzi-bank.vercel.app",
+      github: "https://github.com/ruiwaa/hanzi-bank",
       post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
