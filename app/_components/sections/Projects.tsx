@@ -57,6 +57,8 @@ interface ProjectEntry {
   title: string;
   description: string;
   tags: string[];
+  // 팀 프로젝트에서 내가 맡은 범위 (사용 기술 바로 아래에 표시)
+  role: string;
   accent: Accent;
   media: ProjectMedia;
   detail: string[];
@@ -70,6 +72,7 @@ const PROJECTS: ProjectEntry[] = [
     description:
       "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
     tags: ["HTML", "CSS", "JavaScript"],
+    role: "영화표 결제 페이지",
     accent: "sky",
     media: {
       type: "image",
@@ -84,7 +87,7 @@ const PROJECTS: ProjectEntry[] = [
     links: {
       demoType: "video",
       demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
-      github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
+      github: "https://github.com/ruiwaa/vanilla-project-team1",
       post: "/posts/yeamaeui-jeongseok-refactoring",
     },
   },
@@ -93,6 +96,7 @@ const PROJECTS: ProjectEntry[] = [
     description:
       "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 다양한 상점의 상품을 구매 할 수 있도록 구현한 문구류 오픈마켓 사이트입니다.",
     tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
+    role: "마이페이지 - 소비자 주문 내역·찜한 상품, 판매자 상품 등록·상품 관리·상점 주문 관리",
     accent: "peach",
     media: {
       type: "image",
@@ -106,7 +110,7 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demo: "https://final-project-team2.vercel.app/",
-      github: "https://github.com/FRONTENDBOOTCAMP-16th/vanilla-project-team1",
+      github: "https://github.com/ruiwaa/final-project-team2",
       post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
@@ -115,6 +119,7 @@ const PROJECTS: ProjectEntry[] = [
     description:
       "영상을 업로드 시 AI가 영상과 음성을 분석해 알맞은 효과음을 자동으로 채워 넣고, 음성을 텍스트로 변환해 자막까지 만들어주는 영상 편집 웹 서비스입니다.",
     tags: ["Next.js", "React", "TypeScript", "Zustand", "TanStack Query"],
+    role: "프론트엔드 전체 - 효과음 생성·자막 생성 페이지",
     accent: "mint",
     media: {
       type: "image",
@@ -146,6 +151,7 @@ const PROJECTS: ProjectEntry[] = [
       "React-Hook-Form",
       "Zod",
     ],
+    role: "개인 프로젝트 - 전체 개발",
     accent: "purple",
     media: {
       type: "image",
@@ -158,7 +164,7 @@ const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       demo: "http://hanzi-bank.vercel.app",
-      github: "http://hanzi-bank.vercel.app",
+      github: "https://github.com/ruiwaa/hanzi-bank",
       post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
     },
   },
@@ -189,6 +195,12 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               </li>
             ))}
           </ul>
+          <p className="body mt-2 text-light-text dark:text-white">
+            <strong className="font-semibold  dark:text-white">
+              담당 역할:
+            </strong>{" "}
+            {project.role}
+          </p>
           <p className="body mt-2 text-light-text-secondary dark:text-white">
             {project.description}
           </p>
