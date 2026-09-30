@@ -967,6 +967,39 @@ git push
 
 ---
 
+## Phase 4️⃣5️⃣: 프로젝트 카드 성과 bullet에 실제 측정값 반영
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 카드에 적은 수치가 모두 posts/Velog 글에 실제 측정값으로 기록되어 있는지 확인
+- [ ] 측정 기록이 없는 항목(예: Long Task, GENOVA 전체)은 수치 없이 정성적으로 서술했는지 확인
+- [ ] 원본 안에서 값이 서로 다른 수치(행쇼마켓 성능 점수)는 쓰지 않았는지 확인
+- [ ] 커밋 전 git diff로 내가 수정하지 않은 변경(사용자 직접 수정)이 섞여 있는지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `프로젝트 카드 성과 bullet에 실제 측정값 반영`
+2. `docs`: `Phase 45 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "feat: 프로젝트 카드 성과 bullet에 실제 측정값 반영"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 45 작업 완료 사항 정리"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
