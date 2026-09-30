@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import Resume from "@/app/_components/sections/Resume";
+
+export const metadata: Metadata = {
+  title: "Resume",
+};
 
 export default function ResumePage() {
   return (

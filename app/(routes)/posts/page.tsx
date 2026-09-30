@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Posts from "@/app/_components/sections/Posts";
 import { LAYOUT } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "Posts",
+};
 
 export default function PostsPage() {
   return (

@@ -154,7 +154,7 @@ const velogPosts: VelogPost[] = [
     id: 13,
     title: "[트러블 슈팅] [중단어창고] 페이지네이션 이동 문제 해결 과정",
     excerpt:
-      "전체 데이터 개수 조회로 페이지 수를 계산하고, URL 쿼리스트링 타입 변환 문제를 해결해 페이지네이션 버그를 고쳤습니다.",
+      "전체 데이터 개수 조회로 페이지 수를 계산하고, URL 쿼리스트링 타입 변환 문제를 해결해 페이지네이션 버그를 수정하였습니다.",
     date: "2026-06-25",
     url: "https://velog.io/@ruiwaa/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EC%9D%B4%EB%8F%99-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95",
     category: "트러블슈팅",
