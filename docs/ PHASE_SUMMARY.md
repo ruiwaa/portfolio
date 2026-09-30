@@ -1697,14 +1697,15 @@ scripts와 일치함을 확인. `git log`로 `feat-add-readme`에 README 작성�
 것, 상세 페이지 `<h1>` 1개·스크린샷 2장 로드(naturalWidth 463/409)를 확인. 태그 수정 후 회고·기획 탭
 카드에서 카테고리 단어가 각각 1번만 표시되는 것 확인. `bunx eslint` 통과
 
-📍 다음: Phase 4️⃣4️⃣ - 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 GitHub 링크 수정
+📍 다음: Phase 4️⃣4️⃣ - 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 카드 GitHub 링크·담당 범위
 
-## Phase 4️⃣4️⃣: 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 GitHub 링크 수정
+## Phase 4️⃣4️⃣: 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 카드 GitHub 링크·담당 범위
 
 **요청**: "layout.tsx에 metadata를 변경해야돼, yeji's portfolio로 라고 하고 내가 누른 페이지별로 옆에 |
 페이지 이름 이렇게 보여야해, description도 수정" → "먼저 커밋해줘" → "로컬 안에 있는 md파일 중 트러블
 슈팅 파일의 excerpt 부분에 기록했습니다라고 어미를 일괄 수정해" → "회고 그도 기록했습니다. 로 통일" →
 "커밋해" → (사용자가 프로젝트 카드 GitHub 링크 직접 수정) "지금 외부 링크 수정했는데 커밋해줘" →
+"push하고 마무리 작업해" → "프로젝트 카드 안에 사용 기술 밑에 내가 담당한 범위를 적어" → "커밋해줘" →
 "push하고 마무리 작업해"
 
 **변경**:
@@ -1726,10 +1727,18 @@ scripts와 일치함을 확인. `git log`로 `feat-add-readme`에 README 작성�
 - `Projects.tsx`(사용자 직접 수정): 프로젝트 카드 GitHub 링크를 개인 저장소로 교체 - 예매의 정석
   (`ruiwaa/vanilla-project-team1`), 행쇼마켓(예매의 정석 저장소로 잘못 연결돼 있던 것을
   `ruiwaa/final-project-team2`로), 중단어 창고(배포 주소가 들어가 있던 것을 `ruiwaa/hanzi-bank`로)
+- `Projects.tsx`: `ProjectEntry`에 필수 필드 `role` 추가, 카드의 기술 태그와 소개 문구 사이에
+  "**담당 범위** …" 한 줄 표시. 문구는 기존 자료에서 근거를 찾아 작성 - 예매의 정석 "영화표 결제 페이지"
+  (Phase 35 때 사용자가 전달한 담당 작업), 행쇼마켓 "마이페이지 - 소비자 주문 내역·찜한 상품, 판매자 상품
+  등록·상품 관리·상점 주문 관리"(파이널 프로젝트 회고 글), GENOVA "프론트엔드 전체 - 효과음 생성·자막 생성
+  페이지"(Experience 섹션·인턴십 회고), 중단어 창고 "개인 프로젝트 - 전체 개발"(GitHub 저장소 기여자가 본인
+  1명). Phase 35에서 카드 제목의 인원수 표기를 뺐던 결정을 따라 팀 인원수는 넣지 않음
 
 **검증**: `bunx eslint app`, `bunx tsc --noEmit`, `next build` 통과. 프로덕션 서버에서 `curl`로 페이지별
 `<title>` 확인 - `/` "yeji's portfolio", `/about` "yeji's portfolio | About Me", `/experience`
 "… | Experience & Projects", `/posts` "… | Posts", `/resume` "… | Resume", 글 상세 "… | 글 제목",
-없는 경로는 기본 제목, 모든 페이지에 새 description 적용. 변경된 GitHub 저장소 URL 3개 모두 200 응답 확인
+없는 경로는 기본 제목, 모든 페이지에 새 description 적용. 변경된 GitHub 저장소 URL 3개 모두 200 응답 확인.
+담당 범위 추가 후 Playwright로 `/experience` 카드 4개에 문구가 노출되는 것과 데스크톱(1280px)·모바일(390px)
+× 라이트·다크 모드 스크린샷에서 줄바꿈·색상이 깨지지 않는 것 확인
 
 📍 다음: (사용자 지정 대기)

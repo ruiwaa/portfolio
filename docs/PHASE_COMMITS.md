@@ -910,7 +910,7 @@ git push
 
 ---
 
-## Phase 4️⃣4️⃣: 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 GitHub 링크 수정
+## Phase 4️⃣4️⃣: 사이트 metadata 변경, 포스트 excerpt 어미 통일, 프로젝트 카드 GitHub 링크·담당 범위
 
 ### ✅ 커밋 전 체크리스트
 
@@ -920,6 +920,7 @@ git push
 - [ ] description이 create-next-app 기본값이 아닌지 확인
 - [ ] 로컬 트러블슈팅·회고 글 excerpt가 모두 "기록했습니다."로 끝나는지 확인
 - [ ] 프로젝트 카드 GitHub 링크가 올바른 저장소로 열리는지 확인
+- [ ] 프로젝트 카드 4개 모두 사용 기술 아래에 담당 범위가 표시되는지 (모바일·다크 모드 포함) 확인
 - [ ] 타입 체크: bunx tsc --noEmit
 - [ ] 린트: bunx eslint app
 - [ ] 프로덕션 빌드: next build
@@ -932,6 +933,8 @@ git push
 3. `style`: `중단어창고 페이지네이션 Velog 포스트 excerpt 문구 수정`
 4. `fix`: `프로젝트 카드 GitHub 링크를 개인 저장소 주소로 수정`
 5. `docs`: `Phase 44 작업 완료 사항 정리`
+6. `feat`: `프로젝트 카드 사용 기술 아래에 담당 범위 표시`
+7. `docs`: `Phase 44 정리 문서에 프로젝트 카드 담당 범위 추가 내용 반영`
 
 ### 💻 커밋 명령어
 
@@ -952,6 +955,14 @@ git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
 git commit -m "docs: Phase 44 작업 완료 사항 정리"
 
 git push -u origin feat-add-metadata
+
+git add app/_components/sections/Projects.tsx
+git commit -m "feat: 프로젝트 카드 사용 기술 아래에 담당 범위 표시"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 44 정리 문서에 프로젝트 카드 담당 범위 추가 내용 반영"
+
+git push
 ```
 
 ---
