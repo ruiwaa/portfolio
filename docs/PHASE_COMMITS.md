@@ -1000,6 +1000,53 @@ git push
 
 ---
 
+## Phase 4️⃣6️⃣: 기술 스택 카테고리 재구성, Hero 요약 추가, 성장의 여정 간격 축소
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 기술 스택 7개 카테고리와 15개 배지가 전달받은 목록과 일치하는지 확인
+- [ ] 각 배지 hover/focus 시 세부 설명 패널이 해당 행 아래에 펼쳐지는지 확인 (키보드 Tab 포함)
+- [ ] 데스크톱에서 카테고리 행의 배지 시작선이 맞는지, 모바일에서 줄바꿈이 자연스러운지 확인
+- [ ] Hero 아래 이름·주요 경력 문구가 인사말 전환 뒤에 등장하는지, 모바일에서 세 줄로 보이는지 확인
+- [ ] 성장의 여정 간격(pb-13)이 빌드 CSS에 생성되고 스크롤에 따른 단계 전환이 유지되는지 확인
+- [ ] 라이트/다크 모드 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+1. `fix`: `행쇼마켓 1번째 개선 사항에 단어 추가` (사용자 커밋)
+2. `feat`: `기술 스택을 카테고리별로 재구성하고 스택 추가 및 세부 설명 수정`
+3. `feat`: `Hero 아래에 이름·직무와 주요 경력 요약 추가`
+4. `style`: `성장의 여정 단계 간 세로 간격 축소`
+5. `docs`: `Phase 46 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "fix: 행쇼마켓 1번째 개선 사항에 단어 추가"
+
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "feat: 기술 스택을 카테고리별로 재구성하고 스택 추가 및 세부 설명 수정"
+
+git add app/_components/sections/HeroSummary.tsx app/page.tsx
+git commit -m "feat: Hero 아래에 이름·직무와 주요 경력 요약 추가"
+
+git add app/_components/sections/AboutVision.tsx
+git commit -m "style: 성장의 여정 단계 간 세로 간격 축소"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 46 작업 완료 사항 정리"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

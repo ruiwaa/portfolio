@@ -1779,4 +1779,44 @@ Lighthouse LCP·Long Task 개선 전후 수치 / 행쇼마켓·GENOVA: 측정 �
 **검증**: `bunx eslint app`, `bunx tsc --noEmit`, `next build` 통과(커밋된 최종 상태 기준). 수정 직후 Playwright로
 `/experience`의 행쇼마켓·중단어 창고 카드를 데스크톱(1280px)·모바일(390px)에서 스크린샷으로 확인
 
+📍 다음: Phase 4️⃣6️⃣ - 기술 스택 카테고리 재구성, Hero 요약 추가, 성장의 여정 간격 축소
+
+## Phase 4️⃣6️⃣: 기술 스택 카테고리 재구성, Hero 요약 추가, 성장의 여정 간격 축소
+
+**요청**: 기술 스택 목록 전달("Core TypeScript · JavaScript · React · Next.js (App Router) · HTML/CSS / State
+TanStack Query · Zustand / Form React-Hook-Form · Zod — 회원가입·예문 작성 폼 검증 / Backend Supabase — RLS
+접근 제어, RPC 검색 로직, @supabase/ssr 인증 / Styling Tailwind CSS / Quality Lighthouse · WAVE / AI Tool Claude
+Code — 설계 문서(claude.md) 기반 기능 개발") 후 "이 내용 참고해서 스택 추가하고 세부 사용 가능 기술 내용을
+수정해" + "hero 컴포넌트 아래에 장예지 · FRONTEND DEVELOPER / 기업 연계 프로젝트 프론트엔드 단독 | 개선 요청
+37건 중 35건 반영 | 기술 블로그 45편 이 문구들을 넣어서 보여줘" + "성장의 여정도 좀 더 세로 패딩값을 줄여" →
+"성장의 여정 패딩 13으로 바꿔" → "커밋해줘" → "push하고 마무리 작업해"
+
+**변경**:
+- 브랜치: 사용자가 만든 `74-feat-posts-project-trouble-params`에서 작업. 이 브랜치에는 사용자가 먼저 커밋한
+  `ea9195a fix: 행쇼마켓 1번째 개선 사항에 단어 추가`(Projects.tsx 행쇼마켓 CLS bullet에 "초" 단위 추가)가 포함됨
+- `AboutInfo.tsx`: 평면 `SKILLS` 배열을 `SKILL_GROUPS`(Core/State/Form/Backend/Styling/Quality/AI Tool)로
+  재구성해 카테고리 라벨 + 배지 행으로 렌더링, 스택 5개 → 15개(JavaScript, HTML/CSS, TanStack Query, Zustand,
+  React-Hook-Form, Zod, Lighthouse, WAVE, Claude Code 추가)
+  - 세부 설명(hover 패널)은 "~할 수 있습니다" 형태 유지. Form·Supabase·Claude Code는 전달받은 설명(회원가입·예문
+    작성 폼 검증, RLS·RPC·@supabase/ssr, claude.md 기반 개발)을 그대로 반영하고, 나머지는 프로젝트 카드·회고 글에
+    기록된 실제 사용 내용을 근거로 작성. Next.js는 Lighthouse가 별도 배지로 분리되어 "서버·클라이언트 컴포넌트
+    구분, Server Action 폼 처리"로 교체
+  - Zustand·WAVE는 react-icons에 공식 로고가 없어 `GiBearFace`(곰)·`MdAccessibilityNew`(접근성)로 대체
+  - HoverDisclosure 패널이 행 전체 너비를 기준으로 펼쳐지도록 각 행에 `relative`, 데스크톱은 라벨 너비(`w-24`)
+    고정 + 전체 블록 `sm:w-fit` 가운데 배치로 7개 행의 배지 시작선을 맞춤(Playwright로 7개 행 left 좌표가 모두
+    389px로 같은 것 확인). 모바일은 라벨 아래 배지 가운데 정렬. 등장 애니메이션 지연은 그룹을 넘어 전체 배지
+    순서대로 이어지게 계산
+- `HeroSummary.tsx` 신규 + `app/page.tsx`: Hero 바로 아래 구분선과 함께 "장예지 · FRONTEND DEVELOPER", 주요
+  경력 3개를 `<ul aria-label="주요 경력">`으로 표시(데스크톱 세로 구분선 한 줄, 모바일 세 줄). Hero 인사말 전환
+  (1700ms) 직후인 1900ms에 fade-up 등장. "기술 블로그 45편"은 작업 중 사용자가 직접 "25편"으로 수정
+- `AboutVision.tsx`: 성장의 여정 단계 간 세로 간격 `pb-28`(112px) → `pb-16` → 사용자 지정으로 `pb-13`(52px).
+  빌드 CSS에 `.pb-13{padding-bottom:calc(var(--spacing) * 13)}`가 생성된 것 확인
+
+**참고**: `ea9195a`에서 행쇼마켓 bullet이 "CLS를 0.608초에서 0초로 개선"이 되었는데, CLS는 시간이 아닌 단위 없는
+점수라 "초"는 사실과 맞지 않음. 사용자 커밋이라 임의로 되돌리지 않고 확인 필요 사항으로 남김
+
+**검증**: `bunx eslint app`, `bunx tsc --noEmit`, `next build` 통과. Playwright로 홈 Hero 요약(데스크톱 1280px·모바일
+390px × 라이트·다크), About 기술 스택(Supabase hover 패널 포함, 데스크톱·모바일 × 라이트·다크), 성장의 여정
+간격을 스크린샷으로 확인
+
 📍 다음: (사용자 지정 대기)
