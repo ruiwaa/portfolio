@@ -1813,7 +1813,8 @@ Code — 설계 문서(claude.md) 기반 기능 개발") 후 "이 내용 참고�
   빌드 CSS에 `.pb-13{padding-bottom:calc(var(--spacing) * 13)}`가 생성된 것 확인
 
 **참고**: `ea9195a`에서 행쇼마켓 bullet이 "CLS를 0.608초에서 0초로 개선"이 되었는데, CLS는 시간이 아닌 단위 없는
-점수라 "초"는 사실과 맞지 않음. 사용자 커밋이라 임의로 되돌리지 않고 확인 필요 사항으로 남김
+점수라 "초"는 사실과 맞지 않음 → 사용자 확인 후 "CLS를 0.608에서 0으로 개선"으로 되돌림(`fix: 행쇼마켓 CLS 문구에서
+잘못된 '초' 단위 제거`)
 
 **검증**: `bunx eslint app`, `bunx tsc --noEmit`, `next build` 통과. Playwright로 홈 Hero 요약(데스크톱 1280px·모바일
 390px × 라이트·다크), About 기술 스택(Supabase hover 패널 포함, 데스크톱·모바일 × 라이트·다크), 성장의 여정

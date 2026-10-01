@@ -1023,6 +1023,8 @@ git push
 3. `feat`: `Hero 아래에 이름·직무와 주요 경력 요약 추가`
 4. `style`: `성장의 여정 단계 간 세로 간격 축소`
 5. `docs`: `Phase 46 작업 완료 사항 정리`
+6. `fix`: `행쇼마켓 CLS 문구에서 잘못된 '초' 단위 제거`
+7. `docs`: `Phase 46 정리 문서에 CLS 문구 수정 반영`
 
 ### 💻 커밋 명령어
 
@@ -1041,6 +1043,12 @@ git commit -m "style: 성장의 여정 단계 간 세로 간격 축소"
 
 git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
 git commit -m "docs: Phase 46 작업 완료 사항 정리"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "fix: 행쇼마켓 CLS 문구에서 잘못된 '초' 단위 제거"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 46 정리 문서에 CLS 문구 수정 반영"
 
 git push
 ```
