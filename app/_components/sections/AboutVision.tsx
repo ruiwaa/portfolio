@@ -122,7 +122,7 @@ export default function AboutVision({
                 style={{
                   animationDelay: `${itemsBaseDelayMs + index * ITEM_STAGGER_MS}ms`,
                 }}
-                className={`group/step motion-safe:opacity-0 relative border-l-2 pb-28 pl-10 last:border-transparent ${
+                className={`group/step motion-safe:opacity-0 relative border-l-2 pb-13 pl-10 last:border-transparent ${
                   isActive
                     ? "border-light-accent dark:border-dark-accent"
                     : "border-light-border dark:border-dark-border"
