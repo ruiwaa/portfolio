@@ -1055,6 +1055,45 @@ git push
 
 ---
 
+## Phase 4️⃣7️⃣: 트러블슈팅 아코디언 project 쿼리 연동, 클릭 전용 전환, 프로젝트 카드 순서 정렬
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 카드 포스트 링크로 진입하면 해당 프로젝트 아코디언이 열려 있는지 확인 (4개 모두)
+- [ ] 아코디언 클릭 시 ?project= 가 갱신되고, 다시 클릭하면 삭제되는지 확인
+- [ ] 마우스 호버만으로는 아코디언이 열리거나 주소가 바뀌지 않는지 확인
+- [ ] 키보드(Tab + Enter)로 아코디언을 열 수 있는지 확인
+- [ ] 새로고침 시 열린 프로젝트가 유지되고, 다른 탭으로 바꾸면 project 파라미터가 지워지는지 확인
+- [ ] 프로젝트 카드 순서와 트러블슈팅 아코디언 순서가 같은지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app lib
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `트러블슈팅 아코디언 열림 상태를 project 쿼리로 관리하고 클릭으로만 열리도록 변경`
+2. `feat`: `프로젝트 카드 순서 변경 및 포스트 링크를 프로젝트별 트러블슈팅 주소로 연결`
+3. `docs`: `Phase 47 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add lib/constants.ts app/_components/sections/PostsList.tsx
+git commit -m "feat: 트러블슈팅 아코디언 열림 상태를 project 쿼리로 관리하고 클릭으로만 열리도록 변경"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "feat: 프로젝트 카드 순서 변경 및 포스트 링크를 프로젝트별 트러블슈팅 주소로 연결"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 47 작업 완료 사항 정리"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
