@@ -101,7 +101,7 @@ const PROJECTS: ProjectEntry[] = [
       src: "/projects/hangsho-market-home.png",
     },
     detail: [
-      "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608초에서 0초로 개선",
+      "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608에서 0으로 개선",
       "배송 상태 변경 후 관련 쿼리를 invalidate해 새로고침 없이 주문 목록에 변경 사항이 바로 반영되도록 구현",
       "Supabase 관계형 조회로 주문·상품 정보를 연동하고, 중첩된 응답 데이터에 타입을 정의해 타입 안정성 확보",
       "Supabase 호출은 API 함수로, 조회·검증 로직은 Custom Hook으로, 상태 변경 로직은 UI와 분리해 재사용성 향상",
