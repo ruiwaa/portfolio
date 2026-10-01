@@ -6,6 +6,7 @@ import { SiGithub } from "react-icons/si";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
+import { getTroubleshootingHref } from "@/lib/constants";
 import { useInView } from "@/app/_hooks/useInView";
 
 type Accent = "sky" | "peach" | "mint" | "purple";
@@ -65,54 +66,8 @@ interface ProjectEntry {
   links: ProjectLinks;
 }
 
+// 카드 순서를 바꾸면 lib/constants.ts의 TROUBLESHOOTING_PROJECT_ORDER도 같은 순서로 맞출 것
 const PROJECTS: ProjectEntry[] = [
-  {
-    title: "예매의 정석",
-    description:
-      "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    role: "영화표 결제 페이지",
-    accent: "sky",
-    media: {
-      type: "image",
-      src: "/projects/booking-payment-preview.png",
-    },
-    detail: [
-      "포인트·카드 할인 폼과 유효성 검증 로직을 구현해 할인 금액을 총 합계에 정확히 반영",
-      "필수 정보 없이 결제 페이지 URL로 바로 접근 시 이전 단계로 리디렉션하는 가드 로직 구현",
-      "URLSearchParams로 탭 상태를 URL에 저장해 새로고침·뒤로가기에도 활성 탭이 유지되도록 개선",
-    ],
-    links: {
-      demoType: "video",
-      demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
-      github: "https://github.com/ruiwaa/vanilla-project-team1",
-      post: "/posts/yeamaeui-jeongseok-refactoring",
-    },
-  },
-  {
-    title: "행쇼마켓",
-    description:
-      "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 다양한 상점의 상품을 구매 할 수 있도록 구현한 문구류 오픈마켓 사이트입니다.",
-    tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
-    role: "마이페이지 - 소비자 주문 내역·찜한 상품, 판매자 상품 등록·상품 관리·상점 주문 관리",
-    accent: "peach",
-    media: {
-      type: "image",
-      src: "/projects/hangsho-market-home.png",
-    },
-    detail: [
-      "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608에서 0으로 개선",
-      "배송 상태 변경 후 관련 쿼리를 invalidate해 새로고침 없이 주문 목록에 변경 사항이 바로 반영되도록 구현",
-      "Supabase 관계형 조회로 주문·상품 정보를 연동하고, 중첩된 응답 데이터에 타입을 정의해 타입 안정성 확보",
-      "Supabase 호출은 API 함수로, 조회·검증 로직은 Custom Hook으로, 상태 변경 로직은 UI와 분리해 재사용성 향상",
-      "사용하지 않는 three.js 패키지(약 600KB)를 의존성에서 제거",
-    ],
-    links: {
-      demo: "https://final-project-team2.vercel.app/",
-      github: "https://github.com/ruiwaa/final-project-team2",
-      post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
-    },
-  },
   {
     title: "GENOVA 오디오 툴킷",
     description:
@@ -134,7 +89,8 @@ const PROJECTS: ProjectEntry[] = [
         { label: "효과음 생성 시연", href: "https://youtu.be/Yb1hK9OoZ7g" },
         { label: "자막 생성 시연", href: "https://youtu.be/vo-SuEB4yI0" },
       ],
-      post: "https://velog.io/@ruiwaa/%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8-%EC%9C%84%EC%B9%98-%EB%8F%99%EA%B8%B0%ED%99%94",
+      // 트러블슈팅 글의 project 값이 카드 제목과 다른 "인턴십 프로젝트"로 등록되어 있음
+      post: getTroubleshootingHref("인턴십 프로젝트"),
     },
   },
   {
@@ -164,7 +120,54 @@ const PROJECTS: ProjectEntry[] = [
     links: {
       demo: "http://hanzi-bank.vercel.app",
       github: "https://github.com/ruiwaa/hanzi-bank",
-      post: "/posts?tab=%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85",
+      post: getTroubleshootingHref("중단어 창고"),
+    },
+  },
+  {
+    title: "행쇼마켓",
+    description:
+      "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 다양한 상점의 상품을 구매 할 수 있도록 구현한 문구류 오픈마켓 사이트입니다.",
+    tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
+    role: "마이페이지 - 소비자 주문 내역·찜한 상품, 판매자 상품 등록·상품 관리·상점 주문 관리",
+    accent: "peach",
+    media: {
+      type: "image",
+      src: "/projects/hangsho-market-home.png",
+    },
+    detail: [
+      "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608에서 0으로 개선",
+      "배송 상태 변경 후 관련 쿼리를 invalidate해 새로고침 없이 주문 목록에 변경 사항이 바로 반영되도록 구현",
+      "Supabase 관계형 조회로 주문·상품 정보를 연동하고, 중첩된 응답 데이터에 타입을 정의해 타입 안정성 확보",
+      "Supabase 호출은 API 함수로, 조회·검증 로직은 Custom Hook으로, 상태 변경 로직은 UI와 분리해 재사용성 향상",
+      "사용하지 않는 three.js 패키지(약 600KB)를 의존성에서 제거",
+    ],
+    links: {
+      demo: "https://final-project-team2.vercel.app/",
+      github: "https://github.com/ruiwaa/final-project-team2",
+      post: getTroubleshootingHref("행쇼마켓"),
+    },
+  },
+  {
+    title: "예매의 정석",
+    description:
+      "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    role: "영화표 결제 페이지",
+    accent: "sky",
+    media: {
+      type: "image",
+      src: "/projects/booking-payment-preview.png",
+    },
+    detail: [
+      "포인트·카드 할인 폼과 유효성 검증 로직을 구현해 할인 금액을 총 합계에 정확히 반영",
+      "필수 정보 없이 결제 페이지 URL로 바로 접근 시 이전 단계로 리디렉션하는 가드 로직 구현",
+      "URLSearchParams로 탭 상태를 URL에 저장해 새로고침·뒤로가기에도 활성 탭이 유지되도록 개선",
+    ],
+    links: {
+      demoType: "video",
+      demo: "https://www.youtube.com/shorts/lYYqKjHCCrM?feature=share",
+      github: "https://github.com/ruiwaa/vanilla-project-team1",
+      post: getTroubleshootingHref("예매의 정석"),
     },
   },
 ];
