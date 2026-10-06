@@ -1094,6 +1094,48 @@ git push
 
 ---
 
+## Phase 4️⃣8️⃣: 프로젝트 카드 모바일·태블릿 반응형 재구성, 이력서 PDF 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 320~430px 모바일에서 프로젝트 카드 4개의 글이 카드 밖으로 넘치거나 잘리지 않는지 확인
+- [ ] 640~1023px에서 이미지 아래에 세부 내용이 전체 폭으로 표시되는지 확인
+- [ ] 1024px 이상에서 이미지와 세부 내용이 나란히 표시되는지 확인
+- [ ] 라이트/다크 모드 확인
+- [ ] 이력서 PDF가 public/resume/ 안에 있고, /resume 페이지 PDF 다운로드가 200으로 받아지는지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: next build
+```
+
+### 📝 커밋 메시지
+
+1. `refactor`: `프로젝트 카드를 모바일·태블릿 화면 폭에 맞게 반응형으로 재구성`
+2. `docs`: `이력서 pdf파일 최신 버전으로 교체` (사용자 커밋)
+3. `fix`: `이력서 PDF를 다운로드 링크 경로(public/resume)로 이동`
+4. `docs`: `Phase 48 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "refactor: 프로젝트 카드를 모바일·태블릿 화면 폭에 맞게 반응형으로 재구성"
+
+git add public
+git commit -m "docs: 이력서 pdf파일 최신 버전으로 교체"
+
+git mv "public/장예지_이력서.pdf" "public/resume/장예지_이력서.pdf"
+git commit -m "fix: 이력서 PDF를 다운로드 링크 경로(public/resume)로 이동"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 48 작업 완료 사항 정리"
+
+git push
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
