@@ -186,8 +186,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         accent={project.accent}
         className={`mx-auto flex max-w-4xl flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
       >
-        <div className="p-6 pb-0">
-          <h3 className="text-2xl font-bold text-light-text dark:text-dark-text">
+        <div className="p-5 pb-0 sm:p-6 sm:pb-0">
+          <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
             {project.title}
           </h3>
           <ul className="mt-2 flex flex-wrap md:flex-row gap-2">
@@ -208,8 +208,10 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </p>
         </div>
 
-        <div className="flex flex-col items-start sm:flex-row px-6">
-          <div className="relative h-60 w-full shrink-0 sm:h-64 sm:w-80 mt-8">
+        {/* 이미지와 세부 내용을 나란히 두는 건 lg(1024px)부터 - 그보다 좁으면 이미지(320px)를 빼고
+            남는 폭이 좁아 긴 기술 용어가 카드 밖으로 밀리거나 단어 중간에서 끊겼음 */}
+        <div className="flex flex-col items-start px-5 sm:px-6 lg:flex-row">
+          <div className="relative mt-6 aspect-16/10 w-full shrink-0 lg:mt-8 lg:aspect-auto lg:h-64 lg:w-80">
             {project.media.type === "video" ? (
               <video
                 src={project.media.src}
@@ -227,19 +229,23 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 alt=""
                 fill
                 className="object-cover shadow-xl"
-                sizes="(min-width: 640px) 320px, 100vw"
+                sizes="(min-width: 1024px) 320px, (min-width: 640px) 848px, 100vw"
               />
             )}
           </div>
-          <div className="flex flex-1 flex-col p-6">
-            <ul className="space-y-1.5 pr-4">
+          {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
+              끊을 수 없는 긴 단어가 있으면 카드 밖으로 넘쳤음 */}
+          <div className="flex w-full min-w-0 flex-1 flex-col py-5 sm:py-6 lg:p-6">
+            <ul className="space-y-1.5 lg:pr-4">
               {project.detail.map((line, index) => (
                 <li
                   key={index}
-                  className="font-sans text-[18px] font-medium flex gap-2 text-light-text-secondary dark:text-white"
+                  className="flex gap-2 font-sans text-base font-medium text-light-text-secondary sm:text-[18px] dark:text-white"
                 >
                   <span aria-hidden="true">•</span>
-                  <span>{withBoldEnglish(line)}</span>
+                  <span className="min-w-0 wrap-anywhere">
+                    {withBoldEnglish(line)}
+                  </span>
                 </li>
               ))}
             </ul>
