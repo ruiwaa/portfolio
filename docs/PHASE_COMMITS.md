@@ -1177,6 +1177,38 @@ git push
 
 ---
 
+## Phase 5️⃣0️⃣: dev → main 병합 및 이력서 PDF 최신 버전 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 새 PDF가 public/resume/장예지_이력서.pdf 경로·파일명 그대로인지 확인
+- [ ] 파일명이 조합형(NFC)인지 확인 - Finder로 넣은 한글 파일명은 자모 분리형(NFD)일 수 있음
+      python3 -c "import os,unicodedata as u;[print(n,u.is_normalized('NFC',n)) for n in os.listdir('public/resume')]"
+- [ ] 프로덕션 빌드에서 /resume/장예지_이력서.pdf 가 200 application/pdf, 새 파일 크기로 받아지는지 확인
+- [ ] Resume 페이지 PDF 다운로드 버튼의 href·download 속성이 그대로인지 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `이력서 PDF 다운로드 파일 최신 버전으로 교체` (본문 `Refs #83`)
+2. `docs`: `Phase 50 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add public/resume
+git commit -m "docs: 이력서 PDF 다운로드 파일 최신 버전으로 교체" -m "Refs #83"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 50 작업 완료 사항 정리"
+
+git push -u origin 83-docs-resume-pdf
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

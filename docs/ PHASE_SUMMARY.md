@@ -1940,4 +1940,32 @@ PR #81 생성) → "main에 merge할때 pr 템플릿도 만들어" → "커밋�
 `gh label list`로 템플릿의 `labels` 값(feature·bug·refactor·style·docs)이 모두 저장소에 존재하는 라벨인지 확인. 템플릿 선택
 목록은 기본 브랜치(dev) 기준으로 표시되므로 머지 후 GitHub "New issue" 화면에서 노출 확인 필요
 
+📍 다음: Phase 5️⃣0️⃣ - dev → main 병합 및 이력서 PDF 최신 버전 교체
+
+## Phase 5️⃣0️⃣: dev → main 병합 및 이력서 PDF 최신 버전 교체
+
+**요청**: "main에 merge 진행해" → "이제 새로운 이슈를 발행해야되는데, resume 페이지에 pdf 다운로드 파일을 최신 버전으로
+교체하는 작업을 해야돼" → "응 이슈 올려줘" → "public 폴더에 새 pdf 넣었어, 교체 작업 진행해" → "커밋해줘" → "push하고
+마무리 작업해"
+
+**변경**:
+- main 병합: PR #81(`docs-add-issue-templates` → dev)을 머지 커밋으로 머지해 이슈 #80 자동 종료. 머지된 dev에서
+  `tsc --noEmit`·lint·build 통과와 주요 페이지 5개 200 응답을 확인한 뒤, 새 `merge_to_main.md` 템플릿으로 본문을 채운
+  PR #82(`[MERGE] 이슈·PR 템플릿 추가 후 main 브랜치 병합`, dev → main)를 만들어 머지 - 병합 템플릿을 사용한 첫 PR
+- 이슈 #83(`[DOCS] 이력서 PDF 다운로드 파일 최신 버전으로 교체`, docs 템플릿) 생성. 기준에 Phase 48처럼 파일 위치가
+  바뀌어 404가 나지 않도록 "경로·파일명 유지"를 명시
+- 브랜치 `83-docs-resume-pdf`(dev에서 생성, 이슈 번호 접두): 사용자가 넣은 새 PDF(2페이지, 1,676,124 bytes, 이전
+  1,692,239 bytes)로 `public/resume/장예지_이력서.pdf` 교체. 경로·파일명 그대로라 다운로드 링크(`Resume.tsx`) 변경 없음.
+  커밋 본문에 `Refs #83`
+
+**트러블슈팅**: 새 PDF가 정확한 경로에 있고 `git status`에도 같은 파일 수정으로만 보였는데, 프로덕션 빌드에서 다운로드
+링크가 404 → 파일명을 확인하니 Finder로 넣으면서 한글이 자모 분리형(NFD, 19글자)으로 저장되어 있었음. Git은
+`core.precomposeunicode=true`라 조합형(NFC)으로 기록해 차이가 드러나지 않았지만, 로컬 Next.js 서버는 조합형 URL로
+디스크 파일을 찾지 못함 → 내용은 그대로 두고 디스크 파일명만 NFC(11글자)로 변경. 수정 후 200 `application/pdf`
+1,676,124 bytes, 받은 파일 해시가 새 PDF와 일치. Phase 48에서 루트(`public/`)로 옮겨졌던 PDF도 루트 경로 URL까지 404였던
+것이 같은 원인으로 보임. 배포는 Git에 기록된 NFC 경로를 쓰므로 영향이 없었을 가능성이 높음
+
+**검증**: `bun run build` 통과. 프로덕션 서버에서 `/resume/장예지_이력서.pdf` 200·`application/pdf`·새 파일 크기, 다운로드한
+파일과 새 PDF의 shasum 일치, `/resume` 페이지 `<a>`의 `href`·`download` 속성 유지 확인
+
 📍 다음: (사용자 지정 대기)
