@@ -1209,6 +1209,44 @@ git push -u origin 83-docs-resume-pdf
 
 ---
 
+## Phase 5️⃣1️⃣: About 성장의 여정·Hero 문구 순서 변경 및 개선 요청 수치 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] About 성장의 여정이 STEP 01 CONNECT → 02 INCLUDE → 03 RECORD 순서인지 확인
+- [ ] 각 단계의 설명·세부 내용이 제목과 맞게 함께 옮겨졌는지 확인
+- [ ] 스크롤 시 단계 활성화와 세부 카드 전환이 새 순서대로 동작하는지 확인
+- [ ] Hero 첫 화면 제목이 "배우고, / 기록하고, / 나아갑니다"인지 확인
+- [ ] 개선 요청 수치가 Hero 주요 경력·About CONNECT 설명 모두 30건으로 일치하는지 확인 (37/35 잔존 없음)
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `refactor`: `성장의 여정 순서를 소통·사용자 고려·기록 순으로 변경하고 개선 사항 수치 수정` (본문 `Refs #86`)
+2. `refactor`: `Hero 제목 문구 순서 변경 및 주요 경력 개선 요청 수치 수정` (본문 `Refs #86`)
+3. `docs`: `Phase 51 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutVision.tsx
+git commit -m "refactor: 성장의 여정 순서를 소통·사용자 고려·기록 순으로 변경하고 개선 사항 수치 수정" -m "Refs #86"
+
+git add app/_components/sections/Hero.tsx app/_components/sections/HeroSummary.tsx
+git commit -m "refactor: Hero 제목 문구 순서 변경 및 주요 경력 개선 요청 수치 수정" -m "Refs #86"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 51 작업 완료 사항 정리"
+
+git push -u origin 86-refactor-about-hero-order
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

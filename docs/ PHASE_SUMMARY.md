@@ -1968,4 +1968,30 @@ PR #81 생성) → "main에 merge할때 pr 템플릿도 만들어" → "커밋�
 **검증**: `bun run build` 통과. 프로덕션 서버에서 `/resume/장예지_이력서.pdf` 200·`application/pdf`·새 파일 크기, 다운로드한
 파일과 새 PDF의 shasum 일치, `/resume` 페이지 `<a>`의 `href`·`download` 속성 유지 확인
 
+📍 다음: Phase 5️⃣1️⃣ - About 성장의 여정·Hero 문구 순서 변경 및 개선 요청 수치 수정
+
+## Phase 5️⃣1️⃣: About 성장의 여정·Hero 문구 순서 변경 및 개선 요청 수치 수정
+
+**요청**: PR #84·#85로 이력서 PDF 교체를 main까지 병합 → "about 부분에 소통,사용자 고려, 기록 순으로 바꾸고, hero 문구
+순서도 바꿔야돼. 먼저 이슈 발행해" → (Hero에 순서를 바꿀 수 있는 문구가 3곳이라 확인 요청) "히어로는 1번 문구 순서
+바꾸고, 아래 주요 경력부분에서 개선 요청 30건 모두 반영이라고 수정해" → (About CONNECT 설명의 "37개 중 35개"와 수치가
+어긋나는 점 확인 요청) "응 about도 30건으로 고치고 이슈 올려줘" → "커밋해줘" → "push하고 마무리 작업해"
+
+**변경**:
+- 이력서 PDF 교체 병합: PR #84(`83-docs-resume-pdf` → dev, 이슈 #83 종료) 머지 후 dev에서 tsc·lint·build·주요 페이지·PDF
+  다운로드(200, 1,676,124 bytes) 확인, `merge_to_main.md` 템플릿으로 PR #85(dev → main) 생성·머지
+- 이슈 #86(`[REFACTOR] …`, refactor 템플릿) 생성, 브랜치 `86-refactor-about-hero-order`(dev에서 생성)
+- `AboutVision.tsx`: `JOURNEY` 순서를 RECORD → CONNECT → INCLUDE에서 CONNECT(소통) → INCLUDE(사용자 고려) → RECORD(기록)로
+  바꾸고 `step`을 01~03으로 재지정(각 단계의 설명·세부 내용은 그대로 이동). CONNECT 세부 설명 "총 37개 개선 사항 중 35개를
+  함께 완료했습니다." → "총 30개 개선 사항을 모두 완료했습니다.", 예전 단계명(RECORD/REFLECT/LEARN/IMPROVE)이 남아 있던 주석 갱신
+- `Hero.tsx`: 첫 화면 제목 "기록하고, / 배우고, / 나아갑니다" → "배우고, / 기록하고, / 나아갑니다". "나아갑니다"가 문장 끝이라
+  가능한 다른 순서가 이것뿐이고, About에서 기록을 뒤로 옮긴 흐름과 맞춤. 줄별 등장 애니메이션·밑줄 색은 위치 기준이라 글자만 교체
+- `HeroSummary.tsx`: 주요 경력 "개선 요청 37건 중 35건 반영" → "개선 요청 30건 모두 반영"
+- 저장소 전체에서 "37개/37건/35개/35건"을 검색해 위 두 곳 외에는 없는 것 확인
+- 커밋 본문에 `Refs #86`
+
+**검증**: `bunx eslint app`, `bunx tsc --noEmit`, `bun run build` 통과. Playwright로 홈 첫 화면 제목 "배우고, / 기록하고, /
+나아갑니다", 주요 경력 "기업 연계 프로젝트 프론트엔드 단독 | 개선 요청 30건 모두 반영 | 기술 블로그 25편", About 성장의 여정
+"STEP 01 CONNECT → STEP 02 INCLUDE → STEP 03 RECORD"와 CONNECT 세부 설명 "총 30개 개선 사항을 모두 완료했습니다." 확인
+
 📍 다음: (사용자 지정 대기)
