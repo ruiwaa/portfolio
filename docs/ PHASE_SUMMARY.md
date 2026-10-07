@@ -1900,4 +1900,37 @@ Code — 설계 문서(claude.md) 기반 기능 개발") 후 "이 내용 참고�
 768px, 1024px 스크린샷 확인. 320px에서만 페이지 가로 스크롤 3px가 남는데 화면 밖으로 나간 요소가 없어 카드와 무관한
 것으로 보고 별도 확인 대상으로 남김
 
+📍 다음: Phase 4️⃣9️⃣ - GitHub CLI 연동 및 이슈 템플릿 추가
+
+## Phase 4️⃣9️⃣: GitHub CLI 연동 및 이슈 템플릿 추가
+
+**요청**: "너가 이슈도 원격 깃허브에 올려줄 수도 있어?" → `brew install gh`, `gh auth login` 진행(브라우저 승인 화면에서
+"이 두개 조직에는 접근 안했으면 좋겠는데" → 설명 후 "그냥 토큰없이 진행해") → feature 이슈 템플릿 전달 후 "이런식으로
+각각 기능에 맞춰서 이슈 문서를 만들어야 해" → "커밋해줘" → "push하고 마무리 작업해"
+
+**변경**:
+- GitHub CLI(`gh` 2.102.0) 설치 및 `ruiwaa` 계정 로그인(브라우저 OAuth, scopes: `repo`·`read:org`·`gist`, `ruiwaa/portfolio`
+  ADMIN 권한 확인). 사용자가 원하지 않은 두 조직(`FRONTENDBOOTCAMP-16th`, `kx-entertainment-C`)은 OAuth 승인 화면에서
+  개별 해제가 불가능하고, 이를 기술적으로 막으려면 Resource owner를 `ruiwaa`로 한 Fine-grained 토큰이 필요하다고 안내 →
+  사용자가 OAuth 방식을 선택. 대신 `gh`는 `ruiwaa/portfolio`에서 요청받은 작업에만 쓰고, 이슈·PR은 올리기 전에 내용을
+  확인받기로 함 (저장소 밖 로컬 설정이라 커밋 대상 아님)
+- 브랜치: `refactor-project-moblie-ver`가 이미 dev에 머지되어 `origin/dev`에서 `docs-add-issue-templates` 생성
+  (`origin/dev`를 upstream으로 추적하지 않도록 `--unset-upstream` 후 첫 push 때 `-u`로 연결)
+- `.github/ISSUE_TEMPLATE/`에 기존 `feature_request.md`(Feature, `[FEAT] `, feature)와 같은 형식(📝 작업 개요 +
+  🏷️ 작업 유형 체크리스트 4줄)으로 4개 추가 - 저장소에 이미 있는 라벨에 1:1로 맞춤
+  - `bug_report.md`: Bug, `[FIX] `, `bug` + 🐞 문제 상황(발생 위치·재현 방법·기대 동작)
+  - `refactor.md`: Refactor, `[REFACTOR] `, `refactor` + 🔧 수정 이유
+  - `style.md`: Style, `[STYLE] `, `style` + 🎨 적용 범위(페이지·컴포넌트, 반응형, 라이트·다크)
+  - `docs.md`: Docs, `[DOCS] `, `docs` + 📌 기준(이슈 #71에서 사용자가 쓴 "기준" 형식)
+  - 과거 이슈 제목의 `[Docs]`는 다른 머리말과 맞춰 `[DOCS]`로 통일
+
+**트러블슈팅**: `! gh auth login`을 프롬프트에서 실행하자 120초 제한을 넘겨 백그라운드로 넘어감 → 오류가 아니라 브라우저의
+일회용 코드 승인을 기다리는 상태였음(출력 파일에서 코드와 URL 확인). 이후 조직 접근 문제로 승인을 취소할 때 대기 중인 로그인
+프로세스를 종료하고, 재시도는 선택 질문 없이 바로 코드를 띄우는 `gh auth login --hostname github.com --git-protocol https
+--web`으로 안내해 정상 로그인(exit 0)
+
+**검증**: `gh auth status`로 `ruiwaa` 로그인과 키체인 저장 확인, `gh repo view`로 `ruiwaa/portfolio` 이슈 활성화·ADMIN 권한 확인.
+`gh label list`로 템플릿의 `labels` 값(feature·bug·refactor·style·docs)이 모두 저장소에 존재하는 라벨인지 확인. 템플릿 선택
+목록은 기본 브랜치(dev) 기준으로 표시되므로 머지 후 GitHub "New issue" 화면에서 노출 확인 필요
+
 📍 다음: (사용자 지정 대기)
