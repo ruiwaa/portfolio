@@ -1900,13 +1900,14 @@ Code — 설계 문서(claude.md) 기반 기능 개발") 후 "이 내용 참고�
 768px, 1024px 스크린샷 확인. 320px에서만 페이지 가로 스크롤 3px가 남는데 화면 밖으로 나간 요소가 없어 카드와 무관한
 것으로 보고 별도 확인 대상으로 남김
 
-📍 다음: Phase 4️⃣9️⃣ - GitHub CLI 연동 및 이슈 템플릿 추가
+📍 다음: Phase 4️⃣9️⃣ - GitHub CLI 연동, 이슈 템플릿 및 main 병합 PR 템플릿 추가
 
-## Phase 4️⃣9️⃣: GitHub CLI 연동 및 이슈 템플릿 추가
+## Phase 4️⃣9️⃣: GitHub CLI 연동, 이슈 템플릿 및 main 병합 PR 템플릿 추가
 
 **요청**: "너가 이슈도 원격 깃허브에 올려줄 수도 있어?" → `brew install gh`, `gh auth login` 진행(브라우저 승인 화면에서
 "이 두개 조직에는 접근 안했으면 좋겠는데" → 설명 후 "그냥 토큰없이 진행해") → feature 이슈 템플릿 전달 후 "이런식으로
-각각 기능에 맞춰서 이슈 문서를 만들어야 해" → "커밋해줘" → "push하고 마무리 작업해"
+각각 기능에 맞춰서 이슈 문서를 만들어야 해" → "커밋해줘" → "push하고 마무리 작업해" → "이슈 먼저 만들고 PR 올려줘"(이슈 #80,
+PR #81 생성) → "main에 merge할때 pr 템플릿도 만들어" → "커밋하고 PR 본문에도 추가해줘"
 
 **변경**:
 - GitHub CLI(`gh` 2.102.0) 설치 및 `ruiwaa` 계정 로그인(브라우저 OAuth, scopes: `repo`·`read:org`·`gist`, `ruiwaa/portfolio`
@@ -1923,6 +1924,12 @@ Code — 설계 문서(claude.md) 기반 기능 개발") 후 "이 내용 참고�
   - `style.md`: Style, `[STYLE] `, `style` + 🎨 적용 범위(페이지·컴포넌트, 반응형, 라이트·다크)
   - `docs.md`: Docs, `[DOCS] `, `docs` + 📌 기준(이슈 #71에서 사용자가 쓴 "기준" 형식)
   - 과거 이슈 제목의 `[Docs]`는 다른 머리말과 맞춰 `[DOCS]`로 통일
+- `gh issue create`로 이슈 #80(`[DOCS]`, docs 라벨, docs 템플릿 형식), `gh pr create`로 PR #81(`close #80`) 생성
+- `.github/PULL_REQUEST_TEMPLATE/merge_to_main.md` 추가: 과거 dev → main PR(#79, #76 등)이 일반 PR 템플릿을 빈칸 그대로
+  올린 것을 확인하고 병합 전용 템플릿 작성 - 제목 형식 주석(`[MERGE] … 후 main 브랜치 병합`), 병합 개요, 포함된 PR 표
+  (PR·제목·연결 이슈), 주요 변경 사항, 병합 전 체크리스트(충돌·tsc·lint·build·주요 페이지·다크·모바일·이슈 닫힘), 병합 후
+  확인(배포 반영·콘솔 에러), 참고 사항. 기존 `.github/pull_request_template.md`는 기본 템플릿으로 유지하고, 병합 템플릿은
+  `?template=merge_to_main.md` 쿼리 또는 `gh pr create --template merge_to_main.md`로 선택
 
 **트러블슈팅**: `! gh auth login`을 프롬프트에서 실행하자 120초 제한을 넘겨 백그라운드로 넘어감 → 오류가 아니라 브라우저의
 일회용 코드 승인을 기다리는 상태였음(출력 파일에서 코드와 URL 확인). 이후 조직 접근 문제로 승인을 취소할 때 대기 중인 로그인

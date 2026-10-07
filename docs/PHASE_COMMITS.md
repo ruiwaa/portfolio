@@ -1136,7 +1136,7 @@ git push
 
 ---
 
-## Phase 4️⃣9️⃣: GitHub CLI 연동 및 이슈 템플릿 추가
+## Phase 4️⃣9️⃣: GitHub CLI 연동, 이슈 템플릿 및 main 병합 PR 템플릿 추가
 
 ### ✅ 커밋 전 체크리스트
 
@@ -1145,12 +1145,15 @@ git push
 - [ ] 템플릿 제목 머리말([FEAT]/[FIX]/[REFACTOR]/[STYLE]/[DOCS])이 서로 겹치지 않는지 확인
 - [ ] front matter(name/about/title/labels/assignees) 형식이 기존 feature_request.md와 같은지 확인
 - [ ] 머지 후 GitHub "New issue" 화면에 템플릿 5개가 모두 노출되는지 확인
+- [ ] 머지 후 ?template=merge_to_main.md 로 병합 PR 템플릿이 채워지고, 일반 PR에는 기존 기본 템플릿이 그대로 들어가는지 확인
 ```
 
 ### 📝 커밋 메시지
 
 1. `docs`: `버그·리팩토링·스타일·문서 이슈 템플릿 추가`
 2. `docs`: `Phase 49 작업 완료 사항 정리`
+3. `docs`: `dev → main 병합 전용 PR 템플릿 추가`
+4. `docs`: `Phase 49 정리 문서에 병합 PR 템플릿 추가 내용 반영`
 
 ### 💻 커밋 명령어
 
@@ -1162,6 +1165,14 @@ git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
 git commit -m "docs: Phase 49 작업 완료 사항 정리"
 
 git push -u origin docs-add-issue-templates
+
+git add .github/PULL_REQUEST_TEMPLATE
+git commit -m "docs: dev → main 병합 전용 PR 템플릿 추가"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 49 정리 문서에 병합 PR 템플릿 추가 내용 반영"
+
+git push
 ```
 
 ---
