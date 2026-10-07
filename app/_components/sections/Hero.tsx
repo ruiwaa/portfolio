@@ -104,14 +104,14 @@ export default function Hero() {
       ) : (
         <h1 className="h1 tracking-wide text-light-text dark:text-dark-text">
           <span className="anim-headline-line1 relative block w-fit">
-            기록하고,
+            배우고,
             <span
               aria-hidden="true"
               className="anim-underline-1 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-300 dark:bg-gray-300"
             />
           </span>
           <span className="anim-headline-line2 relative block w-fit">
-            배우고,
+            기록하고,
             <span
               aria-hidden="true"
               className="anim-underline-2 absolute inset-x-0 -bottom-1 h-1 rounded-full bg-blue-400 dark:bg-gray-400"
