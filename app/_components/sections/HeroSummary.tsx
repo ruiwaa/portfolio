@@ -3,7 +3,7 @@ const SUMMARY_ANIMATION_DELAY_MS = 1900;
 
 const HIGHLIGHTS = [
   "기업 연계 프로젝트 프론트엔드 단독",
-  "개선 요청 37건 중 35건 반영",
+  "개선 요청 30건 모두 반영",
   "기술 블로그 25편",
 ] as const;
 

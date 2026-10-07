@@ -10,24 +10,24 @@ import JourneyDetailCard, {
 const JOURNEY: JourneyStep[] = [
   {
     step: "01",
-    title: "RECORD",
-    description: "커밋과 기록으로 개발 과정을 체계적으로 남깁니다.",
-    detail:
-      "이슈와 마일스톤 단위로 업무를 분류해 개발 워크플로우를 설계합니다. 이런 습관 덕분에 올해 기준 약 2,000개 이상의 커밋을 남겼고, 프로젝트별 트러블슈팅 과정을 기술 블로그에 꾸준히 정리하고 있습니다.",
-  },
-  {
-    step: "02",
     title: "CONNECT",
     description: "코드 리뷰와 소통으로 팀의 결과물을 더 좋게 만듭니다.",
     detail:
-      "PR 코드리뷰와 데일리 스크럼으로 팀원과 지속적으로 소통하며 업무 품질을 높였습니다. 인턴십 리팩토링 기간에는 PM님과 개선 작업 흐름을 제안해, 총 37개 개선 사항 중 35개를 함께 완료했습니다.",
+      "PR 코드리뷰와 데일리 스크럼으로 팀원과 지속적으로 소통하며 업무 품질을 높였습니다. 인턴십 리팩토링 기간에는 PM님과 개선 작업 흐름을 제안해, 총 30개 개선 사항을 모두 완료했습니다.",
   },
   {
-    step: "03",
+    step: "02",
     title: "INCLUDE",
     description: "모두가 편하게 쓸 수 있는 웹을 고민합니다.",
     detail:
       "Wave Evaluation Tool과 Lighthouse로 매 프로젝트의 웹 접근성과 반응형 디자인을 점검합니다. 이러한 노력으로 지금까지 진행한 모든 프로젝트에서 Lighthouse 접근성 점수 90점 이상을 유지하고 있습니다.",
+  },
+  {
+    step: "03",
+    title: "RECORD",
+    description: "커밋과 기록으로 개발 과정을 체계적으로 남깁니다.",
+    detail:
+      "이슈와 마일스톤 단위로 업무를 분류해 개발 워크플로우를 설계합니다. 이런 습관 덕분에 올해 기준 약 2,000개 이상의 커밋을 남겼고, 프로젝트별 트러블슈팅 과정을 기술 블로그에 꾸준히 정리하고 있습니다.",
   },
 ];
 
@@ -39,7 +39,7 @@ interface AboutVisionProps {
 const DEFAULT_HEADING_CLASSNAME =
   "text-light-text-secondary dark:text-dark-text-secondary";
 
-// "기록의 여정" 제목(fade-up-in 0.6s)이 다 나온 뒤에 RECORD/REFLECT/LEARN/IMPROVE 목록이
+// "성장의 여정" 제목(fade-up-in 0.6s)이 다 나온 뒤에 CONNECT/INCLUDE/RECORD 목록이
 // 이어서 등장하도록, 목록 각 항목의 시작 지연에 제목 지연 + 제목 애니메이션 길이를 더한다
 const HEADING_ANIMATION_DURATION_MS = 600;
 const ITEM_STAGGER_MS = 150;
