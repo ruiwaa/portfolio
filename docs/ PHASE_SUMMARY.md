@@ -1994,4 +1994,25 @@ PR #81 생성) → "main에 merge할때 pr 템플릿도 만들어" → "커밋�
 나아갑니다", 주요 경력 "기업 연계 프로젝트 프론트엔드 단독 | 개선 요청 30건 모두 반영 | 기술 블로그 25편", About 성장의 여정
 "STEP 01 CONNECT → STEP 02 INCLUDE → STEP 03 RECORD"와 CONNECT 세부 설명 "총 30개 개선 사항을 모두 완료했습니다." 확인
 
+📍 다음: Phase 5️⃣2️⃣ - Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제
+
+## Phase 5️⃣2️⃣: Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제
+
+**요청**: PR #87·#88로 Phase 51을 main까지 병합 → "새로운 이슈를 발행해, hero 컴포넌트 밑에 보더선 아래에 장예지
+프론트엔드 문구와 세가지로 정리해준 소개 글 삭제" → (두 문구를 지우면 구분선만 남아 컴포넌트 통째 삭제로 이슈 초안 제시) "응" →
+"응 진행해" → "커밋해줘" → "pr, main 병합까지"
+
+**변경**:
+- Phase 51 병합: PR #87(`86-refactor-about-hero-order` → dev) 머지(이슈 #86은 몇 초 뒤 자동 종료 확인), dev 프로덕션 빌드에서
+  tsc·lint·build·주요 페이지와 바뀐 문구 4곳 Playwright 재확인 후 PR #88(dev → main, `merge_to_main.md` 템플릿) 머지
+- 이슈 #89(`[REFACTOR] Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제`) 생성, 브랜치 `89-refactor-remove-hero-summary`
+- `app/page.tsx`에서 `HeroSummary` import·렌더링 제거, 사용처가 없어진 `app/_components/sections/HeroSummary.tsx` 삭제
+  (Phase 46에서 추가한 구분선 + "장예지 · FRONTEND DEVELOPER" + 주요 경력 3줄). Hero 내부의 초록색 "FRONTEND DEVELOPER"
+  문구는 별도 요소라 유지. 커밋 본문 `Refs #89`
+
+**검증**: `bunx eslint app`, `bunx tsc --noEmit`, `bun run build` 통과, 저장소 내 `HeroSummary` 참조 0건. Playwright로 데스크톱
+(1280px)·모바일(390px)에서 주요 경력 목록·"장예지 · FRONTEND DEVELOPER" 문구 미노출, Hero의 "FRONTEND DEVELOPER" 유지,
+가로 스크롤 0 확인. 모바일에서 책 아이콘과 ABOUT ME 사이 여백은 Hero 래퍼의 기존 `min-h-screen`에서 오는 것으로 요약
+추가 전과 같음(별도 요청 시 조정)
+
 📍 다음: (사용자 지정 대기)

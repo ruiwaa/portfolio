@@ -1247,6 +1247,40 @@ git push -u origin 86-refactor-about-hero-order
 
 ---
 
+## Phase 5️⃣2️⃣: Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 홈에서 Hero 아래 구분선·"장예지 · FRONTEND DEVELOPER"·주요 경력 3줄이 모두 사라졌는지 확인
+- [ ] Hero 안의 "FRONTEND DEVELOPER" 문구는 그대로인지 확인
+- [ ] grep으로 HeroSummary 참조가 남아 있지 않은지 확인
+- [ ] 데스크톱·모바일에서 홈 첫 화면 여백·레이아웃 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `refactor`: `Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제` (본문 `Refs #89`)
+2. `docs`: `Phase 52 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git rm app/_components/sections/HeroSummary.tsx
+git add app/page.tsx
+git commit -m "refactor: Hero 아래 이름·주요 경력 요약(HeroSummary) 삭제" -m "Refs #89"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 52 작업 완료 사항 정리"
+
+git push -u origin 89-refactor-remove-hero-summary
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
