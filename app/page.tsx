@@ -1,5 +1,4 @@
 import Hero from "@/app/_components/sections/Hero";
-import HeroSummary from "@/app/_components/sections/HeroSummary";
 import StackBar from "@/app/_components/sections/StackBar";
 import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
 import AboutSections from "@/app/_components/sections/AboutSections";
@@ -18,7 +17,6 @@ export default function Home() {
     >
       <div className="flex  flex-col min-h-screen">
         <Hero />
-        <HeroSummary />
       </div>
 
       <div className={`mt-10 flex flex-col ${LAYOUT.sectionGap}`}>
