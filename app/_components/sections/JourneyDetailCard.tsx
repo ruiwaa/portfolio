@@ -53,6 +53,7 @@ export default function JourneyDetailCard({
           className="stroke-light-accent dark:stroke-dark-accent"
         />
         <circle
+          data-journey-connector-dot
           cx="10"
           cy="8"
           r="3.5"
