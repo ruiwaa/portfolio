@@ -1315,6 +1315,45 @@ git push -u origin 92-fix-journey-card-alignment
 
 ---
 
+## Phase 5️⃣4️⃣: 이력서 PDF 새 버전 교체 및 피그마 이력서 링크 삭제
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 새 PDF가 public/resume/장예지_이력서.pdf 경로·파일명 그대로인지 확인
+- [ ] 파일명이 조합형(NFC)인지 확인
+      python3 -c "import os,unicodedata as u;[print(n,u.is_normalized('NFC',n)) for n in os.listdir('public/resume')]"
+- [ ] 프로덕션 빌드에서 PDF 다운로드가 200, 새 파일 크기로 받아지는지 확인
+- [ ] Resume 페이지에 피그마 버튼이 없고, 노션 버튼이 강조 스타일·새 링크인지 확인 (라이트/다크, 모바일)
+- [ ] README /resume 설명에 피그마 문구가 남지 않았는지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `이력서 PDF 새 버전으로 교체` (본문 `Refs #95`)
+2. `refactor`: `피그마 이력서 링크 삭제 및 노션 버튼 강조·링크 변경` (본문 `Refs #95`)
+3. `docs`: `Phase 54 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add public/resume
+git commit -m "docs: 이력서 PDF 새 버전으로 교체" -m "Refs #95"
+
+git add app/_components/sections/Resume.tsx README.md
+git commit -m "refactor: 피그마 이력서 링크 삭제 및 노션 버튼 강조·링크 변경" -m "Refs #95"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 54 작업 완료 사항 정리"
+
+git push -u origin 95-refactor-resume-pdf-figma
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
