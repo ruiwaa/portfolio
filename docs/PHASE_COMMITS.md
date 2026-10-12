@@ -1281,6 +1281,40 @@ git push -u origin 89-refactor-remove-hero-summary
 
 ---
 
+## Phase 5️⃣3️⃣: 성장의 여정 세부 카드와 활성 단계 높이 정렬
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 데스크톱에서 스크롤로 단계가 바뀔 때 카드 연결선 끝점과 활성 단계 번호 원의 높이가 같은지 확인
+- [ ] 단계(01~03)를 클릭했을 때도 높이가 같은지 확인
+- [ ] 창 크기를 바꿨을 때 위치가 다시 맞춰지는지 확인
+- [ ] STEP 03에서 카드가 다음 섹션(기술 스택)과 겹치지 않는지 확인
+- [ ] 모바일에서 카드가 활성 단계 아래에 기존처럼 표시되는지 확인
+- [ ] 타입 체크: bunx tsc --noEmit
+- [ ] 린트: bunx eslint app
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `fix`: `성장의 여정 세부 카드를 활성 단계 높이에 맞춰 배치` (본문 `Refs #92`)
+2. `docs`: `Phase 53 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutVision.tsx app/_components/sections/JourneyDetailCard.tsx
+git commit -m "fix: 성장의 여정 세부 카드를 활성 단계 높이에 맞춰 배치" -m "Refs #92"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 53 작업 완료 사항 정리"
+
+git push -u origin 92-fix-journey-card-alignment
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

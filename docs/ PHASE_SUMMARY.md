@@ -2015,4 +2015,35 @@ PR #81 생성) → "main에 merge할때 pr 템플릿도 만들어" → "커밋�
 가로 스크롤 0 확인. 모바일에서 책 아이콘과 ABOUT ME 사이 여백은 Hero 래퍼의 기존 `min-h-screen`에서 오는 것으로 요약
 추가 전과 같음(별도 요청 시 조정)
 
+📍 다음: Phase 5️⃣3️⃣ - 성장의 여정 세부 카드와 활성 단계 높이 정렬
+
+## Phase 5️⃣3️⃣: 성장의 여정 세부 카드와 활성 단계 높이 정렬
+
+**요청**: PR #90·#91로 Phase 52를 main까지 병합 → "main 페이지의 about me 아래의 카드와 스크롤 위치에 따라 나오는 카드 세부
+내용의 높이가 안맞아. 이 문제와 관련된 이슈 만들고 작업 진행해" → "커밋해" → "pr, main 병합까지"
+
+**변경**:
+- Phase 52 병합: PR #90 머지(이슈 #89 종료) 후 dev 재확인, PR #91(dev → main) 머지. #90은 Vercel 미리보기 배포가 진행 중인
+  `UNSTABLE` 상태에서 머지했음을 머지 후 확인(이후 pass) → #91부터 `gh pr checks --watch`로 검사 완료와 `CLEAN` 확인 후 머지
+- 이슈 #92(`[FIX] 성장의 여정 세부 내용 카드와 활성 단계의 높이 불일치`, bug 템플릿 첫 사용) 생성,
+  브랜치 `92-fix-journey-card-alignment`
+- `AboutVision.tsx`: 데스크톱 세부 카드 래퍼의 `sticky top-[45vh]`를 제거하고, `useLayoutEffect`에서 활성 단계 번호 원
+  (`data-journey-step-dot`)과 카드 연결선 끝점(`data-journey-connector-dot`)의 세로 중심이 같아지도록 `translateY`를 계산해
+  style로 직접 적용(state 미사용). `ResizeObserver`로 목록·카드 크기 변경 시 재계산, `motion-safe:transition-transform
+  duration-300`으로 이동(모션 감소 설정 시 즉시). 단계 위치는 `ol`을 `relative`로 두고 `offsetTop` 기준으로 계산
+- `JourneyDetailCard.tsx`: 연결선 끝 `<circle>`에 `data-journey-connector-dot` 추가
+
+**트러블슈팅**:
+- 원인: 세부 카드가 화면 45% 지점에 sticky로 고정되지만 sticky는 옆 목록(높이 407px) 범위 안에서만 움직여, 활성 단계와 높이가
+  맞지 않음. Playwright(1280×900) 측정으로 스크롤 시 최대 66px, STEP 03 클릭 시 240px 차이 확인
+- 1차 수정 후 남은 차이 두 가지 → (1) STEP 01은 번호 원이 카드 끝점보다 31px 위라 `Math.max(0, …)` 제한에 걸려 항상 31px 차이
+  → 제한 제거(카드가 제목 오른쪽 빈 공간으로 31px 올라감) (2) 스크롤 진입 직후 11~16px 차이 → 단계 li의 등장 애니메이션
+  (fade-up 16px)이 도는 중에 화면 좌표로 재서 생긴 오차. 화면 좌표 차이는 같은 요소 안에서만 재고 목록 안 위치는
+  `offsetTop`으로 계산하도록 변경 → 0px
+
+**검증**: `bunx eslint app`, `bunx tsc --noEmit`, `bun run build` 통과. Playwright로 홈 1280×900·1024×768, /about 1280×900에서
+스크롤 8구간 + 단계 클릭 3회 모두 차이 0px(페이지 첫 진입 시 등장 애니메이션 중 약 1초간만 최대 13px, 종료 후 0px). STEP 03에서
+카드가 목록 아래로 최대 108px 내려가지만 다음 섹션과 110px 이상 간격 유지. 모바일(390px)은 단계 아래 카드 1개 표시·가로
+스크롤 0으로 기존과 동일
+
 📍 다음: (사용자 지정 대기)
