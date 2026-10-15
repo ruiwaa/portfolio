@@ -62,7 +62,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 5,
-    title: "[트러블 슈팅] [중단어창고] lighthouse 검사 후 성능 개선 작업",
+    title: "[트러블 슈팅] [중단어 창고] lighthouse 검사 후 성능 개선 작업",
     excerpt:
       "Lighthouse로 주요 페이지 성능을 측정하고, 데스크탑·모바일 점수 차이를 분석해 이미지·폰트 로딩을 최적화했습니다.",
     date: "2026-08-21",
@@ -73,7 +73,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 6,
-    title: "[중단어 창고] 비밀번호 재설정 링크를 통한 접근 여부 검증",
+    title: "[트러블 슈팅] [중단어 창고] 비밀번호 재설정 링크를 통한 접근 여부 검증",
     excerpt:
       "Supabase 비밀번호 재설정 공식 문서를 참조해 재설정 API 함수와 접근 검증 로직을 구현한 과정을 정리했습니다.",
     date: "2026-08-19",
@@ -85,7 +85,7 @@ const velogPosts: VelogPost[] = [
   {
     id: 7,
     title:
-      "[트러블 슈팅][중단어 창고] NextTheme로 다크 모드 구현 과정에서의 문제 해결",
+      "[트러블 슈팅] [중단어 창고] NextTheme로 다크 모드 구현 과정에서의 문제 해결",
     excerpt:
       "next-themes로 다크모드를 적용하는 과정에서 발생한 Hydration 오류의 원인과 해결 방법을 기록했습니다.",
     date: "2026-08-13",
@@ -107,7 +107,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 9,
-    title: "[중단어 창고] 마이페이지 설정 이메일 변경 기능 구현 기록",
+    title: "[트러블 슈팅] [중단어 창고] 마이페이지 설정 이메일 변경 기능 구현 기록",
     excerpt:
       "마이페이지 이메일 변경 기능을 구현하며 겪은 문제들과, 기존 코드를 개선한 과정을 기록했습니다.",
     date: "2026-08-11",
@@ -130,7 +130,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 11,
-    title: "[인턴십 프로젝트][트러블 슈팅] 타임라인 위치 동기화",
+    title: "[트러블 슈팅] [인턴십 프로젝트] 타임라인 위치 동기화",
     excerpt:
       "영상 타임라인 UI를 만들며 반복적으로 쓰인 비율 계산, 포인터 캡처 등 위치 동기화 패턴을 정리했습니다.",
     date: "2026-07-12",
@@ -152,7 +152,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 13,
-    title: "[트러블 슈팅] [중단어창고] 페이지네이션 이동 문제 해결 과정",
+    title: "[트러블 슈팅] [중단어 창고] 페이지네이션 이동 문제 해결 과정",
     excerpt:
       "전체 데이터 개수 조회로 페이지 수를 계산하고, URL 쿼리스트링 타입 변환 문제를 해결해 페이지네이션 버그를 수정하였습니다.",
     date: "2026-06-25",
@@ -164,7 +164,7 @@ const velogPosts: VelogPost[] = [
   {
     id: 14,
     title:
-      "[트러블 슈팅] [중단어창고] 동적 라우팅에 대한 Suspense 경고 발생 및 해결",
+      "[트러블 슈팅] [중단어 창고] 동적 라우팅에 대한 Suspense 경고 발생 및 해결",
     excerpt:
       "usePathname을 사용하는 컴포넌트에서 발생한 Suspense 경고를, 컴포넌트를 Suspense 경계로 감싸 해결한 과정을 기록했습니다.",
     date: "2026-06-24",
@@ -175,7 +175,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 17,
-    title: "[트러블 슈팅] [중단어 창고]오늘의 단어 컴포넌트 퍼블리싱",
+    title: "[트러블 슈팅] [중단어 창고] 오늘의 단어 컴포넌트 퍼블리싱",
     excerpt:
       "Supabase RLS 권한 오류를 해결하고, 접근성을 고려한 Swiper 커스텀 네비게이션을 구현한 과정을 기록했습니다.",
     date: "2026-06-22",
@@ -186,7 +186,7 @@ const velogPosts: VelogPost[] = [
   },
   {
     id: 19,
-    title: "[트러블 슈팅] [중단어창고] 로그인, 회원가입 폼 개발 기록",
+    title: "[트러블 슈팅] [중단어 창고] 로그인, 회원가입 폼 개발 기록",
     excerpt:
       "React Hook Form과 Zod로 폼을 검증하고 Supabase Auth를 연동하며 겪은 문제들을 해결한 과정을 정리했습니다.",
     date: "2026-06-19",
