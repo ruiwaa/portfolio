@@ -78,7 +78,7 @@ const velogPosts: VelogPost[] = [
       "Supabase 비밀번호 재설정 공식 문서를 참조해 재설정 API 함수와 접근 검증 로직을 구현한 과정을 정리했습니다.",
     date: "2026-08-19",
     url: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%9E%AC%EC%84%A4%EC%A0%95-%EB%A7%81%ED%81%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%A0%91%EA%B7%BC-%EC%97%AC%EB%B6%80-%EA%B2%80%EC%A6%9D",
-    category: "개발",
+    category: "트러블슈팅",
     project: "중단어 창고",
     tags: ["Supabase", "인증"],
   },
