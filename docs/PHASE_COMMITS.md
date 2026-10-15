@@ -1354,6 +1354,37 @@ git push -u origin 95-refactor-resume-pdf-figma
 
 ---
 
+## Phase 5️⃣5️⃣: 중단어 창고 비밀번호 재설정 글을 트러블슈팅 카테고리로 이동
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 트러블슈팅 탭 > 중단어 창고 아코디언에 글이 노출되는지 확인 (7 → 8)
+- [ ] 개발 탭에서 더 이상 노출되지 않는지 확인
+- [ ] 중단어 창고 프로젝트 카드 포스트 링크로 진입 시 글이 보이는지 확인
+- [ ] 글의 제목·요약·URL·태그가 그대로인지 확인 (category만 변경)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `중단어 창고 비밀번호 재설정 글을 트러블슈팅 카테고리로 이동` (본문 `Refs #98`)
+2. `docs`: `Phase 55 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Posts.tsx
+git commit -m "docs: 중단어 창고 비밀번호 재설정 글을 트러블슈팅 카테고리로 이동" -m "Refs #98"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 55 작업 완료 사항 정리"
+
+git push -u origin 98-docs-password-reset-post-category
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
