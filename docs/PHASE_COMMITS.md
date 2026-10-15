@@ -1385,6 +1385,37 @@ git push -u origin 98-docs-password-reset-post-category
 
 ---
 
+## Phase 5️⃣6️⃣: 트러블슈팅 글 제목을 [트러블 슈팅] [프로젝트] 형식으로 통일
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 트러블슈팅 카테고리 글 제목이 모두 "[트러블 슈팅] [프로젝트명] 제목" 형식인지 확인 (Velog·로컬 모두)
+- [ ] 프로젝트명이 아코디언 그룹명과 같은지 확인 (예: [중단어 창고])
+- [ ] 제목 외 필드(excerpt·url·category·project·tags)가 바뀌지 않았는지 git diff로 확인
+- [ ] 로컬 글 상세 페이지 h1·브라우저 탭 제목이 새 제목인지 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `트러블슈팅 글 제목을 [트러블 슈팅] [프로젝트] 형식으로 통일` (본문 `Refs #101`)
+2. `docs`: `Phase 56 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Posts.tsx posts
+git commit -m "docs: 트러블슈팅 글 제목을 [트러블 슈팅] [프로젝트] 형식으로 통일" -m "Refs #101"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 56 작업 완료 사항 정리"
+
+git push -u origin 101-docs-troubleshooting-title-prefix
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
