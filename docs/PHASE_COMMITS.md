@@ -1477,6 +1477,41 @@ git push -u origin 107-docs-resume-pdf
 
 ---
 
+## Phase 5️⃣9️⃣: public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] bun run check:filenames 가 NFD 이름이 있을 때 목록 출력 + 종료 코드 1, 없을 때 0인지 확인
+- [ ] bun run fix:filenames 가 파일·폴더 이름만 NFC로 바꾸고 내용은 유지하는지 확인 (임시 NFD 파일로 테스트 후 삭제)
+- [ ] 테스트용 임시 파일이 public/에 남아 있지 않은지 확인
+- [ ] 린트: bunx eslint app lib scripts
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가` (본문 `Refs #110`)
+2. `docs`: `이력서 PDF 교체 시 파일명 변환 명령 사용법 추가` (본문 `Refs #110`)
+3. `docs`: `Phase 59 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add scripts/normalize-filenames.mjs package.json
+git commit -m "feat: public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가" -m "Refs #110"
+
+git add README.md docs/CONTENT_MANAGEMENT.md
+git commit -m "docs: 이력서 PDF 교체 시 파일명 변환 명령 사용법 추가" -m "Refs #110"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 59 작업 완료 사항 정리"
+
+git push -u origin 110-feat-normalize-filenames
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

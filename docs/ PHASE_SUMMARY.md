@@ -2155,4 +2155,27 @@ NFC 확인 단계에서 바로 발견해 디스크 파일명만 NFC(11글자)로
 **검증**: `bun run build` 통과. 프로덕션 서버에서 `/resume/장예지_이력서.pdf` 응답과 해시 일치, `/resume` 페이지 `<a>`의 `href`·
 `download` 속성 유지 확인
 
+📍 다음: Phase 5️⃣9️⃣ - public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가
+
+## Phase 5️⃣9️⃣: public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가
+
+**요청**: PR #108·#109로 Phase 58을 main까지 병합하면서 Finder로 넣은 PDF의 파일명 NFD 문제가 세 번 연속(Phase 50·54·58) 발생해
+자동화 스크립트 제안 → "응 그렇게 만들어줘." → "커밋부터 병합까지 차례대로 진행해"
+
+**변경**:
+- Phase 58 병합: PR #108 머지(이슈 #107 종료) 후 dev 재확인(PDF NFC·200·크기·해시), PR #109(dev → main) 머지
+- 이슈 #110(`[FEAT] public 폴더 한글 파일명 NFC 자동 변환 스크립트 추가`, feature 템플릿) 생성, 브랜치 `110-feat-normalize-filenames`
+- `scripts/normalize-filenames.mjs` 신규(Node 내장 모듈만 사용): `public/`을 재귀 탐색해 NFC가 아닌 파일·폴더 이름을
+  `String.prototype.normalize("NFC")`로 변경. 하위 항목을 먼저 처리한 뒤 자기 이름을 바꿔 폴더 이름 변경 후에도 경로를 잃지 않음.
+  APFS가 정규화 차이를 같은 이름으로 취급하는 경우에도 확실히 바뀌도록 임시 이름을 거쳐 rename. 파일 내용은 변경하지 않음
+  - `--check`: 이름을 바꾸지 않고 NFD 목록만 출력, 있으면 `process.exitCode = 1`
+- `package.json`: `fix:filenames`(`node scripts/normalize-filenames.mjs`), `check:filenames`(`… --check`) 추가
+- `docs/CONTENT_MANAGEMENT.md`에 "이력서 PDF 교체" 워크플로(덮어쓰기 → `bun run fix:filenames` → 빌드 후 다운로드 확인), `README.md`
+  시작하기 명령 목록에 `bun run fix:filenames` 추가
+- 커밋 본문 `Refs #110`
+
+**검증**: 임시로 `public/__nfdtest/`에 NFD 이름의 폴더와 그 안의 NFD 이름 파일을 만들어 `check:filenames` → 2개 검출·종료 코드 1,
+`fix:filenames` → 2개 NFC 변환·파일 내용 유지, 재실행한 `check:filenames` → 종료 코드 0 확인 후 테스트 폴더 삭제. 실제 `public/`에서
+`check:filenames` 통과. `bunx eslint app lib scripts`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)

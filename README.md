@@ -75,6 +75,9 @@ bun start
 
 # 린트
 bun lint
+
+# public/ 한글 파일명을 NFC로 변환 (Finder로 이력서 PDF 등을 넣은 뒤)
+bun run fix:filenames
 ```
 
 별도의 환경 변수 없이 실행됩니다.
