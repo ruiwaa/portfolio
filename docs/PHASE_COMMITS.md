@@ -1416,6 +1416,36 @@ git push -u origin 101-docs-troubleshooting-title-prefix
 
 ---
 
+## Phase 5️⃣7️⃣: Resume 페이지 노션 이력서 링크 새 주소로 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 새 노션 주소가 브라우저에서 정상적으로 열리는지 확인
+- [ ] /resume 노션 버튼 href가 새 주소이고 새 탭으로 열리는지 확인
+- [ ] grep으로 이전 노션 주소가 남아 있지 않은지 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `refactor`: `Resume 페이지 노션 이력서 링크 새 주소로 교체` (본문 `Refs #104`)
+2. `docs`: `Phase 57 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Resume.tsx
+git commit -m "refactor: Resume 페이지 노션 이력서 링크 새 주소로 교체" -m "Refs #104"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 57 작업 완료 사항 정리"
+
+git push -u origin 104-refactor-notion-resume-link
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
