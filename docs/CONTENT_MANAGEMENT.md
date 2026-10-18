@@ -117,6 +117,16 @@ git push origin [branch-name]
 # 4. 자동 배포
 ```
 
+### 이력서 PDF 교체
+
+1. 새 PDF로 `public/resume/장예지_이력서.pdf`를 덮어쓴다 (경로·파일명 유지 - 다운로드 링크가 이 경로를 가리킴)
+2. `bun run fix:filenames` 실행
+   - macOS Finder로 넣은 한글 파일명은 자모 분리형(NFD)으로 저장될 수 있다. Git은 NFC로 기록해 `git status`에는 드러나지
+     않지만, 로컬 Next.js 서버는 NFC URL로 파일을 찾아 다운로드가 404가 된다
+   - 스크립트(`scripts/normalize-filenames.mjs`)는 `public/` 아래 파일·폴더 이름만 NFC로 바꾸고 내용은 건드리지 않는다
+   - 확인만 하려면 `bun run check:filenames` (NFD 이름이 있으면 목록을 출력하고 종료 코드 1)
+3. `bun run build && bun start` 후 `/resume`에서 PDF 다운로드 확인
+
 ## 기술 구현
 
 ### 마크다운 파일 탐색 (lib/markdown.ts)
