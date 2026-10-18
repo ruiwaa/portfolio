@@ -2117,4 +2117,21 @@ Resume 버튼이 "노션으로 보기(강조, 라이트 rgb(26,26,26)/다크 rgb
 `bun run build` 통과. Playwright로 트러블슈팅 탭 5개 그룹(인턴십 프로젝트 1·중단어 창고 8·행쇼마켓 3·예매의 정석 1·포트폴리오 1)을
 각각 열어 14개 제목 모두 형식 일치, 로컬 글 상세 페이지 `<h1>`·브라우저 탭 제목도 새 제목으로 바뀐 것 확인
 
+📍 다음: Phase 5️⃣7️⃣ - Resume 페이지 노션 이력서 링크 새 주소로 교체
+
+## Phase 5️⃣7️⃣: Resume 페이지 노션 이력서 링크 새 주소로 교체
+
+**요청**: PR #102·#103으로 Phase 56을 main까지 병합 → "노션 새로운 주소로 교체해야돼 https://app.notion.com/p/1-3fd01fb4da2a80ca9b62c0db4c051e44
+이슈먼저 발행하고 작업 진행해" → "커밋부터 병합까지 차례대로 진행해"
+
+**변경**:
+- Phase 56 병합: PR #102 머지(이슈 #101 종료) 후 dev 재확인(트러블슈팅 14개 제목 형식 재검사), PR #103(dev → main) 머지
+  (두 PR 모두 Vercel 검사 통과·`CLEAN` 확인 후)
+- 이슈 #104(`[REFACTOR] Resume 페이지 노션 이력서 링크 새 주소로 교체`) 생성, 브랜치 `104-refactor-notion-resume-link`
+- `Resume.tsx`: `RESUME_NOTION_URL`을 `…/3f201fb4da2a803b85f6f92128b0f0b3?source=copy_link` → `…/1-3fd01fb4da2a80ca9b62c0db4c051e44`로
+  교체. 저장소 내 노션 링크 사용처는 이 한 곳뿐이며 이전 주소 잔존 0건. 커밋 본문 `Refs #104`
+
+**검증**: 새 노션 주소 200 응답. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과. 프로덕션 서버 `/resume` HTML에서 노션 버튼
+`href`가 새 주소, `target="_blank"`인 것 확인
+
 📍 다음: (사용자 지정 대기)

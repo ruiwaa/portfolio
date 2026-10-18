@@ -4,7 +4,7 @@ import { SiNotion } from "react-icons/si";
 import ResumeWaveGrid from "@/app/_components/sections/ResumeWaveGrid";
 
 const RESUME_NOTION_URL =
-  "https://app.notion.com/p/3f201fb4da2a803b85f6f92128b0f0b3?source=copy_link";
+  "https://app.notion.com/p/1-3fd01fb4da2a80ca9b62c0db4c051e44";
 const RESUME_PDF_URL = "/resume/%EC%9E%A5%EC%98%88%EC%A7%80_%EC%9D%B4%EB%A0%A5%EC%84%9C.pdf";
 
 export default function Resume() {
