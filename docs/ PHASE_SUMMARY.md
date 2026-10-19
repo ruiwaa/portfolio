@@ -2250,4 +2250,27 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 중에만 13~15px), 768~1280px 단계 3개 각각 화살표·글자 겹침 0건, 라이트·다크 스크린샷 확인. `bunx eslint`, `bunx tsc --noEmit`,
 `bun run build` 통과
 
+📍 다음: Phase 6️⃣3️⃣ - 성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일
+
+## Phase 6️⃣3️⃣: 성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일
+
+**요청**: PR #120·#121로 Phase 62를 main까지 병합 → "그냥 모바일 버전의 레이아웃으로 통일해" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 62 병합: PR #120 머지(이슈 #119 종료) 후 dev 재확인, PR #121(dev → main) 머지
+- 이슈 #122(`[REFACTOR] 성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일`) 생성, 브랜치 `122-refactor-journey-single-layout`
+  (작업 후 이슈 번호로 이름 변경)
+- `AboutVision.tsx`: 데스크톱 2열 그리드(`md:grid-cols-2 md:gap-5`)를 한 열(`mt-8`)로 바꾸고, 모바일 전용이던 단계 아래 카드(`md:hidden`)를
+  모든 화면에 표시. 데스크톱 전용 세부 카드 래퍼와 #92에서 추가한 높이 정렬 코드(`useLayoutEffect`·`ResizeObserver`·`listRef`·
+  `cardWrapperRef`·`data-journey-step-dot`) 삭제, 미사용이 된 `useLayoutEffect` import·`active` 변수 제거. 단계 번호 원 보정(`pl-4.25`)은 유지
+- `JourneyDetailCard.tsx`: 데스크톱 전용 화살표 SVG(`data-journey-connector-dot` 포함) 삭제
+- 두 파일 합계 +7 / −87줄. 커밋 본문 `Refs #122`
+- 결과적으로 Phase 53(#92 높이 정렬)·61·62(화살표)의 데스크톱 연결선 관련 구현이 제거됨. About Me 가운데 배치(#116)·제목 여백(#119)·
+  좌우 여백 보정(#113)은 유지
+
+**검증**: Playwright로 390/768/1280/1920px(라이트)과 /about 1280px(다크)에서 단계 3개를 각각 클릭해 보이는 세부 카드 1개, 카드가 활성
+단계 li 안·버튼 아래에 위치, SVG 화살표 0개, 가로 스크롤 0 확인. 좌우 여백 1280px 160/156px(오른쪽 4px는 활성 제목 `translate-x-1`).
+`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과, Prettier 검사에서 이번 변경으로 생긴 빈 줄 1개 정리(`AboutVision.tsx`의 기존
+미포맷 1줄은 이번 변경 전부터 있던 것이라 유지)
+
 📍 다음: (사용자 지정 대기)
