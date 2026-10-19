@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useInView } from "@/app/_hooks/useInView";
 import JourneyDetailCard, {
@@ -51,10 +51,7 @@ export default function AboutVision({
 }: AboutVisionProps) {
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = JOURNEY[activeIndex];
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const listRef = useRef<HTMLOListElement>(null);
-  const cardWrapperRef = useRef<HTMLDivElement>(null);
   // activeIndex === 0은 페이지 최초 진입 시뿐 아니라 3번 -> 1번처럼 스크롤을 되돌릴 때도
   // 참이 되므로, "정말 첫 등장인지"는 이 state로 따로 추적함(0번을 한 번이라도 벗어나면 true).
   // 렌더 중 이전 activeIndex와 비교해서만 갱신하는, effect 없이 상태를 따라가는 패턴
@@ -98,46 +95,6 @@ export default function AboutVision({
     return () => observer.disconnect();
   }, []);
 
-  // 데스크톱 세부 카드를 화면 기준 sticky가 아니라 활성 단계 위치에 맞춰 내림 - sticky(top 45vh)는
-  // 목록 높이 안에서만 움직여 카드 연결선 끝점과 활성 단계 번호 원의 높이가 최대 240px까지 어긋났음.
-  // 두 원의 세로 중심이 같아지도록 목록 기준 위치를 직접 계산하고, 크기가 바뀌면 다시 계산한다.
-  // (위치는 state가 아닌 style로 바로 반영해 추가 렌더링을 만들지 않음)
-  useLayoutEffect(() => {
-    const list = listRef.current;
-    const wrapper = cardWrapperRef.current;
-    if (!list || !wrapper) return;
-
-    const align = () => {
-      const step = stepRefs.current[activeIndex];
-      const stepDot = step?.querySelector("[data-journey-step-dot]");
-      const connectorDot = wrapper.querySelector("[data-journey-connector-dot]");
-      if (!stepDot || !connectorDot) return;
-
-      const center = (el: Element) => {
-        const rect = el.getBoundingClientRect();
-        return rect.top + rect.height / 2;
-      };
-      // 등장 애니메이션(fade-up의 translate)이 도는 중에 계산해도 어긋나지 않도록, 화면 좌표끼리의 차이는
-      // 같은 요소 안(단계 원 ↔ 단계 li, 연결선 끝점 ↔ 카드)에서만 재고, 목록 안 위치는 transform의 영향을
-      // 받지 않는 offsetTop으로 계산
-      const card = wrapper.firstElementChild;
-      if (!step || !card) return;
-      const stepDotInList =
-        step.offsetTop + center(stepDot) - step.getBoundingClientRect().top;
-      const dotOffsetInCard =
-        center(connectorDot) - card.getBoundingClientRect().top;
-
-      // 01단계는 원이 카드 끝점보다 위에 있어 음수가 되며, 이때 카드는 제목 오른쪽 빈 공간으로 살짝 올라감
-      wrapper.style.transform = `translateY(${stepDotInList - dotOffsetInCard}px)`;
-    };
-
-    align();
-    const observer = new ResizeObserver(align);
-    observer.observe(list);
-    observer.observe(wrapper);
-    return () => observer.disconnect();
-  }, [activeIndex]);
-
   return (
     <section ref={ref} aria-labelledby="about-vision-heading">
       <h2
@@ -150,11 +107,11 @@ export default function AboutVision({
         성장의 여정
       </h2>
 
-      <div className="mt-8 grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-5">
-        {/* relative: 단계 li의 offsetTop 기준을 이 목록으로 맞춤.
-            pl-4.25: 단계 번호 원이 li 왼쪽 밖으로 17px(-left-4.25) 나가 있어, 그만큼 목록을 안쪽으로 밀어
-            원의 왼쪽 끝이 섹션 여백에 맞도록 함 - 이전에는 왼쪽만 17px 덜 띄워져 좌우 여백이 달랐음 */}
-        <ol ref={listRef} className="relative list-none pl-4.25">
+      {/* 모든 화면 크기에서 같은 레이아웃: 세부 내용 카드를 활성 단계 바로 아래에 표시 */}
+      <div className="mt-8">
+        {/* pl-4.25: 단계 번호 원이 li 왼쪽 밖으로 17px(-left-4.25) 나가 있어, 그만큼 목록을 안쪽으로 밀어
+            원의 왼쪽 끝이 섹션 여백에 맞도록 함 */}
+        <ol className="list-none pl-4.25">
           {JOURNEY.map((item, index) => {
             const isActive = index === activeIndex;
 
@@ -185,7 +142,6 @@ export default function AboutVision({
                 >
                   <span
                     aria-hidden="true"
-                    data-journey-step-dot
                     className={`absolute -left-4.25 top-0 flex h-8 w-8 items-center justify-center rounded-full border-2 badge transition-all duration-300 ${
                       isActive
                         ? "scale-110 border-light-accent bg-light-surface text-light-accent dark:border-dark-accent dark:bg-dark-surface dark:text-dark-accent"
@@ -218,7 +174,7 @@ export default function AboutVision({
                 </button>
 
                 {isActive && (
-                  <div className="mt-4 md:hidden">
+                  <div className="mt-4">
                     <JourneyDetailCard
                       active={item}
                       isInView={isInView}
@@ -230,18 +186,6 @@ export default function AboutVision({
             );
           })}
         </ol>
-
-        <div
-          ref={cardWrapperRef}
-          className="hidden motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out md:block"
-        >
-          <JourneyDetailCard
-            key={activeIndex}
-            active={active}
-            isInView={isInView}
-            animationDelayMs={detailCardDelayMs}
-          />
-        </div>
       </div>
     </section>
   );

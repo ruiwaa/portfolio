@@ -40,31 +40,6 @@ export default function JourneyDetailCard({
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
     >
-      {/* 활성 단계에서 세부 카드를 가리키는 일직선 화살표 - 오른쪽(카드 쪽)을 향하고, 화살촉 끝과 카드 바깥 테두리
-          사이에 12px(gap-3) 간격을 둠. absolute 기준이 테두리(border-4) 안쪽이라
-          폭 40px(w-10) + 간격 12px + 테두리 4px = 56px(-left-14).
-          화살촉 중심(data-journey-connector-dot)이 AboutVision에서 활성 단계 번호 원과 높이를 맞추는 기준점 */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 40 16"
-        className="pointer-events-none absolute top-8 -left-14 hidden h-4 w-10 md:block"
-      >
-        <line
-          x1="0"
-          y1="8"
-          x2="32"
-          y2="8"
-          strokeWidth="2"
-          strokeLinecap="round"
-          className="stroke-light-accent dark:stroke-dark-accent"
-        />
-        <polygon
-          data-journey-connector-dot
-          points="40,8 31,3 31,13"
-          className="fill-light-accent dark:fill-dark-accent"
-        />
-      </svg>
-
       <h3 className="badge text-light-text-secondary dark:text-dark-text-secondary">
         STEP {active.step}
       </h3>
