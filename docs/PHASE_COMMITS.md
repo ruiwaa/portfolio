@@ -1844,6 +1844,37 @@ git push -u origin 140-style-project-detail-padding
 
 ---
 
+## Phase 7️⃣0️⃣: 프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 카드의 계산된 padding이 0px인지 확인 (개발자 도구 Computed)
+- [ ] 제목·이미지·링크 아이콘이 카드 가장자리에서 같은 거리(모바일 20px, sm 이상 24px)인지 확인
+- [ ] Card를 padded 지정 없이 쓰는 곳은 기존처럼 p-8이 적용되는지 확인
+- [ ] 라이트/다크 모드, 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `fix`: `프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제 수정` (본문 `Refs #143`)
+2. `docs`: `Phase 70 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/ui/Card.tsx app/_components/sections/Projects.tsx
+git commit -m "fix: 프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제 수정" -m "Refs #143"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 70 작업 완료 사항 정리"
+
+git push -u origin 143-fix-project-card-padding
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

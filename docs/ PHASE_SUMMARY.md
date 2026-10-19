@@ -2404,4 +2404,25 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
 줄 길이 1280px 575·395·563·579px(변경 전 최대 약 820px - 이미지 폭 848px에서 글머리표 칸 제외한 계산값), 가로 스크롤 0. `bunx eslint`,
 `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 7️⃣0️⃣ - 프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제 수정
+
+## Phase 7️⃣0️⃣: 프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제 수정
+
+**요청**: PR #141·#142로 Phase 69를 main까지 병합 → "카드 32px 여백 문제도 고쳐줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 69 병합: PR #141 머지(이슈 #140 종료) 후 dev 재확인, PR #142(dev → main) 머지
+- 이슈 #143(`[FIX] 프로젝트 카드에 의도하지 않은 32px 기본 여백이 적용되는 문제`, bug 템플릿) 생성, 브랜치 `143-fix-project-card-padding`
+- `Card.tsx`: `padded?: boolean`(기본 true) 옵션 추가, `padded`일 때만 `p-8` 적용
+- `Projects.tsx`: `<Card padded={false}>`로 변경하고 효과 없던 `p-0` 제거. 이미지 `sizes`를 실제 최대 폭 `(min-width: 1120px) 912px, 90vw`로 수정
+- `Card`는 `Projects.tsx`에서만 사용되어 다른 화면 영향 없음. 커밋 본문 `Refs #143`
+
+**트러블슈팅**: Phase 68에서 발견한 문제 - 프로젝트 카드에 `className`으로 넘긴 `p-0`이 Card 기본 `p-8`과 같은 우선순위의 유틸리티라 스타일시트상
+뒤에 오는 `p-8`이 적용되어, 카드 내용이 의도(안쪽 24px)보다 32px 더 안쪽(56px)에 있었음. className 순서나 `!important`로 덮는 대신 Card가 `p-8`을
+아예 붙이지 않도록 옵션을 추가해 충돌 자체를 없앰. 수정 후 카드 패딩 0px, 제목·이미지·링크가 카드 가장자리에서 390px 20px·768/1280px 24px로 동일,
+1280px 이미지 폭 848 → 912px, 390px 238 → 302px
+
+**검증**: Playwright로 `/experience` 390/768/1280px(1280px 라이트·다크)에서 카드 4개의 계산된 padding 0px, 제목·이미지 좌우·링크 여백 일치, 이미지 폭,
+다크 글자 최소 대비 12.6:1 유지, 가로 스크롤 0 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
