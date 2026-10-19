@@ -1512,6 +1512,37 @@ git push -u origin 110-feat-normalize-filenames
 
 ---
 
+## Phase 6️⃣0️⃣: About Me 성장의 여정 좌우 여백 균일하게 조정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 성장의 여정 단계 번호 원 왼쪽 끝이 "성장의 여정" 제목과 같은 선인지 확인
+- [ ] 보이는 내용의 좌우 여백이 같은지 확인 (모바일 24px, 768px 이상 48px)
+- [ ] 세부 카드와 활성 단계 높이 정렬(#92)이 그대로인지 확인
+- [ ] 모바일에서 단계 아래 카드 표시와 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me 성장의 여정 좌우 여백 균일하게 조정` (본문 `Refs #113`)
+2. `docs`: `Phase 60 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutVision.tsx
+git commit -m "style: About Me 성장의 여정 좌우 여백 균일하게 조정" -m "Refs #113"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 60 작업 완료 사항 정리"
+
+git push -u origin 113-style-about-horizontal-padding
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

@@ -151,8 +151,10 @@ export default function AboutVision({
       </h2>
 
       <div className="mt-8 grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-24">
-        {/* relative: 단계 li의 offsetTop 기준을 이 목록으로 맞춤 */}
-        <ol ref={listRef} className="relative list-none">
+        {/* relative: 단계 li의 offsetTop 기준을 이 목록으로 맞춤.
+            pl-4.25: 단계 번호 원이 li 왼쪽 밖으로 17px(-left-4.25) 나가 있어, 그만큼 목록을 안쪽으로 밀어
+            원의 왼쪽 끝이 섹션 여백에 맞도록 함 - 이전에는 왼쪽만 17px 덜 띄워져 좌우 여백이 달랐음 */}
+        <ol ref={listRef} className="relative list-none pl-4.25">
           {JOURNEY.map((item, index) => {
             const isActive = index === activeIndex;
 
