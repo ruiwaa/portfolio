@@ -1875,6 +1875,37 @@ git push -u origin 143-fix-project-card-padding
 
 ---
 
+## Phase 7️⃣1️⃣: 프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 제목이 카드 가운데에 있는지 확인
+- [ ] 이미지(·영상) 모서리가 둥글게 잘리는지 확인
+- [ ] 이미지 둘레 여백이 상하좌우 5px인지 확인
+- [ ] 라이트/다크 모드, 모바일, 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가` (본문 `Refs #146`)
+2. `docs`: `Phase 71 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가" -m "Refs #146"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 71 작업 완료 사항 정리"
+
+git push -u origin 146-style-project-title-image
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

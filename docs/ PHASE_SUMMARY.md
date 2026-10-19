@@ -2425,4 +2425,25 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
 **검증**: Playwright로 `/experience` 390/768/1280px(1280px 라이트·다크)에서 카드 4개의 계산된 padding 0px, 제목·이미지 좌우·링크 여백 일치, 이미지 폭,
 다크 글자 최소 대비 12.6:1 유지, 가로 스크롤 0 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 7️⃣1️⃣ - 프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가
+
+## Phase 7️⃣1️⃣: 프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가
+
+**요청**: PR #144·#145로 Phase 70을 main까지 병합 → "각 프로젝트 타이틀을 가운데 정렬하고, 프로젝트 이미지 boder-radius 속성 추가 및 패딩 5픽셀씩 추가" →
+"이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 70 병합: PR #144 머지 후 이슈 #143이 몇 분간 OPEN으로 남아(연결은 `closedBy=144`로 확인) 수동 종료를 시도했으나 그 사이 GitHub가 자동 종료해
+  별도 댓글 없이 처리. dev 재확인 후 PR #145(dev → main) 머지
+- 이슈 #146(`[STYLE] 프로젝트 제목 가운데 정렬, 이미지 둥근 모서리·5px 여백 추가`) 생성, 브랜치 `146-style-project-title-image`
+- `Projects.tsx`
+  - 제목 `h3`에 `text-center`(기술 아이콘·담당 역할·소개 문구는 왼쪽 정렬 유지)
+  - 이미지 영역을 바깥 상자(`aspect-16/10 p-[5px]`) + 안쪽 상자(`relative h-full w-full overflow-hidden rounded-lg shadow-xl`)로 나눔 - next/image `fill`은
+    `inset:0` 절대 배치라 바깥 상자 패딩만으로는 이미지가 줄어들지 않기 때문. 이미지의 `shadow-xl`은 둥근 안쪽 상자로 이동, 영상도 같은 상자 안에 표시
+  - 이미지 `sizes` `(min-width: 1120px) 902px, 90vw`(912 − 5×2)
+- 커밋 본문 `Refs #146`
+
+**검증**: Playwright로 `/experience` 390px·1280px(라이트·다크) 카드 4개에서 제목 글자 중심과 카드 중심 차이 0px, 이미지 상하좌우 여백 5px, 안쪽 상자
+`border-radius` 8px·`overflow: hidden`, 이미지 폭 390px 292px·1280px 902px, 가로 스크롤 0 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
