@@ -204,7 +204,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         className={`flex flex-col overflow-hidden ${CARD_DARK_BG}`}
       >
         <div className="p-5 pb-0 sm:p-6 sm:pb-0">
-          <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
+          <h3 className="text-center text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
             {project.title}
           </h3>
           {/* 아이콘만 보이지만 기술 이름은 스크린 리더(sr-only)와 마우스 툴팁(title)으로 제공.
@@ -247,28 +247,32 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
 
         {/* 모든 화면에서 이미지 위·세부 내용 아래의 세로 배치 */}
         <div className="flex flex-col items-start px-5 sm:px-6">
-          <div className="relative mt-6 aspect-16/10 w-full shrink-0">
-            {project.media.type === "video" ? (
-              <video
-                src={project.media.src}
-                controls
-                muted
-                playsInline
-                loop
-                className="h-full w-full object-cover"
-              >
-                <track kind="captions" />
-              </video>
-            ) : (
-              <Image
-                src={project.media.src}
-                alt=""
-                fill
-                className="object-cover shadow-xl"
-                // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 24px×2 = 912px
-                sizes="(min-width: 1120px) 912px, 90vw"
-              />
-            )}
+          {/* p-[5px]: 이미지 둘레 5px 여백. next/image fill은 inset:0 절대 배치라 바깥 상자 패딩으로는 줄어들지 않아,
+              패딩 안쪽에 둥근 모서리(rounded-lg)·그림자를 가진 상자를 하나 더 두고 그 안에 이미지를 채움 */}
+          <div className="mt-6 aspect-16/10 w-full shrink-0 p-[5px]">
+            <div className="relative h-full w-full overflow-hidden rounded-lg shadow-xl">
+              {project.media.type === "video" ? (
+                <video
+                  src={project.media.src}
+                  controls
+                  muted
+                  playsInline
+                  loop
+                  className="h-full w-full object-cover"
+                >
+                  <track kind="captions" />
+                </video>
+              ) : (
+                <Image
+                  src={project.media.src}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 24px×2 - 이미지 여백 5px×2 = 902px
+                  sizes="(min-width: 1120px) 902px, 90vw"
+                />
+              )}
+            </div>
           </div>
           {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
               끊을 수 없는 긴 단어가 있으면 카드 밖으로 넘쳤음 */}
