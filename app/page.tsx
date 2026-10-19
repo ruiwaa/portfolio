@@ -1,9 +1,7 @@
 import Hero from "@/app/_components/sections/Hero";
 import StackBar from "@/app/_components/sections/StackBar";
 import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
-import AboutSections, {
-  ABOUT_CONTAINER_CLASSNAME,
-} from "@/app/_components/sections/AboutSections";
+import AboutSections from "@/app/_components/sections/AboutSections";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import { LAYOUT } from "@/lib/constants";
 
@@ -24,7 +22,7 @@ export default function Home() {
       <div className={`mt-10 flex flex-col ${LAYOUT.sectionGap}`}>
         <div>
           <h2
-            className={`section-header ${SECTION_HEADING_CLASSNAME} ${ABOUT_CONTAINER_CLASSNAME}`}
+            className={`section-header ${SECTION_HEADING_CLASSNAME} ${LAYOUT.contentContainer}`}
           >
             <AnimatedLetters text="ABOUT ME" />
           </h2>

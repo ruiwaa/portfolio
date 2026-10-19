@@ -4,6 +4,9 @@ export const LAYOUT = {
   sectionGap: "gap-40", // 80px
   componentGap: "gap-6", // 24px
   navHeight: "h-14", // 56px
+  // 본문 섹션(About Me, Experience & Projects) 공통 폭 - 넓은 화면에서 화면 전체로 퍼지지 않도록 최대 1024px로
+  // 가운데 배치하고, md 이상에서는 좌우 여백을 더 줌. 섹션 제목도 같은 값을 써서 내용과 같은 선에서 시작하게 함
+  contentContainer: "mx-auto w-full max-w-5xl md:px-8",
 } as const;
 
 // TODO: LINKEDIN, TWITTER 실제 프로필 URL로 교체
