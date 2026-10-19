@@ -2273,4 +2273,32 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과, Prettier 검사에서 이번 변경으로 생긴 빈 줄 1개 정리(`AboutVision.tsx`의 기존
 미포맷 1줄은 이번 변경 전부터 있던 것이라 유지)
 
+📍 다음: Phase 6️⃣4️⃣ - Experience·Projects 본문 폭 통일, 경력 가로 배치 및 Hero 문구 자간 조정
+
+## Phase 6️⃣4️⃣: Experience·Projects 본문 폭 통일, 경력 가로 배치 및 Hero 문구 자간 조정
+
+**요청**: PR #123·#124로 Phase 63을 main까지 병합 → "Experience, project도 aboutme와 동일하게 패딩값 적용해그리고 experience에서 프로젝트
+배치를 flex-row로 바꾸고 해당 경력 세부 내용 줄바꿈의 길이를 좀 더 짧게 만들어" → (작업 중) "hero 영역의 다양한 사용자를 고려한다는
+텍스트 자간 너비 좀 더 줄여줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 63 병합: PR #123 머지(이슈 #122 종료) 후 dev 재확인, PR #124(dev → main) 머지
+- 이슈 #125(`[STYLE] …`) 생성, 브랜치 `125-style-experience-layout`(작업 후 이슈 번호로 이름 변경)
+- `lib/constants.ts`: `LAYOUT.contentContainer`(`mx-auto w-full max-w-5xl md:px-8`) 추가 - #119의 `ABOUT_CONTAINER_CLASSNAME`을 옮겨 본문
+  섹션 공용 값으로 만듦. `AboutSections.tsx`·`app/page.tsx`("ABOUT ME" 제목)는 이 값을 쓰도록 변경
+- `ExperienceProjects.tsx`(홈·experience 공용): 래퍼에 `LAYOUT.contentContainer` 적용 - EXPERIENCE·PROJECTS 제목과 내용이 About Me와 같은 선
+- `Projects.tsx`: 카드의 `mx-auto max-w-4xl` 제거 - 카드가 본문 폭을 그대로 채워 제목과 좌우 끝이 맞음
+- `Experience.tsx`: 경력 목록 `flex-col md:flex-row md:gap-10`, 항목 `md:flex-1`. 타임라인 점이 항목 2px 테두리 안쪽 기준 `-left-1.25`라
+  실제 3px 밖으로 나가 있어 목록에 `pl-0.75`로 보정(처음 `pl-1.25`로 5px 밀었다가 2px 과보정을 측정으로 확인해 수정)
+- `TimelineItem.tsx`: 세부 내용 `max-w-prose`(65ch) → `max-w-sm`(384px). 가로 배치에서는 항목마다 같은 모양이 되도록
+  `md:last:border-light-border`(다크 `dark:md:last:border-dark-border`)로 마지막 항목도 세로선 표시
+- `Hero.tsx`: "다양한 사용자를 고려하고, / 배우는 것을 멈추지 않습니다."에 `tracking-tighter`(−0.05em, 18px에서 −0.9px).
+  처음 `tracking-tight`(−0.45px)는 차이가 거의 보이지 않아 한 단계 더 줄임
+- 커밋 3개 분리(본문 폭 공용화 / 경력 가로 배치 / Hero 자간), 본문 `Refs #125`
+
+**검증**: Playwright로 홈·/experience에서 ABOUT ME·EXPERIENCE·PROJECTS 제목 시작과 프로젝트 카드 좌우 끝 측정 - 390/768/1280/1920px에서
+24/80/160/480px로 모두 일치, 경력 가로 배치(768px 이상 두 항목 top 일치, 390px 세로), 경력 세부 내용 폭 1280px 384px, 타임라인 점 왼쪽 끝이
+제목과 같은 선(1280px 160px, 390px 24px), 가로 스크롤 0. Hero 문구 줄 너비 `tracking-tight` 기준 197→191px, 223→216px. `bunx eslint app lib`,
+`bunx tsc --noEmit`, `bun run build` 통과. Hero 문구는 고정폭 글꼴이라 단어 사이 띄어쓰기 간격은 자간과 별개로 넓게 남음
+
 📍 다음: (사용자 지정 대기)
