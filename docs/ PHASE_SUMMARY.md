@@ -2223,4 +2223,31 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 (화살표는 번호 원 높이의 짧은 "STEP 0x" 줄에 위치). STEP 03 카드와 다음 섹션 최소 간격 79px(/about). `bunx eslint`, `bunx tsc --noEmit`,
 `bun run build` 통과
 
+📍 다음: Phase 6️⃣2️⃣ - ABOUT ME 제목 여백 통일 및 성장의 여정 화살표 방향·간격 조정
+
+## Phase 6️⃣2️⃣: ABOUT ME 제목 여백 통일 및 성장의 여정 화살표 방향·간격 조정
+
+**요청**: PR #117·#118로 Phase 61을 main까지 병합 → "about me 제목도 동일한 패딩값을 적용해야 하고, 세부 내용을 알리는 화살표 방향은
+오른쪽을 향하게 바꿔야 돼 그리고 화살표야 세부 내용 카드 사이의 gap-3 정도 적용해" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 61 병합: PR #117 머지(이슈 #116 종료) 후 dev 재확인(여백·높이 정렬·화살표 겹침), PR #118(dev → main) 머지
+- 이슈 #119(`[STYLE] …`) 생성, 브랜치 `119-style-about-heading-arrow`(작업 후 이슈 번호로 이름 변경)
+- `AboutSections.tsx`: 컨테이너 클래스(`mx-auto w-full max-w-5xl md:px-8`)를 `ABOUT_CONTAINER_CLASSNAME`으로 export해 공용화
+- `app/page.tsx`: 홈 "ABOUT ME" 제목(h2)에 `ABOUT_CONTAINER_CLASSNAME` 적용 - 제목이 About Me 내용과 같은 선에서 시작
+  (`/about`의 페이지 제목 h1 "About Me"는 다른 페이지 제목과 같은 위치라 유지)
+- `JourneyDetailCard.tsx`: 화살표를 활성 단계 → 세부 카드 방향(오른쪽)으로 변경(`line` 0→32, 화살촉 `polygon` 오른쪽 끝). 화살촉 끝과 카드
+  바깥 테두리 사이 12px(gap-3) 간격 - absolute 기준이 카드 `border-4` 안쪽이라 폭 40 + 간격 12 + 테두리 4 = `-left-14`(56px).
+  높이 정렬 기준점(`data-journey-connector-dot`)은 화살촉에 유지
+- 커밋 본문 `Refs #119`
+
+**트러블슈팅**: 처음 `-left-13`(52px)로 두었더니 화살촉과 카드 간격이 8px로 측정됨 → absolute 위치 기준이 카드의 테두리(`border-4`
+흰색) 안쪽이라 4px가 빠진 것. 다크 모드에서는 흰 테두리가 보이므로 바깥 테두리 기준 12px가 되도록 `-left-14`로 수정해 12px 확인.
+라이트 모드는 흰 테두리가 흰 배경(#ffffff)에 묻혀 회색 카드 몸통까지 16px로 보임
+
+**검증**: Playwright로 홈 "ABOUT ME"·"성장의 여정" 글자 시작 위치가 390/768/1280/1920px에서 24/80/160/480px로 일치, 화살표 방향(화살촉이
+선보다 오른쪽)과 화살촉 → 카드 간격 12px(768·1280·1920px) 확인. 세부 카드·활성 단계 높이 차이 스크롤·클릭 0px(첫 진입 애니메이션
+중에만 13~15px), 768~1280px 단계 3개 각각 화살표·글자 겹침 0건, 라이트·다크 스크린샷 확인. `bunx eslint`, `bunx tsc --noEmit`,
+`bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
