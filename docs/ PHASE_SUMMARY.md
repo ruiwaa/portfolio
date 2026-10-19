@@ -2301,4 +2301,22 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 제목과 같은 선(1280px 160px, 390px 24px), 가로 스크롤 0. Hero 문구 줄 너비 `tracking-tight` 기준 197→191px, 223→216px. `bunx eslint app lib`,
 `bunx tsc --noEmit`, `bun run build` 통과. Hero 문구는 고정폭 글꼴이라 단어 사이 띄어쓰기 간격은 자간과 별개로 넓게 남음
 
+📍 다음: Phase 6️⃣5️⃣ - Experience 타임라인 점 아래 세로선 제거
+
+## Phase 6️⃣5️⃣: Experience 타임라인 점 아래 세로선 제거
+
+**요청**: PR #126·#127로 Phase 64를 main까지 병합 → "exprience 에 파란 점 밑에 선 제거해" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 64 병합: PR #126 머지(이슈 #125 종료) 후 dev 재확인, dev → main PR 생성 중 GitHub API 504 Gateway Timeout으로 생성 실패 →
+  열린 PR이 없는 것을 확인한 뒤 재시도해 PR #127 생성·머지(머지는 `CLEAN`일 때만 실행되도록 되어 있어 실패 중 잘못된 머지는 없음)
+- 이슈 #128(`[STYLE] Experience 타임라인 점 아래 세로선 제거`) 생성, 브랜치 `128-style-experience-remove-line`
+- `TimelineItem.tsx`(Experience에서만 사용): 세로선 `border-l-2`와 선 색·마지막 항목 투명/표시 클래스(라이트·다크) 제거, 점 위치
+  `-left-1.25` → `left-0` - 선이 없어져 점을 선에 걸칠 필요가 없으므로 항목 왼쪽 끝에 두어 섹션 제목과 같은 선에서 시작
+- `Experience.tsx`: Phase 64에서 점 정렬용으로 넣은 목록 여백 `pl-0.75`와 주석 제거
+- 커밋 본문 `Refs #128`
+
+**검증**: Playwright로 `/experience` 390px(라이트)·1280px(라이트·다크)에서 두 항목 세로선 두께 0px, 점 왼쪽 끝이 제목과 같은 선(390px 24px,
+1280px 160px), 점 ↔ 글자 간격 24px 유지, 가로 스크롤 0, 다크 모드 점 색 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)

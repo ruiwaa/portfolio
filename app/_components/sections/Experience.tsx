@@ -44,10 +44,8 @@ export default function Experience({
       <h2 className={`section-header ${headingClassName}`}>
         {animateHeading ? <AnimatedLetters text="EXPERIENCE" /> : "EXPERIENCE"}
       </h2>
-      {/* md 이상에서는 경력을 가로로 나란히, 모바일에서는 세로 타임라인.
-          pl-0.75: 타임라인 점(-left-1.25, 5px)이 항목의 2px 왼쪽 테두리 안쪽 기준이라 실제로는 3px 밖으로 나가 있어,
-          그만큼 밀어 점의 왼쪽 끝을 제목과 맞춤 */}
-      <ol className="mt-6 flex list-none flex-col pl-0.75 md:flex-row md:gap-10">
+      {/* md 이상에서는 경력을 가로로 나란히, 모바일에서는 세로로 */}
+      <ol className="mt-6 flex list-none flex-col md:flex-row md:gap-10">
         {TIMELINE.map((entry, index) => (
           <li
             key={index}
