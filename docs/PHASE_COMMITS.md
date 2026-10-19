@@ -1580,6 +1580,42 @@ git push -u origin 116-style-about-layout-arrow
 
 ---
 
+## Phase 6️⃣2️⃣: ABOUT ME 제목 여백 통일 및 성장의 여정 화살표 방향·간격 조정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 홈 "ABOUT ME" 제목이 "성장의 여정"과 같은 선에서 시작하는지 확인 (모바일·태블릿·데스크톱)
+- [ ] 화살표가 오른쪽(세부 카드)을 가리키는지 확인
+- [ ] 화살촉 끝과 카드 바깥 테두리 사이가 12px인지 확인 (다크 모드에서 흰 테두리 기준)
+- [ ] 세부 카드·활성 단계 높이 정렬(#92) 유지, 화살표와 단계 글자 겹침 없음 확인
+- [ ] 라이트/다크 모드 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `홈 ABOUT ME 제목에 About Me 컨테이너 여백 적용` (본문 `Refs #119`)
+2. `style`: `성장의 여정 화살표를 세부 카드 방향으로 바꾸고 카드와 12px 간격 적용` (본문 `Refs #119`)
+3. `docs`: `Phase 62 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutSections.tsx app/page.tsx
+git commit -m "style: 홈 ABOUT ME 제목에 About Me 컨테이너 여백 적용" -m "Refs #119"
+
+git add app/_components/sections/JourneyDetailCard.tsx
+git commit -m "style: 성장의 여정 화살표를 세부 카드 방향으로 바꾸고 카드와 12px 간격 적용" -m "Refs #119"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 62 작업 완료 사항 정리"
+
+git push -u origin 119-style-about-heading-arrow
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
