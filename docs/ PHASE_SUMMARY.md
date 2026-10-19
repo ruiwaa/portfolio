@@ -2319,4 +2319,23 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 **검증**: Playwright로 `/experience` 390px(라이트)·1280px(라이트·다크)에서 두 항목 세로선 두께 0px, 점 왼쪽 끝이 제목과 같은 선(390px 24px,
 1280px 160px), 점 ↔ 글자 간격 24px 유지, 가로 스크롤 0, 다크 모드 점 색 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 6️⃣6️⃣ - 기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가
+
+## Phase 6️⃣6️⃣: 기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가
+
+**요청**: PR #129·#130으로 Phase 65를 main까지 병합 → "기술스택은 각각 스텍에 대한 소제목과 기술 스택을 flex-col 레이아웃으로 바꿔, 각 기술
+스텍 항목 간의 gap 도 추가하고" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 65 병합: PR #129 머지(이슈 #128 종료) 후 dev 재확인, PR #130(dev → main) 머지
+- 이슈 #131(`[STYLE] 기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가`) 생성, 브랜치 `131-style-tech-stack-column`
+- `AboutInfo.tsx`: 카테고리 행 `flex flex-col items-center gap-2 sm:flex-row` → `… sm:items-start`(모든 화면에서 소제목 위·배지 아래, 모바일 가운데·
+  sm 이상 왼쪽 정렬). 소제목의 `w-24 shrink-0 sm:text-right`(가로 배치에서 배지 시작선을 맞추던 값) 제거. 카테고리 묶음 사이 `gap-3`(12px) →
+  `gap-8`(32px). 같은 카테고리 안 배지 간격(8px)과 HoverDisclosure 패널은 유지. 커밋 본문 `Refs #131`
+- "각 기술 스택 항목 간의 gap"은 카테고리 묶음 사이 간격으로 반영(배지 간격 변경은 요청 시 조정)
+
+**검증**: Playwright로 `/about` 390px(라이트)·1280px(라이트·다크)에서 7개 카테고리 모두 소제목이 배지 위, 카테고리 간 간격 32px, 1280px에서
+소제목·배지 왼쪽 끝 동일(337px), 가로 스크롤 0, Supabase 배지 호버 시 세부 설명 패널 표시 확인. `bunx eslint`, `bunx tsc --noEmit`,
+`bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
