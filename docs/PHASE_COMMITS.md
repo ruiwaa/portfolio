@@ -1906,6 +1906,36 @@ git push -u origin 146-style-project-title-image
 
 ---
 
+## Phase 7️⃣2️⃣: 프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 제목·기술 아이콘·담당 역할이 카드 가운데에 정렬되는지 확인 (모바일 줄바꿈 포함)
+- [ ] 소개 문구는 왼쪽 정렬 유지 확인
+- [ ] 라이트/다크 모드, 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬` (본문 `Refs #149`)
+2. `docs`: `Phase 72 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬" -m "Refs #149"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 72 작업 완료 사항 정리"
+
+git push -u origin 149-style-project-header-center
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

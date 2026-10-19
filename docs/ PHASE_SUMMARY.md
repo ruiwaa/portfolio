@@ -2446,4 +2446,20 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
 **검증**: Playwright로 `/experience` 390px·1280px(라이트·다크) 카드 4개에서 제목 글자 중심과 카드 중심 차이 0px, 이미지 상하좌우 여백 5px, 안쪽 상자
 `border-radius` 8px·`overflow: hidden`, 이미지 폭 390px 292px·1280px 902px, 가로 스크롤 0 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 7️⃣2️⃣ - 프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬
+
+## Phase 7️⃣2️⃣: 프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬
+
+**요청**: PR #147·#148로 Phase 71을 main까지 병합 → "브랜치 이동 어디로 해"(dev가 origin/dev·main과 동일, 열린 이슈 없음 → dev 유지, 다음 작업 시
+이슈 번호 브랜치 생성 안내) → "기술 아이콘이랑 담당 역할도 가운데 정렬해" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 71 병합: PR #147 머지 후 이슈 #146 자동 종료를 대기해 확인, dev 재확인 후 PR #148(dev → main) 머지
+- 이슈 #149(`[STYLE] 프로젝트 카드 기술 아이콘·담당 역할 가운데 정렬`) 생성, 브랜치 `149-style-project-header-center`
+- `Projects.tsx`: 기술 아이콘 목록 `justify-center`, 담당 역할 문단 `text-center`(제목은 Phase 71에서 가운데 정렬, 소개 문구는 왼쪽 정렬 유지).
+  커밋 본문 `Refs #149`
+
+**검증**: Playwright로 `/experience` 390px·1280px(라이트·다크) 카드 4개에서 제목·기술 아이콘 묶음·담당 역할 글자의 가운데와 카드 가운데 차이 모두 0px,
+소개 문구 `text-align: start` 유지, 가로 스크롤 0 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
