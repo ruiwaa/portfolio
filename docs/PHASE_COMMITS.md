@@ -1750,6 +1750,38 @@ git push -u origin 131-style-tech-stack-column
 
 ---
 
+## Phase 6️⃣7️⃣: 프로젝트 카드 사용 기술을 아이콘으로만 표시
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 카드 4개의 사용 기술이 아이콘으로만 보이고, 개수가 기존 태그 수와 같은지 확인
+- [ ] 아이콘에 마우스를 올리면 기술 이름 툴팁이 뜨는지 확인
+- [ ] 스크린 리더용 이름(sr-only)과 목록 aria-label 확인
+- [ ] 라이트/다크 모드에서 아이콘이 카드 배경에 묻히지 않는지 확인
+- [ ] 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드 사용 기술을 아이콘으로만 표시` (본문 `Refs #134`)
+2. `docs`: `Phase 67 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드 사용 기술을 아이콘으로만 표시" -m "Refs #134"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 67 작업 완료 사항 정리"
+
+git push -u origin 134-style-project-tech-icons
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
