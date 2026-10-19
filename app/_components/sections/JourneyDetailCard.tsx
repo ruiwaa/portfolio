@@ -40,23 +40,25 @@ export default function JourneyDetailCard({
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
     >
+      {/* 활성 단계를 가리키는 일직선 화살표 - 카드 왼쪽에서 단계 쪽(왼쪽)으로 향함.
+          화살촉 중심(data-journey-connector-dot)이 AboutVision에서 활성 단계 번호 원과 높이를 맞추는 기준점 */}
       <svg
         aria-hidden="true"
-        viewBox="0 0 100 60"
-        className="pointer-events-none absolute top-8 -left-24 hidden h-16 w-24 md:block"
+        viewBox="0 0 40 16"
+        className="pointer-events-none absolute top-8 -left-10 hidden h-4 w-10 md:block"
       >
-        <path
-          d="M100 30 C 60 30, 55 8, 10 8"
-          fill="none"
+        <line
+          x1="8"
+          y1="8"
+          x2="40"
+          y2="8"
           strokeWidth="2"
           strokeLinecap="round"
           className="stroke-light-accent dark:stroke-dark-accent"
         />
-        <circle
+        <polygon
           data-journey-connector-dot
-          cx="10"
-          cy="8"
-          r="3.5"
+          points="0,8 9,3 9,13"
           className="fill-light-accent dark:fill-dark-accent"
         />
       </svg>

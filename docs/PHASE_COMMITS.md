@@ -1543,6 +1543,43 @@ git push -u origin 113-style-about-horizontal-padding
 
 ---
 
+## Phase 6️⃣1️⃣: About Me 가운데 배치, 성장의 여정 열 간격 축소 및 일직선 화살표 연결선
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 768px 이상에서 About Me 좌우 여백이 같고, 넓은 화면에서 최대 폭으로 가운데 배치되는지 확인
+- [ ] 성장의 여정 두 열 간격이 20px(md:gap-5)인지 확인
+- [ ] 세부 카드 연결선이 일직선 화살표로 활성 단계를 가리키고, 높이가 단계 번호 원과 같은지 확인 (스크롤·클릭)
+- [ ] 단계 3개를 각각 활성화했을 때 화살표가 단계 글자와 겹치지 않는지 확인 (768~1280px)
+- [ ] 모바일 레이아웃 변화 없음, 가로 스크롤 0 확인
+- [ ] 라이트/다크 모드에서 화살표 색 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me 최대 폭·가운데 배치 및 성장의 여정 열 간격 축소` (본문 `Refs #116`)
+2. `style`: `성장의 여정 세부 카드 연결선을 일직선 화살표로 변경` (본문 `Refs #116`)
+3. `docs`: `Phase 61 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutSections.tsx app/_components/sections/AboutVision.tsx
+git commit -m "style: About Me 최대 폭·가운데 배치 및 성장의 여정 열 간격 축소" -m "Refs #116"
+
+git add app/_components/sections/JourneyDetailCard.tsx
+git commit -m "style: 성장의 여정 세부 카드 연결선을 일직선 화살표로 변경" -m "Refs #116"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 61 작업 완료 사항 정리"
+
+git push -u origin 116-style-about-layout-arrow
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
