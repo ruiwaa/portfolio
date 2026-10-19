@@ -2338,4 +2338,24 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
 소제목·배지 왼쪽 끝 동일(337px), 가로 스크롤 0, Supabase 배지 호버 시 세부 설명 패널 표시 확인. `bunx eslint`, `bunx tsc --noEmit`,
 `bun run build` 통과
 
+📍 다음: Phase 6️⃣7️⃣ - 프로젝트 카드 사용 기술을 아이콘으로만 표시
+
+## Phase 6️⃣7️⃣: 프로젝트 카드 사용 기술을 아이콘으로만 표시
+
+**요청**: PR #132·#133으로 Phase 66을 main까지 병합 → "프로젝트 안에 사용한 기술 스텍을 텍스트 말고 아이콘만 나오게 변경" → "이슈 만들고 커밋부터
+병합까지 진행해"
+
+**변경**:
+- Phase 66 병합: PR #132 머지(이슈 #131 종료) 후 dev 재확인, PR #133(dev → main) 머지
+- 이슈 #134(`[STYLE] 프로젝트 카드 사용 기술을 아이콘으로만 표시`) 생성, 브랜치 `134-style-project-tech-icons`
+- `Projects.tsx`: 기술 이름 → 아이콘 매핑 `TECH_ICONS` 추가(카드에 쓰인 11개 - HTML·CSS·JavaScript·TypeScript·React·Next.js·Supabase·TanStack
+  Query·Zustand·React-Hook-Form·Zod, About 기술 스택과 같은 react-icons 아이콘·색, Zustand는 `GiBearFace`, Next.js는 글자색 상속). 사용 기술을
+  `Badge` 텍스트 대신 32px 상자(라이트 `bg-light-surface`, 다크 `bg-dark-surface-dim`, 테두리) 안 16px 아이콘으로 표시. 기술 이름은 `title` 툴팁과
+  `sr-only` 텍스트로 유지하고 목록에 `aria-label="사용 기술"`. 매핑에 없는 기술은 기존 `Badge`로 표시. 커밋 본문 `Refs #134`
+- 아이콘·색 정보가 `AboutInfo.tsx`와 `Projects.tsx`에 따로 있음(통합은 요청 시 진행)
+
+**검증**: Playwright로 `/experience` 390px(라이트)·1280px(라이트·다크)에서 카드 4개 아이콘 수 5·7·5·3개(기존 태그 수와 동일), 모든 항목에 아이콘·
+title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, 가로 스크롤 0. 자동 검사의 "보이는 텍스트" 판정은 `innerText`가 sr-only 텍스트를
+포함해 잘못 true로 나와, 라이트·다크 스크린샷으로 아이콘만 보이는 것을 직접 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)

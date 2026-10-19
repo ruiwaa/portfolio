@@ -2,7 +2,21 @@
 
 import Image from "next/image";
 import { FileText, Globe, PlayCircle } from "lucide-react";
-import { SiGithub } from "react-icons/si";
+import {
+  SiCss,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiNextdotjs,
+  SiReact,
+  SiReacthookform,
+  SiReactquery,
+  SiSupabase,
+  SiTypescript,
+  SiZod,
+} from "react-icons/si";
+import { GiBearFace } from "react-icons/gi";
+import type { IconType } from "react-icons";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
@@ -10,6 +24,22 @@ import { getTroubleshootingHref } from "@/lib/constants";
 import { useInView } from "@/app/_hooks/useInView";
 
 type Accent = "sky" | "peach" | "mint" | "purple";
+
+// 프로젝트 카드의 사용 기술을 아이콘으로만 표시하기 위한 매핑 - 아이콘·색은 About 기술 스택과 동일.
+// Zustand는 공식 로고가 없어 곰 아이콘으로 대체, color가 없는 Next.js는 글자색(currentColor)을 따름
+const TECH_ICONS: Record<string, { Icon: IconType; color?: string }> = {
+  HTML: { Icon: SiHtml5, color: "#E34F26" },
+  CSS: { Icon: SiCss, color: "#663399" },
+  JavaScript: { Icon: SiJavascript, color: "#F7DF1E" },
+  TypeScript: { Icon: SiTypescript, color: "#3178C6" },
+  React: { Icon: SiReact, color: "#61DAFB" },
+  "Next.js": { Icon: SiNextdotjs },
+  Supabase: { Icon: SiSupabase, color: "#3ECF8E" },
+  "TanStack Query": { Icon: SiReactquery, color: "#FF4154" },
+  Zustand: { Icon: GiBearFace, color: "#8B5E3C" },
+  "React-Hook-Form": { Icon: SiReacthookform, color: "#EC5990" },
+  Zod: { Icon: SiZod, color: "#3E67B1" },
+};
 
 // 세부 내용 문장 속 영어 단어(예: "Local Storage", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함
 function withBoldEnglish(text: string) {
@@ -190,12 +220,32 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
             {project.title}
           </h3>
-          <ul className="mt-2 flex flex-wrap md:flex-row gap-2">
-            {project.tags.map((tag) => (
-              <li key={tag}>
-                <Badge label={tag} />
-              </li>
-            ))}
+          {/* 아이콘만 보이지만 기술 이름은 스크린 리더(sr-only)와 마우스 툴팁(title)으로 제공.
+              매핑에 없는 기술은 기존처럼 텍스트 배지로 표시 */}
+          <ul aria-label="사용 기술" className="mt-2 flex flex-wrap gap-2">
+            {project.tags.map((tag) => {
+              const tech = TECH_ICONS[tag];
+
+              return (
+                <li key={tag}>
+                  {tech ? (
+                    <span
+                      title={tag}
+                      className="flex h-8 w-8 items-center justify-center rounded border border-light-border bg-light-surface text-light-text dark:border-dark-border dark:bg-dark-surface-dim dark:text-white"
+                    >
+                      <tech.Icon
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                        style={tech.color ? { color: tech.color } : undefined}
+                      />
+                      <span className="sr-only">{tag}</span>
+                    </span>
+                  ) : (
+                    <Badge label={tag} />
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <p className="body mt-2 text-light-text dark:text-white">
             <strong className="font-semibold  dark:text-white">
