@@ -209,7 +209,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </h3>
           {/* 아이콘만 보이지만 기술 이름은 스크린 리더(sr-only)와 마우스 툴팁(title)으로 제공.
               매핑에 없는 기술은 기존처럼 텍스트 배지로 표시 */}
-          <ul aria-label="사용 기술" className="mt-2 flex flex-wrap gap-2">
+          <ul aria-label="사용 기술" className="mt-2 flex flex-wrap justify-center gap-2">
             {project.tags.map((tag) => {
               const tech = TECH_ICONS[tag];
 
@@ -234,7 +234,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               );
             })}
           </ul>
-          <p className="body mt-2 text-light-text dark:text-white">
+          <p className="body mt-2 text-center text-light-text dark:text-white">
             <strong className="font-semibold  dark:text-white">
               담당 역할:
             </strong>{" "}
