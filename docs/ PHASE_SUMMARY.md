@@ -2178,4 +2178,25 @@ NFC 확인 단계에서 바로 발견해 디스크 파일명만 NFC(11글자)로
 `fix:filenames` → 2개 NFC 변환·파일 내용 유지, 재실행한 `check:filenames` → 종료 코드 0 확인 후 테스트 폴더 삭제. 실제 `public/`에서
 `check:filenames` 통과. `bunx eslint app lib scripts`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 6️⃣0️⃣ - About Me 성장의 여정 좌우 여백 균일하게 조정
+
+## Phase 6️⃣0️⃣: About Me 성장의 여정 좌우 여백 균일하게 조정
+
+**요청**: PR #111·#112로 Phase 59를 main까지 병합 → (Velog 원문 제목 변경 안내 문구 질문 → "Velog 제목은 그대로 둘게") → "about me 영역이
+가운데 정렬되도록 패딩값 조정해주고, 양옆의 패딩값을 균일하게 줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- Phase 59 병합: PR #111 머지(이슈 #110 종료) 후 dev 재확인(`check:filenames` 통과), PR #112(dev → main) 머지
+- Velog 원문 제목: 사이트 카드 제목만 `[트러블 슈팅] [프로젝트]` 형식이고 Velog 원문은 그대로 두기로 결정(링크는 원문 주소 그대로라 영향 없음)
+- 이슈 #113(`[STYLE] About Me 성장의 여정 좌우 여백 균일하게 조정`, style 템플릿 첫 사용) 생성, 브랜치 `113-style-about-horizontal-padding`
+  (작업 후 이슈 번호를 붙여 브랜치 이름 변경)
+- `AboutVision.tsx`: 단계 목록 `ol`에 `pl-4.25`(17px) 추가 - 단계 번호 원이 li 왼쪽 밖으로 `-left-4.25`만큼 나가 있어, 보이는 내용의
+  왼쪽 끝이 섹션 여백보다 17px 바깥에 있었음. 이제 번호 원 왼쪽 끝이 "성장의 여정" 제목과 같은 선. 커밋 본문 `Refs #113`
+- 넓은 화면(1920px)에서 About Me를 최대 폭으로 가운데 모으는 것은 사용자 확인 전이라 이번 범위에서 제외
+
+**검증**: Playwright로 성장의 여정 섹션 안 보이는 요소들의 좌우 끝과 화면 가장자리 거리를 측정 - 수정 전 768·1280·1920px 31px / 48px,
+390px 7px / 20px → 수정 후 768·1280·1920px 48px / 48px, 390px 24px / 20px(오른쪽 20px은 활성 단계 제목의 `translate-x-1` 4px 이동으로
+상자만 밀린 것, 글자는 24px 안쪽). 기술 스택 영역은 원래 47px / 48px로 대칭. 세부 카드·활성 단계 높이 정렬(#92) 재측정 결과 변화 없음
+(정착 후 0px). `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
