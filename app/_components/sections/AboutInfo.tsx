@@ -218,7 +218,8 @@ export default function AboutInfo({ className = "" }: AboutInfoProps) {
       >
         해당 기술 스택에 마우스를 올리면 세부 기술 내용을 확인할 수 있습니다.
       </p>
-      <div className="relative mx-auto mt-5 flex flex-col gap-3 sm:w-fit">
+      {/* 카테고리 그룹 사이 간격 gap-8(32px) - 소제목+배지 묶음이 서로 구분되도록 */}
+      <div className="relative mx-auto mt-5 flex flex-col gap-8 sm:w-fit">
         {SKILL_GROUPS.map(({ category, skills }, groupIndex) => {
           // 등장 애니메이션은 그룹을 넘어 전체 배지 순서대로 이어지게 함
           const offset = SKILL_GROUPS.slice(0, groupIndex).reduce(
@@ -227,13 +228,13 @@ export default function AboutInfo({ className = "" }: AboutInfoProps) {
           );
 
           return (
-            // relative는 HoverDisclosure 패널의 위치 기준 - 행 전체 너비를 기준으로 패널이 펼쳐짐.
-            // 데스크톱에서는 카테고리 라벨 너비를 고정하고 행을 왼쪽 정렬해 배지 시작선을 맞춤
+            // relative는 HoverDisclosure 패널의 위치 기준 - 그룹 전체 너비를 기준으로 패널이 펼쳐짐.
+            // 모든 화면에서 소제목 아래에 배지를 두는 세로 배치. 모바일은 가운데, sm 이상은 왼쪽 정렬
             <div
               key={category}
-              className="relative flex flex-col items-center gap-2 sm:flex-row"
+              className="relative flex flex-col items-center gap-2 sm:items-start"
             >
-              <span className="badge w-24 shrink-0 text-light-text-secondary sm:text-right dark:text-dark-text-secondary">
+              <span className="badge text-light-text-secondary dark:text-dark-text-secondary">
                 {category}
               </span>
               <ul
