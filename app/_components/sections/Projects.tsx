@@ -23,8 +23,6 @@ import Card from "@/app/_components/ui/Card";
 import { getTroubleshootingHref } from "@/lib/constants";
 import { useInView } from "@/app/_hooks/useInView";
 
-type Accent = "sky" | "peach" | "mint" | "purple";
-
 // 프로젝트 카드의 사용 기술을 아이콘으로만 표시하기 위한 매핑 - 아이콘·색은 About 기술 스택과 동일.
 // Zustand는 공식 로고가 없어 곰 아이콘으로 대체, color가 없는 Next.js는 글자색(currentColor)을 따름
 const TECH_ICONS: Record<string, { Icon: IconType; color?: string }> = {
@@ -56,16 +54,9 @@ function withBoldEnglish(text: string) {
     );
 }
 
-// About Intro 배경 도형과 동일한 다크모드 처리 - 다크에서는 카드 배경이 어두워지므로
-// 아래 텍스트 색상도 다시 다크 톤으로 전환해야 함. 불투명도는 35%로, 위에 올라가는
-// 흰 텍스트가 WCAG AA 대비(4.5:1)를 확보할 수 있는 한도 안에서 최대한 밝게 맞춤
-// (45%였을 때는 mint 배경에서 흰 텍스트 대비가 4.46:1로 기준 미달이었음)
-const DARK_ACCENT_BG: Record<Accent, string> = {
-  sky: "dark:bg-sky/35",
-  peach: "dark:bg-peach/35",
-  mint: "dark:bg-mint/35",
-  purple: "dark:bg-purple/35",
-};
+// 모든 프로젝트 카드 배경을 한 색으로 통일 - 라이트는 파란색(sky, Card accent), 다크는 라임색.
+// 다크는 어두운 배경 위에 라임을 20%만 깔아, 카드 위의 흰 텍스트가 WCAG AA 대비(4.5:1)를 충분히 확보하게 함
+const CARD_DARK_BG = "dark:bg-lime-500/20";
 
 interface ProjectLinks {
   // 배포 사이트를 연결하지 못한 프로젝트는 "site" 대신 "video"로 두고
@@ -90,7 +81,6 @@ interface ProjectEntry {
   tags: string[];
   // 팀 프로젝트에서 내가 맡은 범위 (사용 기술 바로 아래에 표시)
   role: string;
-  accent: Accent;
   media: ProjectMedia;
   detail: string[];
   links: ProjectLinks;
@@ -104,7 +94,6 @@ const PROJECTS: ProjectEntry[] = [
       "영상을 업로드 시 AI가 영상과 음성을 분석해 알맞은 효과음을 자동으로 채워 넣고, 음성을 텍스트로 변환해 자막까지 만들어주는 영상 편집 웹 서비스입니다.",
     tags: ["Next.js", "React", "TypeScript", "Zustand", "TanStack Query"],
     role: "프론트엔드 전체 - 효과음 생성·자막 생성 페이지",
-    accent: "mint",
     media: {
       type: "image",
       src: "/projects/genova-main.png",
@@ -137,7 +126,6 @@ const PROJECTS: ProjectEntry[] = [
       "Zod",
     ],
     role: "개인 프로젝트 - 전체 개발",
-    accent: "purple",
     media: {
       type: "image",
       src: "/projects/jungdanuh-changgo-home.png",
@@ -159,7 +147,6 @@ const PROJECTS: ProjectEntry[] = [
       "Next.js와 React를 기반으로, 소상공인의 감성 문구 제품을 한 곳에 모아 소비자가 다양한 상점의 상품을 구매 할 수 있도록 구현한 문구류 오픈마켓 사이트입니다.",
     tags: ["Next.js", "React", "TypeScript", "Supabase", "TanStack Query"],
     role: "마이페이지 - 소비자 주문 내역·찜한 상품, 판매자 상품 등록·상품 관리·상점 주문 관리",
-    accent: "peach",
     media: {
       type: "image",
       src: "/projects/hangsho-market-home.png",
@@ -183,7 +170,6 @@ const PROJECTS: ProjectEntry[] = [
       "HTML, CSS, JavaScript를 사용하여 영화 선택부터 결제까지 실제 예매 사이트에 필요한 기능을 구현한 사이트입니다.",
     tags: ["HTML", "CSS", "JavaScript"],
     role: "영화표 결제 페이지",
-    accent: "sky",
     media: {
       type: "image",
       src: "/projects/booking-payment-preview.png",
@@ -213,8 +199,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
       }`}
     >
       <Card
-        accent={project.accent}
-        className={`flex flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
+        accent="sky"
+        className={`flex flex-col overflow-hidden p-0 ${CARD_DARK_BG}`}
       >
         <div className="p-5 pb-0 sm:p-6 sm:pb-0">
           <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
@@ -258,10 +244,9 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </p>
         </div>
 
-        {/* 이미지와 세부 내용을 나란히 두는 건 lg(1024px)부터 - 그보다 좁으면 이미지(320px)를 빼고
-            남는 폭이 좁아 긴 기술 용어가 카드 밖으로 밀리거나 단어 중간에서 끊겼음 */}
-        <div className="flex flex-col items-start px-5 sm:px-6 lg:flex-row">
-          <div className="relative mt-6 aspect-16/10 w-full shrink-0 lg:mt-8 lg:aspect-auto lg:h-64 lg:w-80">
+        {/* 모든 화면에서 이미지 위·세부 내용 아래의 세로 배치 */}
+        <div className="flex flex-col items-start px-5 sm:px-6">
+          <div className="relative mt-6 aspect-16/10 w-full shrink-0">
             {project.media.type === "video" ? (
               <video
                 src={project.media.src}
@@ -279,14 +264,15 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 alt=""
                 fill
                 className="object-cover shadow-xl"
-                sizes="(min-width: 1024px) 320px, (min-width: 640px) 848px, 100vw"
+                // 이미지 최대 폭 = 본문 폭(960px) - Card 기본 패딩 32px×2 - 안쪽 여백 24px×2 = 848px
+                sizes="(min-width: 1120px) 848px, 90vw"
               />
             )}
           </div>
           {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
               끊을 수 없는 긴 단어가 있으면 카드 밖으로 넘쳤음 */}
-          <div className="flex w-full min-w-0 flex-1 flex-col py-5 sm:py-6 lg:p-6">
-            <ul className="space-y-1.5 lg:pr-4">
+          <div className="flex w-full min-w-0 flex-1 flex-col py-5 sm:py-6">
+            <ul className="space-y-1.5">
               {project.detail.map((line, index) => (
                 <li
                   key={index}
