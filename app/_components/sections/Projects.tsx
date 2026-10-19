@@ -184,7 +184,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
     >
       <Card
         accent={project.accent}
-        className={`mx-auto flex max-w-4xl flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
+        className={`flex flex-col overflow-hidden p-0 ${DARK_ACCENT_BG[project.accent]}`}
       >
         <div className="p-5 pb-0 sm:p-6 sm:pb-0">
           <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">

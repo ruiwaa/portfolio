@@ -1648,6 +1648,47 @@ git push -u origin 122-refactor-journey-single-layout
 
 ---
 
+## Phase 6️⃣4️⃣: Experience·Projects 본문 폭 통일, 경력 가로 배치 및 Hero 문구 자간 조정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] ABOUT ME·EXPERIENCE·PROJECTS 제목과 프로젝트 카드 좌우 끝이 같은 선인지 확인 (홈·/experience, 모바일~1920px)
+- [ ] 768px 이상에서 경력이 가로로 나란히, 모바일에서 세로로 표시되는지 확인
+- [ ] 경력 세부 내용 줄 길이가 짧아졌는지(max-w-sm), 타임라인 점이 제목과 같은 선인지 확인
+- [ ] 라이트/다크 모드에서 가로 배치 시 두 항목 모두 세로선이 보이는지 확인
+- [ ] Hero 소개 두 줄 자간 확인
+- [ ] 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `본문 폭을 LAYOUT.contentContainer로 공용화하고 Experience·Projects에 적용` (본문 `Refs #125`)
+2. `style`: `Experience 경력을 가로로 배치하고 세부 내용 줄 길이 축소` (본문 `Refs #125`)
+3. `style`: `Hero 소개 문구 자간 축소` (본문 `Refs #125`)
+4. `docs`: `Phase 64 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add lib/constants.ts app/_components/sections/AboutSections.tsx app/page.tsx app/_components/sections/ExperienceProjects.tsx app/_components/sections/Projects.tsx
+git commit -m "style: 본문 폭을 LAYOUT.contentContainer로 공용화하고 Experience·Projects에 적용" -m "Refs #125"
+
+git add app/_components/sections/Experience.tsx app/_components/ui/TimelineItem.tsx
+git commit -m "style: Experience 경력을 가로로 배치하고 세부 내용 줄 길이 축소" -m "Refs #125"
+
+git add app/_components/sections/Hero.tsx
+git commit -m "style: Hero 소개 문구 자간 축소" -m "Refs #125"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 64 작업 완료 사항 정리"
+
+git push -u origin 125-style-experience-layout
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

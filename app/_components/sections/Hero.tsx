@@ -130,13 +130,13 @@ export default function Hero() {
         <div className="mt-3">
           <p
             style={{ animationDelay: "190ms" }}
-            className="font-mono motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
+            className="font-mono tracking-tighter motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
           >
             다양한 사용자를 고려하고,
           </p>
           <p
             style={{ animationDelay: "190ms" }}
-            className="font-mono motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
+            className="font-mono tracking-tighter motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
           >
             배우는 것을 멈추지 않습니다.
           </p>
