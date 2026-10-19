@@ -200,7 +200,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
     >
       <Card
         accent="sky"
-        className={`flex flex-col overflow-hidden p-0 ${CARD_DARK_BG}`}
+        padded={false}
+        className={`flex flex-col overflow-hidden ${CARD_DARK_BG}`}
       >
         <div className="p-5 pb-0 sm:p-6 sm:pb-0">
           <h3 className="text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
@@ -264,8 +265,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 alt=""
                 fill
                 className="object-cover shadow-xl"
-                // 이미지 최대 폭 = 본문 폭(960px) - Card 기본 패딩 32px×2 - 안쪽 여백 24px×2 = 848px
-                sizes="(min-width: 1120px) 848px, 90vw"
+                // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 24px×2 = 912px
+                sizes="(min-width: 1120px) 912px, 90vw"
               />
             )}
           </div>
