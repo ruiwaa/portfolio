@@ -1689,6 +1689,36 @@ git push -u origin 125-style-experience-layout
 
 ---
 
+## Phase 6️⃣5️⃣: Experience 타임라인 점 아래 세로선 제거
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] Experience 두 항목 모두 세로선 없이 점만 보이는지 확인 (라이트/다크)
+- [ ] 점의 왼쪽 끝이 EXPERIENCE 제목과 같은 선인지 확인 (모바일·데스크톱)
+- [ ] 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `Experience 타임라인 점 아래 세로선 제거` (본문 `Refs #128`)
+2. `docs`: `Phase 65 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/ui/TimelineItem.tsx app/_components/sections/Experience.tsx
+git commit -m "style: Experience 타임라인 점 아래 세로선 제거" -m "Refs #128"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 65 작업 완료 사항 정리"
+
+git push -u origin 128-style-experience-remove-line
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
