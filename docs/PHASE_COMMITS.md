@@ -1782,6 +1782,37 @@ git push -u origin 134-style-project-tech-icons
 
 ---
 
+## Phase 6️⃣8️⃣: 프로젝트 카드 색상 통일 및 이미지·세부 내용 세로 배치
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 카드 4개 배경이 라이트 파란색(sky)·다크 라임색으로 같은지 확인
+- [ ] 카드 안 글자 대비가 WCAG AA(4.5:1) 이상인지 확인 (라이트·다크)
+- [ ] 모든 화면에서 이미지 아래에 세부 내용이 오는지 확인
+- [ ] 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드 색상 통일(라이트 파랑·다크 라임) 및 이미지·세부 내용 세로 배치` (본문 `Refs #137`)
+2. `docs`: `Phase 68 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드 색상 통일(라이트 파랑·다크 라임) 및 이미지·세부 내용 세로 배치" -m "Refs #137"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 68 작업 완료 사항 정리"
+
+git push -u origin 137-style-project-card-color-layout
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
