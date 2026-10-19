@@ -1719,6 +1719,37 @@ git push -u origin 128-style-experience-remove-line
 
 ---
 
+## Phase 6️⃣6️⃣: 기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 모든 화면에서 카테고리 소제목이 배지 위에 있는지 확인 (모바일 가운데, sm 이상 왼쪽 정렬)
+- [ ] 카테고리 묶음 사이 간격(32px) 확인
+- [ ] 배지 호버/포커스 시 세부 설명 패널이 정상 표시되는지 확인
+- [ ] 라이트/다크 모드, 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가` (본문 `Refs #131`)
+2. `docs`: `Phase 66 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "style: 기술 스택 카테고리 소제목·배지 세로 배치 및 그룹 간격 추가" -m "Refs #131"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 66 작업 완료 사항 정리"
+
+git push -u origin 131-style-tech-stack-column
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
