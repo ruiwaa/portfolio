@@ -1616,6 +1616,38 @@ git push -u origin 119-style-about-heading-arrow
 
 ---
 
+## Phase 6️⃣3️⃣: 성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 모든 화면 크기에서 세부 카드가 활성 단계 바로 아래에 1개만 보이는지 확인
+- [ ] 데스크톱에 오른쪽 카드·화살표가 남아 있지 않은지 확인
+- [ ] 삭제한 정렬 코드의 잔재(useLayoutEffect, ResizeObserver, data-journey-* 속성)가 없는지 grep으로 확인
+- [ ] 스크롤 시 활성 단계 전환이 그대로 동작하는지 확인
+- [ ] 라이트/다크 모드, 가로 스크롤 0 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `refactor`: `성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일` (본문 `Refs #122`)
+2. `docs`: `Phase 63 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutVision.tsx app/_components/sections/JourneyDetailCard.tsx
+git commit -m "refactor: 성장의 여정 레이아웃을 모든 화면에서 모바일 레이아웃으로 통일" -m "Refs #122"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 63 작업 완료 사항 정리"
+
+git push -u origin 122-refactor-journey-single-layout
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
