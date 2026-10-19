@@ -272,7 +272,9 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
               끊을 수 없는 긴 단어가 있으면 카드 밖으로 넘쳤음 */}
           <div className="flex w-full min-w-0 flex-1 flex-col py-5 sm:py-6">
-            <ul className="space-y-1.5">
+            {/* 세부 내용 좌우 여백 - 이미지 아래 카드 폭 전체로 퍼지지 않도록 화면이 넓을수록 여백을 늘려
+                가운데에 모으고 한 줄 길이를 줄임 (링크 아이콘은 카드 오른쪽 끝 유지) */}
+            <ul className="space-y-1.5 sm:px-8 lg:px-20">
               {project.detail.map((line, index) => (
                 <li
                   key={index}
