@@ -1813,6 +1813,37 @@ git push -u origin 137-style-project-card-color-layout
 
 ---
 
+## Phase 6️⃣9️⃣: 프로젝트 카드 세부 내용 좌우 여백 추가 및 줄 길이 축소
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 세부 내용이 이미지 아래 가운데에 놓이는지(좌우 여백 동일) 확인 (768·1280px)
+- [ ] 세부 내용 줄 길이가 짧아졌는지 확인
+- [ ] 링크 아이콘이 카드 오른쪽 끝에 있는지 확인
+- [ ] 모바일 레이아웃 변화 없음, 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드 세부 내용 좌우 여백 추가 및 줄 길이 축소` (본문 `Refs #140`)
+2. `docs`: `Phase 69 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드 세부 내용 좌우 여백 추가 및 줄 길이 축소" -m "Refs #140"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 69 작업 완료 사항 정리"
+
+git push -u origin 140-style-project-detail-padding
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
