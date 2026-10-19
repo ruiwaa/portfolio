@@ -2264,7 +2264,7 @@ aboutme 안의 컴포넌트 패딩값을 더 적용해서 가운데 정렬 되�
   모든 화면에 표시. 데스크톱 전용 세부 카드 래퍼와 #92에서 추가한 높이 정렬 코드(`useLayoutEffect`·`ResizeObserver`·`listRef`·
   `cardWrapperRef`·`data-journey-step-dot`) 삭제, 미사용이 된 `useLayoutEffect` import·`active` 변수 제거. 단계 번호 원 보정(`pl-4.25`)은 유지
 - `JourneyDetailCard.tsx`: 데스크톱 전용 화살표 SVG(`data-journey-connector-dot` 포함) 삭제
-- 두 파일 합계 +7 / −87줄. 커밋 본문 `Refs #122`
+- 두 파일 합계 +7 / −88줄. 커밋 본문 `Refs #122`
 - 결과적으로 Phase 53(#92 높이 정렬)·61·62(화살표)의 데스크톱 연결선 관련 구현이 제거됨. About Me 가운데 배치(#116)·제목 여백(#119)·
   좌우 여백 보정(#113)은 유지
 
