@@ -1968,6 +1968,36 @@ git push -u origin 152-style-project-card-dark
 
 ---
 
+## Phase 7️⃣4️⃣: 라이트 모드 프로젝트 링크 버튼 테두리 대비 개선
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 라이트 모드 링크 버튼 테두리 대비 3:1 이상 (파란 카드 배경 기준)
+- [ ] 링크 아이콘 대비 유지, hover 색 유지
+- [ ] 다크 모드 변화 없음 확인
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `라이트 모드 프로젝트 링크 버튼 테두리 대비 개선` (본문 `Refs #155`)
+2. `docs`: `Phase 74 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 라이트 모드 프로젝트 링크 버튼 테두리 대비 개선" -m "Refs #155"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 74 작업 완료 사항 정리"
+
+git push -u origin 155-style-project-link-border-light
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
