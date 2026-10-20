@@ -295,6 +295,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               ))}
             </ul>
 
+            {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 카드 배경 대비 3:1 이상 확보
+                (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
             <ul className="mt-4 flex flex-wrap gap-3 self-end">
               {[
                 ...(project.links.demos
@@ -324,7 +326,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                     rel="noopener noreferrer"
                     aria-label={`${label} (새 탭에서 열림)`}
                     title={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-light-border text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-light-text-secondary/80 text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
                   >
                     <Icon aria-hidden="true" size={16} />
                   </a>
