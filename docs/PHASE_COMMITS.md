@@ -1936,6 +1936,38 @@ git push -u origin 149-style-project-header-center
 
 ---
 
+## Phase 7️⃣3️⃣: 다크 모드 프로젝트 카드 투명 배경 및 접근성·가독성 색상 조정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 다크 모드 카드 배경이 투명한 라임(10%)이고 라임 테두리가 보이는지 확인
+- [ ] 다크 모드 글자 대비 4.5:1 이상 (제목·담당 역할·소개 문구·세부 내용)
+- [ ] 링크 아이콘·버튼 테두리·카드 테두리 대비 3:1 이상
+- [ ] 라이트 모드 변화 없음 확인
+- [ ] 가로 스크롤 0
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `다크 모드 프로젝트 카드 투명 배경 및 접근성·가독성 색상 조정` (본문 `Refs #152`)
+2. `docs`: `Phase 73 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 다크 모드 프로젝트 카드 투명 배경 및 접근성·가독성 색상 조정" -m "Refs #152"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 73 작업 완료 사항 정리"
+
+git push -u origin 152-style-project-card-dark
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
