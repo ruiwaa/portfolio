@@ -2031,6 +2031,37 @@ git push -u origin 158-docs-pr-screenshots
 
 ---
 
+## Phase 7️⃣6️⃣: 프로젝트 카드·이미지 가로 패딩 px-10으로 통일
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 카드 위쪽·아래쪽 가로 여백 40px (390·768·1280px, 카드 4개 동일)
+- [ ] 이미지 sizes 최대 폭이 실제 표시 폭(870px)과 일치
+- [ ] 가로 스크롤 0
+- [ ] PR 스크린샷(변경 전/후) pr-screenshots 브랜치에 업로드
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드·이미지 가로 패딩 px-10으로 통일` (본문 `Refs #161`)
+2. `docs`: `Phase 76 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드·이미지 가로 패딩 px-10으로 통일" -m "Refs #161"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 76 작업 완료 사항 정리"
+
+git push -u origin 161-style-project-card-padding
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
