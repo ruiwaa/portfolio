@@ -2554,7 +2554,19 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
 - PR 스크린샷: `pr-screenshots/161/`에 라이트 1280·390px 변경 전/후 4장 (Phase 75 규칙 적용)
 
 **검증**: Playwright 프로덕션 빌드에서 카드 4개 모두 글자 가로 여백 40px, 이미지 좌우 45px - 390px(카드 342 / 이미지 292 → 252px),
-768px(608 / 518px), 1280px(960 / 902 → 870px), 가로 스크롤 0. 렌더링된 `sizes="(min-width: 1120px) 870px, 90vw"` 확인.
-`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+768px(608 / 550 → 518px), 1280px(960 / 902 → 870px), 가로 스크롤 0 (변경 전 이미지 폭은 이전 패딩으로 계산한 값, 변경 후는 측정값).
+렌더링된 `sizes="(min-width: 1120px) 870px, 90vw"` 확인. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
+**병합**:
+- "작업 내용 정리 문서에 작성해" → "이슈 만들고 커밋부터 병합까지 진행해"로 병합 과정 보완: 이슈 #164(`[DOCS] Phase 76 병합 과정 정리`), 브랜치 `164-docs-phase-76-merge`
+- PR #162(`161-style-project-card-padding` → dev, `close #161`) - 본문에 `pr-screenshots/161/` 변경 전/후 스크린샷 4장 첨부.
+  Vercel 검사 통과 후 머지, 이슈 #161 종료
+- dev 재확인: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과, 주요 페이지 5개 200, 카드 가로 여백 40px·가로 스크롤 0 재측정
+- PR #163(`[MERGE] 프로젝트 카드 가로 패딩 통일 후 main 브랜치 병합`, dev → main) 머지, main == dev 확인
+
+**트러블슈팅 (PR 문서)**: PR 초안을 보내기 전 검토에서 사실과 다른 설명 2곳 발견 → 수정 후 PR 생성
+1. "위쪽 글자와 이미지의 왼쪽 시작선이 같다" - 이미지는 둘레 5px 여백(`p-[5px]`) 때문에 글자(40px)보다 5px 안쪽(45px)이라 사실이 아님 →
+   "위쪽·아래쪽 영역 모두 같은 40px 여백"으로 수정
+2. 변경 전 이미지 폭(292·550·902px)을 측정값처럼 표에 적음 - 실제로는 이전 패딩으로 계산한 값 → "변경 전은 계산값, 변경 후는 측정값"으로 표시
 
 📍 다음: (사용자 지정 대기)
