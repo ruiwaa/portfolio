@@ -55,8 +55,9 @@ function withBoldEnglish(text: string) {
 }
 
 // 모든 프로젝트 카드 배경을 한 색으로 통일 - 라이트는 파란색(sky, Card accent), 다크는 라임색.
-// 다크는 어두운 배경 위에 라임을 20%만 깔아, 카드 위의 흰 텍스트가 WCAG AA 대비(4.5:1)를 충분히 확보하게 함
-const CARD_DARK_BG = "dark:bg-lime-500/20";
+// 다크는 라임을 10%만 투명하게 깔고 1px 라임 테두리(ring, 50% - 페이지 배경 대비 3:1 이상)로 카드 경계를 보여줌. 테두리를 border가 아닌 ring으로 둔 이유:
+// Card가 이미 dark:border-dark-border를 주고 있어 border 색을 또 주면 우선순위가 같아 어느 쪽이 적용될지 보장되지 않음
+const CARD_DARK_BG = "dark:bg-lime-400/10 dark:ring-1 dark:ring-lime-400/50";
 
 interface ProjectLinks {
   // 배포 사이트를 연결하지 못한 프로젝트는 "site" 대신 "video"로 두고
@@ -240,7 +241,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
             </strong>{" "}
             {project.role}
           </p>
-          <p className="body mt-2 text-light-text-secondary dark:text-white">
+          {/* 다크 모드 본문은 흰색 80% - 제목·담당 역할(흰색 100%)과 위계를 두고 긴 문장의 눈부심을 줄임 */}
+          <p className="body mt-2 text-light-text-secondary dark:text-white/80">
             {project.description}
           </p>
         </div>
@@ -283,7 +285,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               {project.detail.map((line, index) => (
                 <li
                   key={index}
-                  className="flex gap-2 font-sans text-base font-medium text-light-text-secondary sm:text-[18px] dark:text-white"
+                  className="flex gap-2 font-sans text-base font-medium text-light-text-secondary sm:text-[18px] dark:text-white/80"
                 >
                   <span aria-hidden="true">•</span>
                   <span className="min-w-0 wrap-anywhere">
