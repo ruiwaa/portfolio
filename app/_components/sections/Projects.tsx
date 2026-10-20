@@ -204,7 +204,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         padded={false}
         className={`flex flex-col overflow-hidden ${CARD_DARK_BG}`}
       >
-        <div className="p-5 pb-0 sm:p-6 sm:pb-0">
+        {/* 카드 가로 패딩은 위쪽(제목~소개 문구)과 아래쪽(이미지~링크) 모두 px-10(40px)으로 맞춤 */}
+        <div className="px-10 pt-5 sm:pt-6">
           <h3 className="text-center text-xl font-bold text-light-text sm:text-2xl dark:text-dark-text">
             {project.title}
           </h3>
@@ -248,7 +249,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
         </div>
 
         {/* 모든 화면에서 이미지 위·세부 내용 아래의 세로 배치 */}
-        <div className="flex flex-col items-start px-5 sm:px-6">
+        <div className="flex flex-col items-start px-10">
           {/* p-[5px]: 이미지 둘레 5px 여백. next/image fill은 inset:0 절대 배치라 바깥 상자 패딩으로는 줄어들지 않아,
               패딩 안쪽에 둥근 모서리(rounded-lg)·그림자를 가진 상자를 하나 더 두고 그 안에 이미지를 채움 */}
           <div className="mt-6 aspect-16/10 w-full shrink-0 p-[5px]">
@@ -270,8 +271,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                   alt=""
                   fill
                   className="object-cover"
-                  // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 24px×2 - 이미지 여백 5px×2 = 902px
-                  sizes="(min-width: 1120px) 902px, 90vw"
+                  // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 40px×2 - 이미지 여백 5px×2 = 870px
+                  sizes="(min-width: 1120px) 870px, 90vw"
                 />
               )}
             </div>
