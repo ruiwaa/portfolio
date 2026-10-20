@@ -1998,6 +1998,39 @@ git push -u origin 155-style-project-link-border-light
 
 ---
 
+## Phase 7️⃣5️⃣: 스타일 PR 변경 전/후 스크린샷 첨부 및 PR #153·#156 스크린샷 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] pr-screenshots 브랜치 이미지 raw 주소가 열리는지 확인 (HTTP 200)
+- [ ] PR #153·#156 본문 스크린샷 칸에 변경 전/후가 보이는지 확인
+- [ ] pr-screenshots 브랜치는 dev·main에 병합하지 않음
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `PR #153·#156 변경 전/후 스크린샷 추가` (`pr-screenshots` 브랜치)
+2. `docs`: `Phase 75 작업 완료 사항 정리` (본문 `Refs #158`)
+
+### 💻 커밋 명령어
+
+```bash
+# 스크린샷 보관 브랜치 (orphan, 병합하지 않음)
+git worktree add --orphan -b pr-screenshots <경로>
+git add 152 155 README.md
+git commit -m "docs: PR #153·#156 변경 전/후 스크린샷 추가"
+git push -u origin pr-screenshots
+
+# 정리 문서
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 75 작업 완료 사항 정리" -m "Refs #158"
+
+git push -u origin 158-docs-pr-screenshots
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
