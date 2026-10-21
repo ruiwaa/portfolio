@@ -2741,4 +2741,24 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
   로컬 4개(`176-…`, `179-…`, `182-…`, `185-…`, `git branch -d`). `main`·`dev`·`pr-screenshots` 유지, 정리 후 PR 이미지 200 확인
 - 병합·브랜치 정리 기록: 이슈 #188(`[DOCS] Phase 82 병합·브랜치 정리 기록`), 브랜치 `188-docs-phase-82-merge`
 
+📍 다음: Phase 8️⃣3️⃣ - About Me mt 제거 및 간격 gap-20으로 축소
+
+## Phase 8️⃣3️⃣: About Me mt 제거 및 간격 gap-20으로 축소
+
+**요청**: "about me mt값 제거하고, gap-20으로 변경해" → "이제 병합해"
+
+**변경**:
+- 직전 병합: Phase 82 기록 보완 PR #189 머지(이슈 #188 종료) 후 dev 재확인, PR #190(dev → main) 머지, main == dev
+- 이슈 #191(`[STYLE] About Me mt 제거 및 간격 gap-20으로 축소`) 생성, 브랜치 `191-style-about-gap`
+- "about me"는 성장의 여정·기술 스택을 담은 About Me 묶음(`AboutSections`)으로 해석
+- `app/page.tsx`: 홈에서 기술 스택에만 주던 `infoClassName="mt-20"`(80px) 제거
+- `AboutSections.tsx`: 간격 `LAYOUT.sectionGap`(gap-40, 160px) → `gap-20`(80px). 페이지 전체 섹션 간격(ABOUT ME ↔ EXPERIENCE 등)은 `LAYOUT.sectionGap` 그대로.
+  쓰지 않게 된 `infoClassName` 옵션 삭제, 이유 주석 추가
+- `AboutInfo.tsx`: 기술 스택 제목 여백 주석을 새 계산(gap-20 80px + 30px)으로 수정
+- 커밋 본문 `Refs #191`
+- PR 스크린샷: `pr-screenshots/191/`에 홈·/about 1280px 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 1280·390px - 성장의 여정 끝 ~ 기술 스택 제목 간격 홈 270 → 110px(160+80+30 → 80+0+30), /about 190 → 110px
+(160+30 → 80+30), 두 섹션 사이 grid 간격 80px·기술 스택 margin-top 0, 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
