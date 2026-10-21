@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import Header from "./_components/common/Header";
 import Footer from "./_components/common/Footer";
@@ -16,12 +16,6 @@ const THEME_INIT_SCRIPT = `
     } catch (e) {}
   })();
 `;
-
-const syne = Syne({
-  variable: "--font-syne",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -43,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ko"
-      className={`${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

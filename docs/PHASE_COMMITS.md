@@ -2082,6 +2082,38 @@ git push -u origin 167-docs-phase-76-merge-record
 
 ---
 
+## Phase 7️⃣7️⃣: 기본 폰트 Presentation(프리젠테이션)으로 변경
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 주요 페이지 body·제목 font-family가 Presentation인지 확인 (390·1280px)
+- [ ] 한글이 Presentation으로 표시되는지 확인
+- [ ] 실제 사용 굵기 파일만 로드되고 모두 200인지 확인
+- [ ] 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 존재 확인 후 스크린샷 업로드
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `기본 폰트 Presentation(프리젠테이션)으로 변경` (본문 `Refs #170`)
+2. `docs`: `Phase 77 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/globals.css app/layout.tsx styles/typography.css
+git commit -m "style: 기본 폰트 Presentation(프리젠테이션)으로 변경" -m "Refs #170"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 77 작업 완료 사항 정리"
+
+git push -u origin 170-style-base-font-presentation
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
