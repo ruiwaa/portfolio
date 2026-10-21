@@ -2114,6 +2114,42 @@ git push -u origin 170-style-base-font-presentation
 
 ---
 
+## Phase 7️⃣8️⃣: 프로젝트 이미지 클릭 시 시연 영상(배포 사이트) 열기
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 카드 4개 이미지 링크 주소 확인 (영상 우선, 없으면 배포 사이트)
+- [ ] 새 탭 열기, aria-label, 키보드 포커스 표시 확인
+- [ ] 안내 배지: 마우스 기기는 hover·포커스 때만, 터치 기기는 항상 표시
+- [ ] 모바일 배지 크기, 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `프로젝트 이미지 클릭 시 시연 영상(배포 사이트) 열기` (본문 `Refs #173`)
+2. `style`: `모바일 프로젝트 이미지 안내 배지 크기 축소` (본문 `Refs #173`)
+3. `docs`: `Phase 78 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "feat: 프로젝트 이미지 클릭 시 시연 영상(배포 사이트) 열기" -m "Refs #173"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 모바일 프로젝트 이미지 안내 배지 크기 축소" -m "Refs #173"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 78 작업 완료 사항 정리"
+
+git push -u origin 173-feat-project-image-demo-link
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
