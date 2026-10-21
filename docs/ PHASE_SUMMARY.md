@@ -2680,4 +2680,30 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 **검증**: Playwright 프로덕션 빌드 1280·390px - 성장의 여정 끝 ~ 기술 스택 제목 간격 홈 280 → 270px, /about 200 → 190px, 제목 margin-top 30px,
 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 8️⃣1️⃣ - 메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정
+
+## Phase 8️⃣1️⃣: 메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정
+
+**요청**: "메인페이지에서 각 제목이 페이드인 되는 속도를 재조정해줘. 내용들이 먼저나오고 있어" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #180 머지(이슈 #179 종료) 후 dev 재확인, PR #181(dev → main) 머지, main == dev
+- 이슈 #182(`[STYLE] 메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정`) 생성, 브랜치 `182-style-home-heading-timing`
+- `app/_components/ui/letterTiming.ts`(신규): 글자 간격 `LETTER_STAGGER_MS`(35)·글자 하나 `LETTER_DURATION_MS`(400)와 제목 전체가 나오는 시간
+  `getLettersDurationMs(text)` = (글자 수 - 1) × 간격 + 400. 서버 컴포넌트(`app/page.tsx`)에서도 쓰도록 "use client" 없는 파일로 분리
+- `AnimatedLetters.tsx`: 글자 간격 70 → 35ms, 글자 하나 0.5 → 0.4초 ("EXPERIENCE" 약 1.13 → 0.72초)
+- `Experience.tsx`: 글자 제목일 때 경력 항목 지연에 제목 전체 시간을 더함(제목과 경력은 거의 같은 시점에 화면에 들어옴)
+- `Projects.tsx`: 카드는 각자 화면에 들어올 때 나타나서 첫 줄 카드가 제목보다 먼저 보였음 → 제목이 화면에 들어온 뒤 제목 시간만큼 지나면
+  `isHeadingDone`을 켜고, 카드는 `isInView && canAppear`일 때만 나타남
+- `app/page.tsx`: 성장의 여정 제목 지연을 고정 1000ms → `getLettersDurationMs("ABOUT ME")`(645ms)
+- 커밋 본문 `Refs #182`
+- PR 스크린샷: `pr-screenshots/182/` - 구역을 화면에 띄운 뒤 350ms·900ms에 애니메이션을 멈추고 찍은 EXPERIENCE·PROJECTS 변경 전/후 8장
+
+**검증**: Playwright 프로덕션 빌드에서 마우스 휠 스크롤 중 rAF로 opacity를 기록(제목은 마지막 글자 기준, 페이지 진입 후 ms)
+- 1280px 보통 스크롤: EXPERIENCE 제목 완료/내용 시작 3645/2963 → 3307/3656, PROJECTS 3912/3579 → 3607/3873, 성장의 여정 2112/2245 → 1690/1807
+- 빠른 스크롤(200px/60ms)·390px에서도 모든 구역에서 제목 완료 후 내용 시작
+- 남은 점: 아주 빠른 스크롤에서는 아래 구역(기술 스택) 제목이 위 구역(성장의 여정) 제목보다 먼저 나올 수 있음(608 대 875ms, 이전 652 대 1267ms) -
+  두 구역이 동시에 화면에 들어오기 때문이며, 같은 구역 안에서 내용이 제목보다 먼저 나오는 경우는 없음
+- `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
