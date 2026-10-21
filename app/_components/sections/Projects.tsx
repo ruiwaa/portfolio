@@ -189,8 +189,18 @@ const PROJECTS: ProjectEntry[] = [
   },
 ];
 
+// 이미지를 눌렀을 때 열 주소 - 시연 영상이 있으면 영상(여러 개면 첫 번째), 없으면 배포 사이트
+function getMediaLink(links: ProjectLinks) {
+  if (links.demos?.[0]) return { href: links.demos[0].href, isVideo: true };
+  if (links.demo) return { href: links.demo, isVideo: links.demoType === "video" };
+  return null;
+}
+
 function ProjectCard({ project }: { project: ProjectEntry }) {
   const { ref, isInView } = useInView<HTMLDivElement>();
+  const mediaLink =
+    project.media.type === "image" ? getMediaLink(project.links) : null;
+  const mediaLinkLabel = mediaLink?.isVideo ? "시연 영상" : "배포 사이트";
 
   return (
     <div
@@ -253,7 +263,7 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           {/* p-[5px]: 이미지 둘레 5px 여백. next/image fill은 inset:0 절대 배치라 바깥 상자 패딩으로는 줄어들지 않아,
               패딩 안쪽에 둥근 모서리(rounded-lg)·그림자를 가진 상자를 하나 더 두고 그 안에 이미지를 채움 */}
           <div className="mt-6 aspect-16/10 w-full shrink-0 p-[5px]">
-            <div className="relative h-full w-full overflow-hidden rounded-lg shadow-xl">
+            <div className="group relative h-full w-full overflow-hidden rounded-lg shadow-xl">
               {project.media.type === "video" ? (
                 <video
                   src={project.media.src}
@@ -270,10 +280,33 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                   src={project.media.src}
                   alt=""
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.02]"
                   // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 40px×2 - 이미지 여백 5px×2 = 870px
                   sizes="(min-width: 1120px) 870px, 90vw"
                 />
+              )}
+              {/* 이미지 전체를 덮는 링크 - 시연 영상(없으면 배포 사이트)을 새 탭에서 엶. 이미지는 장식(alt="")이라
+                  링크 이름은 aria-label로 제공. 안내 배지는 마우스가 있는 기기에서는 hover·포커스 때만, 터치 기기에서는 항상 표시 */}
+              {mediaLink && (
+                <a
+                  href={mediaLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} ${mediaLinkLabel} (새 탭에서 열림)`}
+                  className="absolute inset-0 flex items-end justify-end rounded-lg p-3 focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="flex items-center gap-1.5 rounded-full bg-black/75 px-3 py-1.5 text-sm font-semibold text-white transition-opacity duration-200 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100"
+                  >
+                    {mediaLink.isVideo ? (
+                      <PlayCircle size={16} />
+                    ) : (
+                      <Globe size={16} />
+                    )}
+                    {mediaLinkLabel} 보기
+                  </span>
+                </a>
               )}
             </div>
           </div>
