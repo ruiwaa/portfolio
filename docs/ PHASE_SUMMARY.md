@@ -2732,4 +2732,13 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 **검증**: Playwright 프로덕션 빌드 - 1280px 링크 6개, 390px 같은 줄 링크 5개 모두 간격 8px·화살표가 글자 앞, 390px 줄바꿈 링크 1개는 글자 시작선과 같은 위치,
 세부 내용 항목 높이 변경 전과 동일, 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+**병합·브랜치 정리**:
+- PR #186(`185-style-detail-link-arrow` → dev, `close #185`) - 본문에 `pr-screenshots/185/` 스크린샷 6장(커밋 SHA 주소). Vercel 검사 통과 후 머지,
+  이슈 #185 종료
+- dev 재확인: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과, 주요 페이지 5개 200, 링크 간격 8px·화살표 위치·390px 줄바꿈 정렬(46px) 재측정
+- PR #187(`[MERGE] 자세히 보기 간격·화살표 위치 조정 후 main 브랜치 병합`, dev → main) 머지, main == dev 확인
+- "작업이 완료된 브랜치들 정리해" → dev에 병합된 작업 브랜치 삭제: 원격 2개(`182-style-home-heading-timing`, `185-style-detail-link-arrow`),
+  로컬 4개(`176-…`, `179-…`, `182-…`, `185-…`, `git branch -d`). `main`·`dev`·`pr-screenshots` 유지, 정리 후 PR 이미지 200 확인
+- 병합·브랜치 정리 기록: 이슈 #188(`[DOCS] Phase 82 병합·브랜치 정리 기록`), 브랜치 `188-docs-phase-82-merge`
+
 📍 다음: (사용자 지정 대기)
