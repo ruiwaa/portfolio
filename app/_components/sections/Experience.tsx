@@ -1,6 +1,7 @@
 "use client";
 
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
+import { getLettersDurationMs } from "@/app/_components/ui/letterTiming";
 import TimelineItem from "@/app/_components/ui/TimelineItem";
 import { useInView } from "@/app/_hooks/useInView";
 
@@ -33,23 +34,33 @@ const TIMELINE: TimelineEntry[] = [
   },
 ];
 
+const HEADING_TEXT = "EXPERIENCE";
+
 export default function Experience({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
   animateHeading = false,
 }: ExperienceProps) {
   const { ref, isInView } = useInView<HTMLElement>();
+  // 글자 제목(홈)은 다 나타난 뒤에 경력이 나오도록 그만큼 기다림 - 제목과 경력은 거의 같은 시점에 화면에 들어옴
+  const itemsBaseDelayMs = animateHeading
+    ? getLettersDurationMs(HEADING_TEXT)
+    : 0;
 
   return (
     <section ref={ref} aria-label="경력 타임라인">
       <h2 className={`section-header ${headingClassName}`}>
-        {animateHeading ? <AnimatedLetters text="EXPERIENCE" /> : "EXPERIENCE"}
+        {animateHeading ? (
+          <AnimatedLetters text={HEADING_TEXT} />
+        ) : (
+          HEADING_TEXT
+        )}
       </h2>
       {/* md 이상에서는 경력을 가로로 나란히, 모바일에서는 세로로 */}
       <ol className="mt-6 flex list-none flex-col md:flex-row md:gap-10">
         {TIMELINE.map((entry, index) => (
           <li
             key={index}
-            style={{ animationDelay: `${index * 150}ms` }}
+            style={{ animationDelay: `${itemsBaseDelayMs + index * 150}ms` }}
             className={`motion-safe:opacity-0 md:flex-1 ${
               isInView
                 ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]"
