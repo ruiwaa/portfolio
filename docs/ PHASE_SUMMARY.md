@@ -2634,4 +2634,32 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 배지 opacity hover 전 0 → hover 1, 터치 기기 항상 1, Tab 이동 시 이미지 링크 포커스·outline `3px rgb(0,102,204)`·배지 표시, 1280px·모바일 가로 스크롤 0.
 `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 7️⃣9️⃣ - 프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크
+
+## Phase 7️⃣9️⃣: 프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크
+
+**요청**: "브랜치 작업이 완료된 브랜치들을 정리해" → "프로젝트 카드 안에 이미지까지만 담기게 하고 1줄에 두개의 프로젝트가 오게 배치하고 세부 내용에
+맞는 트러블 슈팅 글을 세부 내용 옆에 화살표 표시로 만들고 자세히보기 라는 문구로 연결해" → "너가 제안한대로 진행해"
+
+**변경**:
+- 직전 병합: PR #174 머지(이슈 #173 종료) 후 dev 재확인, PR #175(dev → main) 머지, main == dev
+- 브랜치 정리: dev에 병합된 작업 브랜치 삭제 - 원격 3개(`164-…`, `170-…`, `173-…`), 로컬 27개(`git branch -d`). `main`·`dev`·`pr-screenshots`는 유지
+- 이슈 #176(`[FEAT] 프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크`) 생성, 브랜치 `176-feat-project-grid-detail-posts`
+- `Projects.tsx`
+  - 카드에는 제목·기술 아이콘·담당 역할·소개 문구·이미지만, 세부 내용·링크 버튼은 카드 아래(간격 20px)로 이동. 이미지 영역 `mt-auto px-10 pb-10`
+  - 목록 `flex-col` → `grid md:grid-cols-2 gap-x-8 gap-y-[8vh]`. `ProjectCard`가 `<li>`를 직접 렌더하고 `row-span-2 grid-rows-subgrid gap-y-5` -
+    같은 줄 두 카드의 높이와 세부 내용 시작선이 같아짐 (소개 문구 길이가 달라도 이미지는 카드 아래쪽에 맞춤)
+  - `detail`을 `string | { text, post: { title, href } }`로 확장. 글이 있는 줄 끝에 "자세히 보기 →"(`next/link`, Velog는 새 탭) -
+    링크 이름 `"자세히 보기: <글 제목> 트러블 슈팅 글"`(보이는 글자로 시작), 라이트 `text-light-accent`·다크 `lime-400`
+  - 연결: 중단어 창고 Lighthouse → "lighthouse 검사 후 성능 개선 작업", @supabase/ssr·PASSWORD_RECOVERY → "비밀번호 재설정 링크를 통한 접근 여부 검증"(Velog),
+    행쇼마켓 Navi CLS·three.js 제거 → "성능 최적화", API 함수·Custom Hook 분리 → "찜하기 버튼 재사용을 위한 리펙토링", 예매의 정석 URLSearchParams →
+    "코드 리펙토링 기록". GENOVA는 맞는 글이 없고, 중단어 창고 HSK 검색은 맞는 글이 '개발' 분류라 제외
+  - 세부 내용의 `sm:px-8 lg:px-20`·`sm:text-[18px]` 제거(칸이 좁아져 불필요), 이미지 `sizes` → `(min-width: 1120px) 374px, (min-width: 768px) 50vw, 90vw`
+- 커밋 본문 `Refs #176`
+- PR 스크린샷: `pr-screenshots/176/` 6장(1280 라이트 변경 전/후·다크, 390 변경 전/후·링크), PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 1280px(라이트·다크)·768px 2열(칸 폭 464·288px), 390px 1열, 같은 줄 카드 높이 차 0·세부 내용 시작 위치 동일,
+카드 안 세부 내용 없음, 홈·`/experience` 가로 스크롤 0. 링크 6개 주소·이름 확인, 사이트 글 3개 200. 대비: 링크 라이트 5.57:1·다크 12.09:1, 세부 내용
+라이트 5.74:1·다크 12.02:1. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)

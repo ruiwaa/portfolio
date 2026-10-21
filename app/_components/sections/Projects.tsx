@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FileText, Globe, PlayCircle } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, FileText, Globe, PlayCircle } from "lucide-react";
 import {
   SiCss,
   SiGithub,
@@ -76,6 +77,11 @@ interface ProjectMedia {
   src: string;
 }
 
+// 세부 내용 한 줄 - 그 내용을 다룬 트러블 슈팅 글이 있으면 post로 연결해 "자세히 보기" 링크를 붙임.
+// href가 http로 시작하면 Velog 글(새 탭), 아니면 사이트 안 글(/posts/...)
+type ProjectDetail =
+  string | { text: string; post: { title: string; href: string } };
+
 interface ProjectEntry {
   title: string;
   description: string;
@@ -83,7 +89,7 @@ interface ProjectEntry {
   // 팀 프로젝트에서 내가 맡은 범위 (사용 기술 바로 아래에 표시)
   role: string;
   media: ProjectMedia;
-  detail: string[];
+  detail: ProjectDetail[];
   links: ProjectLinks;
 }
 
@@ -132,8 +138,20 @@ const PROJECTS: ProjectEntry[] = [
       src: "/projects/jungdanuh-changgo-home.png",
     },
     detail: [
-      "Lighthouse로 LCP 병목을 분석해 이미지 fetchPriority/preload·중국어 폰트 적용 범위 축소를 적용, 데스크탑 기준 LCP를 회원가입 5초·메인 0.5초 단축하고 검색 페이지 성능 점수 6점 향상",
-      "@supabase/ssr로 서버·클라이언트 인증 상태를 관리하고, Proxy에서 세션을 확인해 인증이 필요한 경로 접근을 제어하며 PASSWORD_RECOVERY 상태로 비밀번호 재설정 흐름 구분",
+      {
+        text: "Lighthouse로 LCP 병목을 분석해 이미지 fetchPriority/preload·중국어 폰트 적용 범위 축소를 적용, 데스크탑 기준 LCP를 회원가입 5초·메인 0.5초 단축하고 검색 페이지 성능 점수 6점 향상",
+        post: {
+          title: "lighthouse 검사 후 성능 개선 작업",
+          href: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-lighthouse-%EA%B2%80%EC%82%AC-%ED%9B%84-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0-%EC%9E%91%EC%97%85",
+        },
+      },
+      {
+        text: "@supabase/ssr로 서버·클라이언트 인증 상태를 관리하고, Proxy에서 세션을 확인해 인증이 필요한 경로 접근을 제어하며 PASSWORD_RECOVERY 상태로 비밀번호 재설정 흐름 구분",
+        post: {
+          title: "비밀번호 재설정 링크를 통한 접근 여부 검증",
+          href: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%9E%AC%EC%84%A4%EC%A0%95-%EB%A7%81%ED%81%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%A0%91%EA%B7%BC-%EC%97%AC%EB%B6%80-%EA%B2%80%EC%A6%9D",
+        },
+      },
       "HSK 단어 검색을 Supabase RPC로 처리해 서버에서 관련성 기준으로 정렬 후 필요한 데이터만 전달, 데이터가 늘어도 확장 가능한 검색 구조 구현",
     ],
     links: {
@@ -153,11 +171,29 @@ const PROJECTS: ProjectEntry[] = [
       src: "/projects/hangsho-market-home.png",
     },
     detail: [
-      "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608에서 0으로 개선",
+      {
+        text: "Navi가 클라이언트에서 늦게 렌더링되며 Footer를 밀어내던 문제를 서버 컴포넌트 전환으로 해결해 CLS를 0.608에서 0으로 개선",
+        post: {
+          title: "성능 최적화",
+          href: "/posts/final-project-performance",
+        },
+      },
       "배송 상태 변경 후 관련 쿼리를 invalidate해 새로고침 없이 주문 목록에 변경 사항이 바로 반영되도록 구현",
       "Supabase 관계형 조회로 주문·상품 정보를 연동하고, 중첩된 응답 데이터에 타입을 정의해 타입 안정성 확보",
-      "Supabase 호출은 API 함수로, 조회·검증 로직은 Custom Hook으로, 상태 변경 로직은 UI와 분리해 재사용성 향상",
-      "사용하지 않는 three.js 패키지(약 600KB)를 의존성에서 제거",
+      {
+        text: "Supabase 호출은 API 함수로, 조회·검증 로직은 Custom Hook으로, 상태 변경 로직은 UI와 분리해 재사용성 향상",
+        post: {
+          title: "찜하기 버튼 재사용을 위한 리펙토링",
+          href: "/posts/final-project",
+        },
+      },
+      {
+        text: "사용하지 않는 three.js 패키지(약 600KB)를 의존성에서 제거",
+        post: {
+          title: "성능 최적화",
+          href: "/posts/final-project-performance",
+        },
+      },
     ],
     links: {
       demo: "https://final-project-team2.vercel.app/",
@@ -178,7 +214,13 @@ const PROJECTS: ProjectEntry[] = [
     detail: [
       "포인트·카드 할인 폼과 유효성 검증 로직을 구현해 할인 금액을 총 합계에 정확히 반영",
       "필수 정보 없이 결제 페이지 URL로 바로 접근 시 이전 단계로 리디렉션하는 가드 로직 구현",
-      "URLSearchParams로 탭 상태를 URL에 저장해 새로고침·뒤로가기에도 활성 탭이 유지되도록 개선",
+      {
+        text: "URLSearchParams로 탭 상태를 URL에 저장해 새로고침·뒤로가기에도 활성 탭이 유지되도록 개선",
+        post: {
+          title: "코드 리펙토링 기록",
+          href: "/posts/yeamaeui-jeongseok-refactoring",
+        },
+      },
     ],
     links: {
       demoType: "video",
@@ -192,23 +234,27 @@ const PROJECTS: ProjectEntry[] = [
 // 이미지를 눌렀을 때 열 주소 - 시연 영상이 있으면 영상(여러 개면 첫 번째), 없으면 배포 사이트
 function getMediaLink(links: ProjectLinks) {
   if (links.demos?.[0]) return { href: links.demos[0].href, isVideo: true };
-  if (links.demo) return { href: links.demo, isVideo: links.demoType === "video" };
+  if (links.demo)
+    return { href: links.demo, isVideo: links.demoType === "video" };
   return null;
 }
 
 function ProjectCard({ project }: { project: ProjectEntry }) {
-  const { ref, isInView } = useInView<HTMLDivElement>();
+  const { ref, isInView } = useInView<HTMLLIElement>();
   const mediaLink =
     project.media.type === "image" ? getMediaLink(project.links) : null;
   const mediaLinkLabel = mediaLink?.isVideo ? "시연 영상" : "배포 사이트";
 
+  // 한 줄에 두 카드 - 부모 grid의 행을 subgrid로 물려받아, 같은 줄 두 카드의 높이와 아래 세부 내용 시작선이 같아짐.
+  // 카드(1행)와 세부 내용(2행) 사이는 gap-y-5, 줄과 줄 사이는 부모의 gap-y
   return (
-    <div
+    <li
       ref={ref}
-      className={`motion-safe:opacity-0 ${
+      className={`row-span-2 grid min-w-0 grid-rows-subgrid gap-y-5 motion-safe:opacity-0 ${
         isInView ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]" : ""
       }`}
     >
+      {/* 카드에는 제목~이미지까지만 담고, 세부 내용·링크는 카드 아래에 둠 */}
       <Card
         accent="sky"
         padded={false}
@@ -221,7 +267,10 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </h3>
           {/* 아이콘만 보이지만 기술 이름은 스크린 리더(sr-only)와 마우스 툴팁(title)으로 제공.
               매핑에 없는 기술은 기존처럼 텍스트 배지로 표시 */}
-          <ul aria-label="사용 기술" className="mt-2 flex flex-wrap justify-center gap-2">
+          <ul
+            aria-label="사용 기술"
+            className="mt-2 flex flex-wrap justify-center gap-2"
+          >
             {project.tags.map((tag) => {
               const tech = TECH_ICONS[tag];
 
@@ -258,8 +307,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
           </p>
         </div>
 
-        {/* 모든 화면에서 이미지 위·세부 내용 아래의 세로 배치 */}
-        <div className="flex flex-col items-start px-10">
+        {/* mt-auto: 같은 줄 카드끼리 소개 문구 길이가 달라도 이미지가 카드 아래쪽에 맞춰짐 */}
+        <div className="mt-auto px-10 pb-10">
           {/* p-[5px]: 이미지 둘레 5px 여백. next/image fill은 inset:0 절대 배치라 바깥 상자 패딩으로는 줄어들지 않아,
               패딩 안쪽에 둥근 모서리(rounded-lg)·그림자를 가진 상자를 하나 더 두고 그 안에 이미지를 채움 */}
           <div className="mt-6 aspect-16/10 w-full shrink-0 p-[5px]">
@@ -281,8 +330,9 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                   alt=""
                   fill
                   className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.02]"
-                  // 이미지 최대 폭 = 본문 폭(960px) - 안쪽 여백 40px×2 - 이미지 여백 5px×2 = 870px
-                  sizes="(min-width: 1120px) 870px, 90vw"
+                  // 이미지 최대 폭 = 한 칸 폭((본문 960px - 칸 사이 32px) / 2 = 464px) - 안쪽 여백 40px×2 - 이미지 여백 5px×2 = 374px.
+                  // md~1119px는 두 칸(화면의 절반 이하), md 미만은 한 칸
+                  sizes="(min-width: 1120px) 374px, (min-width: 768px) 50vw, 90vw"
                 />
               )}
               {/* 이미지 전체를 덮는 링크 - 시연 영상(없으면 배포 사이트)을 새 탭에서 엶. 이미지는 장식(alt="")이라
@@ -311,67 +361,85 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
               )}
             </div>
           </div>
-          {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
-              끊을 수 없는 긴 단어가 있으면 카드 밖으로 넘쳤음 */}
-          <div className="flex w-full min-w-0 flex-1 flex-col py-5 sm:py-6">
-            {/* 세부 내용 좌우 여백 - 이미지 아래 카드 폭 전체로 퍼지지 않도록 화면이 넓을수록 여백을 늘려
-                가운데에 모으고 한 줄 길이를 줄임 (링크 아이콘은 카드 오른쪽 끝 유지) */}
-            <ul className="space-y-1.5 sm:px-8 lg:px-20">
-              {project.detail.map((line, index) => (
-                <li
-                  key={index}
-                  className="flex gap-2 font-sans text-base font-medium text-light-text-secondary sm:text-[18px] dark:text-white/80"
-                >
-                  <span aria-hidden="true">•</span>
-                  <span className="min-w-0 wrap-anywhere">
-                    {withBoldEnglish(line)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 카드 배경 대비 3:1 이상 확보
-                (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
-            <ul className="mt-4 flex flex-wrap gap-3 self-end">
-              {[
-                ...(project.links.demos
-                  ? project.links.demos.map(
-                      (d) => [d.label, d.href, PlayCircle] as const,
-                    )
-                  : project.links.demo
-                    ? [
-                        project.links.demoType === "video"
-                          ? ([
-                              "시연 영상",
-                              project.links.demo,
-                              PlayCircle,
-                            ] as const)
-                          : (["배포 링크", project.links.demo, Globe] as const),
-                      ]
-                    : []),
-                ...(project.links.github
-                  ? [["GitHub", project.links.github, SiGithub] as const]
-                  : []),
-                ["포스트", project.links.post, FileText] as const,
-              ].map(([label, href, Icon]) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${label} (새 탭에서 열림)`}
-                    title={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-light-text-secondary/80 text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
-                  >
-                    <Icon aria-hidden="true" size={16} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </Card>
-    </div>
+
+      {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
+          끊을 수 없는 긴 단어가 있으면 칸 밖으로 넘쳤음 */}
+      <div className="flex min-w-0 flex-col px-2">
+        <ul className="space-y-1.5">
+          {project.detail.map((item, index) => {
+            const text = typeof item === "string" ? item : item.text;
+            const post = typeof item === "string" ? null : item.post;
+            const isExternal = post?.href.startsWith("http");
+
+            return (
+              <li
+                key={index}
+                className="flex gap-2 font-sans text-base font-medium text-light-text-secondary dark:text-white/80"
+              >
+                <span aria-hidden="true">•</span>
+                <span className="min-w-0 wrap-anywhere">
+                  {withBoldEnglish(text)}
+                  {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
+                  {post && (
+                    <>
+                      {" "}
+                      <Link
+                        href={post.href}
+                        {...(isExternal
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        aria-label={`자세히 보기: ${post.title} 트러블 슈팅 글${isExternal ? " (새 탭에서 열림)" : ""}`}
+                        className="inline-flex items-center gap-0.5 whitespace-nowrap font-semibold text-light-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-lime-400 dark:focus-visible:outline-lime-400"
+                      >
+                        자세히 보기
+                        <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                      </Link>
+                    </>
+                  )}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 카드 배경 대비 3:1 이상 확보
+                (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
+        <ul className="mt-4 flex flex-wrap gap-3 self-end">
+          {[
+            ...(project.links.demos
+              ? project.links.demos.map(
+                  (d) => [d.label, d.href, PlayCircle] as const,
+                )
+              : project.links.demo
+                ? [
+                    project.links.demoType === "video"
+                      ? (["시연 영상", project.links.demo, PlayCircle] as const)
+                      : (["배포 링크", project.links.demo, Globe] as const),
+                  ]
+                : []),
+            ...(project.links.github
+              ? [["GitHub", project.links.github, SiGithub] as const]
+              : []),
+            ["포스트", project.links.post, FileText] as const,
+          ].map(([label, href, Icon]) => (
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${label} (새 탭에서 열림)`}
+                title={label}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-light-text-secondary/80 text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+              >
+                <Icon aria-hidden="true" size={16} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
   );
 }
 
@@ -409,11 +477,10 @@ export default function Projects({
       >
         {animateHeading ? <AnimatedLetters text="PROJECTS" /> : "PROJECTS"}
       </h2>
-      <ul className="mt-6 flex flex-col gap-[12vh]">
+      {/* md 이상 한 줄에 두 프로젝트. 각 li가 2행(카드·세부 내용)을 차지하는 subgrid */}
+      <ul className="mt-6 grid gap-x-8 gap-y-[8vh] md:grid-cols-2">
         {PROJECTS.map((project, index) => (
-          <li key={index}>
-            <ProjectCard project={project} />
-          </li>
+          <ProjectCard key={index} project={project} />
         ))}
       </ul>
     </section>
