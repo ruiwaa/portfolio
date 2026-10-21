@@ -2243,6 +2243,41 @@ git push -u origin 182-style-home-heading-timing
 
 ---
 
+## Phase 8️⃣2️⃣: 세부 내용·자세히 보기 간격 추가 및 화살표 앞으로 이동
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 세부 내용 끝 ~ 자세히 보기 간격 8px, 화살표가 글자 앞
+- [ ] 링크가 다음 줄로 넘어갈 때 들여쓰기 없음
+- [ ] 링크가 있는 줄 높이가 다른 줄과 같음
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `세부 내용·자세히 보기 간격 추가 및 화살표 앞으로 이동` (본문 `Refs #185`)
+2. `fix`: `자세히 보기 링크 줄 높이 어긋남 수정` (본문 `Refs #185`)
+3. `docs`: `Phase 82 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 세부 내용·자세히 보기 간격 추가 및 화살표 앞으로 이동" -m "Refs #185"
+
+git add app/_components/sections/Projects.tsx
+git commit -m "fix: 자세히 보기 링크 줄 높이 어긋남 수정" -m "Refs #185"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 82 작업 완료 사항 정리"
+
+git push -u origin 185-style-detail-link-arrow
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

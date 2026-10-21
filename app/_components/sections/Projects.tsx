@@ -395,17 +395,25 @@ function ProjectCard({
                   {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
                   {post && (
                     <>
-                      {" "}
+                      {/* 세부 내용 끝과 링크 사이 간격 약 8px - 공백(16px Presentation 기준 약 3px)에 word-spacing 5px를 더함.
+                          margin 대신 공백을 쓰는 이유: 링크가 다음 줄로 넘어가면 공백은 줄 끝에 남아 사라지지만,
+                          margin은 새 줄 앞에 남아 링크가 글자 시작선보다 안쪽으로 들어감 */}
+                      <span className="[word-spacing:5px]"> </span>
                       <Link
                         href={post.href}
                         {...(isExternal
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
                         aria-label={`자세히 보기: ${post.title} 트러블 슈팅 글${isExternal ? " (새 탭에서 열림)" : ""}`}
-                        className="inline-flex items-center gap-0.5 whitespace-nowrap font-semibold text-light-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-lime-400 dark:focus-visible:outline-lime-400"
+                        className="whitespace-nowrap font-semibold text-light-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:text-lime-400 dark:focus-visible:outline-lime-400"
                       >
+                        {/* 아이콘을 inline-flex 첫 항목으로 두면 줄의 기준선이 아이콘 아래 끝이 되어 이 줄만 높아지므로,
+                            링크는 일반 inline으로 두고 아이콘만 글자 높이 가운데쯤으로 내림 */}
+                        <ArrowRight
+                          aria-hidden="true"
+                          className="mr-0.5 inline h-4 w-4 align-[-0.15em]"
+                        />
                         자세히 보기
-                        <ArrowRight aria-hidden="true" className="h-4 w-4" />
                       </Link>
                     </>
                   )}
