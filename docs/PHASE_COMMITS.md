@@ -2276,6 +2276,17 @@ git commit -m "docs: Phase 82 작업 완료 사항 정리"
 git push -u origin 185-style-detail-link-arrow
 ```
 
+#### 병합 후 기록 보완
+
+- `docs`: `Phase 82 병합·브랜치 정리 기록` (본문 `Refs #188`) - PR #186·#187 병합, dev 재확인, 브랜치 정리
+
+```bash
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 82 병합·브랜치 정리 기록" -m "Refs #188"
+
+git push -u origin 188-docs-phase-82-merge
+```
+
 ---
 
 ## 🚀 커밋 명령어 템플릿
