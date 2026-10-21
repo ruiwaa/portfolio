@@ -2182,6 +2182,36 @@ git push -u origin 176-feat-project-grid-detail-posts
 
 ---
 
+## Phase 8️⃣0️⃣: 성장의 여정·기술 스택 사이 간격 10px 축소
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 성장의 여정 ~ 기술 스택 제목 간격 홈 270px·/about 190px (각 10px 감소)
+- [ ] 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `성장의 여정·기술 스택 사이 간격 10px 축소` (본문 `Refs #179`)
+2. `docs`: `Phase 80 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/AboutInfo.tsx
+git commit -m "style: 성장의 여정·기술 스택 사이 간격 10px 축소" -m "Refs #179"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 80 작업 완료 사항 정리"
+
+git push -u origin 179-style-about-tech-stack-gap
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
