@@ -2071,6 +2071,15 @@ git commit -m "docs: Phase 76 병합 과정 정리" -m "Refs #164"
 git push -u origin 164-docs-phase-76-merge
 ```
 
+- `docs`: `Phase 76 기록 보완 PR 병합 내역 추가` (본문 `Refs #167`) - PR #165·#166 병합 기록
+
+```bash
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 76 기록 보완 PR 병합 내역 추가" -m "Refs #167"
+
+git push -u origin 167-docs-phase-76-merge-record
+```
+
 ---
 
 ## 🚀 커밋 명령어 템플릿
