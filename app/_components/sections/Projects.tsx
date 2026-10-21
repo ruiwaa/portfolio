@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileText, Globe, PlayCircle } from "lucide-react";
@@ -19,6 +20,7 @@ import {
 import { GiBearFace } from "react-icons/gi";
 import type { IconType } from "react-icons";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
+import { getLettersDurationMs } from "@/app/_components/ui/letterTiming";
 import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
 import { getTroubleshootingHref } from "@/lib/constants";
@@ -239,7 +241,14 @@ function getMediaLink(links: ProjectLinks) {
   return null;
 }
 
-function ProjectCard({ project }: { project: ProjectEntry }) {
+function ProjectCard({
+  project,
+  canAppear,
+}: {
+  project: ProjectEntry;
+  // 제목이 다 나타나기 전에는 화면에 들어와도 기다림 (홈의 글자 제목)
+  canAppear: boolean;
+}) {
   const { ref, isInView } = useInView<HTMLLIElement>();
   const mediaLink =
     project.media.type === "image" ? getMediaLink(project.links) : null;
@@ -251,7 +260,9 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
     <li
       ref={ref}
       className={`row-span-2 grid min-w-0 grid-rows-subgrid gap-y-5 motion-safe:opacity-0 ${
-        isInView ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]" : ""
+        isInView && canAppear
+          ? "motion-safe:animate-[fade-up-in_0.35s_ease-out_both]"
+          : ""
       }`}
     >
       {/* 카드에는 제목~이미지까지만 담고, 세부 내용·링크는 카드 아래에 둠 */}
@@ -443,6 +454,8 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
   );
 }
 
+const HEADING_TEXT = "PROJECTS";
+
 interface ProjectsProps {
   headingClassName?: string;
   animateHeading?: boolean;
@@ -460,6 +473,18 @@ export default function Projects({
   // 작은 영역만 관찰하도록 별도 ref를 둠
   const { ref: headingRef, isInView: isHeadingInView } =
     useInView<HTMLHeadingElement>();
+  // 카드는 각자 화면에 들어올 때 나타나서, 글자 제목(홈)이 다 나타나기 전에 첫 줄 카드가 먼저 보였음 -
+  // 제목이 화면에 들어온 뒤 글자가 다 나타날 시간만큼 지나야 카드가 나타나도록 함
+  const [isHeadingDone, setIsHeadingDone] = useState(!animateHeading);
+
+  useEffect(() => {
+    if (!animateHeading || !isHeadingInView) return;
+    const timer = setTimeout(
+      () => setIsHeadingDone(true),
+      getLettersDurationMs(HEADING_TEXT),
+    );
+    return () => clearTimeout(timer);
+  }, [animateHeading, isHeadingInView]);
 
   return (
     <section aria-label="프로젝트">
@@ -475,12 +500,20 @@ export default function Projects({
               }`
         }
       >
-        {animateHeading ? <AnimatedLetters text="PROJECTS" /> : "PROJECTS"}
+        {animateHeading ? (
+          <AnimatedLetters text={HEADING_TEXT} />
+        ) : (
+          HEADING_TEXT
+        )}
       </h2>
       {/* md 이상 한 줄에 두 프로젝트. 각 li가 2행(카드·세부 내용)을 차지하는 subgrid */}
       <ul className="mt-6 grid gap-x-8 gap-y-[8vh] md:grid-cols-2">
         {PROJECTS.map((project, index) => (
-          <ProjectCard key={index} project={project} />
+          <ProjectCard
+            key={index}
+            project={project}
+            canAppear={isHeadingDone}
+          />
         ))}
       </ul>
     </section>

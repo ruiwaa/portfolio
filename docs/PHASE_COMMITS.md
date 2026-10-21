@@ -2212,6 +2212,37 @@ git push -u origin 179-style-about-tech-stack-gap
 
 ---
 
+## Phase 8️⃣1️⃣: 메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 홈 각 구역에서 제목이 다 나온 뒤 내용이 시작되는지 (보통·빠른 스크롤, 1280·390px)
+- [ ] 움직임 줄이기 설정에서도 내용이 보이는지 (motion-safe)
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정` (본문 `Refs #182`)
+2. `docs`: `Phase 81 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/ui/letterTiming.ts app/_components/ui/AnimatedLetters.tsx \
+  app/_components/sections/Experience.tsx app/_components/sections/Projects.tsx app/page.tsx
+git commit -m "style: 메인 페이지 제목 등장 속도 조정 및 내용보다 먼저 나오게 수정" -m "Refs #182"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 81 작업 완료 사항 정리"
+
+git push -u origin 182-style-home-heading-timing
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
