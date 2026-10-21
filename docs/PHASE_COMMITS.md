@@ -2150,6 +2150,38 @@ git push -u origin 173-feat-project-image-demo-link
 
 ---
 
+## Phase 7️⃣9️⃣: 프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 카드 안에는 제목~이미지까지만, 세부 내용·링크는 카드 아래
+- [ ] md 이상 2열, 모바일 1열, 같은 줄 카드 높이·세부 내용 시작선 동일
+- [ ] "자세히 보기" 링크 6개 주소·새 탭 여부·링크 이름 확인, 글자 대비 4.5:1 이상
+- [ ] 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크` (본문 `Refs #176`)
+2. `docs`: `Phase 79 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "feat: 프로젝트 2열 배치 및 세부 내용별 트러블 슈팅 글 링크" -m "Refs #176"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 79 작업 완료 사항 정리"
+
+git push -u origin 176-feat-project-grid-detail-posts
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
