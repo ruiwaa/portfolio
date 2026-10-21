@@ -2573,4 +2573,33 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
    "위쪽·아래쪽 영역 모두 같은 40px 여백"으로 수정
 2. 변경 전 이미지 폭(292·550·902px)을 측정값처럼 표에 적음 - 실제로는 이전 패딩으로 계산한 값 → "변경 전은 계산값, 변경 후는 측정값"으로 표시
 
+📍 다음: Phase 7️⃣7️⃣ - 기본 폰트 Presentation(프리젠테이션)으로 변경
+
+## Phase 7️⃣7️⃣: 기본 폰트 Presentation(프리젠테이션)으로 변경
+
+**요청**: PR #168(이슈 #167 종료)·#169(dev → main)로 Phase 76 기록 보완을 main까지 병합 → Presentation `@font-face`(1Thin, weight 100) 코드와 함께
+"이 폰트로 기본 폰트 바꿔줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #168 머지(이슈 #167 종료) 후 dev 재확인, PR #169(dev → main) 머지, main == dev
+- 이슈 #170(`[STYLE] 기본 폰트 Presentation(프리젠테이션)으로 변경`) 생성, 브랜치 `170-style-base-font-presentation`
+- `app/globals.css`
+  - `@font-face`로 `Presentation` 등록 - 눈누 CDN(`cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0`)의 Freesentation 1Thin~9Black, 100~900 굵기 9개
+    (`font-display: swap`). 받은 코드는 Thin(100) 하나뿐이었는데, 사이트는 400~800 굵기를 써서 그대로 넣으면 모든 글자가 가늘거나 브라우저가 억지로
+    두껍게 만든 글씨로 보이므로 같은 CDN의 9개 굵기를 모두 등록 (각 파일 약 250KB, 9개 모두 HTTP 200 확인)
+  - `--font-sans`, body, 마크다운 제목, 로고·제목 등 `var(--font-syne)` → `"Presentation", sans-serif`
+- `styles/typography.css`: 제목·본문 스타일의 Syne → Presentation
+- `app/layout.tsx`: 사용하지 않게 된 Syne(next/font) 불러오기와 `syne.variable` 제거. 코드용 JetBrains Mono는 유지
+- 커밋 본문 `Refs #170`
+- PR 스크린샷: `pr-screenshots/170/`에 홈 1280·390px, 프로젝트 카드 1280px 변경 전/후 6장
+
+**트러블슈팅**: 스크린샷을 올리려 하자 원격 `pr-screenshots` 브랜치가 없음(`couldn't find remote ref`) → 이전 작업 브랜치들과 함께 정리되어 삭제된 상태였고,
+PR #153·#156·#162 본문 이미지도 모두 404. 로컬 `pr-screenshots`에는 이미지가 남아 있어, 사용자 확인 후 #170 이미지를 더해 다시 push → 이미지 18장 모두
+200으로 복구. 브랜치 정리 시 `pr-screenshots`는 남겨 두어야 함
+
+**검증**: Playwright 프로덕션 빌드, 주요 페이지 5개 × 390·1280px - body·제목 computed font-family `Presentation, sans-serif`(변경 전
+`Syne, "Syne Fallback", sans-serif`), 한글 글리프 `document.fonts.check` 통과(변경 전 Syne는 영문 전용이라 한글은 시스템 폰트로 대체),
+페이지별로 실제 쓰는 굵기 파일만 로드(`/`: 400·500·600·700, `/experience`: 400~800, 나머지: 400·600·700, 모두 200), 가로 스크롤 0.
+`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
