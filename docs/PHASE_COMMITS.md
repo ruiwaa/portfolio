@@ -2289,6 +2289,37 @@ git push -u origin 188-docs-phase-82-merge
 
 ---
 
+## Phase 8️⃣3️⃣: About Me mt 제거 및 간격 gap-20으로 축소
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 성장의 여정 ~ 기술 스택 제목 간격 홈·/about 모두 110px
+- [ ] 다른 섹션 간격(ABOUT ME ↔ EXPERIENCE 등) 변화 없음
+- [ ] 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me mt 제거 및 간격 gap-20으로 축소` (본문 `Refs #191`)
+2. `docs`: `Phase 83 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/page.tsx app/_components/sections/AboutSections.tsx app/_components/sections/AboutInfo.tsx
+git commit -m "style: About Me mt 제거 및 간격 gap-20으로 축소" -m "Refs #191"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 83 작업 완료 사항 정리"
+
+git push -u origin 191-style-about-gap
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
