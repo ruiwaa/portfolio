@@ -2563,6 +2563,10 @@ title·sr-only 존재, sr-only 이름이 기존 태그와 순서까지 일치, �
   Vercel 검사 통과 후 머지, 이슈 #161 종료
 - dev 재확인: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과, 주요 페이지 5개 200, 카드 가로 여백 40px·가로 스크롤 0 재측정
 - PR #163(`[MERGE] 프로젝트 카드 가로 패딩 통일 후 main 브랜치 병합`, dev → main) 머지, main == dev 확인
+- 기록 보완 PR #165(`164-docs-phase-76-merge` → dev, `close #164`) 머지, 이슈 #164 종료. dev 재확인(`bunx tsc --noEmit`, `bunx eslint`,
+  `bun run build` 통과, 주요 페이지 5개 200) 후 PR #166(`[MERGE] Phase 76 병합 과정 정리 후 main 브랜치 병합`) 머지, main == dev 확인
+  - 이전 브랜치 이름 `docs-phase-76-merge`는 원격에서 지우려 할 때 이미 없었음 (원격에는 `164-docs-phase-76-merge`만 남음)
+- PR #165·#166 병합 내역 기록: 이슈 #167(`[DOCS] Phase 76 기록 보완 PR 병합 내역 추가`), 브랜치 `167-docs-phase-76-merge-record`
 
 **트러블슈팅 (PR 문서)**: PR 초안을 보내기 전 검토에서 사실과 다른 설명 2곳 발견 → 수정 후 PR 생성
 1. "위쪽 글자와 이미지의 왼쪽 시작선이 같다" - 이미지는 둘레 5px 여백(`p-[5px]`) 때문에 글자(40px)보다 5px 안쪽(45px)이라 사실이 아님 →
