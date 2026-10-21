@@ -33,7 +33,6 @@ export default function Home() {
             <AboutSections
               headingClassName={SECTION_HEADING_CLASSNAME}
               visionHeadingDelayMs={ABOUT_VISION_HEADING_DELAY_MS}
-              infoClassName="mt-20"
             />
           </div>
         </div>

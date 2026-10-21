@@ -203,7 +203,7 @@ export default function AboutInfo({ className = "" }: AboutInfoProps) {
       <h2 id="about-info-heading" className="sr-only">
         프로필 정보
       </h2>
-      {/* mt-7.5(30px): 성장의 여정과 기술 스택 사이 간격을 10px 줄임 (섹션 간격 gap-40·홈 mt-20은 다른 곳과 공유하므로 그대로 둠) */}
+      {/* mt-7.5(30px): 성장의 여정과의 간격 = AboutSections gap-20(80px) + 30px */}
       <h3
         className={`section-header mt-7.5 text-center text-light-accent dark:text-dark-accent flex  flex-row items-center gap-2 justify-center font-bold motion-safe:opacity-0 ${
           isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
