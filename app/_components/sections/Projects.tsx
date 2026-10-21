@@ -286,23 +286,24 @@ function ProjectCard({ project }: { project: ProjectEntry }) {
                 />
               )}
               {/* 이미지 전체를 덮는 링크 - 시연 영상(없으면 배포 사이트)을 새 탭에서 엶. 이미지는 장식(alt="")이라
-                  링크 이름은 aria-label로 제공. 안내 배지는 마우스가 있는 기기에서는 hover·포커스 때만, 터치 기기에서는 항상 표시 */}
+                  링크 이름은 aria-label로 제공. 안내 배지는 마우스가 있는 기기에서는 hover·포커스 때만, 터치 기기에서는 항상 표시.
+                  모바일은 이미지 폭(약 250px)에 비해 배지가 커서 작은 글자·여백으로 줄임 */}
               {mediaLink && (
                 <a
                   href={mediaLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.title} ${mediaLinkLabel} (새 탭에서 열림)`}
-                  className="absolute inset-0 flex items-end justify-end rounded-lg p-3 focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
+                  className="absolute inset-0 flex items-end justify-end rounded-lg p-2 sm:p-3 focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent"
                 >
                   <span
                     aria-hidden="true"
-                    className="flex items-center gap-1.5 rounded-full bg-black/75 px-3 py-1.5 text-sm font-semibold text-white transition-opacity duration-200 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100"
+                    className="flex items-center gap-1 rounded-full bg-black/75 px-2.5 py-1 text-xs font-semibold sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-sm text-white transition-opacity duration-200 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100"
                   >
                     {mediaLink.isVideo ? (
-                      <PlayCircle size={16} />
+                      <PlayCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     ) : (
-                      <Globe size={16} />
+                      <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     )}
                     {mediaLinkLabel} 보기
                   </span>
