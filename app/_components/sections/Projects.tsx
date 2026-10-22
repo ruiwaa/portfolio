@@ -435,7 +435,8 @@ function ProjectCard({
 
         {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 배경(sky) 대비 3:1 이상 확보
                 (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
-        <ul className="mt-4 flex flex-wrap gap-3 self-end">
+        {/* mt-auto: 세부 내용 높이가 같아진 칸의 맨 아래로 링크 버튼을 내려 카드끼리 버튼 줄을 맞춤 (pt-4는 세부 내용과의 최소 간격) */}
+        <ul className="mt-auto flex flex-wrap gap-3 self-end pt-4">
           {[
             ...(project.links.demos
               ? project.links.demos.map(
@@ -526,7 +527,9 @@ export default function Projects({
         )}
       </h2>
       {/* md 이상 한 줄에 두 프로젝트. 각 li가 2행(카드·세부 내용)을 차지하는 subgrid */}
-      <ul className="mt-6 grid gap-x-8 gap-y-[8vh] md:grid-cols-2">
+      {/* md:auto-rows-[auto_1fr]: 행이 "카드(auto), 세부 내용(1fr)" 순서로 반복 - 1fr 행끼리는 가장 높은 세부 내용에 맞춰 같은 높이가 되어
+          두 줄에 걸친 카드 4개의 세부 내용 높이가 모두 같아짐 (프로젝트 수와 무관). 모바일은 한 칸이라 내용 높이 그대로 */}
+      <ul className="mt-6 grid gap-x-8 gap-y-[8vh] md:auto-rows-[auto_1fr] md:grid-cols-2">
         {PROJECTS.map((project, index) => (
           <ProjectCard
             key={index}
