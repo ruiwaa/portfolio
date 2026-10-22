@@ -2320,6 +2320,37 @@ git push -u origin 191-style-about-gap
 
 ---
 
+## Phase 8️⃣4️⃣: About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] About Me·프로젝트 띠가 화면 양끝까지 칠해지고 가로 스크롤 0 (1280·390px)
+- [ ] 프로젝트 카드 흰색, 파란 배경 위 글자 대비 4.5:1 이상
+- [ ] 다크 모드 색상 변화 없음
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색` (본문 `Refs #194`)
+2. `docs`: `Phase 84 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add lib/constants.ts app/_components/ui/Card.tsx app/page.tsx app/_components/sections/Projects.tsx
+git commit -m "style: About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색" -m "Refs #194"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 84 작업 완료 사항 정리"
+
+git push -u origin 194-style-section-bands
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

@@ -9,6 +9,16 @@ export const LAYOUT = {
   contentContainer: "mx-auto w-full max-w-5xl md:px-8",
 } as const;
 
+// 섹션을 배경색 띠로 구분 (라이트 모드만, 다크는 배경 없음). 띠는 본문 폭(contentContainer) 안에 있어도 화면 양끝까지 칠해지도록
+// 같은 색 box-shadow를 좌우로 100vmax만큼 펼치고 clip-path로 위아래만 잘라냄 - 요소 폭은 그대로라 가로 스크롤이 생기지 않음.
+// Tailwind 클래스는 빌드 시 정적 문자열이어야 해서 색을 직접 씀 (#f8f8f8 = light-surface-dim, #e3f2fd = sky)
+export const SECTION_BAND = {
+  about:
+    "bg-light-surface-dim shadow-[0_0_0_100vmax_#f8f8f8] [clip-path:inset(0_-100vmax)] dark:bg-transparent dark:shadow-none",
+  projects:
+    "bg-sky shadow-[0_0_0_100vmax_#e3f2fd] [clip-path:inset(0_-100vmax)] dark:bg-transparent dark:shadow-none",
+} as const;
+
 // TODO: LINKEDIN, TWITTER 실제 프로필 URL로 교체
 export const SOCIAL_LINKS = [
   { label: "GITHUB", href: "https://github.com/ruiwaa" },
