@@ -218,6 +218,21 @@ const PROJECTS: ProjectEntry[] = [
   },
 ];
 
+// 세부 내용 속 영어 표기(예: "TanStack Query", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함 - 첫 줄·나머지 줄 모두 같은 굵기
+function withBoldEnglish(text: string) {
+  return text
+    .split(/([A-Za-z][A-Za-z0-9]*(?:\s[A-Za-z][A-Za-z0-9]*)*)/g)
+    .map((part, index) =>
+      /^[A-Za-z]/.test(part) ? (
+        <strong key={index} className="font-semibold">
+          {part}
+        </strong>
+      ) : (
+        part
+      ),
+    );
+}
+
 // 세부 내용 줄바꿈 기준 - 쉼표 뒤 공백 (쉼표는 앞 줄 끝에 남김)
 const COMMA_BREAK = /(?<=,)\s+/;
 
@@ -382,20 +397,21 @@ function ProjectCard({
                 <span aria-hidden="true">•</span>
                 <span className="min-w-0 wrap-anywhere">
                   {/* 쉼표 뒤에서 줄을 바꿔 한 줄에 한 내용씩 보이게 함 - 마지막 조각은 줄을 나누지 않아 "자세히 보기"가 그 뒤에 이어짐.
-                      첫 줄(쉼표 앞)은 항목의 요약처럼 진하게 표시. 쉼표가 없는 한 줄짜리 항목은 전체가 굵어지면 무거워서 그대로 둠 */}
+                      첫 줄(쉼표 앞)은 더 진한 글자색으로만 요약처럼 구분 - 굵기까지 올리면 첫 줄의 영문만 굵어져 다른 줄 영문과 굵기가 달라 보였음.
+                      쉼표가 없는 한 줄짜리 항목은 그대로 둠 */}
                   {parts.slice(0, -1).map((part, partIndex) => (
                     <span
                       key={partIndex}
                       className={
                         partIndex === 0
-                          ? "block font-semibold text-light-text dark:text-white"
+                          ? "block text-light-text dark:text-white"
                           : "block"
                       }
                     >
-                      {part}
+                      {withBoldEnglish(part)}
                     </span>
                   ))}
-                  {parts[parts.length - 1]}
+                  {withBoldEnglish(parts[parts.length - 1])}
                   {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
                   {post && (
                     <>
