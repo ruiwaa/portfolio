@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type CardAccent = "mint" | "peach" | "sky" | "purple";
+type CardAccent = "mint" | "peach" | "sky" | "purple" | "white";
 
 interface CardProps {
   children: ReactNode;
@@ -16,6 +16,8 @@ const ACCENT_BG: Record<CardAccent, string> = {
   peach: "bg-peach",
   sky: "bg-sky",
   purple: "bg-purple",
+  // 색 배경(띠) 위에 놓이는 카드용
+  white: "bg-light-surface",
 };
 
 export default function Card({
