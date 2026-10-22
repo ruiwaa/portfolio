@@ -2473,6 +2473,37 @@ git push -u origin 206-style-project-detail-height
 
 ---
 
+## Phase 8️⃣9️⃣: 프로젝트 세부 내용 가독성 개선
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 항목 간격 16px, 줄 높이 1.7, 본문 #444
+- [ ] 쉼표 있는 항목의 첫 줄 강조, 영문 굵게 표시 없음
+- [ ] 파란 배경 위 본문 대비 7:1 이상, 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 세부 내용 가독성 개선` (본문 `Refs #209`)
+2. `docs`: `Phase 89 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 세부 내용 가독성 개선" -m "Refs #209"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 89 작업 완료 사항 정리"
+
+git push -u origin 209-style-project-detail-readability
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
