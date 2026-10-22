@@ -2786,4 +2786,24 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 다크 모드 띠 배경 없음·카드 라임 유지. 띠 안쪽 여백(About 위 80px, 프로젝트 위아래 64px)은 다크 모드에도 적용됨.
 `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 8️⃣5️⃣ - 홈 About Me 세부 내용 카드 흰색으로 변경
+
+## Phase 8️⃣5️⃣: 홈 About Me 세부 내용 카드 흰색으로 변경
+
+**요청**: "about me의 세부 내용 카드 배경 하얀색으로 바꿔" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #195 머지(이슈 #194 종료) 후 dev 재확인, PR #196(dev → main) 머지, main == dev
+- 이슈 #197(`[STYLE] 홈 About Me 세부 내용 카드 흰색으로 변경`) 생성, 브랜치 `197-style-journey-card-white`
+- 세부 내용 카드(`JourneyDetailCard`, 회색 #f8f8f8 + 흰 테두리 4px)가 Phase 84의 회색 띠(#f8f8f8) 위에서 배경과 같은 색이 되어 묻힘.
+  이 카드는 `/about`(흰 배경)에서도 쓰여 전부 흰색으로 바꾸면 `/about`에서는 테두리까지 배경에 묻히므로, 띠 안에서만 흰색으로
+  - `JourneyDetailCard.tsx`: `onBand` 옵션 - true면 `bg-light-surface`(흰색), 아니면 기존 `bg-light-surface-dim`
+  - `AboutSections.tsx` → `AboutVision.tsx` → 카드로 전달, `app/page.tsx`(홈)에서만 `onBand` 켬
+- 커밋 본문 `Refs #197`
+- PR 스크린샷: `pr-screenshots/197/`에 홈·/about 성장의 여정 1280px 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 홈 1280·390px 카드 rgb(255,255,255)(뒤 띠 rgb(248,248,248)), /about 카드 rgb(248,248,248) 그대로,
+다크 모드 카드 rgb(28,27,27) 그대로, 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+- 참고: 흰 카드와 회색 띠의 색 차이가 작아 경계가 은은함 (필요하면 얇은 테두리·그림자로 보완 가능)
+
 📍 다음: (사용자 지정 대기)
