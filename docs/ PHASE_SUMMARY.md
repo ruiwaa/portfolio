@@ -2761,4 +2761,29 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 **검증**: Playwright 프로덕션 빌드 1280·390px - 성장의 여정 끝 ~ 기술 스택 제목 간격 홈 270 → 110px(160+80+30 → 80+0+30), /about 190 → 110px
 (160+30 → 80+30), 두 섹션 사이 grid 간격 80px·기술 스택 margin-top 0, 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 8️⃣4️⃣ - About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색
+
+## Phase 8️⃣4️⃣: About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색
+
+**요청**: "브랜치 정리해" → "메인메이지 about me 영역 전체에 배경 색상을 줘, 배경색으로 구분지을려고, 그리고 프로젝트도 파란색으로 배경주고 프로젝트 카드배경을
+흰색으로 바꿔" → (질문) About Me 연한 회색 #f8f8f8, 프로젝트는 메인·/experience 모두, 다크 모드는 그대로 → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #192 머지(이슈 #191 종료) 후 dev 재확인, PR #193(dev → main) 머지, main == dev
+- 브랜치 정리: dev에 병합된 `188-docs-phase-82-merge`, `191-style-about-gap` 원격·로컬 삭제(`main`·`dev`·`pr-screenshots` 유지).
+  처음 명령은 zsh가 변수 속 여러 이름을 나누지 않아 실패(삭제된 것 없음) → 이름을 직접 적어 다시 실행
+- 이슈 #194(`[STYLE] About Me·프로젝트 영역 배경색 구분 및 프로젝트 카드 흰색`) 생성, 브랜치 `194-style-section-bands`
+- `lib/constants.ts`: `SECTION_BAND.about`(#f8f8f8)·`SECTION_BAND.projects`(#e3f2fd) - 본문 폭 안의 요소에 같은 색 `box-shadow`를 좌우 100vmax로 펼치고
+  `clip-path: inset(0 -100vmax)`로 위아래만 잘라 화면 양끝까지 칠함(요소 폭은 그대로라 가로 스크롤 없음). 다크는 `dark:bg-transparent dark:shadow-none`
+- `app/page.tsx`: About Me 전체(제목~기술 스택) 감싸는 div에 `SECTION_BAND.about pt-20` (아래 여백은 기술 스택의 기존 `pb-30`)
+- `Projects.tsx`: section에 `SECTION_BAND.projects py-16` (홈·/experience 공통), 카드 `accent="sky"` → `"white"`, 카드·링크 버튼 주석 수정
+- `Card.tsx`: accent에 `white`(`bg-light-surface`) 추가 - className으로 배경을 덮으면 기존 배경 클래스와 우선순위가 같아 적용이 보장되지 않으므로 옵션으로 추가
+- 커밋 본문 `Refs #194`
+- PR 스크린샷: `pr-screenshots/194/` - 홈 전체 1280px 변경 전/후, 프로젝트 첫 줄 변경 전/후, /experience 전체·홈 390px 변경 후 6장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 1280·390px 홈·/experience·/about 가로 스크롤 0, About 띠 rgb(248,248,248)·프로젝트 띠 rgb(227,242,253)가 화면 양끝까지
+칠해짐(전체 페이지 스크린샷 확인), 카드 rgb(255,255,255). 파란 배경 위 대비: 세부 내용 5.03:1, "자세히 보기" 4.87:1(흰 배경일 때 5.57:1), PROJECTS 제목 5.03:1.
+다크 모드 띠 배경 없음·카드 라임 유지. 띠 안쪽 여백(About 위 80px, 프로젝트 위아래 64px)은 다크 모드에도 적용됨.
+`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
