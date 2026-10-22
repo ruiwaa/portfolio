@@ -42,21 +42,6 @@ const TECH_ICONS: Record<string, { Icon: IconType; color?: string }> = {
   Zod: { Icon: SiZod, color: "#3E67B1" },
 };
 
-// 세부 내용 문장 속 영어 단어(예: "Local Storage", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함
-function withBoldEnglish(text: string) {
-  return text
-    .split(/([A-Za-z][A-Za-z0-9]*(?:\s[A-Za-z][A-Za-z0-9]*)*)/g)
-    .map((part, index) =>
-      /^[A-Za-z]/.test(part) ? (
-        <strong key={index} className="font-semibold">
-          {part}
-        </strong>
-      ) : (
-        part
-      ),
-    );
-}
-
 // 모든 프로젝트 카드 배경을 한 색으로 통일 - 라이트는 흰색(파란 띠 위, Card accent white), 다크는 라임색.
 // 다크는 라임을 10%만 투명하게 깔고 1px 라임 테두리(ring, 50% - 페이지 배경 대비 3:1 이상)로 카드 경계를 보여줌. 테두리를 border가 아닌 ring으로 둔 이유:
 // Card가 이미 dark:border-dark-border를 주고 있어 border 색을 또 주면 우선순위가 같아 어느 쪽이 적용될지 보장되지 않음
@@ -381,7 +366,8 @@ function ProjectCard({
       {/* min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
           끊을 수 없는 긴 단어가 있으면 칸 밖으로 넘쳤음 */}
       <div className="flex min-w-0 flex-col px-2">
-        <ul className="space-y-1.5">
+        {/* 항목 사이 16px - 쉼표 줄바꿈으로 한 항목이 2~3줄이 되어, 줄 간격보다 확실히 넓어야 새 항목의 시작이 보임 */}
+        <ul className="space-y-4">
           {project.detail.map((item, index) => {
             const text = typeof item === "string" ? item : item.text;
             const parts = text.split(COMMA_BREAK);
@@ -391,17 +377,25 @@ function ProjectCard({
             return (
               <li
                 key={index}
-                className="flex gap-2 font-sans text-base font-medium text-light-text-secondary dark:text-white/80"
+                className="flex gap-2 font-sans text-base leading-[1.7] font-medium text-[#444] dark:text-white/80"
               >
                 <span aria-hidden="true">•</span>
                 <span className="min-w-0 wrap-anywhere">
-                  {/* 쉼표 뒤에서 줄을 바꿔 한 줄에 한 내용씩 보이게 함 - 마지막 조각은 줄을 나누지 않아 "자세히 보기"가 그 뒤에 이어짐 */}
+                  {/* 쉼표 뒤에서 줄을 바꿔 한 줄에 한 내용씩 보이게 함 - 마지막 조각은 줄을 나누지 않아 "자세히 보기"가 그 뒤에 이어짐.
+                      첫 줄(쉼표 앞)은 항목의 요약처럼 진하게 표시. 쉼표가 없는 한 줄짜리 항목은 전체가 굵어지면 무거워서 그대로 둠 */}
                   {parts.slice(0, -1).map((part, partIndex) => (
-                    <span key={partIndex} className="block">
-                      {withBoldEnglish(part)}
+                    <span
+                      key={partIndex}
+                      className={
+                        partIndex === 0
+                          ? "block font-semibold text-light-text dark:text-white"
+                          : "block"
+                      }
+                    >
+                      {part}
                     </span>
                   ))}
-                  {withBoldEnglish(parts[parts.length - 1])}
+                  {parts[parts.length - 1]}
                   {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
                   {post && (
                     <>
