@@ -4,7 +4,7 @@ import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
 import AboutSections from "@/app/_components/sections/AboutSections";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import { getLettersDurationMs } from "@/app/_components/ui/letterTiming";
-import { LAYOUT } from "@/lib/constants";
+import { LAYOUT, SECTION_BAND } from "@/lib/constants";
 
 const SECTION_HEADING_CLASSNAME =
   "text-xl md:text-3xl text-light-text-secondary dark:text-dark-text mt-3";
@@ -23,7 +23,8 @@ export default function Home() {
       </div>
 
       <div className={`mt-10 flex flex-col ${LAYOUT.sectionGap}`}>
-        <div>
+        {/* About Me 전체(제목~기술 스택)를 회색 띠로 구분. 아래쪽 여백은 기술 스택의 pb-30이 맡음 */}
+        <div className={`${SECTION_BAND.about} pt-20`}>
           <h2
             className={`section-header ${SECTION_HEADING_CLASSNAME} ${LAYOUT.contentContainer}`}
           >

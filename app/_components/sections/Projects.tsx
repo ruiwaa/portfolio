@@ -23,7 +23,7 @@ import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
 import { getLettersDurationMs } from "@/app/_components/ui/letterTiming";
 import Badge from "@/app/_components/ui/Badge";
 import Card from "@/app/_components/ui/Card";
-import { getTroubleshootingHref } from "@/lib/constants";
+import { getTroubleshootingHref, SECTION_BAND } from "@/lib/constants";
 import { useInView } from "@/app/_hooks/useInView";
 
 // 프로젝트 카드의 사용 기술을 아이콘으로만 표시하기 위한 매핑 - 아이콘·색은 About 기술 스택과 동일.
@@ -57,7 +57,7 @@ function withBoldEnglish(text: string) {
     );
 }
 
-// 모든 프로젝트 카드 배경을 한 색으로 통일 - 라이트는 파란색(sky, Card accent), 다크는 라임색.
+// 모든 프로젝트 카드 배경을 한 색으로 통일 - 라이트는 흰색(파란 띠 위, Card accent white), 다크는 라임색.
 // 다크는 라임을 10%만 투명하게 깔고 1px 라임 테두리(ring, 50% - 페이지 배경 대비 3:1 이상)로 카드 경계를 보여줌. 테두리를 border가 아닌 ring으로 둔 이유:
 // Card가 이미 dark:border-dark-border를 주고 있어 border 색을 또 주면 우선순위가 같아 어느 쪽이 적용될지 보장되지 않음
 const CARD_DARK_BG = "dark:bg-lime-400/10 dark:ring-1 dark:ring-lime-400/50";
@@ -267,7 +267,7 @@ function ProjectCard({
     >
       {/* 카드에는 제목~이미지까지만 담고, 세부 내용·링크는 카드 아래에 둠 */}
       <Card
-        accent="sky"
+        accent="white"
         padded={false}
         className={`flex flex-col overflow-hidden ${CARD_DARK_BG}`}
       >
@@ -423,7 +423,7 @@ function ProjectCard({
           })}
         </ul>
 
-        {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 카드 배경 대비 3:1 이상 확보
+        {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 배경(sky) 대비 3:1 이상 확보
                 (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
         <ul className="mt-4 flex flex-wrap gap-3 self-end">
           {[
@@ -495,7 +495,8 @@ export default function Projects({
   }, [animateHeading, isHeadingInView]);
 
   return (
-    <section aria-label="프로젝트">
+    // 프로젝트 영역을 파란 띠로 구분하고 카드는 흰색으로 (홈·/experience 공통)
+    <section aria-label="프로젝트" className={`${SECTION_BAND.projects} py-16`}>
       <h2
         ref={headingRef}
         className={
