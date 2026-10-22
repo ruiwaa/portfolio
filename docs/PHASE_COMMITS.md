@@ -2412,6 +2412,37 @@ git push -u origin 200-style-journey-detail-lines
 
 ---
 
+## Phase 8️⃣7️⃣: 프로젝트 세부 내용 쉼표 기준 줄바꿈
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 세부 내용이 쉼표 수만큼 줄바꿈, 쉼표는 앞 줄 끝에 남음
+- [ ] "자세히 보기" 링크가 마지막 조각 뒤에 이어짐 (간격·화살표 유지)
+- [ ] 가로 스크롤 0 (390px 포함)
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 세부 내용 쉼표 기준 줄바꿈` (본문 `Refs #203`)
+2. `docs`: `Phase 87 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 세부 내용 쉼표 기준 줄바꿈" -m "Refs #203"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 87 작업 완료 사항 정리"
+
+git push -u origin 203-style-project-detail-comma-break
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

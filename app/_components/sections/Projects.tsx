@@ -233,6 +233,9 @@ const PROJECTS: ProjectEntry[] = [
   },
 ];
 
+// 세부 내용 줄바꿈 기준 - 쉼표 뒤 공백 (쉼표는 앞 줄 끝에 남김)
+const COMMA_BREAK = /(?<=,)\s+/;
+
 // 이미지를 눌렀을 때 열 주소 - 시연 영상이 있으면 영상(여러 개면 첫 번째), 없으면 배포 사이트
 function getMediaLink(links: ProjectLinks) {
   if (links.demos?.[0]) return { href: links.demos[0].href, isVideo: true };
@@ -381,6 +384,7 @@ function ProjectCard({
         <ul className="space-y-1.5">
           {project.detail.map((item, index) => {
             const text = typeof item === "string" ? item : item.text;
+            const parts = text.split(COMMA_BREAK);
             const post = typeof item === "string" ? null : item.post;
             const isExternal = post?.href.startsWith("http");
 
@@ -391,7 +395,13 @@ function ProjectCard({
               >
                 <span aria-hidden="true">•</span>
                 <span className="min-w-0 wrap-anywhere">
-                  {withBoldEnglish(text)}
+                  {/* 쉼표 뒤에서 줄을 바꿔 한 줄에 한 내용씩 보이게 함 - 마지막 조각은 줄을 나누지 않아 "자세히 보기"가 그 뒤에 이어짐 */}
+                  {parts.slice(0, -1).map((part, partIndex) => (
+                    <span key={partIndex} className="block">
+                      {withBoldEnglish(part)}
+                    </span>
+                  ))}
+                  {withBoldEnglish(parts[parts.length - 1])}
                   {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
                   {post && (
                     <>
