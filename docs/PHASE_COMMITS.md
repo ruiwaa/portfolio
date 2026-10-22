@@ -2443,6 +2443,36 @@ git push -u origin 203-style-project-detail-comma-break
 
 ---
 
+## Phase 8️⃣8️⃣: 프로젝트 세부 내용 높이 통일
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 768·1280px 세부 내용 높이 4개 동일, 링크 버튼 칸 맨 아래
+- [ ] 모바일(390px) 내용 높이 그대로, 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 세부 내용 높이 통일` (본문 `Refs #206`)
+2. `docs`: `Phase 88 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 세부 내용 높이 통일" -m "Refs #206"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 88 작업 완료 사항 정리"
+
+git push -u origin 206-style-project-detail-height
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
