@@ -2914,4 +2914,12 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 "aria-hidden"처럼 기호로 나뉜 단어는 따로 셈). 대비 첫 줄 15.24:1·나머지 8.53:1 유지, 1280·390px 가로 스크롤 0.
 `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+**병합·브랜치 정리**:
+- PR #213(`212-style-project-detail-weight` → dev, `close #212`) - 본문에 `pr-screenshots/212/` 스크린샷 8장(커밋 SHA 주소). Vercel 검사 통과 후 머지,
+  이슈 #212 종료
+- dev 재확인: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과, 주요 페이지 5개 200, 세부 내용 영문 굵기 모두 600·대비(첫 줄 15.24:1, 나머지 8.53:1) 재측정
+- PR #214(`[MERGE] 프로젝트 세부 내용 영문 굵기 통일 후 main 브랜치 병합`, dev → main) 머지, main == dev 확인
+- "브랜치 정리해" → dev에 병합된 `212-style-project-detail-weight` 원격·로컬 삭제. `main`·`dev`·`pr-screenshots` 유지, 정리 후 PR 이미지 200 확인
+- 병합·브랜치 정리 기록: 이슈 #215(`[DOCS] Phase 90 병합·브랜치 정리 기록`), 브랜치 `215-docs-phase-90-merge`
+
 📍 다음: (사용자 지정 대기)
