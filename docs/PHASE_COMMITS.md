@@ -2504,6 +2504,37 @@ git push -u origin 209-style-project-detail-readability
 
 ---
 
+## Phase 9️⃣0️⃣: 프로젝트 세부 내용 영문 굵기 통일
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 세부 내용 영문이 모든 줄에서 같은 굵기(600)
+- [ ] 첫 줄은 글자색으로만 구분 (한글 굵기 500 동일)
+- [ ] 가로 스크롤 0 (390px 포함)
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 세부 내용 영문 굵기 통일` (본문 `Refs #212`)
+2. `docs`: `Phase 90 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 세부 내용 영문 굵기 통일" -m "Refs #212"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 90 작업 완료 사항 정리"
+
+git push -u origin 212-style-project-detail-weight
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
