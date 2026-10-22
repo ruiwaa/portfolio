@@ -2351,6 +2351,37 @@ git push -u origin 194-style-section-bands
 
 ---
 
+## Phase 8️⃣5️⃣: 홈 About Me 세부 내용 카드 흰색으로 변경
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 홈 세부 내용 카드 흰색, /about 카드 기존 회색 유지
+- [ ] 다크 모드 변화 없음, 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `홈 About Me 세부 내용 카드 흰색으로 변경` (본문 `Refs #197`)
+2. `docs`: `Phase 85 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/JourneyDetailCard.tsx app/_components/sections/AboutVision.tsx \
+  app/_components/sections/AboutSections.tsx app/page.tsx
+git commit -m "style: 홈 About Me 세부 내용 카드 흰색으로 변경" -m "Refs #197"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 85 작업 완료 사항 정리"
+
+git push -u origin 197-style-journey-card-white
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

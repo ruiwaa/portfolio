@@ -5,11 +5,14 @@ import { LAYOUT } from "@/lib/constants";
 interface AboutSectionsProps {
   headingClassName?: string;
   visionHeadingDelayMs?: number;
+  // 회색 띠(SECTION_BAND.about) 안에 있을 때 true - 세부 내용 카드를 흰색으로
+  onBand?: boolean;
 }
 
 export default function AboutSections({
   headingClassName,
   visionHeadingDelayMs,
+  onBand,
 }: AboutSectionsProps) {
   return (
     <div
@@ -19,6 +22,7 @@ export default function AboutSections({
       <AboutVision
         headingClassName={headingClassName}
         headingAnimationDelayMs={visionHeadingDelayMs}
+        onBand={onBand}
       />
       <AboutInfo />
     </div>

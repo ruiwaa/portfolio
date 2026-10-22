@@ -34,6 +34,8 @@ const JOURNEY: JourneyStep[] = [
 interface AboutVisionProps {
   headingClassName?: string;
   headingAnimationDelayMs?: number;
+  // 회색 띠 위에 놓일 때 세부 내용 카드를 흰색으로 (홈)
+  onBand?: boolean;
 }
 
 const DEFAULT_HEADING_CLASSNAME =
@@ -48,6 +50,7 @@ const ITEM_ANIMATION_DURATION_MS = 600;
 export default function AboutVision({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
   headingAnimationDelayMs = 0,
+  onBand = false,
 }: AboutVisionProps) {
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -63,7 +66,8 @@ export default function AboutVision({
     if (activeIndex !== 0) setHasLeftInitialStep(true);
   }
 
-  const itemsBaseDelayMs = headingAnimationDelayMs + HEADING_ANIMATION_DURATION_MS;
+  const itemsBaseDelayMs =
+    headingAnimationDelayMs + HEADING_ANIMATION_DURATION_MS;
   // 목록이 전부 나온 뒤에야 세부 내용 카드가 등장하도록 - 단, 이건 페이지 진입 시 첫 등장에만
   // 적용하고, 이후 스크롤로 다른 단계를 활성화할 때(1번으로 되돌아갈 때 포함)는 지연 없이
   // 바로 전환되게 함
@@ -179,6 +183,7 @@ export default function AboutVision({
                       active={item}
                       isInView={isInView}
                       animationDelayMs={detailCardDelayMs}
+                      onBand={onBand}
                     />
                   </div>
                 )}

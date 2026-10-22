@@ -34,6 +34,7 @@ export default function Home() {
             <AboutSections
               headingClassName={SECTION_HEADING_CLASSNAME}
               visionHeadingDelayMs={ABOUT_VISION_HEADING_DELAY_MS}
+              onBand
             />
           </div>
         </div>
