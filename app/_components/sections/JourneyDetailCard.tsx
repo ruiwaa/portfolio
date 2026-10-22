@@ -23,6 +23,9 @@ function withHighlightedNumbers(text: string) {
   );
 }
 
+// 마침표 뒤 공백에서 문장을 나눔 ("2,000개"의 쉼표처럼 마침표가 아닌 곳은 나누지 않음)
+const SENTENCE_BREAK = /(?<=\.)\s+/;
+
 export default function JourneyDetailCard({
   active,
   isInView,
@@ -49,8 +52,14 @@ export default function JourneyDetailCard({
       <h4 className="body mt-2 text-xl font-bold text-light-text dark:text-dark-text">
         {active.title}
       </h4>
+      {/* 문장마다 줄을 바꿔 한 단락(문장)이 한 줄로 보이게 함 - 넓은 화면(1280px)에서는 모든 문장이 한 줄에 들어가고,
+          좁은 화면에서는 긴 문장만 자기 줄 안에서 줄바꿈됨 */}
       <p className="body mt-5 text-light-text-secondary dark:text-dark-text-secondary flex-1">
-        {withHighlightedNumbers(active.detail)}
+        {active.detail.split(SENTENCE_BREAK).map((sentence, index) => (
+          <span key={index} className="block">
+            {withHighlightedNumbers(sentence)}
+          </span>
+        ))}
       </p>
     </div>
   );

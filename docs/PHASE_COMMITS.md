@@ -2382,6 +2382,36 @@ git push -u origin 197-style-journey-card-white
 
 ---
 
+## Phase 8️⃣6️⃣: About Me 세부 내용 카드 문장별 줄바꿈
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 세부 내용 문장마다 새 줄, 1280·1024px에서 문장별 1줄
+- [ ] 숫자 강조 유지, 가로 스크롤 0 (390px 포함)
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me 세부 내용 카드 문장별 줄바꿈` (본문 `Refs #200`)
+2. `docs`: `Phase 86 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/JourneyDetailCard.tsx
+git commit -m "style: About Me 세부 내용 카드 문장별 줄바꿈" -m "Refs #200"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 86 작업 완료 사항 정리"
+
+git push -u origin 200-style-journey-detail-lines
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
