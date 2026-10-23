@@ -2610,6 +2610,37 @@ git push -u origin 221-fix-hero-fixed-height
 
 ---
 
+## Phase 9️⃣3️⃣: About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] ABOUT ME → 성장의 여정 → 단계 목록 → 세부 내용 카드 순서 (보통·빠른 스크롤, 1440·390px)
+- [ ] 단계 목록 완료 시각이 이전보다 빨라짐
+- [ ] 움직임 줄이기 설정에서 카드 바로 표시, 목록 이후 단계 전환은 바로
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정` (본문 `Refs #224`)
+2. `docs`: `Phase 93 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/page.tsx app/_components/sections/AboutVision.tsx
+git commit -m "style: About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정" -m "Refs #224"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 93 작업 완료 사항 정리"
+
+git push -u origin 224-style-about-vision-timing
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
