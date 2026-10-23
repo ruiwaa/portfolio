@@ -2702,6 +2702,36 @@ git push -u origin 230-style-post-card-muted-blue
 
 ---
 
+## Phase 9️⃣6️⃣: 프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 라이트 링크 버튼 흰 배경·테두리 없음·파란 아이콘, hover 반전
+- [ ] 다크 모드 변화 없음
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경` (본문 `Refs #233`)
+2. `docs`: `Phase 96 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경" -m "Refs #233"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 96 작업 완료 사항 정리"
+
+git push -u origin 233-style-project-link-icons
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
