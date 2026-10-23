@@ -91,18 +91,15 @@ export default function Hero() {
         <span aria-hidden="true" className="status-dot" />
         SYS.LOG // CONTINUOUS LEARNING_
       </span>
-      {showGreeting ? (
-        <h1 className="h1 motion-safe:animate-[fade-up-in_1.2s_ease-out_both] text-light-text dark:text-dark-text">
-          <span className="block w-fit">안녕하세요.</span>
-          <span className="block w-fit">
-            <span className="bg-linear-to-r from-blue-500 via-blue-700 to-blue-900 bg-clip-text text-transparent dark:from-gray-300 dark:via-gray-400 dark:to-gray-500">
-              장예지
-            </span>{" "}
-            입니다.
-          </span>
-        </h1>
-      ) : (
-        <h1 className="h1 tracking-wide text-light-text dark:text-dark-text">
+      {/* 문구 전환 전후로 히어로 높이가 같도록 두 문구를 같은 칸(grid 1행 1열)에 겹쳐 두고, 보이지 않는 쪽은 invisible로 자리만 차지하게 함
+          (invisible은 화면과 스크린 리더 모두에서 숨겨짐). 이전에는 전환 순간 히어로가 355px → 593px로 커지며 아래 About 영역이 238px 밀려 내려갔음.
+          인사말 쪽은 처음부터 자리를 잡아 두고, 등장 애니메이션 클래스만 전환 시점에 붙여 애니메이션이 그때 시작되게 함 */}
+      <div className="grid">
+        <h1
+          className={`h1 col-start-1 row-start-1 self-start tracking-wide text-light-text dark:text-dark-text ${
+            showGreeting ? "invisible" : ""
+          }`}
+        >
           <span className="anim-headline-line1 relative block w-fit">
             배우고,
             <span
@@ -125,23 +122,45 @@ export default function Hero() {
             />
           </span>
         </h1>
-      )}
-      {showGreeting && (
-        <div className="mt-3">
-          <p
-            style={{ animationDelay: "190ms" }}
-            className="font-mono tracking-tighter motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
+        <div
+          className={`col-start-1 row-start-1 self-start ${
+            showGreeting ? "" : "invisible"
+          }`}
+        >
+          <h1
+            className={`h1 text-light-text dark:text-dark-text ${
+              showGreeting
+                ? "motion-safe:animate-[fade-up-in_1.2s_ease-out_both]"
+                : ""
+            }`}
           >
-            다양한 사용자를 고려하고,
-          </p>
-          <p
-            style={{ animationDelay: "190ms" }}
-            className="font-mono tracking-tighter motion-safe:opacity-0 motion-safe:animate-[fade-up-in_0.6s_ease-out_both] max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap"
-          >
-            배우는 것을 멈추지 않습니다.
-          </p>
+            <span className="block w-fit">안녕하세요.</span>
+            <span className="block w-fit">
+              <span className="bg-linear-to-r from-blue-500 via-blue-700 to-blue-900 bg-clip-text text-transparent dark:from-gray-300 dark:via-gray-400 dark:to-gray-500">
+                장예지
+              </span>{" "}
+              입니다.
+            </span>
+          </h1>
+          <div className="mt-3">
+            {["다양한 사용자를 고려하고,", "배우는 것을 멈추지 않습니다."].map(
+              (line) => (
+                <p
+                  key={line}
+                  style={{ animationDelay: "190ms" }}
+                  className={`font-mono tracking-tighter motion-safe:opacity-0 max-w-md text-lg font-medium text-light-text-secondary dark:text-dark-text-secondary whitespace-nowrap ${
+                    showGreeting
+                      ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]"
+                      : ""
+                  }`}
+                >
+                  {line}
+                </p>
+              ),
+            )}
+          </div>
         </div>
-      )}
+      </div>
       <div className="anim-cta-entrance mt-6">
         <p className="body flex items-center gap-2 text-green-600/70 text-shadow-sm dark:text-lime-400">
           <span
@@ -151,6 +170,10 @@ export default function Hero() {
           FRONTEND DEVELOPER
         </p>
       </div>
+      {/* 책 이미지는 전환 시점에 나타나며 애니메이션이 시작되므로, 전환 전에는 같은 크기의 빈 칸으로 자리를 잡아 둠 */}
+      {!showGreeting && (
+        <div aria-hidden="true" className="mt-12 h-50 w-50 self-end md:mr-20" />
+      )}
       {showGreeting && (
         <div className="group relative mt-12 h-50 w-50 self-end md:mr-20">
           <span
