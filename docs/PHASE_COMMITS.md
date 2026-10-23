@@ -2546,6 +2546,39 @@ git push -u origin 215-docs-phase-90-merge
 
 ---
 
+## Phase 9️⃣1️⃣: 메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 홈 첫 화면 아래쪽에 About 띠가 보이고 히어로와 겹치지 않음
+- [ ] 기술 스택 그룹 간격 16px, About ~ Experience 간격 80px
+- [ ] 세부 내용 글자 17/18px, 높이 통일·"자세히 보기" 간격 유지
+- [ ] 가로 스크롤 0
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대` (본문 `Refs #218`)
+2. `docs`: `Phase 91 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/page.tsx app/_components/sections/AboutInfo.tsx app/_components/sections/AboutSections.tsx \
+  lib/constants.ts app/_components/sections/Projects.tsx
+git commit -m "style: 메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대" -m "Refs #218"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 91 작업 완료 사항 정리"
+
+git push -u origin 218-style-home-about-up
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

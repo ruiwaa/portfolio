@@ -1,7 +1,7 @@
 export const LAYOUT = {
   container: "w-full", // full-bleed (좌우 여백은 padding으로만 처리)
   padding: "px-6 sm:px-12", // 24px 모바일, 48px Desktop
-  sectionGap: "gap-40", // 80px
+  sectionGap: "gap-20", // 80px - 홈의 About Me 띠와 Experience 사이
   componentGap: "gap-6", // 24px
   navHeight: "h-14", // 56px
   // 본문 섹션(About Me, Experience & Projects) 공통 폭 - 넓은 화면에서 화면 전체로 퍼지지 않도록 최대 1024px로
