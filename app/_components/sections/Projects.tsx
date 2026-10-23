@@ -443,8 +443,8 @@ function ProjectCard({
           })}
         </ul>
 
-        {/* 링크 버튼 테두리 - 라이트는 아이콘과 같은 회색을 80%로 깔아 파란 배경(sky) 대비 3:1 이상 확보
-                (기존 light-border #e0e0e0은 1.16:1로 버튼 경계가 거의 보이지 않았음). 아이콘보다 한 단계 옅게 두어 다크와 같은 위계 유지 */}
+        {/* 링크 버튼(라이트) - 흰 원 배경 + 파란 아이콘(#0066cc, 흰 배경 대비 5.57:1), 테두리 없음. 버튼 경계 대신 아이콘 자체가 3:1 이상이라
+            무엇을 누르는지 알아볼 수 있음. 마우스를 올리면 파란 배경 + 흰 아이콘으로 반전. 다크는 기존 테두리·흰 아이콘 그대로 */}
         {/* mt-auto: 세부 내용 높이가 같아진 칸의 맨 아래로 링크 버튼을 내려 카드끼리 버튼 줄을 맞춤 (pt-4는 세부 내용과의 최소 간격) */}
         <ul className="mt-auto flex flex-wrap gap-3 self-end pt-4">
           {[
@@ -471,7 +471,7 @@ function ProjectCard({
                 rel="noopener noreferrer"
                 aria-label={`${label} (새 탭에서 열림)`}
                 title={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-light-text-secondary/80 text-light-text-secondary transition-colors duration-200 hover:border-light-accent hover:text-light-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border-white/40 dark:text-white/80 dark:hover:border-dark-accent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-light-accent transition-colors duration-200 hover:bg-light-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border dark:border-white/40 dark:bg-transparent dark:text-white/80 dark:hover:border-dark-accent dark:hover:bg-transparent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
               >
                 <Icon aria-hidden="true" size={16} />
               </a>
