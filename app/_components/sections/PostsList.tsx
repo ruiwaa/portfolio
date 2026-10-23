@@ -31,34 +31,36 @@ type Tab = (typeof TABS)[number];
 
 function PostCard({ post }: { post: PostItem }) {
   const cardClassName =
-    "block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
+    "group block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
+  // 라이트 모드: 파란 배경(light-accent #0066cc) + 흰 글자 - 흰 글자 대비 5.57:1, 본문·날짜는 흰색 90%(4.83:1).
+  // 마우스를 올리면 한 단계 진한 파랑과 그림자. 다크 모드는 기존 회색 카드 그대로
   const card = (
-    <article className="flex h-full flex-col rounded-lg bg-light-surface-dim p-6 dark:bg-dark-surface-dim">
+    <article className="flex h-full flex-col rounded-lg bg-light-accent p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#0057ad] group-hover:shadow-lg dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="body font-bold text-light-text dark:text-dark-text">
+        <h3 className="body font-bold text-white dark:text-dark-text">
           {post.title}
         </h3>
         {post.external && (
           <ExternalLink
             aria-hidden="true"
-            className="mt-1 h-4 w-4 shrink-0 text-light-text-secondary dark:text-dark-text-secondary"
+            className="mt-1 h-4 w-4 shrink-0 text-white/90 dark:text-dark-text-secondary"
           />
         )}
       </div>
-      <p className="body mt-2 flex-1 text-light-text-secondary dark:text-dark-text-secondary">
+      <p className="body mt-2 flex-1 text-white/90 dark:text-dark-text-secondary">
         {post.excerpt}
       </p>
       <ul className="mt-4 flex flex-wrap gap-2">
         <li>
-          <Badge label={post.category} variant="outline" />
+          <Badge label={post.category} variant="onColorOutline" />
         </li>
         {post.tags.map((tag) => (
           <li key={tag}>
-            <Badge label={tag} />
+            <Badge label={tag} variant="onColor" />
           </li>
         ))}
       </ul>
-      <div className="badge mt-4 flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
+      <div className="badge mt-4 flex items-center gap-2 text-white/90 dark:text-dark-text-secondary">
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("ko-KR")}
         </time>
@@ -224,6 +226,7 @@ export default function PostsList({ posts }: { posts: PostItem[] }) {
 
   return (
     <>
+      {/* 탭 글자 12px(.badge) → 16px(text-base, components 레이어의 .badge보다 유틸리티가 우선), 글자에 맞게 안쪽 여백도 넓힘 */}
       <div
         role="tablist"
         aria-label="포스트 카테고리"
@@ -239,7 +242,7 @@ export default function PostsList({ posts }: { posts: PostItem[] }) {
               role="tab"
               aria-selected={isActive}
               onClick={() => selectTab(tab)}
-              className={`badge rounded-full px-4 py-1.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent ${
+              className={`badge rounded-full px-5 py-2 text-base transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent ${
                 isActive
                   ? "bg-light-accent text-white dark:bg-dark-accent dark:text-dark-surface"
                   : "bg-light-surface-dim text-light-text-secondary hover:text-light-accent dark:bg-dark-surface-dim dark:text-dark-text-secondary dark:hover:text-dark-accent"
