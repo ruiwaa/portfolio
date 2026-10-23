@@ -18,11 +18,13 @@ export default function Home() {
     <main
       className={`flex-1 ${LAYOUT.container} mx-auto ${LAYOUT.padding} py-20`}
     >
-      <div className="flex  flex-col min-h-screen">
+      {/* 히어로는 내용 높이만 차지 - 이전에는 화면 높이(min-h-screen)를 채워 히어로 내용 아래로 약 350px(1440×900) 빈 공간이 생기고
+          About Me가 그만큼 아래로 밀렸음 */}
+      <div className="flex flex-col">
         <Hero />
       </div>
 
-      <div className={`mt-10 flex flex-col ${LAYOUT.sectionGap}`}>
+      <div className={`mt-20 flex flex-col ${LAYOUT.sectionGap}`}>
         {/* About Me 전체(제목~기술 스택)를 회색 띠로 구분. 아래쪽 여백은 기술 스택의 pb-30이 맡음 */}
         <div className={`${SECTION_BAND.about} pt-20`}>
           <h2

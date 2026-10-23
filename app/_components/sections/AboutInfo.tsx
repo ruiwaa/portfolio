@@ -219,8 +219,8 @@ export default function AboutInfo({ className = "" }: AboutInfoProps) {
       >
         해당 기술 스택에 마우스를 올리면 세부 기술 내용을 확인할 수 있습니다.
       </p>
-      {/* 카테고리 그룹 사이 간격 gap-8(32px) - 소제목+배지 묶음이 서로 구분되도록 */}
-      <div className="relative mx-auto mt-5 flex flex-col gap-8 sm:w-fit">
+      {/* 카테고리 그룹 사이 간격 gap-4(16px) - 소제목+배지 묶음이 서로 구분되면서 목록이 너무 길어지지 않도록 */}
+      <div className="relative mx-auto mt-5 flex flex-col gap-4 sm:w-fit">
         {SKILL_GROUPS.map(({ category, skills }, groupIndex) => {
           // 등장 애니메이션은 그룹을 넘어 전체 배지 순서대로 이어지게 함
           const offset = SKILL_GROUPS.slice(0, groupIndex).reduce(

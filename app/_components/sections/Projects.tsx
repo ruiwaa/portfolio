@@ -392,7 +392,7 @@ function ProjectCard({
             return (
               <li
                 key={index}
-                className="flex gap-2 font-sans text-base leading-[1.7] font-medium text-[#444] dark:text-white/80"
+                className="flex gap-2 font-sans text-[17px] leading-[1.7] font-medium text-[#444] sm:text-lg dark:text-white/80"
               >
                 <span aria-hidden="true">•</span>
                 <span className="min-w-0 wrap-anywhere">
@@ -415,7 +415,7 @@ function ProjectCard({
                   {/* 이 내용을 다룬 트러블 슈팅 글 - 링크 이름이 보이는 글자("자세히 보기")로 시작해야 음성 명령으로도 누를 수 있음 */}
                   {post && (
                     <>
-                      {/* 세부 내용 끝과 링크 사이 간격 약 8px - 공백(16px Presentation 기준 약 3px)에 word-spacing 5px를 더함.
+                      {/* 세부 내용 끝과 링크 사이 간격 약 8px - 공백(17~18px Presentation 기준 약 3px)에 word-spacing 5px를 더함.
                           margin 대신 공백을 쓰는 이유: 링크가 다음 줄로 넘어가면 공백은 줄 끝에 남아 사라지지만,
                           margin은 새 줄 앞에 남아 링크가 글자 시작선보다 안쪽으로 들어감 */}
                       <span className="[word-spacing:5px]"> </span>

@@ -16,7 +16,7 @@ export default function AboutSections({
 }: AboutSectionsProps) {
   return (
     <div
-      // 성장의 여정·기술 스택 사이는 gap-20(80px) - 페이지 섹션 간격(LAYOUT.sectionGap, gap-40)보다 좁게 두어 About Me 안의 두 구역이 한 묶음으로 보이게 함
+      // 성장의 여정·기술 스택 사이 gap-20(80px) - 페이지 섹션 간격(LAYOUT.sectionGap)과 값은 같지만, 한쪽만 바꿔도 다른 쪽에 영향이 없도록 따로 둠
       className={`${LAYOUT.contentContainer} grid grid-cols-1 gap-20`}
     >
       <AboutVision
