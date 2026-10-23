@@ -2579,6 +2579,37 @@ git push -u origin 218-style-home-about-up
 
 ---
 
+## Phase 9️⃣2️⃣: 히어로 문구 전환 시 높이 고정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 문구 전환 전후 히어로 높이·About 위치 동일 (1440·768·390px, 움직임 줄이기 켬/끔)
+- [ ] 인사말 등장 애니메이션이 전환 시점에 시작
+- [ ] 스크린 리더에 보이는 h1이 시점마다 1개
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `fix`: `히어로 문구 전환 시 높이 고정` (본문 `Refs #221`)
+2. `docs`: `Phase 92 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Hero.tsx
+git commit -m "fix: 히어로 문구 전환 시 높이 고정" -m "Refs #221"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 92 작업 완료 사항 정리"
+
+git push -u origin 221-fix-hero-fixed-height
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
