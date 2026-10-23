@@ -41,11 +41,12 @@ interface AboutVisionProps {
 const DEFAULT_HEADING_CLASSNAME =
   "text-light-text-secondary dark:text-dark-text-secondary";
 
-// "성장의 여정" 제목(fade-up-in 0.6s)이 다 나온 뒤에 CONNECT/INCLUDE/RECORD 목록이
-// 이어서 등장하도록, 목록 각 항목의 시작 지연에 제목 지연 + 제목 애니메이션 길이를 더한다
-const HEADING_ANIMATION_DURATION_MS = 600;
-const ITEM_STAGGER_MS = 150;
-const ITEM_ANIMATION_DURATION_MS = 600;
+// "성장의 여정" 제목(fade-up-in 0.4s)이 다 나온 뒤에 CONNECT/INCLUDE/RECORD 목록이
+// 이어서 등장하도록, 목록 각 항목의 시작 지연에 제목 지연 + 제목 애니메이션 길이를 더한다.
+// 등장이 느리다는 피드백으로 제목·항목 0.6s → 0.4s, 항목 간격 150 → 80ms로 줄임 (아래 클래스의 0.4s와 같은 값)
+const HEADING_ANIMATION_DURATION_MS = 400;
+const ITEM_STAGGER_MS = 80;
+const ITEM_ANIMATION_DURATION_MS = 400;
 
 export default function AboutVision({
   headingClassName = DEFAULT_HEADING_CLASSNAME,
@@ -55,28 +56,23 @@ export default function AboutVision({
   const { ref, isInView } = useInView<HTMLElement>();
   const [activeIndex, setActiveIndex] = useState(0);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
-  // activeIndex === 0은 페이지 최초 진입 시뿐 아니라 3번 -> 1번처럼 스크롤을 되돌릴 때도
-  // 참이 되므로, "정말 첫 등장인지"는 이 state로 따로 추적함(0번을 한 번이라도 벗어나면 true).
-  // 렌더 중 이전 activeIndex와 비교해서만 갱신하는, effect 없이 상태를 따라가는 패턴
-  // (https://react.dev/reference/react/useState#storing-information-from-previous-renders)
-  const [prevActiveIndex, setPrevActiveIndex] = useState(activeIndex);
-  const [hasLeftInitialStep, setHasLeftInitialStep] = useState(false);
-  if (activeIndex !== prevActiveIndex) {
-    setPrevActiveIndex(activeIndex);
-    if (activeIndex !== 0) setHasLeftInitialStep(true);
-  }
-
   const itemsBaseDelayMs =
     headingAnimationDelayMs + HEADING_ANIMATION_DURATION_MS;
-  // 목록이 전부 나온 뒤에야 세부 내용 카드가 등장하도록 - 단, 이건 페이지 진입 시 첫 등장에만
-  // 적용하고, 이후 스크롤로 다른 단계를 활성화할 때(1번으로 되돌아갈 때 포함)는 지연 없이
-  // 바로 전환되게 함
-  const detailCardDelayMs =
-    activeIndex === 0 && !hasLeftInitialStep
-      ? itemsBaseDelayMs +
-        (JOURNEY.length - 1) * ITEM_STAGGER_MS +
-        ITEM_ANIMATION_DURATION_MS
-      : 0;
+  // 제목과 단계 목록이 모두 나오는 데 걸리는 시간
+  const introEndMs =
+    itemsBaseDelayMs +
+    (JOURNEY.length - 1) * ITEM_STAGGER_MS +
+    ITEM_ANIMATION_DURATION_MS;
+  // 세부 내용 카드는 제목·목록이 다 나온 뒤에만 나타나게 함. 이전에는 첫 단계일 때만 지연을 주고, 스크롤로 다른 단계가
+  // 활성화되면 지연 없이 바로 나타나서 빠르게 스크롤하면 카드가 "성장의 여정" 제목보다 먼저 보였음.
+  // 이제 영역이 화면에 들어온 뒤 introEndMs가 지나야 카드가 보이고, 그 뒤 단계를 바꿀 때는 바로 전환됨
+  const [isIntroDone, setIsIntroDone] = useState(false);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const timer = setTimeout(() => setIsIntroDone(true), introEndMs);
+    return () => clearTimeout(timer);
+  }, [isInView, introEndMs]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -105,7 +101,7 @@ export default function AboutVision({
         id="about-vision-heading"
         style={{ animationDelay: `${headingAnimationDelayMs}ms` }}
         className={`section-header ${headingClassName} motion-safe:opacity-0 ${
-          isInView ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]" : ""
+          isInView ? "motion-safe:animate-[fade-up-in_0.4s_ease-out_both]" : ""
         }`}
       >
         성장의 여정
@@ -134,7 +130,7 @@ export default function AboutVision({
                     : "border-light-border dark:border-dark-border"
                 } ${
                   isInView
-                    ? "motion-safe:animate-[fade-up-in_0.6s_ease-out_both]"
+                    ? "motion-safe:animate-[fade-up-in_0.4s_ease-out_both]"
                     : ""
                 }`}
               >
@@ -181,8 +177,7 @@ export default function AboutVision({
                   <div className="mt-4">
                     <JourneyDetailCard
                       active={item}
-                      isInView={isInView}
-                      animationDelayMs={detailCardDelayMs}
+                      isInView={isIntroDone}
                       onBand={onBand}
                     />
                   </div>

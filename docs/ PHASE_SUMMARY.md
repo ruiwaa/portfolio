@@ -2971,4 +2971,30 @@ About 띠 ~ Experience 간격 80px(띠 끝 ~ 제목 92px), 세부 내용 글자 
 (전환 전 "배우고, 기록하고, 나아갑니다", 후 "안녕하세요. 장예지 입니다."), "FRONTEND DEVELOPER" 위치 전환 전후 동일. `bunx eslint`, `bunx tsc --noEmit`,
 `bun run build` 통과
 
+📍 다음: Phase 9️⃣3️⃣ - About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정
+
+## Phase 9️⃣3️⃣: About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정
+
+**요청**: "about me의 성장의 여정과 밑에 컴포넌트가 나오는 타이밍을 더 앞당겨줘, 느린 것 같아" → "카드 순서도 같이 고치고 이슈 만들고 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #222 머지(이슈 #221 종료) 후 dev 재확인, PR #223(dev → main) 머지, main == dev
+- 이슈 #224(`[STYLE] About Me 성장의 여정 등장 타이밍 단축 및 세부 내용 카드 순서 수정`) 생성, 브랜치 `224-style-about-vision-timing`
+- 원인: 성장의 여정 제목 지연(645ms = "ABOUT ME" 글자 시간)이 ABOUT ME가 아니라 더 늦게 화면에 들어오는 성장의 여정 영역 기준이라, ABOUT ME가 끝난 뒤
+  약 0.5초를 더 쉬었음. 제목·항목도 각각 0.6초씩 이어져 전체가 길었음
+- `app/page.tsx`: `ABOUT_VISION_HEADING_DELAY_MS` 645 → 300ms (쓰지 않게 된 `getLettersDurationMs` import 삭제)
+- `AboutVision.tsx`
+  - 제목·단계 항목 `fade-up-in` 0.6 → 0.4초, 항목 간격 150 → 80ms (`HEADING_ANIMATION_DURATION_MS`·`ITEM_ANIMATION_DURATION_MS` 400, `ITEM_STAGGER_MS` 80)
+  - 세부 내용 카드 순서: 이전에는 첫 단계일 때만 지연을 주고(`hasLeftInitialStep`), 스크롤로 다른 단계가 활성화되면 지연 없이 바로 나와 빠른 스크롤에서
+    카드가 제목보다 먼저 보였음(카드 333ms, 제목 766ms). 영역이 화면에 들어온 뒤 제목·목록이 끝나는 시간(`introEndMs`)이 지나면 `isIntroDone`을 켜고
+    카드는 그때부터만 보이게 함. 이후 단계 전환은 지연 없이 바로. `prevActiveIndex`·`hasLeftInitialStep`·`detailCardDelayMs` 제거
+- 커밋 본문 `Refs #224`
+- PR 스크린샷: `pr-screenshots/224/` - About 영역을 화면 위로 이동 후 800ms·1500ms에 애니메이션을 멈추고 찍은 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드, 스크롤 중 화면 갱신마다 opacity 기록(ABOUT ME가 화면에 들어온 시점 기준)
+- 1440px 보통 스크롤: 성장의 여정 시작 984 → 647ms, STEP 01 시작 1582 → 1047ms, STEP 03 완료 2365 → 1531ms, 카드 시작 1015(목록보다 먼저) → 1598ms(목록 뒤)
+- 1440px 빠른 스크롤: STEP 03 완료 2149 → 1333ms, 카드 333(제목보다 먼저) → 1382ms. 390px: STEP 03 완료 2417 → 1583ms, 카드 1650ms(목록 뒤)
+- 움직임 줄이기 설정에서 카드 바로 보임(opacity 1), 목록이 다 나온 뒤 STEP 02 클릭 시 카드가 INCLUDE로 바로 전환
+- `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)

@@ -3,15 +3,15 @@ import StackBar from "@/app/_components/sections/StackBar";
 import ExperienceProjects from "@/app/_components/sections/ExperienceProjects";
 import AboutSections from "@/app/_components/sections/AboutSections";
 import AnimatedLetters from "@/app/_components/ui/AnimatedLetters";
-import { getLettersDurationMs } from "@/app/_components/ui/letterTiming";
 import { LAYOUT, SECTION_BAND } from "@/lib/constants";
 
 const SECTION_HEADING_CLASSNAME =
   "text-xl md:text-3xl text-light-text-secondary dark:text-dark-text mt-3";
 
 const ABOUT_HEADING_TEXT = "ABOUT ME";
-// "ABOUT ME" 글자가 다 나타난 뒤에 성장의 여정 제목이 나오도록 - 고정값(1000ms) 대신 글자 수로 계산
-const ABOUT_VISION_HEADING_DELAY_MS = getLettersDurationMs(ABOUT_HEADING_TEXT);
+// 성장의 여정 제목 지연 - "ABOUT ME"(약 645ms)는 자기 글자 영역이 보이는 순간 시작하지만, 이 지연은 더 늦게 화면에 들어오는 성장의 여정 영역
+// 기준이라 글자 시간 전체(645ms)를 기다리면 ABOUT ME가 끝나고도 약 0.5초를 더 쉬었음. 300ms만 기다려 ABOUT ME가 끝날 무렵 이어서 나오게 함
+const ABOUT_VISION_HEADING_DELAY_MS = 300;
 
 export default function Home() {
   return (
