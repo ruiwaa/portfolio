@@ -2922,4 +2922,29 @@ GENOVA는 "효과음 생성 시연"으로 → "이슈 만들고 커밋부터 병
 - "브랜치 정리해" → dev에 병합된 `212-style-project-detail-weight` 원격·로컬 삭제. `main`·`dev`·`pr-screenshots` 유지, 정리 후 PR 이미지 200 확인
 - 병합·브랜치 정리 기록: 이슈 #215(`[DOCS] Phase 90 병합·브랜치 정리 기록`), 브랜치 `215-docs-phase-90-merge`
 
+📍 다음: Phase 9️⃣1️⃣ - 메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대
+
+## Phase 9️⃣1️⃣: 메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대
+
+**요청**: "main의 aboutme 영역이 더 올라왔으면 좋겠어" → (작업 중) "그리고 기술 스텍에서 gap-8을 gap-4로 변경해" → "exprience에서 gap-40을 gap-20로 수정해"
+→ "프로젝트 세부 내용 폰트도 좀 더 크게 만들어" → "이슈 만들고 커밋부터 병합까지 진행해" (네 가지를 한 이슈·한 PR로)
+
+**변경**:
+- 직전 병합: Phase 90 기록 보완 PR #216 머지(이슈 #215 종료) 후 dev 재확인, PR #217(dev → main) 머지, main == dev
+- 이슈 #218(`[STYLE] 메인 About Me 위치·섹션 간격 조정 및 프로젝트 세부 내용 글자 크기 확대`) 생성, 브랜치 `218-style-home-about-up`
+- `app/page.tsx`: 히어로를 감싼 div의 `min-h-screen` 제거 - 히어로 내용(책 이미지까지)은 약 730px에서 끝나는데 화면 높이를 채워 About 띠가 1077px(1440×900)에서
+  시작했음. 히어로 ~ About 간격 `mt-10` → `mt-20`(80px) → About 띠 약 810px로 올라와 첫 화면 아래쪽에 띠가 보임
+- `AboutInfo.tsx`: 기술 스택 카테고리 간격 `gap-8`(32px) → `gap-4`(16px) (홈·/about)
+- `lib/constants.ts`: `LAYOUT.sectionGap` `gap-40` → `gap-20` - 프로젝트에서 남은 유일한 `gap-40`이 홈 About 띠 ~ Experience 간격이었음. 기존 `// 80px`
+  주석이 실제 값(160px)과 달랐는데 이제 맞음. `AboutSections.tsx` 주석도 수정
+- `Projects.tsx`: 세부 내용 글자 `text-base`(16px) → `text-[17px] sm:text-lg`(18px), 줄 높이 1.7 유지. "자세히 보기" 간격 주석의 글자 크기 수정
+- 커밋 본문 `Refs #218`
+- PR 스크린샷: `pr-screenshots/218/` - 홈 첫 화면(1440×900), 기술 스택~Experience, 세부 내용 1440·390px 변경 전/후 8장, PR 본문은 커밋 SHA 주소
+- 참고: `215-docs-phase-90-merge` 브랜치는 아직 정리하지 않음
+
+**검증**: Playwright 프로덕션 빌드 - About 띠 시작 1077 → 약 810px(1440×900, 히어로 내용 끝 730px + 80px), 기술 스택 그룹 간격 16px(홈·/about),
+About 띠 ~ Experience 간격 80px(띠 끝 ~ 제목 92px), 세부 내용 글자 18px(1440·768px)·17px(390px), 세부 내용 높이 1440px 483×4·768px 667×4 유지,
+"자세히 보기" 같은 줄 간격 8px·줄바꿈 시 글자 시작선 정렬 유지, 홈 1440·390px 가로 스크롤 0. 움직임 줄이기 설정에서는 히어로가 더 짧지만 About과 겹치지 않음.
+`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
