@@ -17,7 +17,7 @@ const SIZE_CLASSES = {
 } as const;
 
 // 라이트 모드 배경·테두리·글자색 (+ 다크 배경). 색 배경 위 배지는 흰 글자 대비 4.5:1 이상이 되도록 배경을 흰색 10%로만 깖
-// (#0066cc 위 흰색 10% → 흰 글자 대비 4.66:1, 15%면 약 4.2:1로 미달)
+// (포스트 카드 #2f5f9e 위 흰색 10% → 흰 글자 대비 5.14:1)
 const VARIANT_CLASSES = {
   default:
     "bg-light-surface border-light-border text-light-text-secondary dark:bg-dark-surface-dim",
