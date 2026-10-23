@@ -3040,4 +3040,24 @@ About 기술 스택 배지 색 그대로(흰 배경·#e0e0e0 테두리·#666 글
 **검증**: Playwright 프로덕션 빌드(라이트) - 제목·분류 배지 5.57 → 6.46:1, 본문·날짜 4.83 → 5.59:1, 태그 배지 4.66 → 5.14:1, hover 배경 rgb(39,79,133),
 다크 카드·About 기술 스택 배지 변화 없음, 1280·390px 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 9️⃣6️⃣ - 프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경
+
+## Phase 9️⃣6️⃣: 프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경
+
+**요청**: "프로젝트에 링크 아이콘들 배경 하얀색 , 테두리 제거, 아이콘 색상 파란색으로 바꿔" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #231 머지(이슈 #230 종료) 후 dev 재확인, PR #232(dev → main) 머지, main == dev
+- 이슈 #233(`[STYLE] 프로젝트 링크 아이콘 흰 배경·파란 아이콘으로 변경`) 생성, 브랜치 `233-style-project-link-icons`
+- `Projects.tsx`(라이트): 링크 버튼 `border border-light-text-secondary/80 text-light-text-secondary` → `bg-white text-light-accent`(테두리 없음),
+  hover `hover:border-light-accent hover:text-light-accent` → `hover:bg-light-accent hover:text-white`(반전). 다크는 `dark:border dark:border-white/40
+  dark:bg-transparent dark:text-white/80` 그대로 두고, 라이트 hover 배경이 섞이지 않도록 `dark:hover:bg-transparent` 추가. 주석 갱신
+- Phase 74에서 버튼 경계 대비(3:1)를 위해 넣은 회색 테두리는 이번 요청으로 제거 - 흰 버튼과 하늘색 띠의 차이는 작지만(약 1.1:1) 파란 아이콘이 흰 배경 위
+  5.57:1이라 버튼을 알아볼 수 있음(WCAG 1.4.11은 아이콘으로 충족)
+- 커밋 본문 `Refs #233`
+- PR 스크린샷: `pr-screenshots/233/` - 링크 버튼 기본·hover 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 라이트 기본 배경 흰색·테두리 0px·아이콘 rgb(0,102,204), hover 배경 rgb(0,102,204)·아이콘 흰색, 다크 기본·hover 이전과 동일.
+`bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
