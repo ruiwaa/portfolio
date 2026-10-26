@@ -3106,4 +3106,24 @@ C #eef4fc 남색 글자) → A 선택 → "이슈 만들고 커밋부터 병합�
 **검증**: Playwright 프로덕션 빌드(라이트) - 제목·분류 배지 6.46 → 5.48:1, 본문·날짜 5.59 → 4.78:1, 태그 배지 5.14 → 4.95:1(모두 4.5:1 이상),
 hover 배경 rgb(47,95,158), 다크 카드·About 기술 스택 배지 변화 없음, 1280·390px 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 9️⃣9️⃣ - 프로젝트 카드 파란 테두리를 블러 효과로 변경
+
+## Phase 9️⃣9️⃣: 프로젝트 카드 파란 테두리를 블러 효과로 변경
+
+**요청**: (Phase 98 병합 중) "프로젝트 카드는 파란색 보더 대신 동일한 색상으로 블러 효과를 넣어" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #240 머지(이슈 #239 종료) 후 dev 재확인, PR #241(dev → main) 머지, main == dev
+- 이슈 #242(`[STYLE] 프로젝트 카드 파란 테두리를 블러 효과로 변경`) 생성, 브랜치 `242-style-project-card-glow`
+- `Card.tsx`: Phase 97의 `accentBorder` → `accentGlow`로 교체 - `border-b border-transparent shadow-[0_0_18px_rgba(0,102,204,0.35)] dark:shadow-none`.
+  라이트는 테두리 없이 강조색 블러 그림자, 아래쪽 1px은 투명으로 남겨 카드 크기 유지. 다크의 라임 테두리도 box-shadow(ring)라 그림자를 남기면 섞이므로
+  `dark:shadow-none`, 다크 아래쪽 테두리는 기존 `dark:border-dark-border` 그대로
+- `Projects.tsx`: 프로젝트 카드 `accentBorder` → `accentGlow`
+- About Me 세부 내용 카드의 파란 1px 테두리는 요청 범위 밖이라 유지
+- 커밋 본문 `Refs #242`
+- PR 스크린샷: `pr-screenshots/242/` - /experience 프로젝트 카드 첫 줄 라이트·다크 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 라이트(홈·/experience) 카드 테두리 0px(아래 1px 투명)·그림자 `rgba(0,102,204,0.35) 0 0 18px`, 다크 아래 1px #3a3939 + 라임 ring
+`0 0 0 1px`로 이전과 동일·블러 없음, About Me 카드 1px rgb(0,102,204) 유지. 하늘색 띠 위라 블러가 은은하게 보임. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
