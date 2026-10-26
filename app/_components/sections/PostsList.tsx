@@ -32,36 +32,35 @@ type Tab = (typeof TABS)[number];
 function PostCard({ post }: { post: PostItem }) {
   const cardClassName =
     "group block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
-  // 라이트 모드: 연한 파랑(#4775b0) + 흰 글자 - 흰 글자로 기준(4.5:1)을 지킬 수 있는 가장 연한 쪽(4.73:1). 그래서 본문·날짜·아이콘도
-  // 흰색 100%(90%면 미달). 이보다 연한 파랑(예: #dbeafe)에 흰 글자는 약 1.3:1로 읽기 어려움. 마우스를 올리면 이전 색(#3b6ba5)과 그림자.
-  // 다크 모드는 기존 회색 카드 그대로
+  // 라이트 모드: 하늘색(sky #e3f2fd, 프로젝트 영역 배경과 같은 색) + 사이트 기본 글자색 - 밝은 배경이라 흰 글자 대신 제목 #1a1a1a·본문 #444·날짜 #666.
+  // 마우스를 올리면 한 단계 진한 하늘색과 그림자. 다크 모드는 기존 회색 카드 그대로
   const card = (
-    <article className="flex h-full flex-col rounded-lg bg-[#4775b0] p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#3b6ba5] group-hover:shadow-lg dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
+    <article className="flex h-full flex-col rounded-lg bg-sky p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#d2e7fb] group-hover:shadow-md dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="body font-bold text-white dark:text-dark-text">
+        <h3 className="body font-bold text-light-text dark:text-dark-text">
           {post.title}
         </h3>
         {post.external && (
           <ExternalLink
             aria-hidden="true"
-            className="mt-1 h-4 w-4 shrink-0 text-white dark:text-dark-text-secondary"
+            className="mt-1 h-4 w-4 shrink-0 text-light-text-secondary dark:text-dark-text-secondary"
           />
         )}
       </div>
-      <p className="body mt-2 flex-1 text-white dark:text-dark-text-secondary">
+      <p className="body mt-2 flex-1 text-[#444] dark:text-dark-text-secondary">
         {post.excerpt}
       </p>
       <ul className="mt-4 flex flex-wrap gap-2">
         <li>
-          <Badge label={post.category} variant="onColorOutline" />
+          <Badge label={post.category} variant="outline" />
         </li>
         {post.tags.map((tag) => (
           <li key={tag}>
-            <Badge label={tag} variant="onColor" />
+            <Badge label={tag} />
           </li>
         ))}
       </ul>
-      <div className="badge mt-4 flex items-center gap-2 text-white dark:text-dark-text-secondary">
+      <div className="badge mt-4 flex items-center gap-2 text-light-text-secondary dark:text-dark-text-secondary">
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("ko-KR")}
         </time>

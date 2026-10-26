@@ -3148,4 +3148,24 @@ hover 배경 rgb(47,95,158), 다크 카드·About 기술 스택 배지 변화 �
 hover 배경 rgb(59,107,165), 다크 카드·About 기술 스택 배지 변화 없음, 1280·390px 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 - 이보다 연한 파랑을 쓰려면 글자를 어두운 색(남색 등)으로 바꿔야 함
 
+📍 다음: Phase 1️⃣0️⃣1️⃣ - 포스트 카드 배경을 하늘색 계열로 변경
+
+## Phase 1️⃣0️⃣1️⃣: 포스트 카드 배경을 하늘색 계열로 변경
+
+**요청**: "하늘색 계열로 바꿔" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #246 머지(이슈 #245 종료) 후 dev 재확인, PR #247(dev → main) 머지, main == dev
+- 이슈 #248(`[STYLE] 포스트 카드 배경을 하늘색 계열로 변경`) 생성, 브랜치 `248-style-post-card-sky`
+- 하늘색처럼 밝은 배경에 흰 글자는 약 1.1:1이라 글자를 사이트 기본 글자색으로 되돌림
+- `PostsList.tsx`: 카드 배경 `bg-[#4775b0]` → `bg-sky`(#e3f2fd, 프로젝트 영역 띠와 같은 색), hover `#3b6ba5` + `shadow-lg` → `#d2e7fb` + `shadow-md`.
+  제목 `text-light-text`, 본문 `text-[#444]`, 날짜·외부 링크 아이콘 `text-light-text-secondary`. 배지는 `outline`(분류)·기본(태그)으로 복귀. 주석 갱신
+- `Badge.tsx`: 쓰지 않게 된 `onColor`·`onColorOutline` 변형과 관련 주석 제거(default·outline만 남김)
+- 커밋 본문 `Refs #248`
+- PR 스크린샷: `pr-screenshots/248/` - 1280·390px 라이트 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드(라이트) - 제목 4.73 → 15.24:1, 본문 4.73 → 8.53:1, 날짜·분류 배지 4.73 → 5.03:1, 태그 배지 4.73 → 5.74:1, hover 배경
+rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280·390px 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+- 참고: 하늘색 카드와 흰 페이지 배경의 차이가 작아 카드 경계가 은은함(필요하면 테두리·그림자로 보완 가능)
+
 📍 다음: (사용자 지정 대기)
