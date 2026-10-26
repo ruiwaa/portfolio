@@ -3060,4 +3060,26 @@ About 기술 스택 배지 색 그대로(흰 배경·#e0e0e0 테두리·#666 글
 **검증**: Playwright 프로덕션 빌드 - 라이트 기본 배경 흰색·테두리 0px·아이콘 rgb(0,102,204), hover 배경 rgb(0,102,204)·아이콘 흰색, 다크 기본·hover 이전과 동일.
 `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 
+📍 다음: Phase 9️⃣7️⃣ - About Me·프로젝트 카드 파란 테두리 추가
+
+## Phase 9️⃣7️⃣: About Me·프로젝트 카드 파란 테두리 추가
+
+**요청**: "브랜치 정리" → "about me, project 세부 카드의 파란색으로 보더 추가해줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #234 머지(이슈 #233 종료) 후 dev 재확인, PR #235(dev → main) 머지, main == dev
+- 브랜치 정리: dev에 병합된 `215-docs-phase-90-merge`, `218-style-home-about-up`, `221-fix-hero-fixed-height`, `224-style-about-vision-timing`,
+  `227-style-post-card-blue`, `230-style-post-card-muted-blue`, `233-style-project-link-icons` 원격·로컬 삭제(`main`·`dev`·`pr-screenshots` 유지)
+- 이슈 #236(`[STYLE] About Me·프로젝트 카드 파란 테두리 추가`) 생성, 브랜치 `236-style-card-blue-border`
+- `JourneyDetailCard.tsx`: `border-4 border-white` → `border border-light-accent dark:border-4 dark:border-white` - 라이트 1px 파란 테두리(#0066cc),
+  다크는 흰 4px 그대로. 홈·/about 공통
+- `Card.tsx`: `accentBorder` 옵션 추가 - 켜면 `border border-light-accent dark:border-x-0 dark:border-t-0`(라이트 사방 파란 1px, 다크는 기존처럼
+  아래쪽만). className으로 테두리 색을 덮으면 `border-light-border`와 우선순위가 같아 적용이 보장되지 않으므로 옵션으로 둠
+- `Projects.tsx`: 프로젝트 카드에 `accentBorder` 적용
+- 커밋 본문 `Refs #236`
+- PR 스크린샷: `pr-screenshots/236/` - 홈 About Me 세부 내용 카드·프로젝트 카드 첫 줄 1280px 변경 전/후 4장, PR 본문은 커밋 SHA 주소
+
+**검증**: Playwright 프로덕션 빌드 - 라이트 홈·/about·/experience 카드 네 변 1px rgb(0,102,204), 다크 About 카드 4px 흰색·프로젝트 카드 아래 1px #3a3939 +
+라임 ring으로 이전과 동일. About 카드 테두리가 4 → 1px로 얇아져 안쪽 공간이 사방 3px 넓어짐. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
+
 📍 다음: (사용자 지정 대기)
