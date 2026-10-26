@@ -32,10 +32,11 @@ type Tab = (typeof TABS)[number];
 function PostCard({ post }: { post: PostItem }) {
   const cardClassName =
     "group block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
-  // 라이트 모드: 연한 파랑(#3b6ba5) + 흰 글자. 강조색(#0066cc)은 넓은 카드에서 너무 쨍하고, 이후 #2f5f9e는 조금 어두워 한 단계 밝힘.
-  // 이보다 밝으면 흰 글자 대비가 4.5:1 아래로 떨어짐. 마우스를 올리면 이전 색(#2f5f9e)과 그림자. 다크 모드는 기존 회색 카드 그대로
+  // 라이트 모드: 연한 파랑(#4775b0) + 흰 글자 - 흰 글자로 기준(4.5:1)을 지킬 수 있는 가장 연한 쪽(4.73:1). 그래서 본문·날짜·아이콘도
+  // 흰색 100%(90%면 미달). 이보다 연한 파랑(예: #dbeafe)에 흰 글자는 약 1.3:1로 읽기 어려움. 마우스를 올리면 이전 색(#3b6ba5)과 그림자.
+  // 다크 모드는 기존 회색 카드 그대로
   const card = (
-    <article className="flex h-full flex-col rounded-lg bg-[#3b6ba5] p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#2f5f9e] group-hover:shadow-lg dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
+    <article className="flex h-full flex-col rounded-lg bg-[#4775b0] p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#3b6ba5] group-hover:shadow-lg dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
       <div className="flex items-start justify-between gap-2">
         <h3 className="body font-bold text-white dark:text-dark-text">
           {post.title}
@@ -43,11 +44,11 @@ function PostCard({ post }: { post: PostItem }) {
         {post.external && (
           <ExternalLink
             aria-hidden="true"
-            className="mt-1 h-4 w-4 shrink-0 text-white/90 dark:text-dark-text-secondary"
+            className="mt-1 h-4 w-4 shrink-0 text-white dark:text-dark-text-secondary"
           />
         )}
       </div>
-      <p className="body mt-2 flex-1 text-white/90 dark:text-dark-text-secondary">
+      <p className="body mt-2 flex-1 text-white dark:text-dark-text-secondary">
         {post.excerpt}
       </p>
       <ul className="mt-4 flex flex-wrap gap-2">
@@ -60,7 +61,7 @@ function PostCard({ post }: { post: PostItem }) {
           </li>
         ))}
       </ul>
-      <div className="badge mt-4 flex items-center gap-2 text-white/90 dark:text-dark-text-secondary">
+      <div className="badge mt-4 flex items-center gap-2 text-white dark:text-dark-text-secondary">
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("ko-KR")}
         </time>
