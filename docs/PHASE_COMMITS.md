@@ -2793,6 +2793,36 @@ git push -u origin 239-style-post-card-lighter-blue
 
 ---
 
+## Phase 9️⃣9️⃣: 프로젝트 카드 파란 테두리를 블러 효과로 변경
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 라이트 프로젝트 카드 테두리 없음 + 파란 블러 그림자
+- [ ] 다크 테두리·라임 ring 변화 없음, About Me 카드 파란 테두리 유지
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `프로젝트 카드 파란 테두리를 블러 효과로 변경` (본문 `Refs #242`)
+2. `docs`: `Phase 99 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/ui/Card.tsx app/_components/sections/Projects.tsx
+git commit -m "style: 프로젝트 카드 파란 테두리를 블러 효과로 변경" -m "Refs #242"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 99 작업 완료 사항 정리"
+
+git push -u origin 242-style-project-card-glow
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
