@@ -2854,6 +2854,37 @@ git push -u origin 245-style-post-card-lightest-blue
 
 ---
 
+## Phase 1️⃣0️⃣1️⃣: 포스트 카드 배경을 하늘색 계열로 변경
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 라이트 포스트 카드 sky(#e3f2fd), hover #d2e7fb
+- [ ] 글자·배지 기본 색으로 복귀, 모든 글자 4.5:1 이상
+- [ ] 다크 모드·다른 배지 변화 없음, Badge에 쓰지 않는 변형 없음
+- [ ] pr-screenshots 원격 브랜치 확인 후 스크린샷 업로드 (PR 본문은 커밋 SHA 주소)
+- [ ] 프로덕션 빌드: bun run build
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `포스트 카드 배경을 하늘색 계열로 변경` (본문 `Refs #248`)
+2. `docs`: `Phase 101 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/PostsList.tsx app/_components/ui/Badge.tsx
+git commit -m "style: 포스트 카드 배경을 하늘색 계열로 변경" -m "Refs #248"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 101 작업 완료 사항 정리"
+
+git push -u origin 248-style-post-card-sky
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
