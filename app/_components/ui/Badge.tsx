@@ -16,13 +16,13 @@ const SIZE_CLASSES = {
     "h-6 gap-1 px-1.5 py-0.5 text-[12px] sm:h-8 sm:gap-1.5 sm:px-2 sm:py-1 sm:text-[16px]",
 } as const;
 
-// 라이트 모드 배경·테두리·글자색 (+ 다크 배경). 색 배경 위 배지는 흰 글자 대비 4.5:1 이상이 되도록 배경을 흰색 10%로만 깖
-// (포스트 카드 #3b6ba5 위 흰색 5% - 10%면 흰 글자 대비가 4.44:1로 기준 미달)
+// 라이트 모드 배경·테두리·글자색 (+ 다크 배경). 색 배경 위 배지는 흰 글자 대비 4.5:1 이상이 되도록 배경을 깔지 않음
+// (포스트 카드 #4775b0 위에서는 배경을 조금만 깔아도 흰 글자 대비가 4.5:1 아래로 떨어져, 배경 없이 흰 테두리만 둠)
 const VARIANT_CLASSES = {
   default:
     "bg-light-surface border-light-border text-light-text-secondary dark:bg-dark-surface-dim",
   outline: "bg-transparent border-light-border text-light-text-secondary",
-  onColor: "bg-white/5 border-white/40 text-white dark:bg-dark-surface-dim",
+  onColor: "bg-transparent border-white/40 text-white dark:bg-dark-surface-dim",
   onColorOutline: "bg-transparent border-white/70 text-white",
 } as const;
 
