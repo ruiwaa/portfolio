@@ -39,10 +39,11 @@ export default function JourneyDetailCard({
   onBand?: boolean;
 }) {
   return (
+    // 라이트 모드 1px 파란 테두리(light-accent) - 흰·회색 배경 위에서 카드 경계가 또렷하게. 다크는 기존 흰 테두리 4px 그대로
     <div
       aria-live="polite"
       style={{ animationDelay: `${animationDelayMs}ms` }}
-      className={`flex flex-col relative h-full rounded-xl border-4 border-white ${onBand ? "bg-light-surface" : "bg-light-surface-dim"} p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
+      className={`flex flex-col relative h-full rounded-xl border border-light-accent dark:border-4 dark:border-white ${onBand ? "bg-light-surface" : "bg-light-surface-dim"} p-6 motion-safe:opacity-0 dark:bg-dark-surface-dim ${
         isInView ? "motion-safe:animate-[fade-up-in_0.3s_ease-out_both]" : ""
       }`}
     >
