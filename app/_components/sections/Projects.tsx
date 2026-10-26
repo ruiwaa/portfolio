@@ -272,7 +272,7 @@ function ProjectCard({
       <Card
         accent="white"
         padded={false}
-        accentBorder
+        accentGlow
         className={`flex flex-col overflow-hidden ${CARD_DARK_BG}`}
       >
         {/* 카드 가로 패딩은 위쪽(제목~소개 문구)과 아래쪽(이미지~링크) 모두 px-10(40px)으로 맞춤 */}
