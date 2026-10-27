@@ -4,6 +4,17 @@
 > 모든 보고와 문서는 한국어로 작성합니다.
 > 검사·측정 방법은 [TESTING.md](./TESTING.md)에 정리되어 있습니다.
 
+## Claude Code 스킬
+
+이 문서는 사람이 읽는 요약입니다. Claude Code가 실제로 따르는 절차는 `.claude/skills/`의 스킬에 있습니다. 순서를 바꿀 때는 **스킬을 먼저 고치고** 이 문서를 맞춥니다.
+
+| 장 | 스킬 | 부르는 말 |
+|---|---|---|
+| 1. 수정 요청을 받았을 때 | [`fix-request`](../.claude/skills/fix-request/SKILL.md) | "~ 바꿔줘", `/fix-request` |
+| 2. 이슈 → 커밋 → PR → 병합 | [`merge-flow`](../.claude/skills/merge-flow/SKILL.md) | "이슈 만들고 커밋부터 병합까지 진행해", `/merge-flow` |
+| 3. 브랜치 정리 | [`branch-cleanup`](../.claude/skills/branch-cleanup/SKILL.md) | "브랜치 정리해", `/branch-cleanup` |
+| 4. 문서만 정리할 때 | [`docs-only`](../.claude/skills/docs-only/SKILL.md) | "작업 내용 정리 문서에 작성해", `/docs-only` |
+
 ---
 
 ## 1. 수정 요청을 받았을 때
