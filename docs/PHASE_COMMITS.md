@@ -2943,6 +2943,36 @@ git push -u origin 254-docs-testing
 
 ---
 
+## Phase 1️⃣0️⃣4️⃣: 작업 순서를 Claude Code 스킬로 전환
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] .claude/skills/ 스킬 4개가 WORKFLOW.md 단계와 기존 규칙을 빠짐없이 담음
+- [ ] 스킬 목록에 4개가 나타나는지 확인
+- [ ] WORKFLOW.md에 스킬 표와 링크 추가
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `작업 순서를 Claude Code 스킬로 전환` (본문 `Refs #257`)
+2. `docs`: `Phase 104 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add .claude/skills docs/WORKFLOW.md
+git commit -m "docs: 작업 순서를 Claude Code 스킬로 전환" -m "Refs #257"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 104 작업 완료 사항 정리"
+
+git push -u origin 257-docs-workflow-skills
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

@@ -3217,4 +3217,32 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 가로 스크롤 0px, 스크린샷 30장 저장. 남은 대비 위반은 홈 Hero "FRONTEND DEVELOPER"(`Hero.tsx:165`, `text-green-600/70`) 라이트 모드 2.4:1 한 곳(axe 측정값) -
 이번 범위가 아니라 별도 작업으로 남김
 
+📍 다음: Phase 1️⃣0️⃣4️⃣ - 작업 순서를 Claude Code 스킬로 전환
+
+## Phase 1️⃣0️⃣4️⃣: 작업 순서를 Claude Code 스킬로 전환
+
+**요청**: "WORKFLOW.md 이 파일의 내용이 SKILL.md의 기능과 같지 않아???" → "스킬로 바꿔줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #255 머지(이슈 #254 종료) 후 dev 재확인, PR #256(dev → main) 머지, main == dev. 브랜치 `251-docs-workflow`, `254-docs-testing`은 아직 남아 있음(정리 요청 시 삭제)
+- 비교 결과: WORKFLOW.md와 스킬은 내용은 같지만, 문서는 경로를 알려 줘야 읽히고 스킬은 요청 문구나 `/명령`으로 자동으로 불러와짐.
+  같은 순서가 WORKFLOW.md·Claude 메모리·스킬 세 곳에 있으면 어긋나므로 스킬을 기준으로 정함
+- 이슈 #257(`[DOCS] 작업 순서를 Claude Code 스킬로 전환`) 생성, 브랜치 `257-docs-workflow-skills`
+- `.claude/skills/` 신규 스킬 4개(총 207줄):
+  - `fix-request`(48줄): 수정 요청 → 측정 → 질문 → 수정 → 검사 → 측정 → 커밋하지 않은 채 보고
+  - `merge-flow`(106줄): 이슈 → 브랜치 이름 변경 → 커밋 → 스크린샷 → Phase 문서 → PR 초안 → dev PR·병합 → dev 재확인 → main 병합 → 보고
+  - `branch-cleanup`(32줄), `docs-only`(21줄)
+  - WORKFLOW.md에 없고 Claude 메모리에만 있던 규칙도 넣음: `pr-screenshots` 브랜치 존재 확인·복구, 스크린샷 SHA 주소, PR 초안 저장 위치(저장소 밖 `PR_DRAFT.md`),
+    트러블슈팅 결과의 이점 한 줄, Phase 문서의 `📍 다음:` 줄 처리
+- `docs/WORKFLOW.md`: 머리말 아래에 "Claude Code 스킬" 표(장 ↔ 스킬 ↔ 부르는 말) 추가, 순서를 바꿀 때 스킬을 먼저 고치고 이 문서를 맞춘다고 명시
+- Claude 메모리 `workflow_order.md`(저장소 밖): 단계 내용을 지우고 요청별 스킬 안내만 남김
+- 커밋 본문 `Refs #257`
+
+**트러블슈팅**:
+- 기존 순서의 "이슈가 생긴 뒤 커밋 본문에 `Refs`를 추가할 때 amend"는 이미 push한 커밋이면 force push가 필요한데, Phase 103에서 force push가 권한 설정에
+  막힘(`[Git Destructive]`) → 스킬에서는 "force push 하지 않고 새 커밋으로 남긴다"로 바꿈
+
+**검증**: 문서만 추가 - 코드 변경 없음. 스킬 파일을 저장한 직후 이 세션의 스킬 목록에 4개(`fix-request`, `merge-flow`, `branch-cleanup`, `docs-only`)가
+설명과 함께 나타나는 것을 확인. 이번 병합 자체를 `merge-flow` 스킬 순서대로 진행
+
 📍 다음: (사용자 지정 대기)
