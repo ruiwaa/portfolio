@@ -2913,6 +2913,36 @@ git push -u origin 251-docs-workflow
 
 ---
 
+## Phase 1️⃣0️⃣3️⃣: 테스트 방법 문서(TESTING.md) 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] docs/TESTING.md 측정 스크립트를 그대로 꺼내 실행해 동작 확인
+- [ ] package.json에 없는 스크립트를 적지 않음
+- [ ] WORKFLOW.md에서 TESTING.md 링크 연결
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `테스트 방법 문서(TESTING.md) 추가` (본문 `Refs #254`)
+2. `docs`: `Phase 103 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add docs/TESTING.md docs/WORKFLOW.md
+git commit -m "docs: 테스트 방법 문서(TESTING.md) 추가" -m "Refs #254"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 103 작업 완료 사항 정리"
+
+git push -u origin 254-docs-testing
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
