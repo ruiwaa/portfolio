@@ -3168,4 +3168,26 @@ hover 배경 rgb(59,107,165), 다크 카드·About 기술 스택 배지 변화 �
 rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280·390px 가로 스크롤 0. `bunx eslint`, `bunx tsc --noEmit`, `bun run build` 통과
 - 참고: 하늘색 카드와 흰 페이지 배경의 차이가 작아 카드 경계가 은은함(필요하면 테두리·그림자로 보완 가능)
 
+📍 다음: Phase 1️⃣0️⃣2️⃣ - 작업 순서 문서(WORKFLOW.md) 추가
+
+## Phase 1️⃣0️⃣2️⃣: 작업 순서 문서(WORKFLOW.md) 추가
+
+**요청**: "한국어로 말해야지" → "브랜치 정리해줘" → "작업하는 일의 순서를 memory.md 파일을 만들고 저장해" → "문서 만들어서 커밋해" →
+"이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #249 머지(이슈 #248 종료) 후 dev 재확인, PR #250(dev → main) 머지, main == dev
+- 응답 언어: 몇몇 완료 보고가 영어로 나가 사용자가 "한국어로 말해야지"로 바로잡음 → 이후 모든 보고를 한국어로 하도록 메모리에 기록
+- 브랜치 정리: dev에 병합된 `236-style-card-blue-border`, `239-style-post-card-lighter-blue`, `242-style-project-card-glow`,
+  `245-style-post-card-lightest-blue`, `248-style-post-card-sky` 원격·로컬 삭제(`main`·`dev`·`pr-screenshots` 유지)
+- 작업 순서 메모리: Claude 메모리 폴더에 `workflow_order.md`로 저장. 같은 폴더의 목록 파일 `MEMORY.md`와 이름이 대소문자만 달라(macOS는 구분 안 함)
+  `memory.md`로 만들면 목록 파일을 덮어쓰므로 다른 이름 사용, 목록에 연결
+- 이슈 #251(`[DOCS] 작업 순서 문서(WORKFLOW.md) 추가`) 생성, 브랜치 `251-docs-workflow`
+- `docs/WORKFLOW.md`(신규, 119줄): 1. 수정 요청을 받았을 때, 2. 이슈 → 커밋 → PR → 병합(11단계), 3. 브랜치 정리, 4. 문서만 정리할 때, 공통 원칙.
+  단계별 명령어 예시 포함
+- 커밋 본문 `Refs #251`
+
+**검증**: 문서만 추가 - 코드 변경 없음. 실제로 Phase 79~101에서 반복한 순서(이슈 템플릿·라벨, 브랜치 이름 규칙, 스크린샷 SHA 주소, Phase 문서, PR 초안 마지막,
+`mergeStateStatus` CLEAN 확인, dev 재확인, `[MERGE]` PR, 브랜치 정리 규칙)와 대조
+
 📍 다음: (사용자 지정 대기)
