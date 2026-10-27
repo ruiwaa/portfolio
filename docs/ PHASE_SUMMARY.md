@@ -3190,4 +3190,31 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 **검증**: 문서만 추가 - 코드 변경 없음. 실제로 Phase 79~101에서 반복한 순서(이슈 템플릿·라벨, 브랜치 이름 규칙, 스크린샷 SHA 주소, Phase 문서, PR 초안 마지막,
 `mergeStateStatus` CLEAN 확인, dev 재확인, `[MERGE]` PR, 브랜치 정리 규칙)와 대조
 
+📍 다음: Phase 1️⃣0️⃣3️⃣ - 테스트 방법 문서(TESTING.md) 추가
+
+## Phase 1️⃣0️⃣3️⃣: 테스트 방법 문서(TESTING.md) 추가
+
+**요청**: "plan 모드 사용한 적 있어?" → "WORKFLOW.md를 참고해서 내가 명령하는 업무 진행해" → "테스트하는 방법에 관한 문서도 있어??" →
+"TESTING.md로 정리해줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #252 머지(이슈 #251 종료) 후 PR #253(dev → main) 머지, main == dev. 브랜치 `251-docs-workflow`는 아직 남아 있음(정리 요청 시 삭제)
+- 확인 결과: 테스트 방법만 다룬 문서는 없었고 `WORKFLOW.md`, `TODO.md`, `FINAL_EXECUTION_GUIDE.md`, `RECOMMENDATIONS.md`에 흩어져 있었음.
+  자동화 테스트·`test` 스크립트도 없음
+- 이슈 #254(`[DOCS] 테스트 방법 문서(TESTING.md) 추가`) 생성, 브랜치 `254-docs-testing`
+- `docs/TESTING.md`(신규, 176줄): 0. 현재 상태, 1. 정적 검사(tsc·eslint·build, `check:filenames`/`fix:filenames`), 2. 측정용 서버(3123/3131/3133 포트),
+  3. Playwright 측정(저장소 밖 설치, 확인 항목 표, 측정 스크립트, 결과 읽는 법, 상황별 측정), 4. 수동 확인, 5. 언제 무엇을 하나
+- `docs/WORKFLOW.md`: 머리말에 TESTING.md 링크 한 줄 추가
+- 커밋 본문 `Refs #254`
+
+**트러블슈팅**:
+- 측정 스크립트 첫 실행에서 `/about`에 글자 대비 위반이 6~12건 잡힘 → 요소를 확인해 보니 타임라인 등장 애니메이션 도중의 반투명 글자였고,
+  3초 뒤 다시 재면 0건 → 스크립트에 `SETTLE_MS`(3000ms) 대기를 넣고 문서에 이유를 적음
+- `docs/TODO.md`의 `bun run type-check`·`bun run format`은 `package.json`에 없는 스크립트 → TESTING.md에는 실제로 쓰는 `bunx tsc --noEmit`·`bunx eslint`만 적고 주의 문구 추가
+- Playwright 패키지 버전이 올라가 캐시된 Chromium(1243)을 못 찾음 → `bunx playwright install chromium` 단계를 설치 절차에 포함
+
+**검증**: 문서의 측정 스크립트를 그대로 꺼내 프로덕션 빌드(3123)에서 실행 - 30개 조합(라이트·다크 × 1280/768/390px × 5개 페이지) 모두 200,
+가로 스크롤 0px, 스크린샷 30장 저장. 남은 대비 위반은 홈 Hero "FRONTEND DEVELOPER"(`Hero.tsx:165`, `text-green-600/70`) 라이트 모드 2.4:1 한 곳(axe 측정값) -
+이번 범위가 아니라 별도 작업으로 남김
+
 📍 다음: (사용자 지정 대기)
