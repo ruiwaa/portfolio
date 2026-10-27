@@ -3202,7 +3202,7 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 - 확인 결과: 테스트 방법만 다룬 문서는 없었고 `WORKFLOW.md`, `TODO.md`, `FINAL_EXECUTION_GUIDE.md`, `RECOMMENDATIONS.md`에 흩어져 있었음.
   자동화 테스트·`test` 스크립트도 없음
 - 이슈 #254(`[DOCS] 테스트 방법 문서(TESTING.md) 추가`) 생성, 브랜치 `254-docs-testing`
-- `docs/TESTING.md`(신규, 176줄): 0. 현재 상태, 1. 정적 검사(tsc·eslint·build, `check:filenames`/`fix:filenames`), 2. 측정용 서버(3123/3131/3133 포트),
+- `docs/TESTING.md`(신규, 181줄): 0. 현재 상태, 1. 정적 검사(tsc·eslint·build, `check:filenames`/`fix:filenames`), 2. 측정용 서버(3123/3131/3133 포트),
   3. Playwright 측정(저장소 밖 설치, 확인 항목 표, 측정 스크립트, 결과 읽는 법, 상황별 측정), 4. 수동 확인, 5. 언제 무엇을 하나
 - `docs/WORKFLOW.md`: 머리말에 TESTING.md 링크 한 줄 추가
 - 커밋 본문 `Refs #254`
