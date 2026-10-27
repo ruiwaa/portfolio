@@ -162,7 +162,8 @@ export default function Hero() {
         </div>
       </div>
       <div className="anim-cta-entrance mt-6">
-        <p className="body flex items-center gap-2 text-green-600/70 text-shadow-sm dark:text-lime-400">
+        {/* 라이트 모드는 green-600/70이 흰 배경에서 2.4:1이라 같은 계열에서 4.5:1을 넘는 가장 밝은 green-700(4.94:1)을 씀 */}
+        <p className="body flex items-center gap-2 text-green-700 text-shadow-sm dark:text-lime-400">
           <span
             aria-hidden="true"
             className="h-4 w-px bg-light-border dark:bg-dark-border "
