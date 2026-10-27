@@ -2973,6 +2973,36 @@ git push -u origin 257-docs-workflow-skills
 
 ---
 
+## Phase 1️⃣0️⃣5️⃣: 루트 CLAUDE.md에 세션 시작 안내 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] @AGENTS.md 줄 유지, AGENTS.md는 수정하지 않음
+- [ ] CLAUDE.md에 적은 문서·경로가 모두 실제로 있음
+- [ ] docs/claude.md는 루트 CLAUDE.md 안내만 남김
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `루트 CLAUDE.md에 세션 시작 안내 추가` (본문 `Refs #260`)
+2. `docs`: `Phase 105 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add CLAUDE.md docs/claude.md
+git commit -m "docs: 루트 CLAUDE.md에 세션 시작 안내 추가" -m "Refs #260"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 105 작업 완료 사항 정리"
+
+git push -u origin 260-docs-claude-md
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
