@@ -3245,4 +3245,31 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 **검증**: 문서만 추가 - 코드 변경 없음. 스킬 파일을 저장한 직후 이 세션의 스킬 목록에 4개(`fix-request`, `merge-flow`, `branch-cleanup`, `docs-only`)가
 설명과 함께 나타나는 것을 확인. 이번 병합 자체를 `merge-flow` 스킬 순서대로 진행
 
+📍 다음: Phase 1️⃣0️⃣5️⃣ - 루트 CLAUDE.md에 세션 시작 안내 추가
+
+## Phase 1️⃣0️⃣5️⃣: 루트 CLAUDE.md에 세션 시작 안내 추가
+
+**요청**: "그러면 이제 새록 섹션마다 어떤 문서를 먼저 보게 하면 되는거야?" → "응 진행해줘" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #258 머지(이슈 #257 종료) 후 dev 재확인, PR #259(dev → main) 머지, main == dev. 브랜치 `251-docs-workflow`, `254-docs-testing`,
+  `257-docs-workflow-skills`는 아직 남아 있음(정리 요청 시 삭제)
+- 확인 결과: 새 세션에는 루트 `CLAUDE.md`(→ `AGENTS.md`), Claude 메모리, 스킬 목록이 자동으로 들어옴. 그런데 "한국어 응답·스킬·문서 지도" 안내가
+  Claude 메모리(이 컴퓨터의 개인 폴더)에만 있어 다른 컴퓨터·웹 세션에서는 빠짐. 루트 `CLAUDE.md`는 `@AGENTS.md` 한 줄뿐이었고,
+  `AGENTS.md`는 `next dev`가 다시 쓰는 파일이라 내용을 넣을 수 없음
+- 이슈 #260(`[DOCS] 루트 CLAUDE.md에 세션 시작 안내 추가`) 생성, 브랜치 `260-docs-claude-md`
+- `CLAUDE.md`(1줄 → 44줄): `@AGENTS.md` 유지, 스택 요약(포스트는 `posts/` Markdown 또는 Velog 링크, DB 없음), 한국어 응답, 요청별 스킬 표,
+  작업별로 먼저 볼 문서 표(RULES, CODING_CONVENTIONS, SEMANTIC_HTML_A11Y, 디자인·다크 모드, ARCHITECTURE, DOMAIN, CONTENT_MANAGEMENT, TESTING,
+  PERFORMANCE, SECURITY, Phase 문서), 주의 사항(없는 스크립트, PR 템플릿, `gh` 범위)
+- `docs/claude.md`(53줄 → 9줄): 예전 내용(Supabase 스택, 없는 `COMMANDS.md`, 깨진 표)을 지우고 루트 `CLAUDE.md`로 안내하는 문구만 남김
+- 커밋 본문 `Refs #260`
+
+**트러블슈팅**:
+- `docs/claude.md`가 작업 중 "docs/CLAUDE.md"로 자동으로 읽혀 들어옴(macOS는 파일 이름 대소문자를 구분하지 않고, Claude Code는 하위 폴더의 CLAUDE.md를
+  그 폴더 파일을 다룰 때 읽음) → 예전 내용이 그대로면 `docs/` 작업 때마다 "Supabase 사용", 없는 `COMMANDS.md` 같은 틀린 정보가 섞임 →
+  지우지 않고 안내 문구만 남겨, `START_HERE.md` 등에서 오는 링크는 깨지지 않게 함
+
+**검증**: 문서만 변경 - 코드 변경 없음. 새 `CLAUDE.md`에 적은 문서 14개와 `lib/posts.ts`, `.claude/skills/` 경로가 모두 있는지 확인.
+`bunx tsc --noEmit`, `bunx eslint` 통과. 줄인 `docs/claude.md`가 작업 중 자동으로 다시 읽혀 새 내용으로 들어오는 것 확인
+
 📍 다음: (사용자 지정 대기)
