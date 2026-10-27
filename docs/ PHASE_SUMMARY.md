@@ -3272,4 +3272,32 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 **검증**: 문서만 변경 - 코드 변경 없음. 새 `CLAUDE.md`에 적은 문서 14개와 `lib/posts.ts`, `.claude/skills/` 경로가 모두 있는지 확인.
 `bunx tsc --noEmit`, `bunx eslint` 통과. 줄인 `docs/claude.md`가 작업 중 자동으로 다시 읽혀 새 내용으로 들어오는 것 확인
 
+📍 다음: Phase 1️⃣0️⃣6️⃣ - Hero 'FRONTEND DEVELOPER' 문구 글자 대비 개선
+
+## Phase 1️⃣0️⃣6️⃣: Hero 'FRONTEND DEVELOPER' 문구 글자 대비 개선
+
+**요청**: "브랜치 정리해줘" → "왜 직접 병합을 적어" → "아니 그대로 둬" → "Hero 문구 글자 대비 고쳐줘" → (후보 비교 후 green-700 선택) →
+"이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #261 머지(이슈 #260 종료) 후 dev 재확인, PR #262(dev → main) 머지, main == dev
+- 브랜치 정리: dev에 병합된 `251-docs-workflow`, `254-docs-testing`, `257-docs-workflow-skills`, `260-docs-claude-md` 원격·로컬 삭제
+  (`main`·`dev`·`pr-screenshots` 유지, PR #249 이미지 200 확인)
+- "직전 병합" 기록 이유 설명: Phase 문서는 PR에 포함돼 병합 전에 확정되므로, 병합·정리 결과는 다음 Phase 첫 줄에 적음 → 사용자가 그대로 두기로 함
+- 이슈 #263(`[STYLE] Hero 'FRONTEND DEVELOPER' 문구 글자 대비 개선`) 생성, 브랜치 `263-style-hero-contrast`
+- 후보 비교: 실제 홈 화면(1280px 라이트)에 4가지 색을 입혀 비교 이미지로 보여 줌 - green-700 4.94:1, emerald-700 5.36:1, green-800 7.13:1, lime-700 4.98:1
+  (axe 측정) → 사용자가 원래 색에 가장 가까운 green-700 선택
+- `app/_components/sections/Hero.tsx`: 라이트 모드 글자색 `text-green-600/70` → `text-green-700`, 다크 `dark:text-lime-400`·`text-shadow-sm` 유지,
+  색을 고른 이유를 주석으로 남김
+- 커밋 본문 `Refs #263`
+- 변경 전/후 스크린샷 6장(1280 라이트, 390 라이트, 1280 다크)을 `pr-screenshots`의 `263/`에 올림, SHA 주소 200 확인
+
+**트러블슈팅**:
+- 후보 색을 `var(--color-green-700)`처럼 CSS 변수로 입혔더니 모두 기본 글자색(#1a1a1a, 17.4:1)으로 나옴 → Tailwind CSS 4는 실제로 쓰인 색 변수만
+  빌드 결과에 넣기 때문에 쓰지 않은 색 변수는 없음 → `node_modules/tailwindcss/theme.css`의 oklch 값을 그대로 넣어 다시 측정
+
+**검증**: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과. 이 문구의 대비(axe 측정): 라이트 2.4:1(#48bc73) → 4.94:1(#008236, 1280·390px),
+다크 12.2:1(#9ae600 / #141313) 변화 없음. `docs/TESTING.md` 측정 스크립트로 30개 조합 모두 200, 가로 스크롤 0px, 글자 대비 위반 0건
+(변경 전에는 홈 라이트 3개 폭에서 1건씩). 스크린샷을 직접 열어 색만 바뀌고 배치는 그대로인 것 확인
+
 📍 다음: (사용자 지정 대기)

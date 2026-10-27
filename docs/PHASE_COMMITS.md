@@ -3003,6 +3003,38 @@ git push -u origin 260-docs-claude-md
 
 ---
 
+## Phase 1️⃣0️⃣6️⃣: Hero 'FRONTEND DEVELOPER' 문구 글자 대비 개선
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 라이트 모드 글자 대비 4.5:1 이상 (axe 측정 4.94:1)
+- [ ] 다크 모드 색 변화 없음
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/263/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `Hero 'FRONTEND DEVELOPER' 문구 라이트 모드 글자 대비 개선` (본문 `Refs #263`)
+2. `docs`: `Phase 106 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Hero.tsx
+git commit -m "style: Hero 'FRONTEND DEVELOPER' 문구 라이트 모드 글자 대비 개선" -m "Refs #263"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 106 작업 완료 사항 정리"
+
+git push -u origin 263-style-hero-contrast
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
