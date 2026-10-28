@@ -3035,6 +3035,36 @@ git push -u origin 263-style-hero-contrast
 
 ---
 
+## Phase 1️⃣0️⃣7️⃣: skill-creator 플러그인 프로젝트 설정 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] .claude/settings.json에 skill-creator@claude-plugins-official 활성화
+- [ ] .claude/settings.local.json은 커밋하지 않음
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] Phase 문서에 직전 병합 기록
+```
+
+### 📝 커밋 메시지
+
+1. `chore`: `skill-creator 플러그인 프로젝트 설정 추가` (본문 `Refs #266`)
+2. `docs`: `Phase 107 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add .claude/settings.json
+git commit -m "chore: skill-creator 플러그인 프로젝트 설정 추가" -m "Refs #266"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 107 작업 완료 사항 정리"
+
+git push -u origin 266-chore-skill-creator-plugin
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
