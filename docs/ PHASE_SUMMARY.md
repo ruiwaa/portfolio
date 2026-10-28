@@ -3300,4 +3300,22 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 다크 12.2:1(#9ae600 / #141313) 변화 없음. `docs/TESTING.md` 측정 스크립트로 30개 조합 모두 200, 가로 스크롤 0px, 글자 대비 위반 0건
 (변경 전에는 홈 라이트 3개 폭에서 1건씩). 스크린샷을 직접 열어 색만 바뀌고 배치는 그대로인 것 확인
 
+📍 다음: Phase 1️⃣0️⃣7️⃣ - skill-creator 플러그인 프로젝트 설정 추가
+
+## Phase 1️⃣0️⃣7️⃣: skill-creator 플러그인 프로젝트 설정 추가
+
+**요청**: "skills 안에 규칙들을 바로 실행하려면 어떤 명령어를 쓰면 돼?" → "skill 플러그인 설치해" → (skill-creator, project 범위 선택) →
+"바뀐 부분 커밋해" → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #264 머지(이슈 #263 종료) 후 dev 재확인, PR #265(dev → main) 머지. 브랜치 `263-style-hero-contrast`는 아직 남아 있음(정리 요청 시 삭제)
+- 스킬 실행 안내: `/fix-request`, `/merge-flow`, `/branch-cleanup`, `/docs-only`로 바로 실행하고, 자연어 요청으로도 불림
+- 공식 마켓플레이스(`claude-plugins-official`)에서 `skill-creator`를 프로젝트 범위로 설치(`claude plugin install skill-creator@claude-plugins-official --scope project`)
+- 이슈 #266(`[DOCS] skill-creator 플러그인 프로젝트 설정 추가`) 생성, 브랜치 `266-chore-skill-creator-plugin`
+- `.claude/settings.json`(새 파일, 5줄): `enabledPlugins`에 `skill-creator@claude-plugins-official: true`. 개인 설정 `.claude/settings.local.json`은 커밋하지 않음
+- 커밋 본문 `Refs #266`
+
+**검증**: 설정 파일만 변경 - 코드 변경 없음. `claude plugin list`에서 `skill-creator@claude-plugins-official`(Scope: project, enabled) 확인.
+`bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과. 플러그인은 Claude Code를 다시 시작한 세션부터 `/skill-creator:skill-creator`로 쓸 수 있음
+
 📍 다음: (사용자 지정 대기)
