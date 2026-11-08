@@ -81,7 +81,7 @@ tags: ["tag1", "tag2"]
 
 ### 3. 프로젝트 카드의 포스트 링크
 
-Experience 섹션(`app/_components/sections/Projects.tsx`)의 각 프로젝트 카드에는 "포스트" 아이콘 링크가 있습니다. 이 링크는 별도의 프로젝트 상세 페이지가 아니라, 그 프로젝트를 다룬 **Velog 글 또는 `posts/` 로컬 글**로 바로 연결됩니다.
+Experience 섹션의 각 프로젝트 카드(데이터: `app/_components/sections/projectsData.ts`)에는 "포스트" 아이콘 링크가 있습니다. 이 링크는 별도의 프로젝트 상세 페이지가 아니라, 그 프로젝트를 다룬 **Velog 글 또는 `posts/` 로컬 글**로 바로 연결됩니다.
 
 - 로컬 글이 있으면: `links.post`에 해당 글의 `/posts/[id]` 경로, 또는 트러블슈팅 탭에서 프로젝트별로 모아보게 하려면 `/posts?tab=트러블슈팅`
 - 아직 글이 없으면: `"#"` 플레이스홀더로 둡니다
