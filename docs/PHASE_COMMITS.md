@@ -3065,6 +3065,41 @@ git push -u origin 266-chore-skill-creator-plugin
 
 ---
 
+## Phase 1️⃣0️⃣8️⃣: 프로젝트 카드에 기간·팀 구성 배지 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 프로젝트 카드 4개 제목 위에 기간·팀 구성 배지 (DOM은 제목 뒤)
+- [ ] 분리한 파일 모두 300줄 이하 (Projects 77, ProjectCard 209, ProjectDetails 134, projectsData 183)
+- [ ] 320~1280px 배지가 카드 안쪽을 넘지 않음
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/269/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합 기록
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `프로젝트 카드에 기간·팀 구성 배지 추가` (본문 `Refs #269`)
+2. `docs`: `Phase 108 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Projects.tsx app/_components/sections/ProjectCard.tsx \
+  app/_components/sections/ProjectDetails.tsx app/_components/sections/projectsData.ts \
+  lib/constants.ts docs/CONTENT_MANAGEMENT.md
+git commit -m "feat: 프로젝트 카드에 기간·팀 구성 배지 추가" -m "Refs #269"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 108 작업 완료 사항 정리"
+
+git push -u origin 269-feat-project-card-meta
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

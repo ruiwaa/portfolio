@@ -3318,4 +3318,34 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 **검증**: 설정 파일만 변경 - 코드 변경 없음. `claude plugin list`에서 `skill-creator@claude-plugins-official`(Scope: project, enabled) 확인.
 `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과. 플러그인은 Claude Code를 다시 시작한 세션부터 `/skill-creator:skill-creator`로 쓸 수 있음
 
+📍 다음: Phase 1️⃣0️⃣8️⃣ - 프로젝트 카드에 기간·팀 구성 배지 추가
+
+## Phase 1️⃣0️⃣8️⃣: 프로젝트 카드에 기간·팀 구성 배지 추가
+
+**요청**: "프로젝트 카드 안에 해당 정보들을 넣어줘"(GENOVA 오디오 툴킷 2026.07 · 기업 연계 · PM 2, BE 2, UX/UI 1, FE 1 / 중단어 창고 2026.06 ~ 2026.08 ·
+개인 프로젝트 / 행쇼마켓 2026.04 ~ 2026.05 · FE 5인 팀 / 예매의 정석 2026.02 ~ 2026.03 · FE 4인 팀) → (제목 위 작은 배지, 담당 역할 중복 제거,
+파일 함께 분리 선택) → "이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #267 머지(이슈 #266 종료) 후 dev 재확인, PR #268(dev → main) 머지, main == dev. 브랜치 `263-style-hero-contrast`,
+  `266-chore-skill-creator-plugin`은 아직 남아 있음(정리 요청 시 삭제)
+- 이슈 #269(`[FEAT] 프로젝트 카드에 기간·팀 구성 배지 추가`) 생성, 브랜치 `269-feat-project-card-meta`
+- 카드 제목 위 배지: 붙여 준 문구를 " · " 기준으로 한 칸씩(`period`, `team` 필드). 화면에서는 제목 위(`-order-1`)지만 DOM은 제목 뒤라
+  스크린 리더가 제목 다음에 읽음. 기존 `Badge`는 줄바꿈 금지(`whitespace-nowrap`)라 카드 안쪽 폭이 가장 좁은 768px(208px)에서 넘칠 수 있어,
+  같은 색(라이트 #666 / 흰 배경, 다크 흰 글자 / #1c1b1b)으로 배지 안 줄바꿈이 되는 목록을 직접 만듦
+- 중단어 창고 담당 역할 `개인 프로젝트 - 전체 개발` → `전체 개발`(배지와 중복)
+- `Projects.tsx`(554줄 → 77줄) 분리: `projectsData.ts`(183줄, 데이터·타입), `ProjectCard.tsx`(209줄, 카드), `ProjectDetails.tsx`(134줄, 세부 내용·링크 버튼).
+  기존 코드·주석은 그대로 옮김
+- 옮긴 데이터 파일을 가리키도록 `lib/constants.ts` 주석, `docs/CONTENT_MANAGEMENT.md` 경로 수정
+- 커밋 본문 `Refs #269`
+- 변경 전/후 스크린샷 6장(1280 라이트, 1280 다크, 390 라이트)을 `pr-screenshots`의 `269/`에 올림, SHA 주소 200 확인
+
+**트러블슈팅**:
+- 분리한 `ProjectDetails.tsx`에서 `return (` 바로 뒤에 JSX 주석과 `<div>`가 나란히 있어 타입 검사가 문법 오류로 실패 → 원래는 부모 JSX 안이라
+  형제 요소로 둘 수 있었지만 컴포넌트의 반환값은 요소 하나여야 함 → 주석을 `return` 위 일반 주석으로 옮김
+
+**검증**: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과. `docs/TESTING.md` 측정 스크립트로 30개 조합 모두 200, 가로 스크롤 0px,
+글자 대비 위반 0건(변경 전과 같음). 배지가 320/390/768/1280px 모두 카드 안쪽을 넘지 않고 제목 위에 있음(측정). 배지 줄 수: 1280px 모두 1줄,
+768px GENOVA·중단어 창고 2줄(같은 줄 카드끼리 같음), 390px GENOVA만 2줄. 스크린샷을 직접 열어 배지만 추가되고 나머지 배치는 그대로인 것 확인
+
 📍 다음: (사용자 지정 대기)
