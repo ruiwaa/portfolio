@@ -36,7 +36,7 @@ export type PostCategory = (typeof POST_CATEGORIES)[number];
 export const POSTS_TAB_PARAM = "tab";
 export const POSTS_PROJECT_PARAM = "project";
 
-// 트러블슈팅 탭 프로젝트 아코디언 정렬 순서 - Projects.tsx의 프로젝트 카드 순서와 맞춤.
+// 트러블슈팅 탭 프로젝트 아코디언 정렬 순서 - projectsData.ts의 프로젝트 카드 순서와 맞춤.
 // 값은 글의 project 이름이라 카드 제목과 다를 수 있음(GENOVA 오디오 툴킷 → "인턴십 프로젝트").
 // 여기 없는 프로젝트(예: 포트폴리오)는 목록 뒤에 기존 순서대로 붙음
 export const TROUBLESHOOTING_PROJECT_ORDER = [
