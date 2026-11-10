@@ -33,9 +33,11 @@ function PostCard({ post }: { post: PostItem }) {
   const cardClassName =
     "group block h-full rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:focus-visible:outline-dark-accent";
   // 라이트 모드: 하늘색(sky #e3f2fd, 프로젝트 영역 배경과 같은 색) + 사이트 기본 글자색 - 밝은 배경이라 흰 글자 대신 제목 #1a1a1a·본문 #444·날짜 #666.
-  // 마우스를 올리면 한 단계 진한 하늘색과 그림자. 다크 모드는 기존 회색 카드 그대로
+  // 마우스를 올리면 한 단계 진한 하늘색과 그림자.
+  // 다크 모드는 회색 카드 그대로 두고, 마우스를 올리거나 키보드로 포커스하면 형광 연두(lime-400 #9ae600 - Hero 문구·프로젝트 카드 테두리와 같은 강조색)
+  // 1px 테두리와 18px 번짐을 줌. 테두리를 border가 아닌 box-shadow로 그린 이유: 호버 때만 border가 생기면 카드가 1px씩 커지며 안의 글자가 움직이지만, 그림자는 배치에 영향이 없음
   const card = (
-    <article className="flex h-full flex-col rounded-lg bg-sky p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#d2e7fb] group-hover:shadow-md dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-none">
+    <article className="flex h-full flex-col rounded-lg bg-sky p-6 transition-[background-color,box-shadow] duration-200 group-hover:bg-[#d2e7fb] group-hover:shadow-md dark:bg-dark-surface-dim dark:group-hover:bg-dark-surface-dim dark:group-hover:shadow-[0_0_0_1px_#9ae600,0_0_18px_rgba(154,230,0,0.5)] dark:group-focus-visible:shadow-[0_0_0_1px_#9ae600,0_0_18px_rgba(154,230,0,0.5)]">
       <div className="flex items-start justify-between gap-2">
         <h3 className="body font-bold text-light-text dark:text-dark-text">
           {post.title}
