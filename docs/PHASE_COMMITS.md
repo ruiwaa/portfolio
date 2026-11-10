@@ -3100,6 +3100,38 @@ git push -u origin 269-feat-project-card-meta
 
 ---
 
+## Phase 1️⃣0️⃣9️⃣: 포스트 카드 다크 모드 호버 연두 글로우
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 다크 모드 호버·키보드 포커스 시 lime-400 1px 테두리 + 18px 번짐
+- [ ] 호버 시 카드 크기 변화 없음, 라이트 모드 호버 그대로
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/272/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `style`: `포스트 카드 다크 모드 호버·포커스 연두 글로우` (본문 `Refs #272`)
+2. `docs`: `Phase 109 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/PostsList.tsx
+git commit -m "style: 포스트 카드 다크 모드 호버·포커스 연두 글로우" -m "Refs #272"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 109 작업 완료 사항 정리"
+
+git push -u origin 272-style-post-card-dark-glow
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
