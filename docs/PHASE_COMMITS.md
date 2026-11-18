@@ -3164,6 +3164,37 @@ git push -u origin 275-docs-hanzi-bank-lcp-text
 
 ---
 
+## Phase 1️⃣1️⃣1️⃣: 경력 타임라인 인턴십 기간 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 인턴십 기간 2026.07 (1개월) (홈·/experience)
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/278/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합 기록
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `경력 타임라인 인턴십 기간 수정` (본문 `Refs #278`)
+2. `docs`: `Phase 111 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Experience.tsx
+git commit -m "docs: 경력 타임라인 인턴십 기간 수정" -m "Refs #278"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 111 작업 완료 사항 정리"
+
+git push -u origin 278-docs-internship-period
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
