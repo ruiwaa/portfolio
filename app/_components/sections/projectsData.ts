@@ -22,6 +22,15 @@ interface ProjectMedia {
 export type ProjectDetail =
   string | { text: string; post: { title: string; href: string } };
 
+// 면접관이 직접 로그인해 볼 수 있는 테스트 계정 - 공개 사이트·공개 저장소라 누구나 볼 수 있음을 알고 넣는 값이므로
+// 실제 개인 계정이 아닌 테스트 전용 계정만 넣을 것
+export interface ProjectTestAccount {
+  label: string;
+  id: string;
+  password: string;
+  note: string;
+}
+
 export interface ProjectEntry {
   title: string;
   description: string;
@@ -34,6 +43,7 @@ export interface ProjectEntry {
   media: ProjectMedia;
   detail: ProjectDetail[];
   links: ProjectLinks;
+  testAccount?: ProjectTestAccount;
 }
 
 // 카드 순서를 바꾸면 lib/constants.ts의 TROUBLESHOOTING_PROJECT_ORDER도 같은 순서로 맞출 것
@@ -148,6 +158,12 @@ export const PROJECTS: ProjectEntry[] = [
       demo: "https://final-project-team2.vercel.app/",
       github: "https://github.com/ruiwaa/final-project-team2",
       post: getTroubleshootingHref("행쇼마켓"),
+    },
+    testAccount: {
+      label: "판매자 테스트 계정",
+      id: "test5@test.com",
+      password: "password!123",
+      note: "테스트용 계정이에요. 등록된 상품은 지우지 말아 주세요.",
     },
   },
   {
