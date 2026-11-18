@@ -21,7 +21,7 @@ const DEFAULT_HEADING_CLASSNAME =
 
 const TIMELINE: TimelineEntry[] = [
   {
-    date: "2026.07 - 2026.08",
+    date: "2026.07 (1개월)",
     role: "멋쟁이 사자처럼 로켓단 23기 인턴십",
     description:
       "KX 엔터테인먼트 연계 프로젝트로, 영상 업로드 시 AI가 효과음을 추천하고 자막을 생성해주는 영상 편집 프로그램의 프론트엔드 전체 개발을 담당했습니다.",
