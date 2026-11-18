@@ -3430,7 +3430,7 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
   `278-docs-internship-period`는 아직 남아 있음(정리 요청 시 삭제)
 - 계정 공개 여부: 공개 저장소 기록에 남고 누구나 판매자 권한을 쓸 수 있다는 점을 알린 뒤 사용자가 카드에 넣기로 결정
 - 이슈 #281(`[FEAT] 행쇼마켓 판매자 테스트 계정 추가 및 홈 소개 문구 수정`) 생성, 브랜치 `281-feat-hangsho-test-account`
-- `app/_components/sections/TestAccount.tsx`(새 파일, 125줄): 링크 버튼 줄 왼쪽 "판매자 테스트 계정" 버튼 → 버튼 위에 겹쳐 열리는 창(제목, 아이디·비밀번호와
+- `app/_components/sections/TestAccount.tsx`(새 파일, 129줄): 링크 버튼 줄 왼쪽 "판매자 테스트 계정" 버튼 → 버튼 위에 겹쳐 열리는 창(제목, 아이디·비밀번호와
   복사 버튼, 안내 문구 "테스트용 계정이에요. 등록된 상품은 지우지 말아 주세요."). Esc(포커스 버튼으로 복귀)·바깥 클릭으로 닫힘, 복사 결과를 `aria-live`로 알림
 - `projectsData.ts`: `ProjectTestAccount` 타입과 행쇼마켓 `testAccount` 값. `ProjectDetails.tsx`: 링크 버튼 줄을 테스트 계정(왼쪽)·링크 아이콘(오른쪽)으로 나눔.
   `ProjectCard.tsx`: `testAccount` 전달
