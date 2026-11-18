@@ -5,7 +5,7 @@ import TestAccount from "@/app/_components/sections/TestAccount";
 import type {
   ProjectDetail,
   ProjectLinks,
-  ProjectTestAccount,
+  ProjectTestAccounts,
 } from "@/app/_components/sections/projectsData";
 
 // 세부 내용 속 영어 표기(예: "TanStack Query", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함 - 첫 줄·나머지 줄 모두 같은 굵기
@@ -29,14 +29,14 @@ const COMMA_BREAK = /(?<=,)\s+/;
 interface ProjectDetailsProps {
   detail: ProjectDetail[];
   links: ProjectLinks;
-  testAccount?: ProjectTestAccount;
+  testAccounts?: ProjectTestAccounts;
 }
 
 // 카드 아래 영역 - 세부 내용 목록과 링크 버튼
 export default function ProjectDetails({
   detail,
   links,
-  testAccount,
+  testAccounts,
 }: ProjectDetailsProps) {
   // min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
   // 끊을 수 없는 긴 단어가 있으면 칸 밖으로 넘쳤음
@@ -109,7 +109,7 @@ export default function ProjectDetails({
       {/* mt-auto: 세부 내용 높이가 같아진 칸의 맨 아래로 링크 버튼을 내려 카드끼리 버튼 줄을 맞춤 (pt-4는 세부 내용과의 최소 간격).
           테스트 계정이 있으면 같은 줄 왼쪽에 둬서 칸 높이를 늘리지 않음 */}
       <div className="mt-auto flex items-center justify-between gap-3 pt-4">
-        {testAccount && <TestAccount account={testAccount} />}
+        {testAccounts && <TestAccount testAccounts={testAccounts} />}
         <ul className="ml-auto flex flex-wrap gap-3">
           {[
             ...(links.demos

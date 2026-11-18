@@ -206,7 +206,7 @@ export default function ProjectCard({
       <ProjectDetails
         detail={project.detail}
         links={project.links}
-        testAccount={project.testAccount}
+        testAccounts={project.testAccounts}
       />
     </li>
   );
