@@ -86,7 +86,7 @@ export const PROJECTS: ProjectEntry[] = [
     },
     detail: [
       {
-        text: "Lighthouse로 LCP 병목을 분석해 이미지 fetchPriority/preload·중국어 폰트 적용 범위 축소를 적용, 데스크탑 기준 LCP를 회원가입 5초·메인 0.5초 단축하고 검색 페이지 성능 점수 6점 향상",
+        text: "Lighthouse로 LCP 병목을 분석해 이미지 우선 로딩(fetchPriority · preload)과 중국어 폰트 적용 범위 축소를 적용, 회원가입 페이지 LCP 2.6초 → 2.2초 단축 (데스크톱 기준)",
         post: {
           title: "lighthouse 검사 후 성능 개선 작업",
           href: "https://velog.io/@ruiwaa/%EC%A4%91%EB%8B%A8%EC%96%B4-%EC%B0%BD%EA%B3%A0-lighthouse-%EA%B2%80%EC%82%AC-%ED%9B%84-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0-%EC%9E%91%EC%97%85",
