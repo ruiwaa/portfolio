@@ -3132,6 +3132,38 @@ git push -u origin 272-style-post-card-dark-glow
 
 ---
 
+## Phase 1️⃣1️⃣0️⃣: 중단어 창고 LCP 성과 문구 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 중단어 창고 첫 번째 성과 문구 교체 (회원가입 페이지 LCP 2.6초 → 2.2초, 데스크톱 기준)
+- [ ] "자세히 보기" 링크 그대로
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/275/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `docs`: `중단어 창고 LCP 성과 문구 수정` (본문 `Refs #275`)
+2. `docs`: `Phase 110 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/projectsData.ts
+git commit -m "docs: 중단어 창고 LCP 성과 문구 수정" -m "Refs #275"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 110 작업 완료 사항 정리"
+
+git push -u origin 275-docs-hanzi-bank-lcp-text
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
