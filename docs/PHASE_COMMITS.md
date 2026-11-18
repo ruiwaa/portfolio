@@ -3233,6 +3233,40 @@ git push -u origin 281-feat-hangsho-test-account
 
 ---
 
+## Phase 1️⃣1️⃣3️⃣: 행쇼마켓 소비자 테스트 계정 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 테스트 계정 창에 소비자·판매자 계정, 복사 값 각각 일치
+- [ ] 복사 버튼 이름·알림에 역할 표시
+- [ ] 세부 내용 칸 높이 변경 전과 같음, 링크 버튼 줄 한 줄
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/284/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `행쇼마켓 소비자 테스트 계정 추가` (본문 `Refs #284`)
+2. `docs`: `Phase 113 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/TestAccount.tsx app/_components/sections/projectsData.ts \
+  app/_components/sections/ProjectDetails.tsx app/_components/sections/ProjectCard.tsx
+git commit -m "feat: 행쇼마켓 소비자 테스트 계정 추가" -m "Refs #284"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 113 작업 완료 사항 정리"
+
+git push -u origin 284-feat-hangsho-consumer-account
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
