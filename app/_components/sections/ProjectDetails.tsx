@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, FileText, Globe, PlayCircle } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import type { ProjectDetail, ProjectLinks } from "@/app/_components/sections/projectsData";
+import TestAccount from "@/app/_components/sections/TestAccount";
+import type {
+  ProjectDetail,
+  ProjectLinks,
+  ProjectTestAccount,
+} from "@/app/_components/sections/projectsData";
 
 // 세부 내용 속 영어 표기(예: "TanStack Query", "URLSearchParams")를 굵게 표시해 기술 용어를 눈에 띄게 함 - 첫 줄·나머지 줄 모두 같은 굵기
 function withBoldEnglish(text: string) {
@@ -24,10 +29,15 @@ const COMMA_BREAK = /(?<=,)\s+/;
 interface ProjectDetailsProps {
   detail: ProjectDetail[];
   links: ProjectLinks;
+  testAccount?: ProjectTestAccount;
 }
 
 // 카드 아래 영역 - 세부 내용 목록과 링크 버튼
-export default function ProjectDetails({ detail, links }: ProjectDetailsProps) {
+export default function ProjectDetails({
+  detail,
+  links,
+  testAccount,
+}: ProjectDetailsProps) {
   // min-w-0: flex 자식은 기본적으로 내용 최소 너비 아래로 줄어들지 않아, "@supabase/ssr"처럼
   // 끊을 수 없는 긴 단어가 있으면 칸 밖으로 넘쳤음
   return (
@@ -96,39 +106,43 @@ export default function ProjectDetails({ detail, links }: ProjectDetailsProps) {
 
       {/* 링크 버튼(라이트) - 흰 원 배경 + 파란 아이콘(#0066cc, 흰 배경 대비 5.57:1), 테두리 없음. 버튼 경계 대신 아이콘 자체가 3:1 이상이라
           무엇을 누르는지 알아볼 수 있음. 마우스를 올리면 파란 배경 + 흰 아이콘으로 반전. 다크는 기존 테두리·흰 아이콘 그대로 */}
-      {/* mt-auto: 세부 내용 높이가 같아진 칸의 맨 아래로 링크 버튼을 내려 카드끼리 버튼 줄을 맞춤 (pt-4는 세부 내용과의 최소 간격) */}
-      <ul className="mt-auto flex flex-wrap gap-3 self-end pt-4">
-        {[
-          ...(links.demos
-            ? links.demos.map(
-                (d) => [d.label, d.href, PlayCircle] as const,
-              )
-            : links.demo
-              ? [
-                  links.demoType === "video"
-                    ? (["시연 영상", links.demo, PlayCircle] as const)
-                    : (["배포 링크", links.demo, Globe] as const),
-                ]
+      {/* mt-auto: 세부 내용 높이가 같아진 칸의 맨 아래로 링크 버튼을 내려 카드끼리 버튼 줄을 맞춤 (pt-4는 세부 내용과의 최소 간격).
+          테스트 계정이 있으면 같은 줄 왼쪽에 둬서 칸 높이를 늘리지 않음 */}
+      <div className="mt-auto flex items-center justify-between gap-3 pt-4">
+        {testAccount && <TestAccount account={testAccount} />}
+        <ul className="ml-auto flex flex-wrap gap-3">
+          {[
+            ...(links.demos
+              ? links.demos.map(
+                  (d) => [d.label, d.href, PlayCircle] as const,
+                )
+              : links.demo
+                ? [
+                    links.demoType === "video"
+                      ? (["시연 영상", links.demo, PlayCircle] as const)
+                      : (["배포 링크", links.demo, Globe] as const),
+                  ]
+                : []),
+            ...(links.github
+              ? [["GitHub", links.github, SiGithub] as const]
               : []),
-          ...(links.github
-            ? [["GitHub", links.github, SiGithub] as const]
-            : []),
-          ["포스트", links.post, FileText] as const,
-        ].map(([label, href, Icon]) => (
-          <li key={label}>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${label} (새 탭에서 열림)`}
-              title={label}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-light-accent transition-colors duration-200 hover:bg-light-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border dark:border-white/40 dark:bg-transparent dark:text-white/80 dark:hover:border-dark-accent dark:hover:bg-transparent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
-            >
-              <Icon aria-hidden="true" size={16} />
-            </a>
-          </li>
-        ))}
-      </ul>
+            ["포스트", links.post, FileText] as const,
+          ].map(([label, href, Icon]) => (
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${label} (새 탭에서 열림)`}
+                title={label}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-light-accent transition-colors duration-200 hover:bg-light-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-accent dark:border dark:border-white/40 dark:bg-transparent dark:text-white/80 dark:hover:border-dark-accent dark:hover:bg-transparent dark:hover:text-dark-accent dark:focus-visible:outline-dark-accent"
+              >
+                <Icon aria-hidden="true" size={16} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

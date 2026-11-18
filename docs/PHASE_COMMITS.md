@@ -3195,6 +3195,44 @@ git push -u origin 278-docs-internship-period
 
 ---
 
+## Phase 1️⃣1️⃣2️⃣: 행쇼마켓 판매자 테스트 계정 추가 및 홈 소개 문구 수정
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 행쇼마켓 카드 테스트 계정 버튼·창 (복사, Esc·바깥 클릭 닫힘, 복사 알림)
+- [ ] 세부 내용 칸 높이 변경 전과 같음, 링크 버튼 줄 한 줄
+- [ ] 홈 소개 문구 "기록과 협업을 발판으로 / 성장하는 프론트엔드 개발자"
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/281/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합 기록
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `행쇼마켓 판매자 테스트 계정 추가` (본문 `Refs #281`)
+2. `docs`: `홈 소개 문구 수정` (본문 `Refs #281`)
+3. `docs`: `Phase 112 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/TestAccount.tsx app/_components/sections/projectsData.ts \
+  app/_components/sections/ProjectDetails.tsx app/_components/sections/ProjectCard.tsx
+git commit -m "feat: 행쇼마켓 판매자 테스트 계정 추가" -m "Refs #281"
+
+git add app/_components/sections/Hero.tsx
+git commit -m "docs: 홈 소개 문구 수정" -m "Refs #281"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 112 작업 완료 사항 정리"
+
+git push -u origin 281-feat-hangsho-test-account
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

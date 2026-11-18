@@ -203,7 +203,11 @@ export default function ProjectCard({
         </div>
       </Card>
 
-      <ProjectDetails detail={project.detail} links={project.links} />
+      <ProjectDetails
+        detail={project.detail}
+        links={project.links}
+        testAccount={project.testAccount}
+      />
     </li>
   );
 }
