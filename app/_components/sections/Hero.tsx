@@ -143,7 +143,7 @@ export default function Hero() {
             </span>
           </h1>
           <div className="mt-3">
-            {["다양한 사용자를 고려하고,", "배우는 것을 멈추지 않습니다."].map(
+            {["기록과 협업을 발판으로", "성장하는 프론트엔드 개발자"].map(
               (line) => (
                 <p
                   key={line}
