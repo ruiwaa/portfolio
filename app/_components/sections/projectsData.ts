@@ -154,7 +154,7 @@ export const PROJECTS: ProjectEntry[] = [
       },
     ],
     links: {
-      demo: "https://final-project-team2.vercel.app/",
+      demo: "https://haengsho-market.vercel.app/",
       github: "https://github.com/ruiwaa/final-project-team2",
       post: getTroubleshootingHref("행쇼마켓"),
     },
