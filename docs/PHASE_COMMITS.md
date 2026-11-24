@@ -3267,6 +3267,37 @@ git push -u origin 284-feat-hangsho-consumer-account
 
 ---
 
+## Phase 1️⃣1️⃣4️⃣: 행쇼마켓 배포 사이트 주소 교체
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] 행쇼마켓 demo 링크가 https://haengsho-market.vercel.app/ 로 바뀜, GitHub 링크 유지
+- [ ] 새 주소 응답 200
+- [ ] 프로덕션 빌드 홈 HTML에 새 주소 있고 이전 주소 없음
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `fix`: `행쇼마켓 배포 사이트 주소 교체` (본문 `Refs #287`)
+2. `docs`: `Phase 114 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/projectsData.ts
+git commit -m "fix: 행쇼마켓 배포 사이트 주소 교체" -m "Refs #287"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 114 작업 완료 사항 정리"
+
+git push -u origin 287-fix-hangsho-deploy-url
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash

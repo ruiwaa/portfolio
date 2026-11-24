@@ -3474,4 +3474,21 @@ rgb(210,231,251), 다크 카드·About 기술 스택 배지 변화 없음, 1280�
 창이 화면 안에 열림, 소비자 아이디·판매자 비밀번호 복사 값 일치, "판매자 비밀번호를 복사했어요" 알림, 창 안 대비 위반 0건, Esc 닫힘·포커스 복귀, 바깥 클릭 닫힘(측정).
 스크린샷을 직접 열어 확인
 
+📍 다음: Phase 1️⃣1️⃣4️⃣ - 행쇼마켓 배포 사이트 주소 교체
+
+## Phase 1️⃣1️⃣4️⃣: 행쇼마켓 배포 사이트 주소 교체
+
+**요청**: "행쇼마켓 배포사이트 주소 교체해야돼, https://haengsho-market.vercel.app/ 이걸로 교체해줘" → "저장소 이름은 동일해, 이슈 만들고 커밋부터 병합까지 진행해"
+
+**변경**:
+- 직전 병합: PR #285 머지(이슈 #284 종료) 후 dev 재확인, PR #286(dev → main) 머지, main == dev
+- 브랜치 정리: `284-feat-hangsho-consumer-account`는 작업 시작 시점에 이미 원격·로컬에 없음 (`main`·`dev`·`pr-screenshots` 유지)
+- 이슈 #287(`[FIX] 행쇼마켓 배포 사이트 주소 교체`) 생성, 브랜치 `287-fix-hangsho-deploy-url`
+- `app/_components/sections/projectsData.ts`: 행쇼마켓 `links.demo` `https://final-project-team2.vercel.app/` → `https://haengsho-market.vercel.app/`
+  (GitHub 저장소 이름은 동일해 `ruiwaa/final-project-team2` 유지. 이전 배포 주소가 들어 있던 곳은 이 한 줄뿐)
+- 커밋 본문 `Refs #287`. 링크 주소만 바뀌고 화면 변화가 없어 스크린샷은 생략
+
+**검증**: `bunx tsc --noEmit`, `bunx eslint`, `bun run build` 통과. 새 주소 `curl` 응답 200. 프로덕션 서버(`next start -p 3123`) 홈 HTML에
+`href="https://haengsho-market.vercel.app/"`가 있고 이전 주소는 없음(측정)
+
 📍 다음: (사용자 지정 대기)
