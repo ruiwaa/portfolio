@@ -3298,6 +3298,39 @@ git push -u origin 287-fix-hangsho-deploy-url
 
 ---
 
+## Phase 1️⃣1️⃣5️⃣: 벨로그 최신 행쇼마켓 글 2개 포스트 목록에 추가
+
+### ✅ 커밋 전 체크리스트
+
+```
+- [ ] velogPosts에 두 글 추가, 제목·주소가 벨로그와 같음
+- [ ] 두 벨로그 주소 응답 200
+- [ ] "전체" 탭 맨 위에 날짜순 표시, 트러블슈팅 탭 행쇼마켓 그룹에 포함
+- [ ] 1280 / 768 / 390px, 라이트·다크 가로 스크롤 0px, 글자 대비 위반 0건
+- [ ] bunx tsc --noEmit, bunx eslint, bun run build 통과
+- [ ] 변경 전/후 스크린샷 pr-screenshots/290/ 업로드, SHA 주소 200
+- [ ] Phase 문서에 직전 병합·브랜치 정리 기록
+```
+
+### 📝 커밋 메시지
+
+1. `feat`: `벨로그 최신 행쇼마켓 글 2개 포스트 목록에 추가` (본문 `Refs #290`)
+2. `docs`: `Phase 115 작업 완료 사항 정리`
+
+### 💻 커밋 명령어
+
+```bash
+git add app/_components/sections/Posts.tsx
+git commit -m "feat: 벨로그 최신 행쇼마켓 글 2개 포스트 목록에 추가" -m "Refs #290"
+
+git add "docs/ PHASE_SUMMARY.md" docs/PHASE_COMMITS.md
+git commit -m "docs: Phase 115 작업 완료 사항 정리"
+
+git push -u origin 290-feat-velog-latest-posts
+```
+
+---
+
 ## 🚀 커밋 명령어 템플릿
 
 ```bash
