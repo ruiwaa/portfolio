@@ -17,6 +17,28 @@ interface VelogPost {
 // velog.io/@ruiwaa 에 발행한 글을 여기에 등록 - 새 글 작성 후 이 배열에 추가
 const velogPosts: VelogPost[] = [
   {
+    id: 20,
+    title: "[행쇼마켓] 나의 주문 목록 및 찜한 상품 리펙토링",
+    excerpt:
+      "주문 목록에 에러 처리를 추가하고, 찜 상태 조회를 찜 ID 목록 1회 조회로 통합해 상품 목록 첫 진입 시 찜 조회 요청을 10~13회에서 1회로 줄이며 찜하기 버튼 접근성을 개선한 과정을 기록했습니다.",
+    date: "2026-11-26",
+    url: "https://velog.io/@ruiwaa/%ED%96%89%EC%87%BC%EB%A7%88%EC%BC%93-%EB%82%98%EC%9D%98-%EC%A3%BC%EB%AC%B8-%EB%AA%A9%EB%A1%9D-%EB%B0%8F-%EC%B0%9C%ED%95%9C-%EC%83%81%ED%92%88-%EB%A6%AC%ED%8E%99%ED%86%A0%EB%A7%81",
+    category: "트러블슈팅",
+    project: "행쇼마켓",
+    tags: ["TanStack Query", "접근성"],
+  },
+  {
+    id: 21,
+    title: "[행쇼마켓] 소비자 마이페이지 코드 분석 — 주문 상품 목록 & 찜한 상품",
+    excerpt:
+      "소비자 마이페이지의 주문 상품 목록과 찜한 상품을 데이터 흐름, TanStack Query 캐싱, URL 기반 상태 관리, 서버·클라이언트 정렬 기준으로 분석했습니다.",
+    date: "2026-11-24",
+    url: "https://velog.io/@ruiwaa/%ED%96%89%EC%87%BC%EB%A7%88%EC%BC%93-%EC%86%8C%EB%B9%84%EC%9E%90-%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%BD%94%EB%93%9C-%EB%B6%84%EC%84%9D-%EC%A3%BC%EB%AC%B8-%EC%83%81%ED%92%88-%EB%AA%A9%EB%A1%9D-%EC%B0%9C%ED%95%9C-%EC%83%81%ED%92%88",
+    category: "개발",
+    project: "행쇼마켓",
+    tags: ["TanStack Query", "Supabase"],
+  },
+  {
     id: 1,
     title: "[포트폴리오] DAY 3~5  작업 목록에 따른 기능 구현",
     excerpt:
